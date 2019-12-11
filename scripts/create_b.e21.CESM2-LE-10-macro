@@ -10,26 +10,15 @@ set COMPSET = BHISTcmip6
 set MACHINE = aleph
 set RESOLN = f09_g17
 
-set syr = 1001
-set eyr = 1001
-
 set smbr =  2
 set embr =  2
-
-
-@ ib = $syr
-@ ie = $eyr
 
 @ mb = $smbr
 @ me = $embr
 
-foreach year ( `seq $ib $ie` )
-
 foreach mbr ( `seq $mb $me` )
 
-
 @ USE_REFDATE = 1001 + ( $mbr - 1 ) * 20
-
 
 if    ($mbr < 10) then
 	setenv CASENAME b.e21.${COMPSET}.${RESOLN}.LE2-${USE_REFDATE}.00${mbr}
@@ -37,6 +26,7 @@ else if
 	($mbr >= 10) then
 	setenv CASENAME b.e21.${COMPSET}.${RESOLN}.LE2-${USE_REFDATE}.0${mbr}
 endif
+
 setenv CASEROOT /proj/$USER/$CASENAME
 echo $CASEROOT
 
@@ -54,7 +44,7 @@ mv user_nl_clm user_nl_clm.`date +%m%d-%H%M`
 mv user_nl_cpl user_nl_cpl.`date +%m%d-%H%M`
 mv user_nl_cice user_nl_cice.`date +%m%d-%H%M`
 
-cp $CESM2_LE_TOOLS_ROOT/user_nl_files/* $CASEROOT/user_nl_cam
+cp $CESM2_LE_TOOLS_ROOT/user_nl_files/* $CASEROOT/
 mv SourceMods SourceMods.`date +%m%d-%H%M`
 cp -r $CESM2_LE_TOOLS_ROOT/SourceMods $CASEROOT/
 
@@ -64,7 +54,6 @@ cp -r $CESM2_LE_TOOLS_ROOT/SourceMods $CASEROOT/
 
  $POSTPROCESS_PATH/cesm-env2/bin/create_postprocess --caseroot $CASEROOT 
 end             # member loop
-end             # year loop
 
 exit
 
