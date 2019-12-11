@@ -13,8 +13,8 @@ set RESOLN = f09_g17
 set syr = 1001
 set eyr = 1001
 
-set smbr =  1
-set embr =  1
+set smbr =  2
+set embr =  2
 
 
 @ ib = $syr
@@ -28,9 +28,7 @@ foreach year ( `seq $ib $ie` )
 foreach mbr ( `seq $mb $me` )
 
 
-if    ($mbr == 1) then
-	set USE_REFDATE = 1001
-endif
+@ USE_REFDATE = 1001 + ( $mbr - 1 ) * 20
 
 
 if    ($mbr < 10) then
