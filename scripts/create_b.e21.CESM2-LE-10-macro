@@ -18,7 +18,7 @@ set embr =  2
 
 foreach mbr ( `seq $mb $me` )
 
-@ USE_REFDATE = 1001 + ( $mbr - 1 ) * 20
+@ USE_REFDATE = 1001 + ( $mbr - 1 ) * 10
 
 if    ($mbr < 10) then
 	setenv CASENAME b.e21.${COMPSET}.${RESOLN}.LE2-${USE_REFDATE}.00${mbr}
