@@ -4,7 +4,7 @@ setenv CESM2_LE_TOOLS_ROOT $HOME/CESM2_LE_Tools
 setenv POSTPROCESS_PATH /home/jedwards/workflow/CESM_postprocessing
 source $POSTPROCESS_PATH/cesm-env2/bin/activate
 
-setenv CESMROOT /home/jedwards/cesm2_1/
+setenv CESMROOT /mnt/lustre/share/CESM/cesm2.1.2
 
 set COMPSET = BHISTcmip6
 set MACHINE = aleph
