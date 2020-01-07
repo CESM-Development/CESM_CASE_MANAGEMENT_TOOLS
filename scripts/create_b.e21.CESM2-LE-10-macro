@@ -17,43 +17,47 @@ set embr =  10
 @ me = $embr
 
 foreach mbr ( `seq $mb $me` )
-
 @ USE_REFDATE = 1001 + ( $mbr - 1 ) * 10
 
 if    ($mbr < 10) then
 	setenv CASENAME b.e21.${COMPSET}.${RESOLN}.LE2-${USE_REFDATE}.00${mbr}
-else if 
-	($mbr >= 10) then
+else if ($mbr >= 10 && $mbr < 100) then
 	setenv CASENAME b.e21.${COMPSET}.${RESOLN}.LE2-${USE_REFDATE}.0${mbr}
+else
+	setenv CASENAME b.e21.${COMPSET}.${RESOLN}.LE2-${USE_REFDATE}.${mbr}
 endif
 
-setenv CASEROOT /proj/$USER/$CASENAME
+setenv CASEROOT /mnt/lustre/share/CESM/cases/$CASENAME
 echo $CASEROOT
+if ( $mbr == $smbr ) then
+  $CESMROOT/cime/scripts/create_newcase --case $CASEROOT --res $RESOLN  --mach $MACHINE --compset $COMPSET --workflow=timeseries --output-root /mnt/lustre/share/CESM/output/
+  set masterroot = $CASEROOT
+  cd $CASEROOT
+  
+  ./case.setup
+  mv user_nl_cam user_nl_cam.`date +%m%d-%H%M`
+  mv user_nl_clm user_nl_clm.`date +%m%d-%H%M`
+  mv user_nl_cpl user_nl_cpl.`date +%m%d-%H%M`
+  mv user_nl_cice user_nl_cice.`date +%m%d-%H%M`
+  cp $CESM2_LE_TOOLS_ROOT/user_nl_files/* $CASEROOT/
+  mv SourceMods SourceMods.`date +%m%d-%H%M`
+  cp -r $CESM2_LE_TOOLS_ROOT/SourceMods $CASEROOT/
+ 
+  ./xmlchange RUN_REFCASE=b.e21.B1850.f09_g17.CMIP6-piControl.001
+  ./xmlchange RUN_REFDATE=${USE_REFDATE}-01-01
+  ./xmlchange DOUT_S_ROOT=/mnt/lustre/share/CESM/archive
 
-$CESMROOT/cime/scripts/create_newcase --case $CASEROOT --res $RESOLN  --mach $MACHINE --compset $COMPSET --workflow=timeseries
+  ./preview_namelists
 
-cd $CASEROOT
-
-./case.setup
-
-./xmlchange RUN_REFCASE=b.e21.B1850.f09_g17.CMIP6-piControl.001
-./xmlchange RUN_REFDATE=${USE_REFDATE}-01-01
-./xmlchange DOUT_S_ROOT=/mnt/lustre/share/CESM/archive
-
-mv user_nl_cam user_nl_cam.`date +%m%d-%H%M`
-mv user_nl_clm user_nl_clm.`date +%m%d-%H%M`
-mv user_nl_cpl user_nl_cpl.`date +%m%d-%H%M`
-mv user_nl_cice user_nl_cice.`date +%m%d-%H%M`
-
-cp $CESM2_LE_TOOLS_ROOT/user_nl_files/* $CASEROOT/
-mv SourceMods SourceMods.`date +%m%d-%H%M`
-cp -r $CESM2_LE_TOOLS_ROOT/SourceMods $CASEROOT/
-
-./preview_namelists
-
-./case.build >& bld.`date +%m%d-%H%M`
-
+  ./case.build >& bld.`date +%m%d-%H%M`
  $POSTPROCESS_PATH/cesm-env2/bin/create_postprocess --caseroot $CASEROOT 
+else
+  $CESMROOT/cime/scripts/create_clone --case $CASEROOT --clone $masterroot --keepexe
+  cd $CASEROOT
+  ./xmlchange RUN_REFDATE=${USE_REFDATE}-01-01
+  ./preview_namelists
+endif
+
 end             # member loop
 
 exit
