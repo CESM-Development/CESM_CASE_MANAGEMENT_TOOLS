@@ -26,12 +26,13 @@ else if ($mbr >= 10 && $mbr < 100) then
 else
 	setenv CASENAME b.e21.${COMPSET}.${RESOLN}.LE2-${USE_REFDATE}.${mbr}
 endif
-
 setenv CASEROOT /mnt/lustre/share/CESM/cases/$CASENAME
+
+
 echo $CASEROOT
 if ( $mbr == $smbr ) then
-  $CESMROOT/cime/scripts/create_newcase --case $CASEROOT --res $RESOLN  --mach $MACHINE --compset $COMPSET --workflow=timeseries --output-root /mnt/lustre/share/CESM/output/
   set masterroot = $CASEROOT
+  $CESMROOT/cime/scripts/create_newcase --case $CASEROOT --res $RESOLN  --mach $MACHINE --compset $COMPSET --workflow=timeseries --output-root /mnt/lustre/share/CESM/output/
   cd $CASEROOT
   
   ./case.setup
@@ -46,7 +47,9 @@ if ( $mbr == $smbr ) then
   ./xmlchange RUN_REFCASE=b.e21.B1850.f09_g17.CMIP6-piControl.001
   ./xmlchange RUN_REFDATE=${USE_REFDATE}-01-01
   ./xmlchange DOUT_S_ROOT=/mnt/lustre/share/CESM/archive
-
+  ./xmlchange STOP_N=10
+  ./xmlchange STOP_OPTION=nyears
+  ./xmlchange RESUBMIT=15
   ./preview_namelists
 
   ./case.build >& bld.`date +%m%d-%H%M`
