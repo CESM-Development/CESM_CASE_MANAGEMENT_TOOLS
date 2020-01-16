@@ -329,7 +329,7 @@ KPP_SRC_NO3 : never_average
 #
 # Diagnostics for tracer O2
 #
-O2 : medium_average
+O2 : medium_average, midhigh_average
 STF_O2 : medium_average, high_average
 J_O2 : never_average
 Jint_100m_O2 : medium_average
@@ -349,7 +349,7 @@ KPP_SRC_O2 : low_average
 #
 # Diagnostics for tracer PO4
 #
-PO4 : medium_average
+PO4 : medium_average, midhigh_average
 STF_PO4 : never_average
 J_PO4 : low_average
 Jint_100m_PO4 : medium_average
@@ -391,7 +391,7 @@ KPP_SRC_SiO3 : never_average
 #
 # Diagnostics for tracer diatC
 #
-diatC : medium_average
+diatC : medium_average, midhigh_average
 STF_diatC : never_average
 J_diatC : never_average
 Jint_100m_diatC : never_average
@@ -411,7 +411,7 @@ KPP_SRC_diatC : never_average
 #
 # Diagnostics for tracer diatChl
 #
-diatChl : medium_average
+diatChl : medium_average, midhigh_average
 STF_diatChl : never_average
 J_diatChl : never_average
 Jint_100m_diatChl : never_average
@@ -492,7 +492,7 @@ KPP_SRC_diatSi : never_average
 #
 # Diagnostics for tracer diazC
 #
-diazC : medium_average
+diazC : medium_average, midhigh_average
 STF_diazC : never_average
 J_diazC : never_average
 Jint_100m_diazC : never_average
@@ -512,7 +512,7 @@ KPP_SRC_diazC : never_average
 #
 # Diagnostics for tracer diazChl
 #
-diazChl : medium_average
+diazChl : medium_average, midhigh_average
 STF_diazChl : never_average
 J_diazChl : never_average
 Jint_100m_diazChl : never_average
@@ -573,7 +573,7 @@ KPP_SRC_diazP : never_average
 #
 # Diagnostics for tracer spC
 #
-spC : medium_average
+spC : medium_average, midhigh_average
 STF_spC : never_average
 J_spC : never_average
 Jint_100m_spC : never_average
@@ -613,7 +613,7 @@ KPP_SRC_spCaCO3 : never_average
 #
 # Diagnostics for tracer spChl
 #
-spChl : medium_average
+spChl : medium_average, midhigh_average
 STF_spChl : never_average
 J_spChl : never_average
 Jint_100m_spChl : never_average
@@ -674,7 +674,7 @@ KPP_SRC_spP : never_average
 #
 # Diagnostics for tracer zooC
 #
-zooC : medium_average
+zooC : medium_average, midhigh_average
 STF_zooC : never_average
 J_zooC : never_average
 Jint_100m_zooC : never_average
