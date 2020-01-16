@@ -739,9 +739,9 @@ diaz_light_lim_Cweight_avg_100m : medium_average, midhigh_average
 sp_light_lim_surf : medium_average
 diat_light_lim_surf : medium_average
 diaz_light_lim_surf : medium_average
-sp_loss : never_average
-diat_loss : never_average
-diaz_loss : never_average
+sp_loss : midhigh_average
+diat_loss : midhigh_average
+diaz_loss : midhigh_average
 sp_loss_doc : never_average
 diat_loss_doc : never_average
 diaz_loss_doc : never_average
@@ -938,9 +938,9 @@ co3_sat_calc : medium_average
 dustToSed : medium_average
 dust_FLUX_IN : medium_average
 dust_REMIN : medium_average
-graze_sp : never_average
-graze_diat : never_average
-graze_diaz : never_average
+graze_sp : midhigh_average
+graze_diat : midhigh_average
+graze_diaz : midhigh_average
 graze_sp_doc : never_average
 graze_diat_doc : never_average
 graze_diaz_doc : never_average
@@ -993,9 +993,9 @@ pCO2SURF_ALT_CO2 : never_average
 pH_3D : medium_average, midhigh_average
 pH_3D_ALT_CO2 : never_average
 pfeToSed : medium_average
-photoC_sp : never_average
-photoC_diat : never_average
-photoC_diaz : never_average
+photoC_sp : midhigh_average
+photoC_diat : midhigh_average
+photoC_diaz : midhigh_average
 photoC_sp_zint : medium_average, high_average
 photoC_diat_zint : medium_average, high_average
 photoC_diaz_zint : medium_average, high_average
