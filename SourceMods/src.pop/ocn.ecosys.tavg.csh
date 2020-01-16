@@ -85,6 +85,7 @@ if ( -f $CASEROOT/SourceMods/src.pop/MARBL_diags_to_tavg.py ) then
   set MARBL_EXE = $CASEROOT/SourceMods/src.pop/MARBL_diags_to_tavg.py
 else
   set MARBL_EXE = $POPROOT/MARBL_scripts/MARBL_diags_to_tavg.py
+endif
 $MARBL_EXE $MARBL_args $MARBL_args_filename
 if ($status != 0) then
   echo "ERROR in MARBL_diags_to_tavg.py"
