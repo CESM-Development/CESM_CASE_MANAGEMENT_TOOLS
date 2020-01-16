@@ -242,9 +242,7 @@ def diagnostics_to_tavg_and_operators(ecosys_diagnostics_in,
                 use_freq = '1'
             else:
                 use_freq = _get_freq(freq, frequency_dict)
-            if freq == 'midhigh':
-                tavg_file.write('%s  %s_5D\n' % (use_freq, varname))
-            elif n == 0:
+            if n == 0:
                 tavg_file.write('%s  %s\n' % (use_freq, varname))
             else:
                 tavg_file.write('%s  %s_%d\n' % (use_freq, varname, n+1))
