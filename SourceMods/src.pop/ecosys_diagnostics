@@ -848,8 +848,8 @@ DOP_diat_uptake : medium_average
 DOP_diaz_uptake : medium_average
 DOP_loss_P_bal : never_average
 DOP_prod : medium_average
-DOP_remin : low_average
-DOPr_remin : low_average
+DOP_remin : medium_average
+DOPr_remin : medium_average
 DUST_FLUX : never_average
 DpCO2 : medium_average, high_average, midhigh_average
 DpCO2_ALT_CO2 : medium_average, midhigh_average
@@ -913,8 +913,8 @@ PON_REMIN_NH4 : low_average
 POP_FLUX_100m : medium_average
 POP_FLUX_IN : medium_average
 POP_PROD : medium_average
-POP_REMIN_DOPr : low_average
-POP_REMIN_PO4 : low_average
+POP_REMIN_DOPr : medium_average
+POP_REMIN_PO4 : medium_average
 PV_CO2 : never_average
 PV_O2 : never_average
 P_iron_FLUX_100m : medium_average
