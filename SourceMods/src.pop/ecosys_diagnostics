@@ -88,13 +88,13 @@ FvICE_DIC : medium_average
 UE_DIC : medium_average
 VN_DIC : medium_average
 WT_DIC : medium_average
-DIA_IMPVF_DIC : low_average
+DIA_IMPVF_DIC : medium_average
 HDIFE_DIC : medium_average
 HDIFN_DIC : medium_average
-HDIFB_DIC : low_average
+HDIFB_DIC : medium_average
 TEND_DIC : low_average
 RF_TEND_DIC : low_average
-KPP_SRC_DIC : low_average
+KPP_SRC_DIC : medium_average
 #
 # Diagnostics for tracer DIC_ALT_CO2
 #
@@ -111,13 +111,13 @@ FvICE_DIC_ALT_CO2 : medium_average
 UE_DIC_ALT_CO2 : medium_average
 VN_DIC_ALT_CO2 : medium_average
 WT_DIC_ALT_CO2 : medium_average
-DIA_IMPVF_DIC_ALT_CO2 : low_average
+DIA_IMPVF_DIC_ALT_CO2 : medium_average
 HDIFE_DIC_ALT_CO2 : medium_average
 HDIFN_DIC_ALT_CO2 : medium_average
-HDIFB_DIC_ALT_CO2 : low_average
+HDIFB_DIC_ALT_CO2 : medium_average
 TEND_DIC_ALT_CO2 : low_average
 RF_TEND_DIC_ALT_CO2 : low_average
-KPP_SRC_DIC_ALT_CO2 : low_average
+KPP_SRC_DIC_ALT_CO2 : medium_average
 #
 # Diagnostics for tracer DOC
 #
@@ -351,7 +351,7 @@ KPP_SRC_O2 : low_average
 #
 PO4 : medium_average, midhigh_average
 STF_PO4 : never_average
-J_PO4 : low_average
+J_PO4 : medium_average
 Jint_100m_PO4 : medium_average
 Jint_PO4 : never_average
 PO4_zint_100m : never_average
@@ -363,10 +363,10 @@ WT_PO4 : medium_average
 DIA_IMPVF_PO4 : medium_average
 HDIFE_PO4 : medium_average
 HDIFN_PO4 : medium_average
-HDIFB_PO4 : never_average
+HDIFB_PO4 : medium_average
 TEND_PO4 : never_average
 RF_TEND_PO4 : never_average
-KPP_SRC_PO4 : never_average
+KPP_SRC_PO4 : medium_average
 #
 # Diagnostics for tracer SiO3
 #
