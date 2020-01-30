@@ -1,6 +1,7 @@
 ! Users should add all user specific namelist changes below in the form of 
 ! namelist_var = new_namelist_value 
 
+!!      h0,  h1, h2, h3,  h4,  h5,  h6,  h7,  h8
 nhtfrq = 0, -24, -6, -3,  -1,   1, -24,-120,-240 
 mfilt  = 1,   5, 20, 40, 120, 240, 365,  73, 365 
 ndens  = 2,   2,  2,  2,   2,   2,   1,   1,   1
@@ -45,7 +46,7 @@ fincl1 =
     'TMDMS:A','TMQ:A','TMSO2:A','TMso4_a1:A','TMso4_a2:A','TMso4_a3:A',
     'TREFHTMN:M','TREFHTMX:X','TREFHT:A','TROP_P:A','TROP_T:A','TROP_Z:A',
     'TSMN:M','TSMX:X','TS:A','U10:A','WD_H2O2:A','WD_H2SO4:A',
-    'WD_SO2:A','wet_deposition_NHx_as_N:A','wet_deposition_NOy_as_N:A','WSPDSRFAV:A','WSPDSRFMX:A',
+    'WD_SO2:A','wet_deposition_NHx_as_N:A','wet_deposition_NOy_as_N:A','WSPDSRFAV:A','WSPDSRFMX:X',
     'ABSORB:A','ac_CO2:A','ADRAIN:A','ADSNOW:A','ANRAIN:A','ANSNOW:A',
     'AQRAIN:A','AQSNOW:A','AREI:A','AREL:A','AWNC:A','AWNI:A',
     'bc_a1:A','bc_a4:A','bc_c4:A','BROX:A','BROY:A','CCN3:A',
@@ -71,40 +72,46 @@ fincl1 =
     'so4_a3:A','soa_a1:A','soa_a2:A','SOAG:A','STEND_CLUBB:A','TAQ:A',
     'TBRY:A','TCLY:A','THLP2_CLUBB:A','TH:A','THzm:A','TOT_CLD_VISTAU:A',
     'TOTH:A','TTEND_TOT:A','TTGWORO:A','T:A','UM_CLUBB:A','UP2_CLUBB:A',
-    'UPWP_CLUBB:A','UTEND_CLUBB:A','UTGWORO:A','U:A','UU:A','UV:A',
+    'UPWP_CLUBB:A','UTEND_CLUBB:A','UTGWORO:A','U:A','UU:A',
     'UVzm:A','UWzm:A','Uzm:A','VM_CLUBB:A','VP2_CLUBB:A','VPWP_CLUBB:A',
     'VQ:A','VTEND_CLUBB:A','VTHzm:A','V:A','VT:A','VU:A',
     'VV:A','Vzm:A','VZ:A','WP2_CLUBB:A','WP3_CLUBB:A','WPRCP_CLUBB:A',
     'WPRTP_CLUBB:A','WPTHLP_CLUBB:A','WPTHVP_CLUBB:A','WTHzm:A','Wzm:A','Z3:A',
-    'ZM_CLUBB:A','ZMDQ:A','ZMDT:A','ZMMTT:A','ZMMU:A','ZT_CLUBB:A',
+    'ZM_CLUBB:A','ZMDQ:A','ZMDT:A','ZMMTT:A','ZMMU:A','ZT_CLUBB:A'
     
 !! daily single level (h1)
 fincl2 =
     'ACTNI:A','ACTNL:A','ACTREI:A','ACTREL:A','AODVIS:A','BURDENBCdn:A',
     'BURDENDUSTdn:A','BURDENPOMdn:A','BURDENSEASALTdn:A','BURDENSO4dn:A','BURDENSO4:A','BURDENSOAdn:A',
-    'CDNUMC:A','CLDTOT:A','FCTI:A','FCTL:A','FLDSC:A','FLDS:A',
+    'CAPE:A','CDNUMC:A','CLDTOT:A','FCTI:A','FCTL:A','FLDSC:A','FLDS:A',
     'FLNR:A','FLNSC:A','FLNS:A','FLNTC:A','FLNT:A','FLUTC:A',
     'FLUT:A','FSDSC:A','FSDS:A','FSNR:A','FSNSC:A','FSNS:A',
     'FSNTOAC:A','FSNT:A','LHFLX:A','LWCF:A','MSKtem:A','OMEGA500:A',
     'PBLH:A','PHIS:A','PRECC:A','PRECL:A','PRECSC:A','PRECSL:A',
-    'PRECTMX:A','PRECT:A','PSL:A','PS:A','Q200:A','Q500:A',
+    'PRECTMX:X','PRECT:A','PSL:A','PS:A','Q200:A','Q500:A','Q700:A',
     'Q850:A','QREFHT:A','RHREFHT:A','SHFLX:A','SOLIN:A','SOLLD:A',
-    'SOLSD:A','SWCF:A','T010:A','T200:A','T500:A','T700:A',
-    'T850:A','TAUBLJX:A','TAUBLJY:A','TAUGWX:A','TAUGWY:A','TAUX:A',
+    'SOLSD:A','SWCF:A','T200:A','T500:A','T700:A', 'T850:A',
+    'TAUBLJX:A','TAUBLJY:A','TAUGWX:A','TAUGWY:A','TAUX:A',
     'TAUY:A','TGCLDIWP:A','TGCLDLWP:A','TMQ:A','TREFHTMN:M','TREFHTMX:X',
-    'TREFHT:A','TSMN:M','TSMX:X','TS:A','U010:A','U10:A',
-    'U200:A','U500:A','U850:A','V010:A','V200:A','V500:A',
-    'V850:A','WSPDSRFAV:A','WSPDSRFMX:A','Z050:A','Z500:A',
+    'TREFHT:A','TSMN:M','TSMX:X','TS:A','U10:A',
+    'U200:A','U500:A','U700:A','U850:A','V200:A','V500:A', 'V700:A',
+    'V850:A','WSPDSRFAV:A','WSPDSRFMX:X','Z200:A','Z500:A','Z700:A','Z850:A'
 
 !! 6hr (h2)
 fincl3 =
-    'PRECC:A','PRECL:A','PRECSC:A','PRECSL:A','PRECT:A','PSL:A',
-    'U850:A','UBOT:A','V850:A','VBOT:A','Z300:A','Z500:A',
+    'PRECC:A','PRECL:A','PRECSC:A','PRECSL:A','PRECT:A','PSL:I',
+    'U850:I','UBOT:I','V850:I','VBOT:I','Z300:I','Z500:I',
+    'OMEGA500:A', 'U200:A', 'FLUT:A'
     
-!! daily-FC-level
-fincl7 =
-    'UV:A','VQ:A','VT:A','VZ:A',
+!! 3hr (h3)
+fincl4 = 'PRECC:A', 'PRECL:A', 'CLDLOW:A', 'UBOT:A', 'VBOT:A'
 
+!! daily-FC-level (h6)
+fincl7 =
+    'U:A','V:A','T:A','Q:A','Z3:A','OMEGA:A', 
+    'VTHzm','UVzm','UWzm','Uzm','Vzm','THzm','Wzm'
+
+history_dust                   = .true. 
 do_circulation_diags           = .true. 
 co2flux_fuel_file = '/mnt/lustre/share/CESM/cesm_input/atm/cam/ggas/emissions-cmip6_CO2_anthro_surface_175001-201512_fv_0.9x1.25_c20181011.nc'
 aircraft_specifier = 'ac_CO2 -> ac_CO2_filelist_175001-201512_fv_0.9x1.25_c20181011.txt'

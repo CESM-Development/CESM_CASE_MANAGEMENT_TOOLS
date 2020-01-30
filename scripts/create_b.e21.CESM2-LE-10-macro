@@ -3,11 +3,11 @@
 setenv CESM2_LE_TOOLS_ROOT $HOME/CESM_CASE_MANAGEMENT_TOOLS
 setenv POSTPROCESS_PATH /home/jedwards/workflow/CESM_postprocessing
 source $POSTPROCESS_PATH/cesm-env2/bin/activate
-if ($USER==jedwards)
-set test=test
-else
+#if ($USER==jedwards)
+#set test=test
+#else
 set test=
-endif
+#endif
 
 setenv CESMROOT /mnt/lustre/share/CESM/cesm2.1.2
 
@@ -24,7 +24,7 @@ set embr =  10
 @ mb = $smbr
 @ me = $embr
 
-foreach mbr ( `seq $mb $me` )
+foreach mbr ( `seq $mb 2 $me` )
 @ USE_REFDATE = 1001 + ( $mbr - 1 ) * 10
 
 if    ($mbr < 10) then
