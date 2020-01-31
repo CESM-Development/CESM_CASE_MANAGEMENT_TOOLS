@@ -6,7 +6,7 @@ source $POSTPROCESS_PATH/cesm-env2/bin/activate
 #if ($USER==jedwards)
 #set test=test
 #else
-set test=
+set test=nanr
 #endif
 
 setenv CESMROOT /mnt/lustre/share/CESM/cesm2.1.2
@@ -19,7 +19,7 @@ set STOP_N=10
 set STOP_OPTION=nyears
 
 set smbr =  1
-set embr =  10
+set embr =  20
 
 @ mb = $smbr
 @ me = $embr
