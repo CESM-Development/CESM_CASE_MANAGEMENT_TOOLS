@@ -11,7 +11,7 @@
 !     subroutines in individual passive tracer modules.
 
 ! !REVISION HISTORY:
-!  SVN:$Id$
+!  SVN:$Id: passive_tracers.F90 63715 2014-09-22 22:47:53Z klindsay $
 
 ! !USES:
 
@@ -27,8 +27,6 @@
    use broadcast, only: broadcast_scalar
    use prognostic, only: TRACER, PSURF, tracer_d, oldtime, curtime, newtime
    use forcing_shf, only: SHF_QSW_RAW, SHF_QSW
-   use forcing_fields, only : lhas_vflux, lhas_riv_flux
-   use mcog, only: FRACR_BIN, QSW_RAW_BIN, QSW_BIN
    use io_types, only: stdout, nml_in, nml_filename, io_field_desc, &
        datafile
    use exit_mod, only: sigAbort, exit_pop
@@ -44,20 +42,16 @@
    use io_tools, only: document
    use passive_tracer_tools, only: set_tracer_indices
 
+
    use ecosys_driver, only:               &
-       ecosys_tracer_cnt,                 &
+       ecosys_driver_tracer_cnt_init,     &
+       ecosys_driver_tracer_cnt,          &
        ecosys_driver_init,                &
-       ecosys_driver_set_sflux_forcing,   &
-       ecosys_driver_set_sflux,           &
-       ecosys_driver_post_set_sflux,      &
-       ecosys_driver_tavg_forcing,        &
-       ecosys_driver_set_interior_forcing,&
-       ecosys_driver_set_interior,        &
-       ecosys_driver_set_global_scalars,  &
-       ecosys_driver_comp_global_averages,&
-       ecosys_driver_write_restart,       &
        ecosys_driver_tracer_ref_val,      &
-       ecosys_driver_unpack_source_sink_terms
+       ecosys_driver_set_sflux,           &
+       ecosys_driver_tavg_forcing,        &
+       ecosys_driver_set_interior,        &
+       ecosys_driver_write_restart
 
    use cfc_mod, only:              &
        cfc_tracer_cnt,             &
@@ -65,17 +59,23 @@
        cfc_set_sflux,              &
        cfc_tavg_forcing
 
-   use sf6_mod, only:              &
-       sf6_tracer_cnt,             &
-       sf6_init,                   &
-       sf6_set_sflux,              &
-       sf6_tavg_forcing
-
    use iage_mod, only:             &
        iage_tracer_cnt,            &
        iage_init,                  &
        iage_set_interior,          &
        iage_reset
+
+   use moby_mod, only:             &
+       moby_init,                  &
+       moby_reset,                 &
+       moby_set_sflux,             &
+       moby_tavg_forcing,          &
+       moby_set_interior,          &
+       moby_set_interior_3D,       &
+       moby_tracer_cnt,            &
+       moby_tracer_ref_val,        &
+       moby_write_restart,         &
+       POP_mobySendTime
 
    use abio_dic_dic14_mod, only:      &
        abio_dic_dic14_tracer_cnt,     &
@@ -85,10 +85,6 @@
        abio_dic_dic14_tavg_forcing,   &
        abio_dic_dic14_set_interior,   &
        abio_dic_dic14_write_restart
-
-   use IRF_mod, only: IRF_tracer_cnt
-   use IRF_mod, only: IRF_init
-   use IRF_mod, only: IRF_reset
 
    implicit none
    private
@@ -104,9 +100,9 @@
       reset_passive_tracers,                  &
       write_restart_passive_tracers,          &
       tavg_passive_tracers,                   &
+      tavg_passive_tracers_baroclinic_correct,&
       passive_tracers_tavg_sflux,             &
       passive_tracers_tavg_fvice,             &
-      passive_tracers_timer_print_all,        &
       passive_tracers_send_time,              &
       tracer_ref_val,                         &
       tadvect_ctype_passive_tracers,          &
@@ -120,21 +116,18 @@
 !-----------------------------------------------------------------------
 
    integer (int_kind), dimension(nt), public :: &
-      tavg_var_tend,            & ! tavg id for tracer tendency
-      tavg_var_tend_zint_100m,  & ! vertically integrated tracer tendency, 0-100m
-      tavg_var_rf_tend            ! tavg id for Robert Filter tracer adjustment
+      tavg_TEND_TRACER    ! tavg id for tracer tendency
 
    integer (int_kind), dimension (3:nt) ::  &
       tavg_var,                 & ! tracer
-      tavg_var_2,               & ! tracer for multiple streams (e.g., 5-day means)
       tavg_var_sqr,             & ! tracer square
       tavg_var_surf,            & ! tracer surface value
       tavg_var_zint_100m,       & ! 0-100m integral of tracer
       tavg_var_J,               & ! tracer source sink term
       tavg_var_Jint,            & ! vertically integrated tracer source sink term
       tavg_var_Jint_100m,       & ! vertically integrated tracer source sink term, 0-100m
-      tavg_var_stf,             & ! surface tracer flux
-      tavg_var_stf_riv,         & ! riverine tracer flux
+      tavg_var_tend_zint_100m,  & ! vertically integrated tracer tendency, 0-100m
+      tavg_var_stf,             & ! tracer surface flux
       tavg_var_resid,           & ! tracer residual surface flux
       tavg_var_fvper,           & ! virtual tracer flux from precip,evap,runoff
       tavg_var_fvice              ! virtual tracer flux from ice formation
@@ -159,39 +152,35 @@
 !  logical variables that denote if a passive tracer module is on
 !-----------------------------------------------------------------------
 
-   logical (log_kind) ::  &
-      ecosys_on, cfc_on, sf6_on, iage_on,&
-      abio_dic_dic14_on, IRF_on
+   logical (kind=log_kind) ::  &
+      ecosys_on, cfc_on, iage_on, moby_on, &
+      abio_dic_dic14_on, ciso_on
 
    namelist /passive_tracers_on_nml/  &
-      ecosys_on, cfc_on, sf6_on, iage_on, &
-      abio_dic_dic14_on, IRF_on
+      ecosys_on, cfc_on, iage_on, moby_on, &
+      abio_dic_dic14_on, ciso_on
 
 
 !-----------------------------------------------------------------------
 !     index bounds of passive tracer module variables in TRACER
 !-----------------------------------------------------------------------
 
-   integer (int_kind) ::                                 &
-      ecosys_driver_ind_begin,   ecosys_driver_ind_end,  &
-      iage_ind_begin,            iage_ind_end,           &
-      cfc_ind_begin,             cfc_ind_end,            &
-      sf6_ind_begin,             sf6_ind_end,            &
-      abio_dic_dic14_ind_begin,  abio_dic_dic14_ind_end, &
-      IRF_ind_begin,             IRF_ind_end
+   integer (kind=int_kind) ::                           &
+      ecosys_driver_ind_begin,  ecosys_driver_ind_end,  &
+      iage_ind_begin,           iage_ind_end,           &
+      cfc_ind_begin,            cfc_ind_end,            &
+      moby_ind_begin,            moby_ind_end,          &
+      abio_dic_dic14_ind_begin,  abio_dic_dic14_ind_end
 
 !-----------------------------------------------------------------------
 !  filtered SST and SSS, if needed
 !-----------------------------------------------------------------------
 
-   logical (log_kind) :: filtered_SST_SSS_needed
+   logical (kind=log_kind) :: filtered_SST_SSS_needed
 
    real (r8), dimension(:,:,:), allocatable :: &
       SST_FILT,      & ! SST with time filter applied, [degC]
       SSS_FILT         ! SSS with time filter applied, [psu]
-
-   real (r8), dimension(:, :, :, :, :), pointer :: &
-        ecosys_source_sink_3d ! (nx_block, ny_block, km, nt, nblocks_clinic)
 
 !EOC
 !***********************************************************************
@@ -244,14 +233,6 @@
    character (4) :: grid_loc
 
 !-----------------------------------------------------------------------
-
-   if (.not. registry_match('init_ts')) then
-      call exit_POP(sigAbort, 'init_ts not called ' /&
-         &/ 'before init_passive_tracers. This is necessary for ' /&
-         &/ 'init_passive_tracers to have correct read_restart_filename')
-   end if
-
-!-----------------------------------------------------------------------
 !  register init_passive_tracers
 !-----------------------------------------------------------------------
 
@@ -260,11 +241,11 @@
    call register_string('init_passive_tracers')
 
    ecosys_on         = .false.
+   ciso_on           = .false.
    cfc_on            = .false.
-   sf6_on            = .false.
    iage_on           = .false.
+   moby_on           = .false.
    abio_dic_dic14_on = .false.
-   IRF_on            = .false.
 
    if (my_task == master_task) then
       open (nml_in, file=nml_filename, status='old', iostat=nml_error)
@@ -297,11 +278,19 @@
 
 
    call broadcast_scalar(ecosys_on,         master_task)
+   call broadcast_scalar(ciso_on,           master_task)
    call broadcast_scalar(cfc_on,            master_task)
-   call broadcast_scalar(sf6_on,            master_task)
    call broadcast_scalar(iage_on,           master_task)
+   call broadcast_scalar(moby_on,           master_task)
    call broadcast_scalar(abio_dic_dic14_on, master_task)
-   call broadcast_scalar(IRF_on,            master_task)
+
+!-----------------------------------------------------------------------
+!  check if ecosys_on = true if ciso_on = true, otherwise abort
+!-----------------------------------------------------------------------
+
+   if (ciso_on .and. .not. ecosys_on) then
+      call exit_POP(sigAbort,'ecosys_ciso (ciso_on) module requires the ecosys module (ecosys_on)')
+   end if
 
 !-----------------------------------------------------------------------
 !  check for modules that require the flux coupler
@@ -309,10 +298,6 @@
 
    if (cfc_on .and. .not. registry_match('lcoupled')) then
       call exit_POP(sigAbort,'cfc module requires the flux coupler')
-   end if
-
-   if (sf6_on .and. .not. registry_match('lcoupled')) then
-      call exit_POP(sigAbort,'sf6 module requires the flux coupler')
    end if
 
    if (abio_dic_dic14_on .and. .not. registry_match('lcoupled')) then
@@ -326,13 +311,22 @@
    tadvect_ctype_passive_tracers(3:nt) = 'base_model'
 
 !-----------------------------------------------------------------------
+!  determine ecosys_driver tracer count, which is the sum of the tracer
+!  count in all ecosys modules --> done in ecosys_driver
+!-----------------------------------------------------------------------
+   if (ecosys_on) then
+      call ecosys_driver_tracer_cnt_init(ciso_on)
+   end if
+
+
+!-----------------------------------------------------------------------
 !  set up indices for passive tracer modules that are on
 !-----------------------------------------------------------------------
 
    cumulative_nt = 2
 
    if (ecosys_on) then
-      call set_tracer_indices('ECOSYS_DRIVER', ecosys_tracer_cnt, cumulative_nt, &
+      call set_tracer_indices('ECOSYS_DRIVER', ecosys_driver_tracer_cnt, cumulative_nt,  &
                               ecosys_driver_ind_begin, ecosys_driver_ind_end)
    end if
 
@@ -341,24 +335,19 @@
                               cfc_ind_begin, cfc_ind_end)
    end if
 
-   if (sf6_on) then
-      call set_tracer_indices('SF6', sf6_tracer_cnt, cumulative_nt,  &
-                              sf6_ind_begin, sf6_ind_end)
-   end if
-
    if (iage_on) then
       call set_tracer_indices('IAGE', iage_tracer_cnt, cumulative_nt,  &
                               iage_ind_begin, iage_ind_end)
    end if
 
+   if (moby_on) then
+      call set_tracer_indices('MOBY', moby_tracer_cnt, cumulative_nt,  &
+                              moby_ind_begin, moby_ind_end)
+   end if
+
    if (abio_dic_dic14_on) then
       call set_tracer_indices('ABIO', abio_dic_dic14_tracer_cnt, cumulative_nt,  &
                               abio_dic_dic14_ind_begin, abio_dic_dic14_ind_end)
-   end if
-
-   if (IRF_on) then
-      call set_tracer_indices('IRF', IRF_tracer_cnt, cumulative_nt,  &
-                              IRF_ind_begin, IRF_ind_end)
    end if
 
    if (cumulative_nt /= nt) then
@@ -372,43 +361,30 @@
 !  by default, all tracers are written to tavg as full depth
 !-----------------------------------------------------------------------
 
-   tracer_d(1:nt)%lfull_depth_tavg = .true.
+   tracer_d(3:nt)%lfull_depth_tavg = .true.
 
 !-----------------------------------------------------------------------
 !  by default, all tracers have scale_factor equal to one
 !-----------------------------------------------------------------------
 
-   tracer_d(3:nt)%scale_factor = 1.0_POP_r8
-
-   ! FIXME (mnl, mvertens) -- for completeness, Mariana wants tracer_d
-   ! initialized in ecosys_driver for the ecosystem tracers, which would
-   ! lead to the other tracer modules (iage, cfc, IRF, abio) also
-   ! needing to initialize lfull_depth_tavg and scale_factor rather than
-   ! counting on it being done in passive_tracers.
+   tracer_d(3:nt)%scale_factor = 1.0_POP_rtavg
 
 !-----------------------------------------------------------------------
 !  ECOSYS  DRIVER block
 !-----------------------------------------------------------------------
 
    if (ecosys_on) then
-      call ecosys_driver_init(                                                           &
-           ecosys_driver_ind_begin,                                                      &
-           init_ts_file_fmt,                                                             &
-           read_restart_filename,                                                        &
-           tracer_d(ecosys_driver_ind_begin:ecosys_driver_ind_end),                      &
-           TRACER(:,:,:,ecosys_driver_ind_begin:ecosys_driver_ind_end,:,:),              &
-           tadvect_ctype_passive_tracers(ecosys_driver_ind_begin:ecosys_driver_ind_end), &
-           lhas_riv_flux(ecosys_driver_ind_begin:ecosys_driver_ind_end),                 &
-           errorCode)
+      call ecosys_driver_init(ciso_on,init_ts_file_fmt, read_restart_filename, &
+                       tracer_d(ecosys_driver_ind_begin:ecosys_driver_ind_end), &
+                       TRACER(:,:,:,ecosys_driver_ind_begin:ecosys_driver_ind_end,:,:), &
+                       tadvect_ctype_passive_tracers(ecosys_driver_ind_begin:ecosys_driver_ind_end), &
+                       errorCode)
 
       if (errorCode /= POP_Success) then
          call POP_ErrorSet(errorCode, &
             'init_passive_tracers: error in ecosys_driver_init')
          return
       endif
-
-      allocate(ecosys_source_sink_3d(nx_block, ny_block, km, nt, nblocks_clinic))
-      ecosys_source_sink_3d = c0
 
    end if
 
@@ -417,7 +393,7 @@
 !-----------------------------------------------------------------------
 
    if (cfc_on) then
-      call cfc_init(cfc_ind_begin, init_ts_file_fmt, read_restart_filename, &
+      call cfc_init(init_ts_file_fmt, read_restart_filename, &
                     tracer_d(cfc_ind_begin:cfc_ind_end), &
                     TRACER(:,:,:,cfc_ind_begin:cfc_ind_end,:,:), &
                     errorCode)
@@ -431,29 +407,11 @@
    end if
 
 !-----------------------------------------------------------------------
-!  SF6 block
-!-----------------------------------------------------------------------
-
-   if (sf6_on) then
-      call sf6_init(sf6_ind_begin, init_ts_file_fmt, read_restart_filename, &
-                    tracer_d(sf6_ind_begin:sf6_ind_end), &
-                    TRACER(:,:,:,sf6_ind_begin:sf6_ind_end,:,:), &
-                    errorCode)
-
-      if (errorCode /= POP_Success) then
-         call POP_ErrorSet(errorCode, &
-            'init_passive_tracers: error in sf6_init')
-         return
-      endif
-
-   end if
-
-!-----------------------------------------------------------------------
 !  Ideal Age (IAGE) block
 !-----------------------------------------------------------------------
 
    if (iage_on) then
-      call iage_init(iage_ind_begin, init_ts_file_fmt, read_restart_filename, &
+      call iage_init(init_ts_file_fmt, read_restart_filename, &
                      tracer_d(iage_ind_begin:iage_ind_end), &
                      TRACER(:,:,:,iage_ind_begin:iage_ind_end,:,:), &
                      errorCode)
@@ -466,12 +424,32 @@
 
    end if
 
+
+!-----------------------------------------------------------------------
+!  MOBY block
+!-----------------------------------------------------------------------
+
+   if (moby_on) then
+      call moby_init(init_ts_file_fmt, read_restart_filename, &
+                     tracer_d(moby_ind_begin:moby_ind_end), &
+                     TRACER(:,:,:,moby_ind_begin:moby_ind_end,:,:), &
+                     tadvect_ctype_passive_tracers(moby_ind_begin:moby_ind_end), &
+                     moby_ind_begin, errorCode)
+
+      if (errorCode /= POP_Success) then
+         call POP_ErrorSet(errorCode, &
+            'init_passive_tracers: error in moby_init')
+         return
+      endif
+
+   end if
+
 !-----------------------------------------------------------------------
 !  ABIO DIC & DIC14 block
 !-----------------------------------------------------------------------
 
    if (abio_dic_dic14_on) then
-      call abio_dic_dic14_init(abio_dic_dic14_ind_begin, init_ts_file_fmt, read_restart_filename, &
+      call abio_dic_dic14_init(init_ts_file_fmt, read_restart_filename, &
                     tracer_d(abio_dic_dic14_ind_begin:abio_dic_dic14_ind_end), &
                     TRACER(:,:,:,abio_dic_dic14_ind_begin:abio_dic_dic14_ind_end,:,:), &
                     errorCode)
@@ -482,15 +460,6 @@
          return
       endif
 
-   end if
-
-!-----------------------------------------------------------------------
-!  IRF (IRF) block
-!-----------------------------------------------------------------------
-
-   if (IRF_on) then
-      call IRF_init(tracer_d(IRF_ind_begin:IRF_ind_end), &
-                    TRACER(:,:,:,IRF_ind_begin:IRF_ind_end,:,:))
    end if
 
 !-----------------------------------------------------------------------
@@ -510,14 +479,6 @@
       write(stdout,delim_fmt)
       call POP_IOUnitsFlush(POP_stdout)
    end if
-
-!-----------------------------------------------------------------------
-!  set lhas_vflux for passive tracers
-!-----------------------------------------------------------------------
-
-   do n = 3, nt
-      lhas_vflux(n) = tracer_ref_val(n) /= c0
-   enddo
 
 !-----------------------------------------------------------------------
 !  generate common tavg fields for all tracers
@@ -541,20 +502,12 @@
                              coordinates=coordinates)
 
       sname = trim(tracer_d(n)%short_name) /&
-                                            &/ '_2'
-      call define_tavg_field(tavg_var_2(n),                         &
-                             sname, 3, long_name=lname,             &
-                             units=units, grid_loc=grid_loc,        &
-                             scale_factor=tracer_d(n)%scale_factor, &
-                             coordinates=coordinates)
-
-      sname = trim(tracer_d(n)%short_name) /&
                                             &/ '_SQR'
       lname = trim(tracer_d(n)%long_name) /&
                                            &/ ' Squared'
       units = '(' /&
-                   &/ trim(tracer_d(n)%units) /&
-                                               &/ ')^2'
+                   &/ tracer_d(n)%units /&
+                                         &/ ')^2'
       call define_tavg_field(tavg_var_sqr(n),                       &
                              sname, 3, long_name=lname,             &
                              units=units, grid_loc=grid_loc,        &
@@ -617,29 +570,27 @@
                              scale_factor=tracer_d(n)%scale_factor, &
                              coordinates='TLONG TLAT time')
 
+      sname = 'tend_zint_100m_' /&
+                            &/ trim(tracer_d(n)%short_name)
+      lname = trim(tracer_d(n)%long_name) /&
+                                           &/ ' Tendency Vertical Integral, 0-100m'
+      units = tracer_d(n)%flux_units
+      call define_tavg_field(tavg_var_tend_zint_100m(n),            &
+                             sname, 2, long_name=lname,             &
+                             units=units, grid_loc='2110',          &
+                             scale_factor=tracer_d(n)%scale_factor, &
+                             coordinates='TLONG TLAT time')
+
       sname = 'STF_' /&
                       &/ trim(tracer_d(n)%short_name)
       lname = trim(tracer_d(n)%long_name) /&
-                                           &/ ' Surface Flux, excludes FvICE term'
+                                           &/ ' Surface Flux'
       units = tracer_d(n)%flux_units
       call define_tavg_field(tavg_var_stf(n),                       &
                              sname, 2, long_name=lname,             &
                              units=units, grid_loc='2110',          &
                              scale_factor=tracer_d(n)%scale_factor, &
                              coordinates='TLONG TLAT time')
-
-      if (lhas_riv_flux(n)) then
-         sname = trim(tracer_d(n)%short_name) /&
-                                               &/ '_RIV_FLUX'
-         lname = trim(tracer_d(n)%long_name) /&
-                                              &/ ' Riverine Flux'
-         units = tracer_d(n)%flux_units
-         call define_tavg_field(tavg_var_stf_riv(n),                   &
-                                sname, 2, long_name=lname,             &
-                                units=units, grid_loc='2110',          &
-                                scale_factor=tracer_d(n)%scale_factor, &
-                                coordinates='TLONG TLAT time')
-      endif
 
       sname = 'RESID_' /&
                         &/ trim(tracer_d(n)%short_name)
@@ -652,75 +603,39 @@
                              scale_factor=tracer_d(n)%scale_factor, &
                              coordinates='TLONG TLAT time')
 
-      if (lhas_vflux(n)) then
-         sname = 'FvPER_' /&
-                           &/ trim(tracer_d(n)%short_name)
-         lname = trim(tracer_d(n)%long_name) /&
-                                              &/ ' Virtual Surface Flux, PER'
-         units = tracer_d(n)%flux_units
-         call define_tavg_field(tavg_var_fvper(n),                     &
-                                sname, 2, long_name=lname,             &
-                                units=units, grid_loc='2110',          &
-                                scale_factor=tracer_d(n)%scale_factor, &
-                                coordinates='TLONG TLAT time')
-
-         sname = 'FvICE_' /&
-                           &/ trim(tracer_d(n)%short_name)
-         lname = trim(tracer_d(n)%long_name) /&
-                                              &/ ' Virtual Surface Flux, ICE'
-         units = tracer_d(n)%flux_units
-         call define_tavg_field(tavg_var_fvice(n),                     &
-                                sname, 2, long_name=lname,             &
-                                units=units, grid_loc='2110',          &
-                                scale_factor=tracer_d(n)%scale_factor, &
-                                tavg_method=tavg_method_qflux,         &
-                                coordinates='TLONG TLAT time')
-      endif
-   enddo
-
-   do n=1,nt
-      sname = 'TEND_' /&
-           &/ trim(tracer_d(n)%short_name)
-      lname = 'Tendency of Thickness Weighted '/&
-           &/ trim(tracer_d(n)%short_name)
-      units = tracer_d(n)%tend_units
-      if (tracer_d(n)%lfull_depth_tavg) then
-         grid_loc = '3111'
-         coordinates = 'TLONG TLAT z_t time'
-      else
-         grid_loc = '3114'
-         coordinates = 'TLONG TLAT z_t_150m time'
-      end if
-
-      call define_tavg_field(tavg_var_tend(n),                      &
-                             sname, 3, long_name=lname,             &
-                             units=units, grid_loc=grid_loc,        &
-                             scale_factor=tracer_d(n)%scale_factor, &
-                             coordinates=coordinates)
-
-      sname = 'tend_zint_100m_' /&
-                            &/ trim(tracer_d(n)%short_name)
+      sname = 'FvPER_' /&
+                        &/ trim(tracer_d(n)%short_name)
       lname = trim(tracer_d(n)%long_name) /&
-                                           &/ ' Tendency Vertical Integral, 0-100m'
+                                           &/ ' Virtual Surface Flux, PER'
       units = tracer_d(n)%flux_units
-      call define_tavg_field(tavg_var_tend_zint_100m(n),            &
+      call define_tavg_field(tavg_var_fvper(n),                     &
                              sname, 2, long_name=lname,             &
                              units=units, grid_loc='2110',          &
                              scale_factor=tracer_d(n)%scale_factor, &
                              coordinates='TLONG TLAT time')
 
-      sname = 'RF_TEND_' /&
-           &/ trim(tracer_d(n)%short_name)
-      lname = 'Robert Filter Tendency for '/&
-           &/ trim(tracer_d(n)%short_name)
-      units = tracer_d(n)%tend_units
-
-      call define_tavg_field(tavg_var_rf_tend(n),                   &
-                             sname, 3, long_name=lname,             &
-                             units=units, grid_loc=grid_loc,        &
+      sname = 'FvICE_' /&
+                        &/ trim(tracer_d(n)%short_name)
+      lname = trim(tracer_d(n)%long_name) /&
+                                           &/ ' Virtual Surface Flux, ICE'
+      units = tracer_d(n)%flux_units
+      call define_tavg_field(tavg_var_fvice(n),                     &
+                             sname, 2, long_name=lname,             &
+                             units=units, grid_loc='2110',          &
                              scale_factor=tracer_d(n)%scale_factor, &
-                             coordinates=coordinates)
+                             tavg_method=tavg_method_qflux,         &
+                             coordinates='TLONG TLAT time')
+   enddo
 
+   do n=1,nt
+     call define_tavg_field(tavg_TEND_TRACER(n), 'TEND_' /&
+                                           &/ trim(tracer_d(n)%short_name),3, &
+                            long_name='Tendency of Thickness Weighted '/&
+                                           &/ trim(tracer_d(n)%short_name),   &
+                            units=trim(tracer_d(n)%tend_units),               &
+                            scale_factor=tracer_d(n)%scale_factor,            &
+                            grid_loc='3111',                                  &
+                            coordinates='TLONG TLAT z_t time')
    end do
 
 !-----------------------------------------------------------------------
@@ -734,7 +649,7 @@
 !  allocate space for filtered SST and SSS, if needed
 !-----------------------------------------------------------------------
 
-   filtered_SST_SSS_needed = ecosys_on .or. cfc_on .or. sf6_on .or. &
+   filtered_SST_SSS_needed = ecosys_on .or. cfc_on .or. &
                              abio_dic_dic14_on
 
    if (filtered_SST_SSS_needed) then
@@ -796,22 +711,21 @@
    bid = this_block%local_id
 
 !-----------------------------------------------------------------------
-!  ECOSYS DRIVER block is done as part of
-!  set_interior_passive_tracers_3D. Here we are just unpacking the 3D
-!  structure into the 2D
-!  -----------------------------------------------------------------------
+!  ECOSYS  DRIVER block
+!-----------------------------------------------------------------------
+
    if (ecosys_on) then
-      call ecosys_driver_unpack_source_sink_terms( &
-           ecosys_source_sink_3d(:, :, k, ecosys_driver_ind_begin:ecosys_driver_ind_end, bid), &
-           TRACER_SOURCE(:, :, ecosys_driver_ind_begin:ecosys_driver_ind_end))
-   endif
+      call ecosys_driver_set_interior(k,ciso_on,         &
+         TRACER(:,:,k,1,oldtime,bid), TRACER(:,:,k,1,curtime,bid), &
+         TRACER(:,:,k,2,oldtime,bid), TRACER(:,:,k,2,curtime,bid), &
+         TRACER(:,:,:,ecosys_driver_ind_begin:ecosys_driver_ind_end,oldtime,bid),&
+         TRACER(:,:,:,ecosys_driver_ind_begin:ecosys_driver_ind_end,curtime,bid),&
+         TRACER_SOURCE(:,:,ecosys_driver_ind_begin:ecosys_driver_ind_end),       &
+         this_block)
+   end if
 
 !-----------------------------------------------------------------------
 !  CFC does not have source-sink terms
-!-----------------------------------------------------------------------
-
-!-----------------------------------------------------------------------
-!  SF6 does not have source-sink terms
 !-----------------------------------------------------------------------
 
 !-----------------------------------------------------------------------
@@ -824,6 +738,15 @@
    end if
 
 !-----------------------------------------------------------------------
+!  MOBY block
+!-----------------------------------------------------------------------
+
+   if (moby_on) then
+      call moby_set_interior (k, TRACER_SOURCE(:,:,moby_ind_begin:moby_ind_end), &
+           this_block)
+   endif
+
+!-----------------------------------------------------------------------
 !  ABIO DIC & DIC14 block
 !-----------------------------------------------------------------------
 
@@ -834,10 +757,6 @@
          TRACER_SOURCE(:,:,abio_dic_dic14_ind_begin:abio_dic_dic14_ind_end),       &
          this_block)
     end if
-
-!-----------------------------------------------------------------------
-!  IRF does not have source-sink terms
-!-----------------------------------------------------------------------
 
 !-----------------------------------------------------------------------
 !  accumulate time average if necessary
@@ -896,55 +815,21 @@
 ! !REVISION HISTORY:
 !  same as module
 
-   use domain, only : blocks_clinic
-   use blocks, only : get_block
-
 ! !INPUT PARAMETERS:
    real (r8), dimension(nx_block,ny_block,km,nt,max_blocks_clinic), intent(in) :: &
-        TRACER_OLD, & ! previous timestep tracer tendencies
-        TRACER_CUR    ! new tracer tendencies
+      TRACER_OLD, TRACER_CUR
 
 ! !INPUT/OUTPUT PARAMETERS:
 
 !EOP
 !BOC
 
-   integer (int_kind) :: iblock ! counter for block loops
-   type (block) :: this_block   ! block information for this block
-   integer (int_kind) :: bid ! local block address for this block
-
 !-----------------------------------------------------------------------
-!  ECOSYS DRIVER modules 3D source-sink terms
+!  ECOSYS DRIVER modules do not compute and store 3D source-sink terms
 !-----------------------------------------------------------------------
-   if (ecosys_on) then
-      call ecosys_driver_set_global_scalars('interior_tendency')
-
-      call ecosys_driver_set_interior_forcing(FRACR_BIN, QSW_RAW_BIN, QSW_BIN)
-
-      !$OMP PARALLEL DO PRIVATE(iblock, this_block, bid)
-      do iblock = 1, nblocks_clinic
-
-         this_block = get_block(blocks_clinic(iblock), iblock)
-         bid = this_block%local_id
-
-         call ecosys_driver_set_interior(&
-              TRACER(:, :, :, ecosys_driver_ind_begin:ecosys_driver_ind_end, oldtime, bid), &
-              TRACER(:, :, :, ecosys_driver_ind_begin:ecosys_driver_ind_end, curtime, bid), &
-              ecosys_source_sink_3d(:, :, :, ecosys_driver_ind_begin:ecosys_driver_ind_end, bid), &
-              this_block)
-
-      end do
-      !$OMP END PARALLEL DO
-
-      call ecosys_driver_comp_global_averages('interior_tendency')
-   end if
 
 !-----------------------------------------------------------------------
 !  CFC does not compute and store 3D source-sink terms
-!-----------------------------------------------------------------------
-
-!-----------------------------------------------------------------------
-!  SF6 does not compute and store 3D source-sink terms
 !-----------------------------------------------------------------------
 
 !-----------------------------------------------------------------------
@@ -952,11 +837,19 @@
 !-----------------------------------------------------------------------
 
 !-----------------------------------------------------------------------
-!  ABIO DIC & DIC 14 does not compute and store 3D source-sink terms
+!  MOBY block
 !-----------------------------------------------------------------------
 
+  if (moby_on) then
+     call moby_set_interior_3D (                               &
+         TRACER(:,:,:,1,oldtime,:), TRACER(:,:,:,1,curtime,:), &
+         TRACER(:,:,:,2,oldtime,:), TRACER(:,:,:,2,curtime,:), &
+         TRACER(:,:,:,moby_ind_begin:moby_ind_end,oldtime,:) , &
+         TRACER(:,:,:,moby_ind_begin:moby_ind_end,curtime,:)   )
+  endif
+
 !-----------------------------------------------------------------------
-!  IRF does not compute and store 3D source-sink terms
+!  ABIO DIC & DIC 14 does not compute and store 3D source-sink terms
 !-----------------------------------------------------------------------
 
 !-----------------------------------------------------------------------
@@ -974,9 +867,7 @@
 ! !IROUTINE: set_sflux_passive_tracers
 ! !INTERFACE:
 
- subroutine set_sflux_passive_tracers(U10_SQR,ICE_FRAC,PRESS,ATM_FINE_DUST_FLUX,ATM_COARSE_DUST_FLUX,SEAICE_DUST_FLUX, &
-                                      ATM_BLACK_CARBON_FLUX,SEAICE_BLACK_CARBON_FLUX, &
-                                      lvsf_river,MASK_ESTUARY,vsf_river_correction,STF,STF_RIV)
+ subroutine set_sflux_passive_tracers(U10_SQR,ICE_FRAC,PRESS,STF)
 
 ! !DESCRIPTION:
 !  call subroutines for each tracer module that compute surface fluxes
@@ -986,28 +877,15 @@
 
 ! !INPUT PARAMETERS:
 
-   real (r8), dimension(nx_block,ny_block,max_blocks_clinic), intent(in) :: &
-      U10_SQR,                  & ! 10m wind speed squared
-      ICE_FRAC,                 & ! sea ice fraction (non-dimensional)
-      PRESS,                    & ! sea level atmospheric pressure (Pascals)
-      ATM_FINE_DUST_FLUX,       & ! fine dust flux from atm (g/cm^2/s)
-      ATM_COARSE_DUST_FLUX,     & ! coarse dust flux from atm (g/cm^2/s)
-      SEAICE_DUST_FLUX,         & ! coarse dust flux from seaice (g/cm^2/s)
-      ATM_BLACK_CARBON_FLUX,    & ! black carbon flux from atm (g/cm^2/s)
-      SEAICE_BLACK_CARBON_FLUX, & ! black carbon flux from seaice (g/cm^2/s)
-      MASK_ESTUARY                ! mask for estuary model, 1 where it runs and 0 elsewhere
-
-  logical (log_kind), intent(in) :: &
-      lvsf_river
-
-   real (r8), dimension(nt), intent(in) :: &
-      vsf_river_correction ! per-tracer correction for using local tracer concenctration in application of ROFF_F
+   real (r8), dimension(nx_block,ny_block,max_blocks_clinic), intent(in) ::   &
+      U10_SQR,  & ! 10m wind speed squared
+      ICE_FRAC, & ! sea ice fraction (non-dimensional)
+      PRESS       ! sea level atmospheric pressure (Pascals)
 
 ! !INPUT/OUTPUT PARAMETERS:
 
    real (r8), dimension(nx_block,ny_block,nt,max_blocks_clinic), intent(inout) :: &
-      STF,               & ! surface tracer fluxes
-      STF_RIV              ! riverine tracer fluxes
+      STF   ! surface fluxes for tracers
 
 !EOP
 !BOC
@@ -1015,10 +893,10 @@
 !  local variables
 !-----------------------------------------------------------------------
 
-   logical (log_kind) :: first_call = .true.
+   logical (kind=log_kind) :: first_call = .true.
    real (r8)          :: ref_val
    integer (int_kind) :: iblock, n
-   real (r8), dimension(nx_block,ny_block,nblocks_clinic) :: STF2_m_river_correction
+
 
 !-----------------------------------------------------------------------
 
@@ -1046,26 +924,13 @@
 !-----------------------------------------------------------------------
 
    if (ecosys_on) then
-      call ecosys_driver_set_sflux_forcing( &
-         U10_SQR, ICE_FRAC, PRESS, ATM_FINE_DUST_FLUX, ATM_COARSE_DUST_FLUX, SEAICE_DUST_FLUX, &
-         ATM_BLACK_CARBON_FLUX, SEAICE_BLACK_CARBON_FLUX, &
-         SST_FILT, SSS_FILT)
-
-      call ecosys_driver_set_global_scalars('surface_flux')
-
-      !$OMP PARALLEL DO PRIVATE(iblock)
-      do iblock = 1,nblocks_clinic
-         call ecosys_driver_set_sflux(                                                  &
-            TRACER(:,:,1,ecosys_driver_ind_begin:ecosys_driver_ind_end,oldtime,iblock), &
-            TRACER(:,:,1,ecosys_driver_ind_begin:ecosys_driver_ind_end,curtime,iblock), &
-            STF(:,:,ecosys_driver_ind_begin:ecosys_driver_ind_end,iblock),              &
-            STF_RIV(:,:,ecosys_driver_ind_begin:ecosys_driver_ind_end,iblock), iblock)
-         end do
-      !$OMP END PARALLEL DO
-
-      call ecosys_driver_post_set_sflux()
-
-      call ecosys_driver_comp_global_averages('surface_flux')
+      call ecosys_driver_set_sflux(ciso_on,    &
+         SHF_QSW_RAW, SHF_QSW,                                     &
+         U10_SQR, ICE_FRAC, PRESS,                                 &
+         SST_FILT, SSS_FILT,                                       &
+         TRACER(:,:,1,ecosys_driver_ind_begin:ecosys_driver_ind_end,oldtime,:),  &
+         TRACER(:,:,1,ecosys_driver_ind_begin:ecosys_driver_ind_end,curtime,:),  &
+         STF(:,:,ecosys_driver_ind_begin:ecosys_driver_ind_end,:))
    end if
 
 !-----------------------------------------------------------------------
@@ -1081,20 +946,21 @@
    end if
 
 !-----------------------------------------------------------------------
-!  SF6 block
-!-----------------------------------------------------------------------
-
-   if (sf6_on) then
-      call sf6_set_sflux(U10_SQR, ICE_FRAC, PRESS,                 &
-         SST_FILT, SSS_FILT,                                       &
-         TRACER(:,:,1,sf6_ind_begin:sf6_ind_end,oldtime,:),        &
-         TRACER(:,:,1,sf6_ind_begin:sf6_ind_end,curtime,:),        &
-         STF(:,:,sf6_ind_begin:sf6_ind_end,:))
-   end if
-
-!-----------------------------------------------------------------------
 !  IAGE does not have surface fluxes
 !-----------------------------------------------------------------------
+
+!-----------------------------------------------------------------------
+!  MOBY block
+!-----------------------------------------------------------------------
+
+   if (moby_on) then
+      call moby_set_sflux(                                     &
+         SHF_QSW_RAW, SHF_QSW,                                 &
+         U10_SQR, ICE_FRAC, PRESS,                             &
+         TRACER(:,:,1,moby_ind_begin:moby_ind_end,oldtime,:),  &
+         TRACER(:,:,1,moby_ind_begin:moby_ind_end,curtime,:),  &
+         STF(:,:,moby_ind_begin:moby_ind_end,:))
+   end if
 
 !-----------------------------------------------------------------------
 !  ABIO DIC & DIC14 block
@@ -1110,42 +976,17 @@
 
 
 !-----------------------------------------------------------------------
-!  IRF does not have surface fluxes
-!-----------------------------------------------------------------------
-
-!-----------------------------------------------------------------------
-!  add virtual fluxes for tracers that use them
-!  add STF_RIV to STF where the ebm is not handling it
+!  add virtual fluxes for tracers that specify a non-zero ref_val
 !-----------------------------------------------------------------------
 
    !$OMP PARALLEL DO PRIVATE(iblock,n,ref_val)
    do iblock = 1,nblocks_clinic
-      ! If lvsf_river is enabled, do not include vsf_river_correction(2) when
-      ! computing tracer virtual flux. vsf_river_correction is only present in STF(2)
-      ! where MASK_ESTUARY=1.
-      if (lvsf_river) then
-         STF2_m_river_correction(:,:,iblock) = STF(:,:,2,iblock) - &
-            MASK_ESTUARY(:,:,iblock)*vsf_river_correction(2)
-      else
-         STF2_m_river_correction(:,:,iblock) = STF(:,:,2,iblock)
-      endif
       do n=3,nt
-         if (lhas_vflux(n)) then
-            ref_val = tracer_ref_val(n)
+         ref_val = tracer_ref_val(n)
+         if (ref_val /= c0) then
             FvPER(:,:,n,iblock) = &
-               (ref_val/(ocn_ref_salinity*ppt_to_salt)) * STF2_m_river_correction(:,:,iblock)
-            ! Add global correction for salt conservation, correcting for using
-            ! local tracer concentration in application of ROFF_F.
-            ! Correction is applied where MASK_ESTUARY=1.
-            if (lvsf_river) then
-               FvPER(:,:,n,iblock) = FvPER(:,:,n,iblock) + &
-                  MASK_ESTUARY(:,:,iblock)*vsf_river_correction(n)
-            endif
+               (ref_val/(ocn_ref_salinity*ppt_to_salt)) * STF(:,:,2,iblock)
             STF(:,:,n,iblock) = STF(:,:,n,iblock) + FvPER(:,:,n,iblock)
-         endif
-         if (lhas_riv_flux(n)) then
-            STF(:,:,n,iblock) = STF(:,:,n,iblock) + &
-               (c1-MASK_ESTUARY(:,:,iblock))*STF_RIV(:,:,n,iblock)
          endif
       end do
    end do
@@ -1190,7 +1031,7 @@
 !-----------------------------------------------------------------------
 
    if (ecosys_on) then
-      call ecosys_driver_write_restart(restart_file, action)
+      call ecosys_driver_write_restart(ciso_on,restart_file, action)
    end if
 
 !-----------------------------------------------------------------------
@@ -1198,12 +1039,16 @@
 !-----------------------------------------------------------------------
 
 !-----------------------------------------------------------------------
-!  SF6 does not write additional restart fields
+!  IAGE does not write additional restart fields
 !-----------------------------------------------------------------------
 
 !-----------------------------------------------------------------------
-!  IAGE does not write additional restart fields
+!  MOBY block
 !-----------------------------------------------------------------------
+
+   if (moby_on) then
+      call moby_write_restart(restart_file, action)
+   end if
 
 !-----------------------------------------------------------------------
 !  ABIO DIC & DIC14  block
@@ -1211,10 +1056,6 @@
  if (abio_dic_dic14_on) then
       call abio_dic_dic14_write_restart(restart_file, action)
    end if
-
-!-----------------------------------------------------------------------
-!  IRF does not write additional restart fields
-!-----------------------------------------------------------------------
 
 !-----------------------------------------------------------------------
 !EOC
@@ -1226,7 +1067,7 @@
 ! !IROUTINE: reset_passive_tracers
 ! !INTERFACE:
 
- subroutine reset_passive_tracers(TRACER_OLD, TRACER_RESET, bid)
+ subroutine reset_passive_tracers(TRACER_NEW, bid)
 
 ! !DESCRIPTION:
 !  call subroutines for each tracer module to reset tracer values
@@ -1240,9 +1081,8 @@
 
 ! !INPUT/OUTPUT PARAMETERS:
 
-   real (r8), dimension(nx_block,ny_block,km,nt), intent(inout) :: &
-      TRACER_OLD,   & ! all tracers at old time for a given block
-      TRACER_RESET    ! all tracers at time level being reset for a given block
+   real(r8), dimension(nx_block,ny_block,km,nt), intent(inout) :: &
+      TRACER_NEW      ! all tracers at new time for a given block
 
 !EOP
 !BOC
@@ -1256,31 +1096,26 @@
 !-----------------------------------------------------------------------
 
 !-----------------------------------------------------------------------
-!  SF6 does not reset values
-!-----------------------------------------------------------------------
-
-!-----------------------------------------------------------------------
 !  IAGE block
 !-----------------------------------------------------------------------
 
    if (iage_on) then
       call iage_reset(  &
-         TRACER_RESET(:,:,:,iage_ind_begin:iage_ind_end), bid)
+         TRACER_NEW(:,:,:,iage_ind_begin:iage_ind_end), bid)
+   end if
+
+!-----------------------------------------------------------------------
+!  MOBY block
+!-----------------------------------------------------------------------
+
+   if (moby_on) then
+      call moby_reset(  &
+         TRACER_NEW(:,:,:,moby_ind_begin:moby_ind_end), bid)
    end if
 
 !-----------------------------------------------------------------------
 !  ABIO DIC & DIC14 does not reset values
 !-----------------------------------------------------------------------
-
-!-----------------------------------------------------------------------
-!  IRF block
-!-----------------------------------------------------------------------
-
-   if (IRF_on) then
-      call IRF_reset( &
-         TRACER_OLD(:,:,:,IRF_ind_begin:IRF_ind_end), &
-         TRACER_RESET(:,:,:,IRF_ind_begin:IRF_ind_end) )
-   end if
 
 !-----------------------------------------------------------------------
 !EOC
@@ -1325,7 +1160,6 @@
    if (mix_pass /= 1) then
       do n = 3, nt
          call accumulate_tavg_field(TRACER(:,:,k,n,curtime,bid),tavg_var(n),bid,k)
-         call accumulate_tavg_field(TRACER(:,:,k,n,curtime,bid),tavg_var_2(n),bid,k)
 
          if (accumulate_tavg_now(tavg_var_sqr(n))) then
             WORK = TRACER(:,:,k,n,curtime,bid) ** 2
@@ -1370,13 +1204,84 @@
 
 !***********************************************************************
 !BOP
+! !IROUTINE: tavg_passive_tracers_baroclinic_correct
+! !INTERFACE:
+
+ subroutine tavg_passive_tracers_baroclinic_correct(bid)
+
+! !DESCRIPTION:
+!  accumulate common tavg fields for tracers
+!
+! !REVISION HISTORY:
+!  same as module
+
+! !INPUT PARAMETERS:
+
+   integer (int_kind), intent(in) :: bid  ! vertical level index
+
+!EOP
+!BOC
+!-----------------------------------------------------------------------
+!  local variables
+!-----------------------------------------------------------------------
+
+   integer (int_kind) ::  &
+      n,                  &! tracer index
+      k                    ! vertical level index
+
+   real (r8) :: &
+      ztop                 ! depth of top of cell
+
+   real (r8), dimension(nx_block,ny_block) :: &
+      WORK
+
+!-----------------------------------------------------------------------
+
+   do n = 3, nt
+      if (accumulate_tavg_now(tavg_var_tend_zint_100m(n))) then
+            ztop = c0
+            do k=1,km
+               if (k > 1) ztop = zw(k-1)
+               if (ztop >= 100.0e2_r8) exit
+               if (sfc_layer_type == sfc_layer_varthick .and. k == 1) then
+                  WORK = merge( &
+                     ((dz(k)+PSURF(:,:,newtime,bid)/grav) &
+                      * TRACER(:,:,k,n,newtime,bid) - &
+                      (dz(k)+PSURF(:,:,oldtime,bid)/grav) &
+                      * TRACER(:,:,k,n,oldtime,bid)) / c2dtt(k), c0, k<=KMT(:,:,bid))
+               else
+                  if (partial_bottom_cells) then
+                     WORK = merge(min(100.0e2_r8 - ztop, DZT(:,:,k,bid)) &
+                                  * (TRACER(:,:,k,n,newtime,bid) &
+                                     - TRACER(:,:,k,n,oldtime,bid)) / c2dtt(k), &
+                                  c0, k<=KMT(:,:,bid))
+                  else
+                     WORK = merge(min(100.0e2_r8 - ztop, dz(k)) &
+                                  * (TRACER(:,:,k,n,newtime,bid) &
+                                     - TRACER(:,:,k,n,oldtime,bid)) / c2dtt(k), &
+                                  c0, k<=KMT(:,:,bid))
+                  endif
+               endif
+               call accumulate_tavg_field(WORK,tavg_var_tend_zint_100m(n),bid,k)
+            end do
+      endif
+   enddo
+
+!-----------------------------------------------------------------------
+!EOC
+
+ end subroutine tavg_passive_tracers_baroclinic_correct
+
+
+!***********************************************************************
+!BOP
 ! !IROUTINE: passive_tracers_tavg_sflux
 ! !INTERFACE:
 
- subroutine passive_tracers_tavg_sflux(STF, STF_RIV, lvsf_river, MASK_ESTUARY, FLUX_ROFF_VSF_SRF)
+ subroutine passive_tracers_tavg_sflux(STF)
 
 ! !DESCRIPTION:
-!  accumulate common tavg fields for surface tracer fluxes
+!  accumulate common tavg fields for tracer surface fluxes
 !  call accumation subroutines for tracer modules that have additional
 !     tavg fields related to surface fluxes
 !
@@ -1385,18 +1290,8 @@
 
 ! !INPUT PARAMETERS:
 
-  real (r8), dimension(nx_block,ny_block,nt,max_blocks_clinic), intent(in) :: &
-      STF,               & ! surface tracer fluxes
-      STF_RIV              ! riverine tracer fluxes
-
-  logical(log_kind), intent(in) :: &
-      lvsf_river
-
-  real (r8), dimension(nx_block,ny_block,max_blocks_clinic), intent(in) :: &
-      MASK_ESTUARY         ! mask for estuary model, 1 where it runs and 0 elsewhere
-
-  real (r8), dimension(nx_block,ny_block,nt,max_blocks_clinic), intent(in) :: &
-      FLUX_ROFF_VSF_SRF    !
+  real(r8), dimension(nx_block,ny_block,nt,max_blocks_clinic), &
+      intent(in) :: STF
 
 !EOP
 !BOC
@@ -1406,36 +1301,16 @@
 
    integer (int_kind) :: iblock, n
 
-   real (r8), dimension(nx_block,ny_block) :: WORK
 
 !-----------------------------------------------------------------------
 !  accumulate surface flux and FvPER flux for all tracers
 !-----------------------------------------------------------------------
 
-   !$OMP PARALLEL DO PRIVATE(iblock,n,WORK)
+   !$OMP PARALLEL DO PRIVATE(iblock,n)
    do iblock = 1,nblocks_clinic
       do n = 3, nt
          call accumulate_tavg_field(STF(:,:,n,iblock),tavg_var_stf(n),iblock,1)
-         if (lhas_riv_flux(n)) then
-            call accumulate_tavg_field(STF_RIV(:,:,n,iblock),tavg_var_stf_riv(n),iblock,1)
-
-            ! explicitly include STF_RIV in STF_var where ebm is handling it
-            if (lvsf_river) then
-              WORK = MASK_ESTUARY(:,:,iblock)*STF_RIV(:,:,n,iblock)
-              call accumulate_tavg_field(WORK,tavg_var_stf(n),iblock,1)
-            endif
-         endif
-         if (lhas_vflux(n)) then
-            call accumulate_tavg_field(FvPER(:,:,n,iblock),tavg_var_fvper(n),iblock,1)
-
-            ! explicitly include FLUX_ROFF_VSF_SRF in STF_var and FvPER_var
-            ! note that FLUX_ROFF_VSF_SRF is positive up and that MASK_ESTUARY is already applied to it
-            if (lvsf_river) then
-              WORK = -FLUX_ROFF_VSF_SRF(:,:,n,iblock)
-              call accumulate_tavg_field(WORK,tavg_var_stf(n),iblock,1)
-              call accumulate_tavg_field(WORK,tavg_var_fvper(n),iblock,1)
-            endif
-         endif
+         call accumulate_tavg_field(FvPER(:,:,n,iblock),tavg_var_fvper(n),iblock,1)
       enddo
    enddo
    !$OMP END PARALLEL DO
@@ -1449,11 +1324,8 @@
 !-----------------------------------------------------------------------
 
    if (ecosys_on) then
-     !$OMP PARALLEL DO PRIVATE(iblock)
-     do iblock = 1,nblocks_clinic
-       call ecosys_driver_tavg_forcing(STF(:,:,ecosys_driver_ind_begin:ecosys_driver_ind_end,iblock), iblock)
-     end do
-     !$OMP END PARALLEL DO
+     call ecosys_driver_tavg_forcing(ciso_on, &
+         STF(:,:,ecosys_driver_ind_begin:ecosys_driver_ind_end,:))
    end if
 
 !-----------------------------------------------------------------------
@@ -1465,16 +1337,16 @@
    end if
 
 !-----------------------------------------------------------------------
-!  SF6 block
-!-----------------------------------------------------------------------
-
-   if (sf6_on) then
-      call sf6_tavg_forcing
-   end if
-
-!-----------------------------------------------------------------------
 !  IAGE does not have additional sflux tavg fields
 !-----------------------------------------------------------------------
+
+!-----------------------------------------------------------------------
+!  MOBY block
+!-----------------------------------------------------------------------
+
+   if (moby_on) then
+     call moby_tavg_forcing(STF(:,:,moby_ind_begin:moby_ind_end,:))
+   endif
 
 !-----------------------------------------------------------------------
 !  ABIO DIC & DIC14 block
@@ -1483,10 +1355,6 @@
    if (abio_dic_dic14_on) then
       call abio_dic_dic14_tavg_forcing
    end if
-
-!-----------------------------------------------------------------------
-!  IRF does not have additional sflux tavg fields
-!-----------------------------------------------------------------------
 
 !-----------------------------------------------------------------------
 !EOC
@@ -1534,11 +1402,13 @@
    !$OMP PARALLEL DO PRIVATE(iblock,n,ref_val,WORK)
    do iblock = 1,nblocks_clinic
       do n = 3, nt
-         if (lhas_vflux(n)) then
-           ref_val = tracer_ref_val(n)
-           WORK = ref_val * (c1 - sea_ice_salinity / ocn_ref_salinity) * &
-              cp_over_lhfusion * max(c0, QICE(:,:,iblock))
-           call accumulate_tavg_field(WORK,tavg_var_fvice(n),iblock,1,c1)
+         if (accumulate_tavg_now(tavg_var_fvice(n))) then
+              ref_val = tracer_ref_val(n)
+              if (ref_val /= c0)  then
+                 WORK = ref_val * (c1 - sea_ice_salinity / ocn_ref_salinity) * &
+                    cp_over_lhfusion * max(c0, QICE(:,:,iblock))
+                 call accumulate_tavg_field(WORK,tavg_var_fvice(n),iblock,1,c1)
+              endif
          endif
       enddo
    enddo
@@ -1569,7 +1439,7 @@
 
 ! !OUTPUT PARAMETERS:
 
-   real (r8) :: tracer_ref_val
+   real(r8) :: tracer_ref_val
 
 !EOP
 !BOC
@@ -1586,21 +1456,29 @@
 
    if (ecosys_on) then
       if (ind >= ecosys_driver_ind_begin .and. ind <= ecosys_driver_ind_end) then
-         tracer_ref_val = ecosys_driver_tracer_ref_val(ind - ecosys_driver_ind_begin + 1)
+         tracer_ref_val = &
+            ecosys_driver_tracer_ref_val(ciso_on,ind-ecosys_driver_ind_begin+1)
       endif
    endif
+
 
 !-----------------------------------------------------------------------
 !  CFC does not use virtual fluxes
 !-----------------------------------------------------------------------
 
 !-----------------------------------------------------------------------
-!  SF6 does not use virtual fluxes
+!  IAGE does not use virtual fluxes
 !-----------------------------------------------------------------------
 
 !-----------------------------------------------------------------------
-!  IAGE does not use virtual fluxes
+!  MOBY block
 !-----------------------------------------------------------------------
+
+   if (moby_on) then
+      if (ind >= moby_ind_begin .and. ind <= moby_ind_end) then
+         tracer_ref_val = moby_tracer_ref_val(ind-moby_ind_begin+1)
+      endif
+   endif
 
 !-----------------------------------------------------------------------
 !  ABIO DIC & DIC14 block
@@ -1620,68 +1498,13 @@
 
 !***********************************************************************
 !BOP
-! !IROUTINE: passive_tracers_timer_print_all
-! !INTERFACE:
-
- subroutine passive_tracers_timer_print_all(stats)
-
-! !DESCRIPTION:
-!  If passive tracer packages provide their own timing numbers (rather
-!  than using POP's timers), print them here
-
-! !REVISION HISTORY:
-!  same as module
-
-   use ecosys_driver, only : ecosys_driver_print_marbl_timers
-
-! !INPUT PARAMETERS:
-
-   logical (log_kind), optional, intent(in) :: stats
-
-!EOP
-!BOC
-
-!-----------------------------------------------------------------------
-!  ECOSYS (and CISO) timers come from MARBL library
-!-----------------------------------------------------------------------
-
-  if (ecosys_on) then
-    call ecosys_driver_print_marbl_timers(stats)
-  end if
-
-!-----------------------------------------------------------------------
-!  CFC does not have separate timers
-!-----------------------------------------------------------------------
-
-!-----------------------------------------------------------------------
-!  SF6 does not have separate timers
-!-----------------------------------------------------------------------
-
-!-----------------------------------------------------------------------
-!  IAGE does not have separate timers
-!-----------------------------------------------------------------------
-
-!-----------------------------------------------------------------------
-!  ABIO DIC & DIC14 do not have separate timers
-!-----------------------------------------------------------------------
-
-!-----------------------------------------------------------------------
-!  IRF does not have separate timers
-!-----------------------------------------------------------------------
-
-!EOC
-
- end subroutine passive_tracers_timer_print_all
-
-!***********************************************************************
-!BOP
 ! !IROUTINE: passive_tracers_send_time
 ! !INTERFACE:
 
  subroutine passive_tracers_send_time
 
 ! !DESCRIPTION:
-!  sends POP time information
+!  sends POP time information to the MOBY moby model
 !
 ! !REVISION HISTORY:
 !  same as module
@@ -1694,15 +1517,14 @@
 !EOP
 !BOC
 
-!-----------------------------------------------------------------------
-!  IRF does not use virtual fluxes
-!-----------------------------------------------------------------------
+   if (moby_on) then
+     call POP_mobySendTime
+   endif
 
 !-----------------------------------------------------------------------
 !EOC
 
 end subroutine passive_tracers_send_time
-
 !***********************************************************************
 
  end module passive_tracers
