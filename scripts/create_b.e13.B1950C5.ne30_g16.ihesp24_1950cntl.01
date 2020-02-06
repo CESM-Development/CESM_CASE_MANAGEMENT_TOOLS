@@ -50,8 +50,9 @@ cd $CASEROOT
 mv user_nl_cam user_nl_cam.`date +%m%d-%H%M`
 mv user_nl_clm user_nl_clm.`date +%m%d-%H%M`
 mv user_nl_cice user_nl_cice.`date +%m%d-%H%M`
-cp /glade/u/home/nanr/cases/cesm13/ihesp/Low-Res-ne30_g16/namelists/* $CASEROOT
-cp /glade/u/home/nanr/cases/cesm13/ihesp/Low-Res-ne30_g16/src.pop/* $CASEROOT/SourceMods/src.pop/
+
+cp /glade/work/nanr/cesm_tags/CASE_tools/ihesp-tools/user_nl_files/* $CASEROOT
+cp /glade/work/nanr/cesm_tags/CASE_tools/ihesp-tools/SourceMods/src.pop/* $CASEROOT/SourceMods/src.pop/
 
 cp /glade/scratch/fredc/archive/b.e13.B1950C5.ne30_g16.cesm-ihesp-NCPL-CESM1_MOD-ROF2OCN_RMAP_1950cntl.01/rest/0031-01-01-00000/* /glade/scratch/nanr/$CASE/run
 
