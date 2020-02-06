@@ -1,0 +1,58 @@
+#!/bin/csh -f
+### set env variables
+
+
+## We need to create
+set COMPSET = B1950C5
+set RESOLN  = ne30_g16
+set MACHINE = cheyenne
+set TAG     = ihesp24
+setenv CESMROOT /gpfs/fs1/work/nanr/cesm_tags/cesm-ihesp-hires1.0.24/
+
+set mbr = 1
+setenv CASE b.e13.${COMPSET}.${RESOLN}.${TAG}_1950cntl.00${mbr}
+#setenv CASEROOT /global/project/projectdirs/ccsm1/people/nanr/cases/cesm1_3/testCases/$CASE
+setenv CASEROOT /glade/work/nanr/ihesp-HiRes/cases/ne30_g16/$CASE
+
+
+# $CESMROOT/scripts/create_newcase -case $CASEROOT -res $RESOLN  -mach $MACHINE -compset $COMPSET -compiler $COMPILER
+  $CESMROOT/cime/scripts/create_newcase --case $CASEROOT --res $RESOLN  --mach $MACHINE --compset $COMPSET --run-unsupported
+
+cd $CASEROOT
+
+### modify case parameters
+./xmlchange RUN_TYPE=branch
+./xmlchange STOP_OPTION=nyears
+./xmlchange RUN_STARTDATE=0031-01-01
+./xmlchange RUN_REFCASE=b.e13.B1950C5.ne30_g16.cesm-ihesp-NCPL-CESM1_MOD-ROF2OCN_RMAP_1950cntl.01
+./xmlchange RUN_REFDATE=0031-01-01
+./xmlchange STOP_N=5
+./xmlchange GET_REFCASE=FALSE
+./xmlchange DIN_LOC_ROOT='/glade/p/cesm/cseg/inputdata'
+./xmlchange DIN_LOC_ROOT_CLMFORC='/glade/p/cesm/cseg/inputdata/atm/datm7'
+
+ ./xmlchange NTASKS_ATM=2160
+ ./xmlchange NTASKS_LND=864
+ ./xmlchange NTASKS_ICE=1296
+ ./xmlchange ROOTPE_ICE=864
+ ./xmlchange NTASKS_OCN=1296
+ ./xmlchange ROOTPE_OCN=2160
+ ./xmlchange NTASKS_CPL=2160
+ ./xmlchange NTASKS_ROF=864
+ ./xmlchange --append CAM_CONFIG_OPTS=-cosp
+
+
+./xmlchange RUNDIR='/glade/scratch/nanr/$CASE/run'
+./xmlchange EXEROOT='/glade/scratch/nanr/$CASE/bld'
+
+./case.setup
+
+mv user_nl_cam user_nl_cam.`date +%m%d-%H%M`
+mv user_nl_clm user_nl_clm.`date +%m%d-%H%M`
+mv user_nl_cice user_nl_cice.`date +%m%d-%H%M`
+cp /glade/u/home/nanr/cases/cesm13/ihesp/Low-Res-ne30_g16/namelists/* $CASEROOT
+cp /glade/u/home/nanr/cases/cesm13/ihesp/Low-Res-ne30_g16/src.pop/* $CASEROOT/SourceMods/src.pop/
+
+cp /glade/scratch/fredc/archive/b.e13.B1950C5.ne30_g16.cesm-ihesp-NCPL-CESM1_MOD-ROF2OCN_RMAP_1950cntl.01/rest/0031-01-01-00000/* /glade/scratch/nanr/$CASE/run
+
+#qcmd -- ./$CASE.build
