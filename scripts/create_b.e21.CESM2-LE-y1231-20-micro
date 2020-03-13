@@ -51,7 +51,7 @@ echo $CASEROOT
 
 if ( $mbr == $smbr ) then
   set masterroot = $CASEROOT
-  $CESMROOT/cime/scripts/create_newcase --case $CASEROOT --res $RESOLN  --mach $MACHINE --compset $COMPSET --workflow=timeseries --output-root /mnt/lustre/share/CESM/output/
+  $CESMROOT/cime/scripts/create_newcase --case $CASEROOT --res $RESOLN  --mach $MACHINE --compset $COMPSET --output-root /mnt/lustre/share/CESM/output/
   cd $CASEROOT
   
   ./case.setup
