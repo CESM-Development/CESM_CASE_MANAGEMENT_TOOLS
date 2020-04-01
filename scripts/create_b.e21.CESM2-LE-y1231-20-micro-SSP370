@@ -6,14 +6,14 @@ source $POSTPROCESS_PATH/cesm-env2/bin/activate
 #if ($USER==jedwards)
 #set test=test
 #else
-set test=
+set test=nanr
 #endif
 
 #Start years:  1231, 1251, 1281, 1301
 
 setenv CESMROOT /mnt/lustre/share/CESM/cesm2.1.2
 
-set COMPSET = BHISTcmip6
+set COMPSET = BSSP370cmip6
 set MACHINE = aleph
 set RESOLN = f09_g17
 set RESUBMIT = 1
@@ -21,7 +21,7 @@ set STOP_N=10
 set STOP_OPTION=nyears
 
 set smbr =  1
-set embr =  10
+set embr =  2
 
 @ mb = $smbr
 @ me = $embr
@@ -33,10 +33,13 @@ foreach mbr ( `seq $mb $me` )
 
 if    ($mbr < 10) then
 	setenv CASENAME b.e21${test}.${COMPSET}.${RESOLN}.LE2-${USE_REFDATE}.00${mbr}
+        set USE_REFCASE=b.e21.BHISTcmip6.f09_g17.LE2-${USE_REFDATE}.00${mbr}
 else if ($mbr >= 10 && $mbr < 100) then
 	setenv CASENAME b.e21${test}.${COMPSET}.${RESOLN}.LE2-${USE_REFDATE}.0${mbr}
+        set USE_REFCASE=b.e21.BHISTcmip6.f09_g17.LE2-${USE_REFDATE}.0${mbr}
 else
 	setenv CASENAME b.e21${test}.${COMPSET}.${RESOLN}.LE2-${USE_REFDATE}.${mbr}
+        set USE_REFCASE=b.e21.BHISTcmip6.f09_g17.LE2-${USE_REFDATE}.${mbr}
 endif
 setenv CASEROOT /mnt/lustre/share/CESM/${test}/$CASENAME
 
@@ -61,7 +64,7 @@ if ( $mbr == $smbr ) then
   mv user_nl_cpl  user_nl_cpl.`date +%m%d-%H%M`
   mv user_nl_cice user_nl_cice.`date +%m%d-%H%M`
   mv user_nl_mosart user_nl_mosart.`date +%m%d-%H%M`
-  cp $CESM2_LE_TOOLS_ROOT/user_nl_files/macro-micro-80/user_nl_cam  $CASEROOT/
+  cp $CESM2_LE_TOOLS_ROOT/user_nl_files/macro-micro-80/user_nl_cam-SSP370  $CASEROOT/user_nl_cam
   cp $CESM2_LE_TOOLS_ROOT/user_nl_files/macro-micro-80/user_nl_clm  $CASEROOT/
   cp $CESM2_LE_TOOLS_ROOT/user_nl_files/macro-micro-80/user_nl_cpl  $CASEROOT/
   cp $CESM2_LE_TOOLS_ROOT/user_nl_files/macro-micro-80/user_nl_cice $CASEROOT/
@@ -70,36 +73,19 @@ if ( $mbr == $smbr ) then
   mv SourceMods SourceMods.`date +%m%d-%H%M`
   cp -r $CESM2_LE_TOOLS_ROOT/SourceMods $CASEROOT/
 
-
+  cp     /mnt/lustre/share/CESM/archive/${USE_REFCASE}/rest/2015-01-01-00000/rpointer* /mnt/lustre/share/CESM/output/${CASENAME}/run/
+  ln -s  /mnt/lustre/share/CESM/archive/${USE_REFCASE}/rest/2015-01-01-00000/b.e21.BHISTcmip6.f09_g17.LE2-1231* /mnt/lustre/share/CESM/output/${CASENAME}/run/.
  
-  ./xmlchange RUN_REFCASE=b.e21.B1850.f09_g17.CMIP6-piControl.001
-  ./xmlchange RUN_REFDATE=${USE_REFDATE}-01-01
+  ./xmlchange RUN_REFCASE=${USE_REFCASE}
+  ./xmlchange RUN_REFDATE=2015-01-01
   ./xmlchange STOP_N=$STOP_N
   ./xmlchange STOP_OPTION=$STOP_OPTION
   ./xmlchange RESUBMIT=$RESUBMIT
   ./xmlchange DOUT_S_ROOT=/mnt/lustre/share/CESM/archive/$CASENAME
-
-# =========================
-# add pertlim perturbation to micro members 2 .. N 
-# =========================
-if ($mbr != 1) then
-cat >> head.${mbr} << EOF
-! micro-member perturbation
-pertlim = ${mbr}.d-14
-
-EOF
-
-mv user_nl_cam tmp.cam
-cat head.${mbr} tmp.cam  > user_nl_cam
-rm tmp.cam head.${mbr}
-
-endif
-# =========================
-# END - pertlim 
-# =========================
+  ./xmlchange GET_REFCASE=FALSE
 
   ./preview_namelists
-  ./case.build >& bld.`date +%m%d-%H%M`
+# ./case.build >& bld.`date +%m%d-%H%M`
   $POSTPROCESS_PATH/cesm-env2/bin/create_postprocess --caseroot $CASEROOT 
 
 # ===================================================================================
@@ -117,28 +103,11 @@ else
   rm -fr postprocess
   $POSTPROCESS_PATH/cesm-env2/bin/create_postprocess --caseroot $CASEROOT 
 
-  ./xmlchange RUN_REFDATE=${USE_REFDATE}-01-01
-  ./xmlchange RESUBMIT=$RESUBMIT
+  cp     /mnt/lustre/share/CESM/archive/${USE_REFCASE}/rest/2015-01-01-00000/rpointer* /mnt/lustre/share/CESM/output/${CASENAME}/run/
+  ln -s  /mnt/lustre/share/CESM/archive/${USE_REFCASE}/rest/2015-01-01-00000/b.e21.BHISTcmip6.f09_g17.LE2-1231* /mnt/lustre/share/CESM/output/${CASENAME}/run/.
 
-# =========================
-# add pertlim perturbation to 
-# micro members 2 .. N 
-# =========================
-if ($mbr != 1) then
-cat >> head.${mbr} << EOF
-! micro-member perturbation
-pertlim = ${mbr}.d-14
-
-EOF
-
-mv user_nl_cam tmp.cam
-cat head.${mbr} tmp.cam  > user_nl_cam
-rm tmp.cam head.${mbr}
-
-endif
-# =========================
-# END - pertlim 
-# =========================
+  ./xmlchange RUN_REFCASE=${USE_REFCASE}
+  ./xmlchange GET_REFCASE=FALSE
 
   ./preview_namelists
 endif
