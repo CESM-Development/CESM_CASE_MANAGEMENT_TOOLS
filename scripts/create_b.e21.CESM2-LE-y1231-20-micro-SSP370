@@ -6,7 +6,7 @@ source $POSTPROCESS_PATH/cesm-env2/bin/activate
 #if ($USER==jedwards)
 #set test=test
 #else
-set test=nanr
+set test=
 #endif
 
 #Start years:  1231, 1251, 1281, 1301
@@ -21,7 +21,7 @@ set STOP_N=10
 set STOP_OPTION=nyears
 
 set smbr =  1
-set embr =  2
+set embr =  10
 
 @ mb = $smbr
 @ me = $embr
@@ -74,7 +74,7 @@ if ( $mbr == $smbr ) then
   cp -r $CESM2_LE_TOOLS_ROOT/SourceMods $CASEROOT/
 
   cp     /mnt/lustre/share/CESM/archive/${USE_REFCASE}/rest/2015-01-01-00000/rpointer* /mnt/lustre/share/CESM/output/${CASENAME}/run/
-  ln -s  /mnt/lustre/share/CESM/archive/${USE_REFCASE}/rest/2015-01-01-00000/b.e21.BHISTcmip6.f09_g17.LE2-1231* /mnt/lustre/share/CESM/output/${CASENAME}/run/.
+  ln -s  /mnt/lustre/share/CESM/archive/${USE_REFCASE}/rest/2015-01-01-00000/b.e21.BHISTcmip6.* /mnt/lustre/share/CESM/output/${CASENAME}/run/.
  
   ./xmlchange RUN_REFCASE=${USE_REFCASE}
   ./xmlchange RUN_REFDATE=2015-01-01
@@ -104,7 +104,7 @@ else
   $POSTPROCESS_PATH/cesm-env2/bin/create_postprocess --caseroot $CASEROOT 
 
   cp     /mnt/lustre/share/CESM/archive/${USE_REFCASE}/rest/2015-01-01-00000/rpointer* /mnt/lustre/share/CESM/output/${CASENAME}/run/
-  ln -s  /mnt/lustre/share/CESM/archive/${USE_REFCASE}/rest/2015-01-01-00000/b.e21.BHISTcmip6.f09_g17.LE2-1231* /mnt/lustre/share/CESM/output/${CASENAME}/run/.
+  ln -s  /mnt/lustre/share/CESM/archive/${USE_REFCASE}/rest/2015-01-01-00000/b.e21.BHISTcmip6.* /mnt/lustre/share/CESM/output/${CASENAME}/run/.
 
   ./xmlchange RUN_REFCASE=${USE_REFCASE}
   ./xmlchange GET_REFCASE=FALSE
