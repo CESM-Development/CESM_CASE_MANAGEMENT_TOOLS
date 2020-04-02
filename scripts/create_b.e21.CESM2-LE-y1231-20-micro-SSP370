@@ -20,6 +20,8 @@ set RESUBMIT = 1
 set STOP_N=10
 set STOP_OPTION=nyears
 
+set rootmbr =  1
+
 set smbr =  1
 set embr =  10
 
@@ -52,7 +54,7 @@ echo $CASEROOT
 # ===================================================================================
 # ===================================================================================
 
-if ( $mbr == $smbr ) then
+if ( $mbr == $rootmbr ) then
   set masterroot = $CASEROOT
   $CESMROOT/cime/scripts/create_newcase --case $CASEROOT --res $RESOLN  --mach $MACHINE --compset $COMPSET --output-root /mnt/lustre/share/CESM/output/
   cd $CASEROOT
