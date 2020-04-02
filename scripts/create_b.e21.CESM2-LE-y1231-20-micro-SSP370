@@ -6,7 +6,7 @@ source $POSTPROCESS_PATH/cesm-env2/bin/activate
 #if ($USER==jedwards)
 #set test=test
 #else
-set test=nanr
+set test=
 #endif
 
 #Start years:  1231, 1251, 1281, 1301
@@ -22,8 +22,8 @@ set STOP_OPTION=nyears
 
 set rootmbr =  1
 
-set smbr =  4
-set embr =  5
+set smbr =  1
+set embr =  10
 
 @ mb = $smbr
 @ me = $embr
