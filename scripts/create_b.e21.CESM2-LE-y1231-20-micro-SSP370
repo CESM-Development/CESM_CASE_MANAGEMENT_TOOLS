@@ -20,6 +20,8 @@ set RESUBMIT = 1
 set STOP_N=10
 set STOP_OPTION=nyears
 
+set rootmbr =  1
+
 set smbr =  1
 set embr =  10
 
@@ -30,6 +32,7 @@ set embr =  10
 
 foreach mbr ( `seq $mb $me` )
 @ USE_REFDATE = 1231 
+
 
 if    ($mbr < 10) then
 	setenv CASENAME b.e21${test}.${COMPSET}.${RESOLN}.LE2-${USE_REFDATE}.00${mbr}
@@ -43,8 +46,22 @@ else
 endif
 setenv CASEROOT /mnt/lustre/share/CESM/${test}/$CASENAME
 
+# ===================================================================================
+# specify master executable
+# ===================================================================================
+if    ($rootmbr < 10) then
+	set    ROOTNAME=b.e21${test}.${COMPSET}.${RESOLN}.LE2-${USE_REFDATE}.00${rootmbr}
+else if ($rootmbr >= 10 && $rootmbr < 100) then
+	set    ROOTNAME=b.e21${test}.${COMPSET}.${RESOLN}.LE2-${USE_REFDATE}.0${rootmbr}
+else
+	set    ROOTNAME=b.e21${test}.${COMPSET}.${RESOLN}.LE2-${USE_REFDATE}.${rootmbr}
+endif
+
+setenv masterroot /mnt/lustre/share/CESM/${test}/$ROOTNAME
+
 
 echo $CASEROOT
+echo $masterroot
 
 # ===================================================================================
 # ===================================================================================
@@ -52,8 +69,7 @@ echo $CASEROOT
 # ===================================================================================
 # ===================================================================================
 
-if ( $mbr == $smbr ) then
-  set masterroot = $CASEROOT
+if ( $mbr == $rootmbr ) then
   $CESMROOT/cime/scripts/create_newcase --case $CASEROOT --res $RESOLN  --mach $MACHINE --compset $COMPSET --output-root /mnt/lustre/share/CESM/output/
   cd $CASEROOT
   
