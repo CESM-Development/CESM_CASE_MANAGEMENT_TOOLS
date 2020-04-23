@@ -60,8 +60,8 @@ if ( $mbr == $smbr ) then
   mv user_nl_clm user_nl_clm.`date +%m%d-%H%M`
   mv user_nl_cpl user_nl_cpl.`date +%m%d-%H%M`
   mv user_nl_cice user_nl_cice.`date +%m%d-%H%M`
-  cp $CESM2_LE_TOOLS_ROOT/user_nl_files/* $CASEROOT/
-  cp $CESM2_LE_TOOLS_ROOT/user_nl_files/user_nl_cam-SSP370 $CASEROOT/user_nl_cam
+  cp $CESM2_LE_TOOLS_ROOT/user_nl_files/macro-1-10/* $CASEROOT/
+  cp $CESM2_LE_TOOLS_ROOT/user_nl_files/macro-1-10/user_nl_cam-SSP370 $CASEROOT/user_nl_cam
 
   mv SourceMods SourceMods.`date +%m%d-%H%M`
   cp -r $CESM2_LE_TOOLS_ROOT/SourceMods $CASEROOT/
