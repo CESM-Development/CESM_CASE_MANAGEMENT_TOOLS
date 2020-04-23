@@ -9,12 +9,12 @@ source $POSTPROCESS_PATH/cesm-env2/bin/activate
 set test=nanr2
 #endif
 
-setenv CESMROOT /mnt/lustre/share/CESM/cesm2.1.2
+setenv CESMROOT /mnt/lustre/share/CESM/cesm2.1.4-exp02
 
 set COMPSET = BSSP370cmip6
 set MACHINE = aleph
 set RESOLN = f09_g17
-set RESUBMIT = 1
+set RESUBMIT = 7
 set STOP_N=10
 set STOP_OPTION=nyears
 
@@ -52,7 +52,7 @@ echo /mnt/lustre/share/CESM/archive/$REFCASE/rest/2015-01-01-00000/rpointer*
 echo $CASEROOT
 if ( $mbr == $smbr ) then
   set masterroot = $CASEROOT
-  $CESMROOT/cime/scripts/create_newcase --case $CASEROOT --res $RESOLN  --mach $MACHINE --compset $COMPSET --workflow=timeseries --output-root /mnt/lustre/share/CESM/output/
+  $CESMROOT/cime/scripts/create_newcase --case $CASEROOT --res $RESOLN  --mach $MACHINE --compset $COMPSET --output-root /mnt/lustre/share/CESM/output/
   cd $CASEROOT
   
   ./case.setup
