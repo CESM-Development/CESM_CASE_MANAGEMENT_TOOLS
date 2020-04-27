@@ -447,6 +447,12 @@ contains
     call addfld ('MQ',         (/ 'lev' /), 'A', 'kg/m2','Water vapor mass in layer')
     call addfld ('TMQ',        horiz_only,  'A', 'kg/m2','Total (vertically integrated) precipitable water')
 
+! cas fields
+    call addfld ('IVT',        horiz_only,  'A', 'kg/m/s','Total (vertically integrated) vapor transport')
+    call addfld ('uIVT',       horiz_only,  'A', 'kg/m/s','u-component (vertically integrated) vapor transport')
+    call addfld ('vIVT',       horiz_only,  'A', 'kg/m/s','v-component (vertically integrated) vapor transport')
+! end cas fields
+
     call addfld ('RELHUM',     (/ 'lev' /), 'A', 'percent','Relative humidity')
     call addfld ('RHW',        (/ 'lev' /), 'A', 'percent','Relative humidity with respect to liquid')
     call addfld ('RHI',        (/ 'lev' /), 'A', 'percent','Relative humidity with respect to ice')
@@ -1293,6 +1299,8 @@ contains
     real(r8) :: ftem(pcols,pver) ! temporary workspace
     real(r8) :: ftem1(pcols,pver) ! another temporary workspace
     real(r8) :: ftem2(pcols,pver) ! another temporary workspace
+    real(r8) :: ftem4(pcols,pver) ! another temporary workspace
+    real(r8) :: ftem5(pcols,pver) ! another temporary workspace
     real(r8) :: z3(pcols,pver)   ! geo-potential height
     real(r8) :: p_surf(pcols)    ! data interpolated to a pressure surface
     real(r8) :: p_surf_q1(pcols)    ! data interpolated to a pressure surface
@@ -1350,6 +1358,33 @@ contains
       ftem(:ncol,1) = ftem(:ncol,1) + ftem(:ncol,k)
     end do
     call outfld ('TMQ     ',ftem, pcols   ,lchnk     )
+
+!CAS integrated vapor transport calculation
+
+    !compute uq*dp/g and vq*dp/g
+    ftem4(:ncol,:) = state%q(:ncol,:,1) * state%u(:ncol,:) *state%pdel(:ncol,:) * rga
+    ftem5(:ncol,:) = state%q(:ncol,:,1) * state%v(:ncol,:) *state%pdel(:ncol,:) * rga
+
+    !integrate each component
+    do k=2,pver
+       ftem4(:ncol,1) = ftem4(:ncol,1) + ftem4(:ncol,k)
+       ftem5(:ncol,1) = ftem5(:ncol,1) + ftem5(:ncol,k)
+    end do
+    !compute ivt
+    ftem(:ncol,1) = sqrt( ftem4(:ncol,1)**2 + ftem5(:ncol,1)**2)
+
+    call outfld ('IVT     ',ftem, pcols   ,lchnk     )
+ 
+    !just output uq*dp/g
+    ftem(:ncol,1) =  ftem4(:ncol,1)
+    call outfld ('uIVT     ',ftem, pcols   ,lchnk     )
+
+    !just output vq*dp/g
+    ftem(:ncol,1) = ftem5(:ncol,1)
+    call outfld ('vIVT     ',ftem, pcols   ,lchnk     )
+
+!CAS
+
 
 
     ! Relative humidity
@@ -1468,7 +1503,8 @@ contains
       call vertinterp(ncol, pcols, pver, state%pmid, 100000._r8, state%q(1,1,1), p_surf_q1)
     end if
 
-    if (hist_fld_active('THE9251000')) then
+    if (hist_fld_active('THE9251000') .or.  &
+        hist_fld_active('Q925')) then
       call vertinterp(ncol, pcols, pver, state%pmid, 92500._r8, state%q(1,1,1), p_surf_q2)
     end if
 
