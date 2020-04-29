@@ -86,7 +86,16 @@ else
   $CESMROOT/cime/scripts/create_clone --case $CASEROOT --clone $masterroot --keepexe
   cd $CASEROOT
   ./xmlchange DOUT_S_ROOT=/mnt/lustre/share/CESM/archive/$CASENAME
-  ./xmlchange RUN_REFCASE=b.e21.BHISTcmip6.${RESOLN}.LE2-${USE_REFDATE}.00${mmm}
+
+  if    ($mmm < 10) then
+  	./xmlchange RUN_REFCASE=b.e21.BHISTcmip6.${RESOLN}.LE2-${USE_REFDATE}.00${mmm}
+  else if ($mmm >= 10 && $mmm < 100) then
+  	./xmlchange RUN_REFCASE=b.e21.BHISTcmip6.${RESOLN}.LE2-${USE_REFDATE}.0${mmm}
+  else 
+  	./xmlchange RUN_REFCASE=b.e21.BHISTcmip6.${RESOLN}.LE2-${USE_REFDATE}.${mmm}
+  endif
+  endif
+  endif
 
   cp /mnt/lustre/share/CESM/archive/$REFCASE/rest/2015-01-01-00000/rpointer* $RUNROOT/
   ln -s /mnt/lustre/share/CESM/archive/$REFCASE/rest/2015-01-01-00000/b.e21* $RUNROOT/
