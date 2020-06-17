@@ -6,10 +6,10 @@ source $POSTPROCESS_PATH/cesm-env2/bin/activate
 #if ($USER==jedwards)
 #set test=test
 #else
-set test=nanr
+set test=
 #endif
 
-setenv CESMROOT /mnt/lustre/share/CESM/cesm2.1.2
+setenv CESMROOT /mnt/lustre/share/CESM/cesm2.1.4-exp03
 
 set COMPSET = BHISTcmip6
 set MACHINE = aleph
@@ -40,7 +40,7 @@ setenv CASEROOT /mnt/lustre/share/CESM/${test}/$CASENAME
 echo $CASEROOT
 if ( $mbr == $smbr ) then
   set masterroot = $CASEROOT
-  $CESMROOT/cime/scripts/create_newcase --case $CASEROOT --res $RESOLN  --mach $MACHINE --compset $COMPSET --workflow=timeseries --output-root /mnt/lustre/share/CESM/output/
+  $CESMROOT/cime/scripts/create_newcase --case $CASEROOT --res $RESOLN  --mach $MACHINE --compset $COMPSET --output-root /mnt/lustre/share/CESM/output/
   cd $CASEROOT
   
   ./case.setup
