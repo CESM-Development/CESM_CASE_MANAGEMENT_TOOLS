@@ -32,7 +32,7 @@ hist_dov2xy(1) = .true.
 hist_nhtfrq(1) = 0
 hist_type1d_pertape(1) = ' '
 hist_fexcl1 += 'PCT_GLC_MEC','PCT_NAT_PFT'
-hist_fincl1 += 'EFLX_LH_TOT_ICE', 'FIRE_ICE', 'FLDS_ICE', 'FSH_ICE', 'FSNO_ICE', 'FSR_ICE', 'QFLX_SUB_SNOW_ICE', 'QRUNOFF_ICE', 'QSNOFRZ_ICE', 'QSNOMELT_ICE', 'RAIN_ICE', 'SNOW_ICE', 'SNOWICE_ICE', 'SNOWLIQ_ICE', 'SNOTXMASS_ICE', 'TG_ICE', 'TOPO_COL_ICE', 'TSA_ICE', 'TSOI_ICE'
+hist_fincl1 += 'EFLX_LH_TOT_ICE', 'FIRE_ICE', 'FLDS_ICE', 'FSH_ICE', 'FSNO_ICE', 'FSR_ICE', 'QFLX_SUB_SNOW_ICE', 'QRUNOFF_ICE', 'QSNOFRZ_ICE', 'QSNOMELT_ICE', 'RAIN_ICE', 'SNOW_ICE', 'SNOWICE_ICE', 'SNOWLIQ_ICE', 'SNOTXMASS_ICE', 'TG_ICE', 'TOPO_COL_ICE', 'TSA_ICE', 'TSOI_ICE', 'TKE1', 'QRGWL', 'SABG', 'FIRE', 'FLDS', 'FIRA', 'FSH', 'EFLX_LH_TOT', 'FGR', 'FSM', 'UST_LAKE'
 
 ! h1 stream (monthly average, finest sub-grid)
 ! Emon, Lmon 
@@ -48,7 +48,7 @@ hist_mfilt(3) = 1
 hist_dov2xy(3) = .false.
 hist_nhtfrq(3) = 0
 hist_type1d_pertape(3) = 'LAND'
-hist_fincl3 += 'FSR', 'H2OSNO', 'Q2M', 'SNOWDP', 'TSA', 'TREFMNAV', 'TREFMXAV', 'TG', 'QRUNOFF', 'FSH', 'FIRE', 'FIRA', 'FGR', 'EFLX_LH_TOT', 'RH2M', 'TLAI', 'SOILWATER_10CM', 'TOTSOILLIQ', 'TOTSOILICE', 'U10', 'TSOI_10CM', 'QIRRIG', 'URBAN_HEAT', 'WASTEHEAT', 'TSKIN','FSA','FSM','HIA','HUMIDEX','SoilAlpha_U','SWBGT','TBUILD','URBAN_AC','URBAN_HEAT','WASTEHEAT'
+hist_fincl3 += 'FSR', 'H2OSNO', 'Q2M', 'SNOWDP', 'TSA', 'TREFMNAV', 'TREFMXAV', 'TG', 'QRUNOFF', 'FSH', 'FIRE', 'FIRA', 'FGR', 'EFLX_LH_TOT', 'RH2M', 'TLAI', 'SOILWATER_10CM', 'TOTSOILLIQ', 'TOTSOILICE', 'U10', 'TSOI_10CM', 'QIRRIG', 'URBAN_HEAT', 'WASTEHEAT', 'TSKIN','FSA','FSM','HIA','HUMIDEX','SoilAlpha_U','SWBGT','TBUILD','URBAN_AC','URBAN_HEAT','WASTEHEAT','SABG','FLDS','EFLX_GRND_LAKE'
 
 ! h3 stream (yearly average, gridcell-level)
 ! Eyr
@@ -125,14 +125,14 @@ hist_fincl4 += 'C14_SOILC_vr'
  hist_dov2xy(7) = .false.
  hist_dov2xy(8) = .true.
 
- hist_fincl6 = 'SOILWATER_10CM', 'TOTSOILLIQ', 'TOTSOILICE', 'EFLX_LH_TOT', 'FSH', 'FGR12', 'FSM', 'QSNOEVAP', 'TLAI', 'QDRAI',
-         'QDRAI_PERCH', 'QOVER', 'QFLX_SUB_SNOW', 'FSA', 'FIRA', 'H2OSNO', 'SNOCAN', 'QSNOFRZ', 'QFLX_SNOW_DRAIN', 'SNOWDP',
+ hist_fincl6 = 'SOILWATER_10CM', 'TOTSOILLIQ', 'TOTSOILICE', 'FGR12', 'QSNOEVAP', 'TLAI', 'QDRAI',
+         'QDRAI_PERCH', 'QOVER', 'QFLX_SUB_SNOW', 'FSA', 'H2OSNO', 'SNOCAN', 'QSNOFRZ', 'QFLX_SNOW_DRAIN', 'SNOWDP',
          'H2OSFC', 'TV', 'TG', 'TAUX', 'TAUY', 'QVEGT', 'TWS', 'H2OCAN', 'QVEGE', 'QSOIL',
          'TSKIN', 'FSDS', 'FSNO', 'SNOFSRVD', 'SNOFSRVI', 'SNOFSRND', 'SNOFSRNI', 'FSDSVD', 'FSDSVI', 'FSDSND',
          'FSDSNI', 'SNOWLIQ', 'SOILICE', 'SOILLIQ', 'QINTR', 'SNOBCMSL', 'TSOI', 'SNOTXMASS', 'SNOWICE', 
          'QRUNOFF', 'RAIN', 'SNOW', 'GPP', 'NPP', 'AR', 'HR', 'ALT', 'FAREA_BURNED', 'NFIRE','LAKEICETHICK',
-         'TKE1','TLAKE','FGR','QRGWL','UST_LAKE','NBP','NEP','SABG','FIRE','FLDS','JCONVECT:X'
- hist_fincl7 = 'TREFMXAV', 'TREFMNAV','SABG','FIRE','FLDS','FIRA','FSH','EFLX_LH_TOT','EFLX_GRND_LAKE','FGR','FSM'
+         'TLAKE','NBP','NEP','JCONVECT:X'
+ hist_fincl7 = 'TREFMXAV', 'TREFMNAV'
 
  hist_fincl8 = 'PBOT', 'TSA', 'RH2M', 'WBT'
 
