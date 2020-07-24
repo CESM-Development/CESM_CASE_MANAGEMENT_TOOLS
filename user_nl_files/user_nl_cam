@@ -1,0 +1,34 @@
+!!      h0,  h1, h2, h3,  h4,  h5,  h6,  h7,  h8
+nhtfrq = 0, -24, -6, -3,  -1,   1, -24,-120,-240 
+mfilt  = 1,   5, 20, 40, 120, 240, 365,  73, 365 
+ndens  = 2,   2,  2,  2,   2,   2,   1,   1,   1
+
+!! monthly (h0)
+
+fincl1='ANRAIN:A', 'ANSNOW:A', 'AODDUST1:A', 'AODDUST2:A', 'AODDUST3:A', 'AODVIS:A', 'AQRAIN:A', 'AQSNOW:A', 
+	'AREI:A', 'AREL:A', 'AWNC:A', 'AWNI:A', 'CCN3:A', 'CDNUMC:A', 'CLDHGH:A', 'CLDICE:A', 'CLDLIQ:A', 'CLDLOW:A', 
+	'CLDMED:A', 'CLDTOT:A', 'CLOUD:A', 'DCQ:A', 'DTCOND:A', 'DTV:A', 'FICE:A','FLDS:A', 'FLNS:A', 'FLNSC:A', 'FLNT:A', 
+	'FLNTC:A', 'FLUT:A', 'FLUTC:A', 'FREQI:A', 'FREQL:A', 'FREQR:A','FREQS:A', 'FSDS:A', 'FSDSC:A', 'FSNS:A', 'FSNSC:A', 
+	'FSNT:A', 'FSNTC:A', 'FSNTOA:A', 'FSNTOAC:A', 'ICEFRAC:A','ICIMR:A', 'ICWMR:A', 'IWC:A', 'LANDFRAC:A', 'LHFLX:A', 
+	'LWCF:A', 'NUMICE:A', 'NUMLIQ:A', 'OCNFRAC:A', 'OMEGA:A','OMEGAT:A', 'PBLH:A', 'PHIS:A', 'PRECC:A', 'PRECL:A', 
+	'PRECSC:A', 'PRECSL:A', 'PS:A', 'PSL:A', 'Q:A', 'QFLX:A', 'QREFHT:A','QRL:A', 'QRS:A','RELHUM:A', 'SHFLX:A', 
+	'SNOWHICE:A', 'SNOWHLND:A', 'SOLIN:A', 'SST:A', 'SWCF:A', 'T:A', 'TAUX:A', 'TAUY:A', 'TGCLDIWP:A', 'TGCLDLWP:A', 
+	'TMQ:A', 'TREFHT:A','TREFHTMX:X','TREFHTMN:M','TS:A','TSMX:X','TSMN:M','U:A', 'U10:A',
+	'UU:A', 'V:A', 'VD01:A', 'VQ:A', 'VT:A', 'VU:A', 'VV:A','WSPDSRFMX:A','WSUB:A', 'Z3:A'
+
+
+!! daily (h1)
+fincl2='FSNTOA:A','FLDS:A','FLNS:A','FLNSC:A','FLUT:A','FSDS:A','FSNSC:A','FSNS:A','ICEFRAC:A,’LHFLX:A','PRECL:A','PRECSL:A',
+	'PRECSC:A','PRECT:A','PRECTMX:A','PSL:A','PS:A','QBOT:A','QREFHT:A','RELHUM:A','RHREFHT:A','SHFLX:A','TAUX:A','TAUY:A',
+	'TMQ:A','TREFHT:A','TREFHTMN:M','TREFHTMX:X','TS:A','UBOT:A','VBOT:A','WSPDSRFAV:A','Q850:A','Q200:A','T850:A','T500:A',
+	'T200:A','T010:A','U850:A','U500:A','U200:A','U010:A','V850:A','V500:A','V200:A','Z500:A','Z050:A','SST:A','CLDLOW:A',
+	'CLDMED:A','CLDTOT:A','CLDHGH:A','OMEGA500:A'
+
+!! 3 hourly (h2)
+fincl3 = 'PRECC:A', 'PRECL:A'
+
+!! daily (h6)
+fincl7 ='VTHzm','UVzm','UWzm','Uzm','Vzm','THzm','Wzm'
+
+
+do_circulation_diags=.true.

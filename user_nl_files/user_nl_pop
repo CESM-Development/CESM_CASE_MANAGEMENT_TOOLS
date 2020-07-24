@@ -1,0 +1,16 @@
+&forcing_shf_nml
+luse_cpl_ifrac = .false.
+shf_data_inc = 730.
+shf_data_renorm(1) = 1.0
+shf_data_type = 'n-hour'
+shf_file_fmt = 'nc'
+shf_filename = '/glade/u/home/islas/CVCWG/CESM2_PACEMAKER/SSTINPUT_wedge/ModifiedSST_ERSST_gx1v7.nc'
+shf_formulation = 'alyssa_restoring'
+shf_interp_freq = 'every-timestep'
+shf_interp_inc = 1.e20
+shf_interp_type = 'linear'
+shf_restore_tau = 2
+shf_strong_restore = 0.0
+shf_strong_restore_ms = 92.64
+shf_weak_restore = 0.
+/

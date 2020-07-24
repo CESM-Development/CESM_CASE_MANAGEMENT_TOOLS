@@ -11,6 +11,7 @@
 1  SHF
 1  SHF_QSW
 1  SFWF
+1  HEAT_F
 1  PREC_F
 1  SNOW_F
 1  EVAP_F
@@ -108,19 +109,35 @@
 1  TEMP2
 1  HMXL_DR2
 2  SSS
-4  PD_2
-4  SALT_2
-4  TEMP_2
-4  UISOP_2
-4  USUBM_2
-4  UVEL_2
-4  VISOP_2
-4  VSUBM_2
-4  VVEL_2
-4  WVEL_2
-4  SSH_2
-4  HBLT_2
-1  PVWM
-1  PVWP 
-1  UPV
-1  VPV
+
+## in LENS1-pacemakers
+#2 TAUX_2            
+#2 TAUY_2            
+#2 HBLT_2
+#2 HMXL_2
+#2 SSH_2
+2 WTT_50m
+2 TEMP_6
+2 WVEL_50m
+2 XBLT_2
+2 SHF_2
+
+## Missing BGC vars:
+# CaCO3_form_zint/    
+# spCaCO3_zint_100m/  
+# ECOSYS_XKW_2/       
+# ECOSYS_IFRAC_2/     
+# spC_zint_100m/      
+# diatC_zint_100m/    
+# diatChl_SURF/       
+# diazC_zint_100m/    
+# diazChl_SURF/       
+# photoC_diat_zint/   
+# photoC_diaz_zint/   
+# photoC_sp_zint/     
+# zooC_zint_100m/    
+# FG_CO2_2/           
+# spChl_SURF         
+# DpCO2_2/            
+# STF_O2_2/   
+

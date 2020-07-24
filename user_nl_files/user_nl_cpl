@@ -1,0 +1,3 @@
+!! reduced computational costs
+flds_co2a = .true.
+flds_co2c = .false.

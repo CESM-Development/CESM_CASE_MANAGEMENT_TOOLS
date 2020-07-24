@@ -31,7 +31,7 @@
    use domain_size
    use communicate, only: my_task, master_task
    use distribution, only: 
-   use grid, only: dz, DXT, DYT, HUW, HUS, c2dz, KMT, HTE, UAREA_R, DZT,    &
+   use grid, only: dz, zw, DXT, DYT, HUW, HUS, c2dz, KMT, HTE, UAREA_R, DZT,    &
        partial_bottom_cells, DYU, DZU, DXU, DZR, DZ2R, KMU, TAREA_R, HTN,   &
        sfc_layer_type, sfc_layer_varthick, FCORT, KMTE,                     &
        KMTW, KMTEE, KMTN, KMTS, KMTNN, ugrid_to_tgrid
@@ -142,7 +142,9 @@
 
    integer (int_kind) :: &
       tavg_WVEL,         &! Vertical Velocity
-      tavg_WVEL_2,       &! Vertical Velocity 5-day mean
+      tavg_WVEL_50m,     &! Vertical Velocity at 50m
+      tavg_WTT_50m,      &! Vertical temperature flux at 50m 
+      k_50m_top,         &! k level where WVEL_50m will be extracted
       tavg_WVEL2,        &! Vertical Velocity Squared
       tavg_UTE_POS,      &! max(UTE,0)
       tavg_UTE_NEG,      &! min(UTE,0)
@@ -159,7 +161,6 @@
       tavg_PV,           &! potential vorticity
       tavg_Q,            &! z-derivative of pot density
       tavg_PD,           &! potential density 
-      tavg_PD_2,         &! potential density 5-day mean
       tavg_RHOU,         &! pot density times U velocity
       tavg_RHOV,         &! pot density times V velocity
       tavg_PVWM,         &! pot vorticity flux through bottom
@@ -729,10 +730,16 @@
                           units='centimeter/s', grid_loc='3112',       &
                           coordinates='TLONG TLAT z_w time')
 
-   call define_tavg_field(tavg_WVEL_2,'WVEL_2',3,                    &
-                          long_name='Vertical Velocity',               &
-                          units='centimeter/s', grid_loc='3112',       &
-                          coordinates='TLONG TLAT z_w time')
+  call define_tavg_field(tavg_WVEL_50m,'WVEL_50m',2,                  &
+                          long_name='Vertical Velocity at 50m Depth',  &
+                          units='centimeter/s', grid_loc='2110',       &
+                          coordinates='TLONG TLAT time')
+
+   k_50m_top = 1
+   do k = 2, km
+      if (abs(zw(k-1) - 50.0e2) < abs(zw(k_50m_top-1) - 50.0e2)) k_50m_top = k
+   end do
+
 
    call define_tavg_field(tavg_WVEL2,'WVEL2',3,                          &
                           long_name='Vertical Velocity**2',       &
@@ -813,6 +820,14 @@
                           long_name='Heat Flux Across Top Face',       &
                           units='degC/s', grid_loc='3112',             &
                           coordinates='TLONG TLAT z_w time' )
+
+   call define_tavg_field(tavg_WTT_50m,'WTT_50m',2,                  &
+                          long_name='Heat Flux Across Top Face at 50m',  &
+                          units='degC/s', grid_loc='2110',       &
+                          coordinates='TLONG TLAT time')
+
+
+
 
    call define_tavg_field(tavg_UE_TRACER(2),'UES',3,                   &
                           long_name='Salt Flux in grid-x direction',   &
@@ -913,11 +928,6 @@
                           coordinates='TLONG TLAT z_t time')
 
    call define_tavg_field(tavg_PD,'PD',3,                              &
-                          long_name='Potential Density Ref to Surface',&
-                          units='gram/centimeter^3', grid_loc='3111',  &
-                          coordinates='TLONG TLAT z_t time')
-
-   call define_tavg_field(tavg_PD_2,'PD_2',3,                        &
                           long_name='Potential Density Ref to Surface',&
                           units='gram/centimeter^3', grid_loc='3111',  &
                           coordinates='TLONG TLAT z_t time')
@@ -1760,7 +1770,8 @@
       endif
 
       call accumulate_tavg_field(WTK,tavg_WVEL,bid,k)
-      call accumulate_tavg_field(WTK,tavg_WVEL_2,bid,k)
+      if (k == k_50m_top) call accumulate_tavg_field(WTK,tavg_WVEL_50m,bid,k)
+      !!!! stuck here!!!!
       call accumulate_tavg_field(WTK**2,tavg_WVEL2,bid,k)
 
       WORK = max(UTE,c0)
@@ -1799,6 +1810,11 @@
             else
                WORK = dz2r(k)*WTK*(TRCR(:,:,k  ,n) + TRCR(:,:,k-1,n))
             endif
+            !! += Nanr
+            if (k == 6 .and. n == 1) then
+               call accumulate_tavg_field(WORK,tavg_WTT_50m,bid,k)
+            endif
+            !! += Nanr
             call accumulate_tavg_field(WORK,tavg_WT_TRACER(n),bid,k)
 
          else
@@ -1848,7 +1864,6 @@
       !***
 
    if (accumulate_tavg_now(tavg_PD)   .or.  &
-       accumulate_tavg_now(tavg_PD_2) .or.  &
        accumulate_tavg_now(tavg_RHOU) .or.  &
        accumulate_tavg_now(tavg_RHOV) .or.  &
        accumulate_tavg_now(tavg_URHO) .or.  &
@@ -1864,7 +1879,6 @@
        endif
 
        call accumulate_tavg_field(RHOK1,tavg_PD,bid,k)
-       call accumulate_tavg_field(RHOK1,tavg_PD_2,bid,k)
 
        WORK = FUE*(RHOK1 + eoshift(RHOK1,dim=1,shift=1))
        call accumulate_tavg_field(WORK,tavg_URHO,bid,k)
