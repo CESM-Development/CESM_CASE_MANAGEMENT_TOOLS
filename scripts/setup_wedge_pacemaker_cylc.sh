@@ -44,32 +44,36 @@ echo "======="
   ./xmlchange RUN_TYPE=hybrid
   ./xmlchange RUN_STARTDATE="1880-01-01"
   ./xmlchange STOP_OPTION="nyears"
-  ./xmlchange STOP_N=10
-  ./xmlchange RESUBMIT=13
+  ./xmlchange STOP_N=3
+  ./xmlchange RESUBMIT=44
   ./xmlchange RUN_REFDIR=$INITDIR$initmem'.'$memstr
   ./xmlchange RUN_REFCASE=$initcase
   ./xmlchange RUN_REFDATE="1880-01-01"
   ./xmlchange JOB_QUEUE=economy
 
-  ./xmlchange NTASKS_CPL=1152
-  ./xmlchange NTASKS_ATM=1152
-  ./xmlchange NTASKS_LND=864
-  ./xmlchange NTASKS_ICE=288
-  ./xmlchange NTASKS_OCN=256
-  ./xmlchange NTASKS_ROF=864
-  ./xmlchange NTASKS_GLC=1152
-  ./xmlchange NTASKS_WAV=32
-  ./xmlchange NTHRDS_CPL=3
-  ./xmlchange NTHRDS_ATM=3
-  ./xmlchange NTHRDS_LND=3
-  ./xmlchange NTHRDS_ICE=3
-  ./xmlchange NTHRDS_OCN=3
-  ./xmlchange NTHRDS_ROF=3
-  ./xmlchange NTHRDS_GLC=3
-  ./xmlchange NTHRDS_WAV=3
-  ./xmlchange ROOTPE_ICE=864
-  ./xmlchange ROOTPE_OCN=1152
-  ./xmlchange ROOTPE_WAV=1408
+  ./xmlchange NTASKS_ICE=36
+  ./xmlchange NTASKS_LND=504
+  ./xmlchange ROOTPE_ICE=504
+
+# ./xmlchange NTASKS_CPL=1152
+# ./xmlchange NTASKS_ATM=1152
+# ./xmlchange NTASKS_LND=864
+# ./xmlchange NTASKS_ICE=288
+# ./xmlchange NTASKS_OCN=256
+# ./xmlchange NTASKS_ROF=864
+# ./xmlchange NTASKS_GLC=1152
+# ./xmlchange NTASKS_WAV=32
+# ./xmlchange NTHRDS_CPL=3
+# ./xmlchange NTHRDS_ATM=3
+# ./xmlchange NTHRDS_LND=3
+# ./xmlchange NTHRDS_ICE=3
+# ./xmlchange NTHRDS_OCN=3
+# ./xmlchange NTHRDS_ROF=3
+# ./xmlchange NTHRDS_GLC=3
+# ./xmlchange NTHRDS_WAV=3
+# ./xmlchange ROOTPE_ICE=864
+# ./xmlchange ROOTPE_OCN=1152
+# ./xmlchange ROOTPE_WAV=1408
 
   ./case.setup
 
