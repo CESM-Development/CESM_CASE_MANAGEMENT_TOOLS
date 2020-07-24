@@ -71,6 +71,11 @@ endif
   ./xmlchange GET_REFCASE=FALSE
   ./xmlchange PROJECT=NCGD0044
 
+  ./xmlchange NTASKS_ICE=36
+  ./xmlchange NTASKS_LND=504
+  ./xmlchange ROOTPE_ICE=504
+
+
   mv user_nl_cam user_nl_cam.`date +%m%d-%H%M`
   mv user_nl_clm user_nl_clm.`date +%m%d-%H%M`
   mv user_nl_cpl user_nl_cpl.`date +%m%d-%H%M`
