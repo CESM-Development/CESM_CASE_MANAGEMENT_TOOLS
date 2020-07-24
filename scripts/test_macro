@@ -1,0 +1,46 @@
+#!/bin/csh 
+### set env variables
+
+set COMPSET = B1850cmip6
+set MACHINE = cheyenne
+set RESOLN = f09_g17
+set RESUBMIT = 20
+set STOP_N=10
+set STOP_OPTION=nyears
+
+setenv CASENAME b.e21.B1850cmip6.f09_g17.cesm-sf-ghg.001
+setenv SCENARIO GHG
+setenv REFDATE  1880-01-01
+
+# case name counter
+set smbr =  4
+set embr =  10
+
+@ mb = $smbr
+@ me = $embr
+
+# reference name counter
+@ mmm = ($smbr * 2) - 1
+
+foreach mbr ( `seq $mb  $me` )
+
+@ USE_REFDATE = 1001 + ( $mmm - 1 ) * 10
+@ mmm+=2
+
+if    ($mbr < 10) then
+	setenv CASENAME b.e21.${COMPSET}.${RESOLN}.LE2-SF-${SCENARIO}.00${mbr}
+        setenv REFCASE  b.e21.BHISTcmip6.${RESOLN}.LE2-${USE_REFDATE}.00${mbr}
+else if ($mbr >= 10 && $mbr < 100) then
+	setenv CASENAME b.e21.${COMPSET}.${RESOLN}.LE2-SF-${SCENARIO}.0${mbr}
+        setenv REFCASE  b.e21.BHISTcmip6.${RESOLN}.LE2-${USE_REFDATE}.0${mbr}
+else
+	setenv CASENAME b.e21.${COMPSET}.${RESOLN}.LE2-SF-${SCENARIO}.${mbr}
+        setenv REFCASE  b.e21.BHISTcmip6.${RESOLN}.LE2-${USE_REFDATE}.${mbr}
+endif
+#echo $CASENAME
+echo $REFCASE
+
+end             # member loop
+
+exit
+

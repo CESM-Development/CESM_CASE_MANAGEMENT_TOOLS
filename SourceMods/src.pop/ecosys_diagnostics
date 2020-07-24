@@ -29,7 +29,7 @@ SEAICE_BLACK_CARBON_FLUX_CPL : medium_average
 #
 # Diagnostics for tracer ALK
 #
-ALK : medium_average
+ALK : low_average  # move to annual
 STF_ALK : medium_average
 J_ALK : low_average
 Jint_100m_ALK : medium_average
@@ -52,7 +52,7 @@ KPP_SRC_ALK : never_average
 #
 # Diagnostics for tracer ALK_ALT_CO2
 #
-ALK_ALT_CO2 : medium_average
+ALK_ALT_CO2 : low_average  # move to annual
 STF_ALK_ALT_CO2 : medium_average
 J_ALK_ALT_CO2 : low_average
 Jint_100m_ALK_ALT_CO2 : medium_average
@@ -75,9 +75,9 @@ KPP_SRC_ALK_ALT_CO2 : never_average
 #
 # Diagnostics for tracer DIC
 #
-DIC : medium_average
+DIC : low_average  # move to annual
 STF_DIC : never_average
-J_DIC : medium_average
+J_DIC : low_average  # move to annual
 Jint_100m_DIC : medium_average
 Jint_DIC : never_average
 DIC_zint_100m : never_average
@@ -85,22 +85,22 @@ tend_zint_100m_DIC : medium_average
 DIC_RIV_FLUX : medium_average
 FvPER_DIC : medium_average
 FvICE_DIC : medium_average
-UE_DIC : medium_average
-VN_DIC : medium_average
-WT_DIC : medium_average
-DIA_IMPVF_DIC : medium_average
-HDIFE_DIC : medium_average
-HDIFN_DIC : medium_average
-HDIFB_DIC : medium_average
+UE_DIC : low_average
+VN_DIC : low_average
+WT_DIC : low_average
+DIA_IMPVF_DIC : low_average
+HDIFE_DIC : low_average
+HDIFN_DIC : low_average
+HDIFB_DIC : low_average
 TEND_DIC : low_average
 RF_TEND_DIC : low_average
-KPP_SRC_DIC : medium_average
+KPP_SRC_DIC : low_average
 #
 # Diagnostics for tracer DIC_ALT_CO2
 #
-DIC_ALT_CO2 : medium_average
+DIC_ALT_CO2 : low_average  # move to annual
 STF_DIC_ALT_CO2 : never_average
-J_DIC_ALT_CO2 : medium_average
+J_DIC_ALT_CO2 : low_average  # move to annual
 Jint_100m_DIC_ALT_CO2 : medium_average
 Jint_DIC_ALT_CO2 : never_average
 DIC_ALT_CO2_zint_100m : never_average
@@ -108,20 +108,20 @@ tend_zint_100m_DIC_ALT_CO2 : medium_average
 DIC_ALT_CO2_RIV_FLUX : medium_average
 FvPER_DIC_ALT_CO2 : medium_average
 FvICE_DIC_ALT_CO2 : medium_average
-UE_DIC_ALT_CO2 : medium_average
-VN_DIC_ALT_CO2 : medium_average
-WT_DIC_ALT_CO2 : medium_average
-DIA_IMPVF_DIC_ALT_CO2 : medium_average
-HDIFE_DIC_ALT_CO2 : medium_average
-HDIFN_DIC_ALT_CO2 : medium_average
-HDIFB_DIC_ALT_CO2 : medium_average
+UE_DIC_ALT_CO2 : low_average
+VN_DIC_ALT_CO2 : low_average
+WT_DIC_ALT_CO2 : low_average
+DIA_IMPVF_DIC_ALT_CO2 : low_average
+HDIFE_DIC_ALT_CO2 : low_average
+HDIFN_DIC_ALT_CO2 : low_average
+HDIFB_DIC_ALT_CO2 : low_average
 TEND_DIC_ALT_CO2 : low_average
 RF_TEND_DIC_ALT_CO2 : low_average
-KPP_SRC_DIC_ALT_CO2 : medium_average
+KPP_SRC_DIC_ALT_CO2 : low_average
 #
 # Diagnostics for tracer DOC
 #
-DOC : medium_average
+DOC : low_average  # move to annual
 STF_DOC : never_average
 J_DOC : never_average
 Jint_100m_DOC : medium_average
@@ -142,7 +142,7 @@ KPP_SRC_DOC : never_average
 #
 # Diagnostics for tracer DOCr
 #
-DOCr : medium_average
+DOCr : low_average  # move to annual
 STF_DOCr : never_average
 J_DOCr : never_average
 Jint_100m_DOCr : medium_average
@@ -163,7 +163,7 @@ KPP_SRC_DOCr : never_average
 #
 # Diagnostics for tracer DON
 #
-DON : medium_average
+DON : low_average  # move to annual
 STF_DON : never_average
 J_DON : never_average
 Jint_100m_DON : never_average
@@ -184,7 +184,7 @@ KPP_SRC_DON : never_average
 #
 # Diagnostics for tracer DONr
 #
-DONr : medium_average
+DONr : low_average  # move to annual
 STF_DONr : never_average
 J_DONr : never_average
 Jint_100m_DONr : never_average
@@ -205,7 +205,7 @@ KPP_SRC_DONr : never_average
 #
 # Diagnostics for tracer DOP
 #
-DOP : medium_average
+DOP : low_average  # move to annual
 STF_DOP : never_average
 J_DOP : never_average
 Jint_100m_DOP : never_average
@@ -226,7 +226,7 @@ KPP_SRC_DOP : never_average
 #
 # Diagnostics for tracer DOPr
 #
-DOPr : medium_average
+DOPr : low_average  # move to annual
 STF_DOPr : never_average
 J_DOPr : never_average
 Jint_100m_DOPr : never_average
@@ -247,7 +247,7 @@ KPP_SRC_DOPr : never_average
 #
 # Diagnostics for tracer Fe
 #
-Fe : medium_average
+Fe : low_average  # move to annual
 STF_Fe : never_average
 J_Fe : low_average
 Jint_100m_Fe : medium_average
@@ -268,7 +268,7 @@ KPP_SRC_Fe : low_average
 #
 # Diagnostics for tracer Lig
 #
-Lig : medium_average
+Lig : low_average  # move to annual
 STF_Lig : never_average
 J_Lig : never_average
 Jint_100m_Lig : never_average
@@ -288,7 +288,7 @@ KPP_SRC_Lig : never_average
 #
 # Diagnostics for tracer NH4
 #
-NH4 : medium_average
+NH4 : low_average  # move to annual
 STF_NH4 : never_average
 J_NH4 : low_average
 Jint_100m_NH4 : medium_average
@@ -308,7 +308,7 @@ KPP_SRC_NH4 : never_average
 #
 # Diagnostics for tracer NO3
 #
-NO3 : medium_average
+NO3 : low_average  # move to annual
 STF_NO3 : never_average
 J_NO3 : low_average
 Jint_100m_NO3 : medium_average
@@ -329,7 +329,7 @@ KPP_SRC_NO3 : never_average
 #
 # Diagnostics for tracer O2
 #
-O2 : medium_average, midhigh_average
+O2 : low_average  # move to annual
 STF_O2 : medium_average, high_average
 J_O2 : never_average
 Jint_100m_O2 : medium_average
@@ -349,28 +349,28 @@ KPP_SRC_O2 : low_average
 #
 # Diagnostics for tracer PO4
 #
-PO4 : medium_average, midhigh_average
+PO4 : low_average  # move to annual
 STF_PO4 : never_average
-J_PO4 : medium_average
+J_PO4 : low_average
 Jint_100m_PO4 : medium_average
 Jint_PO4 : never_average
 PO4_zint_100m : never_average
 tend_zint_100m_PO4 : medium_average
 PO4_RIV_FLUX : medium_average
-UE_PO4 : medium_average
-VN_PO4 : medium_average
-WT_PO4 : medium_average
-DIA_IMPVF_PO4 : medium_average
-HDIFE_PO4 : medium_average
-HDIFN_PO4 : medium_average
-HDIFB_PO4 : medium_average
+UE_PO4 : never_average
+VN_PO4 : never_average
+WT_PO4 : never_average
+DIA_IMPVF_PO4 : never_average
+HDIFE_PO4 : never_average
+HDIFN_PO4 : never_average
+HDIFB_PO4 : never_average
 TEND_PO4 : never_average
 RF_TEND_PO4 : never_average
-KPP_SRC_PO4 : medium_average
+KPP_SRC_PO4 : never_average
 #
 # Diagnostics for tracer SiO3
 #
-SiO3 : medium_average
+SiO3 : low_average  # move to annual
 STF_SiO3 : never_average
 J_SiO3 : low_average
 Jint_100m_SiO3 : medium_average
@@ -391,7 +391,7 @@ KPP_SRC_SiO3 : never_average
 #
 # Diagnostics for tracer diatC
 #
-diatC : medium_average, midhigh_average
+diatC : medium_average
 STF_diatC : never_average
 J_diatC : never_average
 Jint_100m_diatC : never_average
@@ -411,7 +411,7 @@ KPP_SRC_diatC : never_average
 #
 # Diagnostics for tracer diatChl
 #
-diatChl : medium_average, midhigh_average
+diatChl : medium_average
 STF_diatChl : never_average
 J_diatChl : never_average
 Jint_100m_diatChl : never_average
@@ -492,7 +492,7 @@ KPP_SRC_diatSi : never_average
 #
 # Diagnostics for tracer diazC
 #
-diazC : medium_average, midhigh_average
+diazC : medium_average
 STF_diazC : never_average
 J_diazC : never_average
 Jint_100m_diazC : never_average
@@ -512,7 +512,7 @@ KPP_SRC_diazC : never_average
 #
 # Diagnostics for tracer diazChl
 #
-diazChl : medium_average, midhigh_average
+diazChl : medium_average
 STF_diazChl : never_average
 J_diazChl : never_average
 Jint_100m_diazChl : never_average
@@ -573,7 +573,7 @@ KPP_SRC_diazP : never_average
 #
 # Diagnostics for tracer spC
 #
-spC : medium_average, midhigh_average
+spC : medium_average
 STF_spC : never_average
 J_spC : never_average
 Jint_100m_spC : never_average
@@ -613,7 +613,7 @@ KPP_SRC_spCaCO3 : never_average
 #
 # Diagnostics for tracer spChl
 #
-spChl : medium_average, midhigh_average
+spChl : medium_average
 STF_spChl : never_average
 J_spChl : never_average
 Jint_100m_spChl : never_average
@@ -674,7 +674,7 @@ KPP_SRC_spP : never_average
 #
 # Diagnostics for tracer zooC
 #
-zooC : medium_average, midhigh_average
+zooC : medium_average
 STF_zooC : never_average
 J_zooC : never_average
 Jint_100m_zooC : never_average
@@ -699,33 +699,33 @@ KPP_SRC_zooC : never_average
 sp_CaCO3_form : never_average
 sp_CaCO3_form_zint : never_average
 sp_CaCO3_form_zint_100m : never_average
-sp_Fe_lim_Cweight_avg_100m : medium_average, midhigh_average
-diat_Fe_lim_Cweight_avg_100m : medium_average, midhigh_average
-diaz_Fe_lim_Cweight_avg_100m : medium_average, midhigh_average
+sp_Fe_lim_Cweight_avg_100m : medium_average
+diat_Fe_lim_Cweight_avg_100m : medium_average
+diaz_Fe_lim_Cweight_avg_100m : medium_average
 sp_Fe_lim_surf : medium_average
 diat_Fe_lim_surf : medium_average
 diaz_Fe_lim_surf : medium_average
-sp_N_lim_Cweight_avg_100m : medium_average, midhigh_average
-diat_N_lim_Cweight_avg_100m : medium_average, midhigh_average
+sp_N_lim_Cweight_avg_100m : medium_average
+diat_N_lim_Cweight_avg_100m : medium_average
 diaz_N_lim_Cweight_avg_100m : never_average
 sp_N_lim_surf : medium_average
 diat_N_lim_surf : medium_average
 diaz_N_lim_surf : never_average
 diaz_Nfix : medium_average
-sp_P_lim_Cweight_avg_100m : medium_average, midhigh_average
-diat_P_lim_Cweight_avg_100m : medium_average, midhigh_average
-diaz_P_lim_Cweight_avg_100m : medium_average, midhigh_average
+sp_P_lim_Cweight_avg_100m : medium_average
+diat_P_lim_Cweight_avg_100m : medium_average
+diaz_P_lim_Cweight_avg_100m : medium_average
 sp_P_lim_surf : medium_average
 diat_P_lim_surf : medium_average
 diaz_P_lim_surf : medium_average
 sp_Qp : medium_average
 diat_Qp : medium_average
 diaz_Qp : medium_average
-diat_SiO3_lim_Cweight_avg_100m : medium_average, midhigh_average
+diat_SiO3_lim_Cweight_avg_100m : medium_average
 diat_SiO3_lim_surf : medium_average
-sp_agg : medium_average, midhigh_average
-diat_agg : medium_average, midhigh_average
-diaz_agg : medium_average, midhigh_average
+sp_agg : medium_average
+diat_agg : medium_average
+diaz_agg : medium_average
 sp_agg_zint : medium_average
 diat_agg_zint : medium_average
 diaz_agg_zint : medium_average
@@ -733,15 +733,15 @@ sp_agg_zint_100m : medium_average
 diat_agg_zint_100m : medium_average
 diaz_agg_zint_100m : medium_average
 diat_bSi_form : never_average
-sp_light_lim_Cweight_avg_100m : medium_average, midhigh_average
-diat_light_lim_Cweight_avg_100m : medium_average, midhigh_average
-diaz_light_lim_Cweight_avg_100m : medium_average, midhigh_average
+sp_light_lim_Cweight_avg_100m : medium_average
+diat_light_lim_Cweight_avg_100m : medium_average
+diaz_light_lim_Cweight_avg_100m : medium_average
 sp_light_lim_surf : medium_average
 diat_light_lim_surf : medium_average
 diaz_light_lim_surf : medium_average
-sp_loss : midhigh_average
-diat_loss : midhigh_average
-diaz_loss : midhigh_average
+sp_loss : never_average
+diat_loss : never_average
+diaz_loss : never_average
 sp_loss_doc : never_average
 diat_loss_doc : never_average
 diaz_loss_doc : never_average
@@ -781,8 +781,8 @@ diatP_RESTORE_TEND : never_average
 diazP_RESTORE_TEND : never_average
 diatSi_RESTORE_TEND : never_average
 zooC_RESTORE_TEND : never_average
-ALK_RESTORE_TEND : medium_average
-ALK_ALT_CO2_RESTORE_TEND : medium_average
+ALK_RESTORE_TEND : low_average  # move to annual
+ALK_ALT_CO2_RESTORE_TEND : low_average  # move to annual
 DIC_RESTORE_TEND : never_average
 DIC_ALT_CO2_RESTORE_TEND : never_average
 DOC_RESTORE_TEND : never_average
@@ -794,10 +794,10 @@ DOPr_RESTORE_TEND : never_average
 Fe_RESTORE_TEND : never_average
 Lig_RESTORE_TEND : never_average
 NH4_RESTORE_TEND : never_average
-NO3_RESTORE_TEND : medium_average
+NO3_RESTORE_TEND : low_average  # move to annual
 O2_RESTORE_TEND : never_average
-PO4_RESTORE_TEND : medium_average
-SiO3_RESTORE_TEND : medium_average
+PO4_RESTORE_TEND : low_average  # move to annual
+SiO3_RESTORE_TEND : low_average  # move to annual
 zoo_loss : never_average
 zoo_loss_doc : never_average
 zoo_loss_doc_zint : medium_average
@@ -807,12 +807,12 @@ zoo_loss_poc_zint : medium_average
 zoo_loss_poc_zint_100m : medium_average
 zoo_loss_zint : medium_average
 zoo_loss_zint_100m : medium_average
-AOU : medium_average
+AOU : low_average  # move to annual
 ATM_ALT_CO2 : medium_average
 ATM_CO2 : medium_average
 CO2STAR : medium_average
 CO2STAR_ALT_CO2 : medium_average
-CO3 : medium_average, midhigh_average
+CO3 : low_average  # move to annual
 CO3_ALT_CO2 : never_average
 CaCO3_ALT_CO2_FLUX_IN : low_average
 CaCO3_ALT_CO2_PROD : never_average
@@ -830,8 +830,8 @@ CaCO3_form_zint : medium_average, high_average
 CaCO3_form_zint_100m : medium_average
 DCO2STAR : medium_average
 DCO2STAR_ALT_CO2 : medium_average
-DENITRIF : medium_average
-DOC_prod : medium_average
+DENITRIF : low_average  # move to annual
+DOC_prod : low_average  # move to annual
 DOC_prod_zint : medium_average
 DOC_prod_zint_100m : medium_average
 DOC_remin : low_average
@@ -840,31 +840,31 @@ DOC_remin_zint_100m : medium_average
 DOCr_remin : low_average
 DOCr_remin_zint : medium_average
 DOCr_remin_zint_100m : medium_average
-DON_prod : medium_average
+DON_prod : low_average  # move to annual
 DON_remin : low_average
 DONr_remin : low_average
 DOP_sp_uptake : medium_average
 DOP_diat_uptake : medium_average
 DOP_diaz_uptake : medium_average
 DOP_loss_P_bal : never_average
-DOP_prod : medium_average
-DOP_remin : medium_average
-DOPr_remin : medium_average
+DOP_prod : low_average  # move to annual
+DOP_remin : low_average
+DOPr_remin : low_average
 DUST_FLUX : never_average
-DpCO2 : medium_average, high_average, midhigh_average
-DpCO2_ALT_CO2 : medium_average, midhigh_average
+DpCO2 : medium_average, high_average
+DpCO2_ALT_CO2 : medium_average
 ECOSYS_ATM_PRESS : medium_average
 ECOSYS_IFRAC : medium_average, high_average
 ECOSYS_XKW : medium_average, high_average
 FESEDFLUX : never_average
-FG_ALT_CO2 : medium_average, midhigh_average
-FG_CO2 : medium_average, high_average, midhigh_average
-Fe_scavenge : medium_average
-Fe_scavenge_rate : medium_average
-Fefree : medium_average
-H2CO3 : medium_average
+FG_ALT_CO2 : medium_average
+FG_CO2 : medium_average, high_average
+Fe_scavenge : low_average  # move to annual
+Fe_scavenge_rate : low_average  # move to annual
+Fefree : low_average  # move to annual
+H2CO3 : low_average  # move to annual
 H2CO3_ALT_CO2 : never_average
-HCO3 : medium_average
+HCO3 : low_average  # move to annual
 HCO3_ALT_CO2 : never_average
 IRON_FLUX : medium_average
 Jint_Ctot : never_average
@@ -872,32 +872,32 @@ Jint_Fetot : never_average
 Jint_Ntot : never_average
 Jint_Ptot : never_average
 Jint_Sitot : never_average
-Lig_deg : medium_average
-Lig_loss : medium_average
-Lig_photochem : medium_average
-Lig_prod : medium_average
-Lig_scavenge : medium_average
+Lig_deg : low_average  # move to annual
+Lig_loss : low_average  # move to annual
+Lig_photochem : low_average  # move to annual
+Lig_prod : low_average  # move to annual
+Lig_scavenge : low_average  # move to annual
 NHx_SURFACE_EMIS : medium_average
 NHy_FLUX : medium_average
-NITRIF : medium_average
+NITRIF : low_average  # move to annual
 NOx_FLUX : medium_average
 Nfix : never_average
 O2SAT : medium_average
-O2_CONSUMPTION : medium_average
+O2_CONSUMPTION : low_average  # move to annual
 O2_CONSUMPTION_SCALEF : never_average
-O2_PRODUCTION : medium_average
+O2_PRODUCTION : low_average  # move to annual
 O2_ZMIN : medium_average
 O2_ZMIN_DEPTH : medium_average
 OtherRemin : never_average
-PAR_avg : medium_average, midhigh_average
+PAR_avg : medium_average
 PH : medium_average
 PH_ALT_CO2 : medium_average
 PO4_sp_uptake : medium_average
 PO4_diat_uptake : medium_average
 PO4_diaz_uptake : medium_average
-POC_FLUX_100m : medium_average, midhigh_average
-POC_FLUX_IN : medium_average
-POC_PROD : medium_average
+POC_FLUX_100m : medium_average
+POC_FLUX_IN : low_average  # move to annual
+POC_PROD : low_average  # move to annual
 POC_PROD_zint : medium_average
 POC_PROD_zint_100m : medium_average
 POC_REMIN_DIC : low_average
@@ -911,36 +911,36 @@ POC_sFLUX_IN : never_average
 PON_REMIN_DONr : low_average
 PON_REMIN_NH4 : low_average
 POP_FLUX_100m : medium_average
-POP_FLUX_IN : medium_average
-POP_PROD : medium_average
-POP_REMIN_DOPr : medium_average
-POP_REMIN_PO4 : medium_average
+POP_FLUX_IN : low_average  # move to annual
+POP_PROD : low_average  # move to annual
+POP_REMIN_DOPr : low_average
+POP_REMIN_PO4 : low_average
 PV_CO2 : never_average
 PV_O2 : never_average
 P_iron_FLUX_100m : medium_average
-P_iron_FLUX_IN : medium_average
-P_iron_PROD : medium_average
-P_iron_REMIN : medium_average
+P_iron_FLUX_IN : low_average  # move to annual
+P_iron_PROD : low_average  # move to annual
+P_iron_REMIN : low_average  # move to annual
 SCHMIDT_CO2 : medium_average
 SCHMIDT_O2 : medium_average
 SedDenitrif : medium_average
 SiO2_FLUX_100m : medium_average
-SiO2_FLUX_IN : medium_average
-SiO2_PROD : medium_average
+SiO2_FLUX_IN : low_average  # move to annual
+SiO2_PROD : low_average  # move to annual
 SiO2_REMIN : never_average
 bSi_form : medium_average
 bsiToSed : medium_average
 calcToFloor : never_average
 calcToSed : medium_average
 calcToSed_ALT_CO2 : medium_average
-co3_sat_arag : medium_average, midhigh_average
-co3_sat_calc : medium_average
+co3_sat_arag : low_average  # move to annual
+co3_sat_calc : low_average  # move to annual
 dustToSed : medium_average
-dust_FLUX_IN : medium_average
-dust_REMIN : medium_average
-graze_sp : midhigh_average
-graze_diat : midhigh_average
-graze_diaz : midhigh_average
+dust_FLUX_IN : low_average  # move to annual
+dust_REMIN : low_average  # move to annual
+graze_sp : never_average
+graze_diat : never_average
+graze_diaz : never_average
 graze_sp_doc : never_average
 graze_diat_doc : never_average
 graze_diaz_doc : never_average
@@ -988,14 +988,14 @@ graze_zoo_zoo_zint : never_average
 graze_zoo_zoo_zint_100m : never_average
 graze_auto_TOT : low_average
 insitu_temp : medium_average
-pCO2SURF : medium_average, midhigh_average
+pCO2SURF : medium_average
 pCO2SURF_ALT_CO2 : never_average
-pH_3D : medium_average, midhigh_average
+pH_3D : low_average  # move to annual
 pH_3D_ALT_CO2 : never_average
 pfeToSed : medium_average
-photoC_sp : midhigh_average
-photoC_diat : midhigh_average
-photoC_diaz : midhigh_average
+photoC_sp : never_average
+photoC_diat : never_average
+photoC_diaz : never_average
 photoC_sp_zint : medium_average, high_average
 photoC_diat_zint : medium_average, high_average
 photoC_diaz_zint : medium_average, high_average

@@ -1,0 +1,3 @@
+/glade/work/nanr/cesm_tags/CASE_tools > git clone https://github.com/CESM-Development/CESM_CASE_MANAGEMENT_TOOLS -b cesm2-le cesm2-sf
+
+git checkout -b cesm2-sf

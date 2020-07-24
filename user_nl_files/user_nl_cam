@@ -47,7 +47,7 @@ fincl1 =
     'TREFHTMN:M','TREFHTMX:X','TREFHT:A','TROP_P:A','TROP_T:A','TROP_Z:A',
     'TSMN:M','TSMX:X','TS:A','U10:A','WD_H2O2:A','WD_H2SO4:A',
     'WD_SO2:A','wet_deposition_NHx_as_N:A','wet_deposition_NOy_as_N:A','WSPDSRFAV:A','WSPDSRFMX:X',
-    'ABSORB:A','ac_CO2:A','ADRAIN:A','ADSNOW:A','ANRAIN:A','ANSNOW:A',
+    'ABSORB:A','ADRAIN:A','ADSNOW:A','ANRAIN:A','ANSNOW:A',
     'AQRAIN:A','AQSNOW:A','AREI:A','AREL:A','AWNC:A','AWNI:A',
     'bc_a1:A','bc_a4:A','bc_c4:A','BROX:A','BROY:A','CCN3:A',
     'CLOUDCOVER_CLUBB:A','CLOUDFRAC_CLUBB:A','CLOUD:A','CLOX:A','CLOY:A','CME:A',
@@ -88,30 +88,37 @@ fincl2 =
     'FLUT:A','FSDSC:A','FSDS:A','FSNR:A','FSNSC:A','FSNS:A',
     'FSNTOAC:A','FSNT:A','LHFLX:A','LWCF:A','MSKtem:A','OMEGA500:A',
     'PBLH:A','PHIS:A','PRECC:A','PRECL:A','PRECSC:A','PRECSL:A',
-    'PRECTMX:X','PRECT:A','PSL:A','PS:A','Q200:A','Q500:A','Q700:A',
-    'Q850:A','QREFHT:A','RHREFHT:A','SHFLX:A','SOLIN:A','SOLLD:A',
-    'SOLSD:A','SWCF:A','T200:A','T500:A','T700:A', 'T850:A',
-    'TAUBLJX:A','TAUBLJY:A','TAUGWX:A','TAUGWY:A','TAUX:A',
+    'PRECTMX:X','PRECT:A','PSL:A','PS:A''QREFHT:A','RHREFHT:A','SHFLX:A','SOLIN:A','SOLLD:A',
+    'SOLSD:A','SWCF:A', 'TAUBLJX:A','TAUBLJY:A','TAUGWX:A','TAUGWY:A','TAUX:A',
     'TAUY:A','TGCLDIWP:A','TGCLDLWP:A','TMQ:A','TREFHTMN:M','TREFHTMX:X',
-    'TREFHT:A','TSMN:M','TSMX:X','TS:A','U10:A',
-    'U200:A','U500:A','U700:A','U850:A','V200:A','V500:A', 'V700:A',
-    'V850:A','WSPDSRFAV:A','WSPDSRFMX:X','Z200:A','Z500:A','Z700:A','Z850:A'
+    'TREFHT:A','TSMN:M','TSMX:X','TS:A', 'U10:A', 'U010:A', 'T010:A', 'OMEGA500:A',
+    'U200:A','U500:A','U850:A', 'V200:A','V500:A','V850:A', 'T200:A','T500:A','T850:A',
+    'Q200:A','Q500:A','Q850:A', 'Z200:A','Z500:A','Z850:A', 'WSPDSRFAV:A','WSPDSRFMX:X'
+
 
 !! 6hr (h2)
 fincl3 =
     'PRECC:A','PRECL:A','PRECSC:A','PRECSL:A','PRECT:A','PSL:I',
-    'U850:I','UBOT:I','V850:I','VBOT:I','Z300:I','Z500:I',
-    'OMEGA500:A', 'U200:A', 'FLUT:A'
+    'U200:A','U850:I','UBOT:I','V850:I','VBOT:I','Z300:I','Z500:I',
+    'OMEGA500:A', 'FLUT:A'
     
 !! 3hr (h3)
 fincl4 = 'PRECC:A', 'PRECL:A', 'CLDLOW:A', 'UBOT:A', 'VBOT:A'
 
 !! daily-FC-level (h6)
 fincl7 =
-    'U:A','V:A','T:A','Q:A','Z3:A','OMEGA:A', 
     'VTHzm','UVzm','UWzm','Uzm','Vzm','THzm','Wzm'
+
+
+!================
+! evolving GHG
+!================
+&chem_surfvals_nl
+ flbc_file              = '/glade/p/cesmdata/cseg/inputdata/atm/waccm/lb/LBC_1750-2015_CMIP6_GlobAnnAvg_c180926.nc'
+ flbc_list              = 'CO2','CH4','N2O','CFC11eq','CFC12'
+ flbc_type              = 'SERIAL'
+ scenario_ghg           = 'CHEM_LBC_FILE'
+/
 
 history_dust                   = .true. 
 do_circulation_diags           = .true. 
-co2flux_fuel_file              = '/mnt/lustre/share/CESM/cesm_input/atm/cam/ggas/emissions-cmip6_CO2_anthro_surface_ScenarioMIP_IAMC-AIM-ssp370_201401-210112_fv_0.9x1.25_c20190207.nc'
-aircraft_specifier             = 'ac_CO2 -> emissions-cmip6_CO2_anthro_ac_ssp370_201401-210112_fv_0.9x1.25_c20190207.txt'

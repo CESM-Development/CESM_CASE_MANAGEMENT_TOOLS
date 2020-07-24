@@ -1,0 +1,257 @@
+1. Start in $CASEROOT
+
+2. Run ./preview_namelists to populate Buildconf/popconf
+
+3. Copy $CESMROOT/components/pop/input_templates/gx1v7_tavg_contents SourceMods/src.pop/
+
+4. Edit SourceMods/src.pop/gx1v7_tavg_contents
+
+57,58c57,58
+< 1  dTEMP_POS_2D
+< 1  dTEMP_NEG_2D
+---
+> #  dTEMP_POS_2D  # remove from monthly
+> #  dTEMP_NEG_2D  # remove from monthly
+70,71c70,71
+< 1  UET
+< 1  UES
+---
+> #  UET  # remove from monthly
+> #  UES  # remove from monthly
+74,75c74,75
+< 1  WTT
+< 1  WTS
+---
+> #  WTT  # remove from monthly
+> #  WTS  # remove from monthly
+78c78
+< 1  HOR_DIFF
+---
+> 5  HOR_DIFF  # move to [ecosys tracer module] annual stream
+86c86
+< 2  SST2
+---
+> #  SST2  # remove from daily
+89,91c89,91
+< 1  UVEL2
+< 1  VVEL2
+< 1  WVEL2
+---
+> #  UVEL2  # remove from monthly
+> #  VVEL2  # remove from monthly
+> #  WVEL2  # remove from monthly
+110a111
+> 1  KE  # add monthly
+
+5. Copy $CESMROOT/components/pop/input_templates/ocn.abio_dic_dic14.tavg.csh SourceMods/src.pop/
+
+6. Edit $CASEROOT/SourceMods/src.pop/ocn.abio_dic_dic14.tavg.csh
+
+1,3c1,3
+< 1  ABIO_DIC
+< 1  ABIO_DIC14
+< 1  ABIO_D14Cocn
+---
+> 5  ABIO_DIC  # move to [ecosys tracer module] annual stream
+> 5  ABIO_DIC14  # move to [ecosys tracer module] annual stream
+> 5  ABIO_D14Cocn  # move to [ecosys tracer module] annual stream
+
+
+7. Copy ../../Buildconf/popconf/ecosys_diagnostics SourceMods/src.pop/
+
+8. Edit SourceMods/src.pop/ecosys_diagnostics
+
+32c32
+< ALK : medium_average
+---
+> ALK : low_average  # move to annual
+55c55
+< ALK_ALT_CO2 : medium_average
+---
+> ALK_ALT_CO2 : low_average  # move to annual
+78c78
+< DIC : medium_average
+---
+> DIC : low_average  # move to annual
+80c80
+< J_DIC : medium_average
+---
+> J_DIC : low_average  # move to annual
+101c101
+< DIC_ALT_CO2 : medium_average
+---
+> DIC_ALT_CO2 : low_average  # move to annual
+103c103
+< J_DIC_ALT_CO2 : medium_average
+---
+> J_DIC_ALT_CO2 : low_average  # move to annual
+124c124
+< DOC : medium_average
+---
+> DOC : low_average  # move to annual
+145c145
+< DOCr : medium_average
+---
+> DOCr : low_average  # move to annual
+166c166
+< DON : medium_average
+---
+> DON : low_average  # move to annual
+187c187
+< DONr : medium_average
+---
+> DONr : low_average  # move to annual
+208c208
+< DOP : medium_average
+---
+> DOP : low_average  # move to annual
+229c229
+< DOPr : medium_average
+---
+> DOPr : low_average  # move to annual
+250c250
+< Fe : medium_average
+---
+> Fe : low_average  # move to annual
+271c271
+< Lig : medium_average
+---
+> Lig : low_average  # move to annual
+291c291
+< NH4 : medium_average
+---
+> NH4 : low_average  # move to annual
+311c311
+< NO3 : medium_average
+---
+> NO3 : low_average  # move to annual
+332c332
+< O2 : medium_average
+---
+> O2 : low_average  # move to annual
+352c352
+< PO4 : medium_average
+---
+> PO4 : low_average  # move to annual
+373c373
+< SiO3 : medium_average
+---
+> SiO3 : low_average  # move to annual
+784,785c784,785
+< ALK_RESTORE_TEND : medium_average
+< ALK_ALT_CO2_RESTORE_TEND : medium_average
+---
+> ALK_RESTORE_TEND : low_average  # move to annual
+> ALK_ALT_CO2_RESTORE_TEND : low_average  # move to annual
+797c797
+< NO3_RESTORE_TEND : medium_average
+---
+> NO3_RESTORE_TEND : low_average  # move to annual
+799,800c799,800
+< PO4_RESTORE_TEND : medium_average
+< SiO3_RESTORE_TEND : medium_average
+---
+> PO4_RESTORE_TEND : low_average  # move to annual
+> SiO3_RESTORE_TEND : low_average  # move to annual
+810c810
+< AOU : medium_average
+---
+> AOU : low_average  # move to annual
+815c815
+< CO3 : medium_average
+---
+> CO3 : low_average  # move to annual
+833,834c833,834
+< DENITRIF : medium_average
+< DOC_prod : medium_average
+---
+> DENITRIF : low_average  # move to annual
+> DOC_prod : low_average  # move to annual
+843c843
+< DON_prod : medium_average
+---
+> DON_prod : low_average  # move to annual
+850c850
+< DOP_prod : medium_average
+---
+> DOP_prod : low_average  # move to annual
+862,865c862,865
+< Fe_scavenge : medium_average
+< Fe_scavenge_rate : medium_average
+< Fefree : medium_average
+< H2CO3 : medium_average
+---
+> Fe_scavenge : low_average  # move to annual
+> Fe_scavenge_rate : low_average  # move to annual
+> Fefree : low_average  # move to annual
+> H2CO3 : low_average  # move to annual
+867c867
+< HCO3 : medium_average
+---
+> HCO3 : low_average  # move to annual
+875,879c875,879
+< Lig_deg : medium_average
+< Lig_loss : medium_average
+< Lig_photochem : medium_average
+< Lig_prod : medium_average
+< Lig_scavenge : medium_average
+---
+> Lig_deg : low_average  # move to annual
+> Lig_loss : low_average  # move to annual
+> Lig_photochem : low_average  # move to annual
+> Lig_prod : low_average  # move to annual
+> Lig_scavenge : low_average  # move to annual
+882c882
+< NITRIF : medium_average
+---
+> NITRIF : low_average  # move to annual
+886c886
+< O2_CONSUMPTION : medium_average
+---
+> O2_CONSUMPTION : low_average  # move to annual
+888c888
+< O2_PRODUCTION : medium_average
+---
+> O2_PRODUCTION : low_average  # move to annual
+899,900c899,900
+< POC_FLUX_IN : medium_average
+< POC_PROD : medium_average
+---
+> POC_FLUX_IN : low_average  # move to annual
+> POC_PROD : low_average  # move to annual
+914,915c914,915
+< POP_FLUX_IN : medium_average
+< POP_PROD : medium_average
+---
+> POP_FLUX_IN : low_average  # move to annual
+> POP_PROD : low_average  # move to annual
+921,923c921,923
+< P_iron_FLUX_IN : medium_average
+< P_iron_PROD : medium_average
+< P_iron_REMIN : medium_average
+---
+> P_iron_FLUX_IN : low_average  # move to annual
+> P_iron_PROD : low_average  # move to annual
+> P_iron_REMIN : low_average  # move to annual
+928,929c928,929
+< SiO2_FLUX_IN : medium_average
+< SiO2_PROD : medium_average
+---
+> SiO2_FLUX_IN : low_average  # move to annual
+> SiO2_PROD : low_average  # move to annual
+936,937c936,937
+< co3_sat_arag : medium_average
+< co3_sat_calc : medium_average
+---
+> co3_sat_arag : low_average  # move to annual
+> co3_sat_calc : low_average  # move to annual
+939,940c939,940
+< dust_FLUX_IN : medium_average
+< dust_REMIN : medium_average
+---
+> dust_FLUX_IN : low_average  # move to annual
+> dust_REMIN : low_average  # move to annual
+993c993
+< pH_3D : medium_average
+---
+> pH_3D : low_average  # move to annual

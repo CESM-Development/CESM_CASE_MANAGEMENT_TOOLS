@@ -54,8 +54,8 @@
 1  DIA_IMPVF_TEMP
 1  T_FLUX_EXCH_INTRF
 1  RF_TEND_TEMP
-1  dTEMP_POS_2D
-1  dTEMP_NEG_2D
+#  dTEMP_POS_2D  # remove from monthly
+#  dTEMP_NEG_2D  # remove from monthly
 1  SALT
 1  TEND_SALT
 1  ADV_3D_SALT
@@ -67,15 +67,19 @@
 1  PD
 1  Q
 1  RHO
-1  UET
-1  UES
+#  UET  # remove from monthly
+#  UES  # remove from monthly
 1  VNT
 1  VNS
-1  WTT
-1  WTS
+1  VNT_ISOP
+1  VNS_ISOP
+1  VNT_SUBM
+1  VNS_SUBM
+#  WTT  # remove from monthly
+#  WTS  # remove from monthly
 1  KAPPA_ISOP
 1  KAPPA_THIC
-1  HOR_DIFF
+5  HOR_DIFF  # move to [ecosys tracer module] annual stream
 1  PV
 1  KVMIX
 1  TPOWER
@@ -83,12 +87,12 @@
 1  TLT
 1  INT_DEPTH
 2  SST
-2  SST2
+#  SST2  # remove from daily
 1  VDC_T
 1  VDC_S
-1  UVEL2
-1  VVEL2
-1  WVEL2
+#  UVEL2  # remove from monthly
+#  VVEL2  # remove from monthly
+#  WVEL2  # remove from monthly
 1  RHO_VINT
 1  SFWF_WRST
 1  TAUX2
@@ -108,19 +112,6 @@
 1  TEMP2
 1  HMXL_DR2
 2  SSS
-4  PD_2
-4  SALT_2
-4  TEMP_2
-4  UISOP_2
-4  USUBM_2
-4  UVEL_2
-4  VISOP_2
-4  VSUBM_2
-4  VVEL_2
-4  WVEL_2
-4  SSH_2
-4  HBLT_2
-1  PVWM
-1  PVWP 
-1  UPV
-1  VPV
+1  KE  # add monthly
+2  SSH_2  # add daily KeithRodgers
+2  HBLT_2  # add daily KeithRodgers
