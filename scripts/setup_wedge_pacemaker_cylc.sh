@@ -14,10 +14,10 @@ INITNAME="b.e21.BHISTcmip6.f09_g17.LE2-"
 SOURCEMODSDIR="/glade/work/nanr/cesm_tags/CASE_tools/cesm2-pacemaker/"
 
 STARTMEMBER=1
-ENDMEMBER=5
+ENDMEMBER=2
 
 CASEROOTBASE="/glade/work/nanr/CESM2-pacemaker/cases/" # !!change this 
-BASENAME=b.e21.$COMPSET'.'$GRID'.pacemaker_pacific_'
+BASENAME=b.e21.$COMPSET'.'$GRID'.pacemaker_pacific'
 SCRATCHBASE="/glade/scratch/nanr/" # !!!change this
 
 cd ~nanr/CESM-WF/
