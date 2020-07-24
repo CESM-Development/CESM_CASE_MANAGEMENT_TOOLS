@@ -202,7 +202,7 @@ def create(cesm_code_base, testing=True, command=None):
             #with open(db_file) as db:
             #    db_info = json.load(db)
             #exp_name = db_info["experiment_id"]
-            exp_name = 'test'
+            exp_name = 'cesm2-sf'
             #err=os.system(cdir+'/src/get_model_vars -e '+ exp_name+' -d /glade/p/cesm/conform-input/cmip6_input/')
             if err!=0:
                 print '\033[91m','Error: Failed to create variable lists','\033[0m'

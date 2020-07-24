@@ -1,5 +1,7 @@
+> sudox cesmsf
+
 !! Needs SVN password:
-less ~/.subversion/cmip6.conf 
+> less ~/.subversion/cmip6.conf 
 [svn]
 password: 0rl1n4~&
 
@@ -8,8 +10,15 @@ edit: .tcshrc
 setenv PROJECT UESM0006
 
 !! needs softlink to cylc script in WF directory
-~/CESM-WF
-ln -s /glade/work/cesmsf/cesm_tags/CASE_tools/cesm-sf/scripts/create_cylc_cesm2-sf-ensemble
+cd ~/CESM-WF
+> ln -s /glade/work/cesmsf/cesm_tags/CASE_tools/cesm-sf/scripts/create_cylc_cesm2-sf-ensemble .
+
+!! usage:
+> ./create_b.e21.CESM2-SF-10-macro-GHG
+
+!! creates:
+~cesmsf cylc_suites/<CASENAME.<ens1-ens2>
+
 
 cd cylc_suites/
 
@@ -23,7 +32,7 @@ cd cylc_suites/
         [[[directives]]]
                 -A = NCGD0044 
                 -q = economy
-                -N = test
+                -N = cesmsf
                 -r = n
                 -j = oe
                 -S = /bin/bash
@@ -33,5 +42,6 @@ cd cylc_suites/
 
 > cylc register b.e21.B1850cmip6.f09_g17.CESM2-SF-GHG-TEST1.1-2.suite.cmip6 /glade/u/home/cesmsf/cylc_suites/b.e21.B1850cmip6.f09_g17.CESM2-SF-GHG-TEST1.1-2
 
+> gcylc b.e21.B1850cmip6.f09_g17.CESM2-SF-GHG-TEST1.1-2.suite.cmip6 
 
 
