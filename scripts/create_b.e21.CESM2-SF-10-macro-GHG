@@ -26,12 +26,12 @@ set PROJECT=NCGD0044
 setenv SCENARIO GHG
 setenv REFDATE  1850-01-01
 setenv BASENAME b.e21.${COMPSET}.${RESOLN}.CESM2-SF-${SCENARIO}
-setenv BASEROOT /glade/work/nanr/CESM2-SF/
+setenv BASEROOT /glade/work/cesmsf/CESM2-SF/
 setenv REFROOT  /glade/scratch/nanr/archive/b.e21.B1850.f09_g17.CMIP6-piControl.001/rest/
-setenv RUNROOT  /glade/scratch/nanr/
+setenv RUNROOT  /glade/scratch/cesmsf/
 setenv REFCASE  b.e21.B1850.f09_g17.CMIP6-piControl.001
 
-cd ~nanr/CESM-WF/
+cd ~cesmsf/CESM-WF/
 ./create_cylc_cesm2-sf-ensemble --case $BASEROOT$BASENAME --res $RESOLN  --compset $COMPSET --project $PROJECT 
 
 
