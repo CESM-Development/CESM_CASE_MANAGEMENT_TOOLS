@@ -1,6 +1,6 @@
 #!/bin/csh -fx
 ### set env variables
-setenv CESM2_SF_TOOLS_ROOT /glade/work/nanr/cesm_tags/CASE_tools/cesm2-sf/
+setenv CESM2_SF_TOOLS_ROOT /glade/work/cesmsf/cesm_tags/CASE_tools/cesm2-sf/
 setenv CESMROOT ~cmip6/cesm_tags/cesm2.1.4-exp03/
 
 #module load intel/17.0.1
