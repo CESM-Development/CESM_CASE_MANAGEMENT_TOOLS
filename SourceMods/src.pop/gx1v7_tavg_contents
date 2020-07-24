@@ -111,16 +111,16 @@
 2  SSS
 
 ## in LENS1-pacemakers
-#2 TAUX_2            
-#2 TAUY_2            
-#2 HBLT_2
-#2 HMXL_2
-#2 SSH_2
-2 WTT_50m
-2 TEMP_6
-2 WVEL_50m
-2 XBLT_2
-2 SHF_2
+#2  TAUX_2            
+#2  TAUY_2            
+#2  HBLT_2
+#2  HMXL_2
+#2  SSH_2
+2   WTT_50m
+2  TEMP_6
+2  WVEL_50m
+2  XBLT_2
+2  SHF_2
 
 ## Missing BGC vars:
 # CaCO3_form_zint/    
