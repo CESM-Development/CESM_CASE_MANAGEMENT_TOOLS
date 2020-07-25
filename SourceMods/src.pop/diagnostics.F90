@@ -247,7 +247,7 @@
       tavg_TMXL,         &! tavg id for minimum mixed layer depth
       tavg_TMXL_DR,      &! tavg id for minimum mixed layer depth with density criterion
       tavg_HBLT,         &! tavg id for average boundary layer depth
-      tavg_HBLT_2,       &! tavg id for average boundary layer depth
+      tavg_HBLT_2,       &! tavg id for average boundary layer depth, stream #2
       tavg_XBLT,         &! tavg id for maximum boundary layer depth
       tavg_TBLT           ! tavg id for minimum boundary layer depth
 

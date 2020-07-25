@@ -895,7 +895,7 @@ PH_ALT_CO2 : medium_average
 PO4_sp_uptake : medium_average
 PO4_diat_uptake : medium_average
 PO4_diaz_uptake : medium_average
-POC_FLUX_100m : medium_average
+POC_FLUX_100m : medium_average, midhigh_average
 POC_FLUX_IN : low_average  # move to annual
 POC_PROD : low_average  # move to annual
 POC_PROD_zint : medium_average
@@ -988,7 +988,7 @@ graze_zoo_zoo_zint : never_average
 graze_zoo_zoo_zint_100m : never_average
 graze_auto_TOT : low_average
 insitu_temp : medium_average
-pCO2SURF : medium_average
+pCO2SURF : medium_average, midhigh_average
 pCO2SURF_ALT_CO2 : never_average
 pH_3D : low_average  # move to annual
 pH_3D_ALT_CO2 : never_average
