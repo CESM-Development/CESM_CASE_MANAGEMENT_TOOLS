@@ -68,6 +68,7 @@
 
    integer (int_kind) :: &
       tavg_SHF,          &! tavg_id for surface heat flux
+      tavg_SHF_2,        &! tavg_id for surface heat flux
       tavg_SHF_QSW,      &! tavg_id for short-wave solar heat flux
       tavg_SFWF,         &! tavg_id for surface freshwater flux
       tavg_SFWF_WRST,    &! tavg_id for weak restoring freshwater flux
@@ -173,6 +174,11 @@
 !-----------------------------------------------------------------------
 
    call define_tavg_field(tavg_SHF, 'SHF', 2,                                &
+                          long_name='Total Surface Heat Flux, Including SW', &
+                          units='watt/m^2', grid_loc='2110',                 &
+                          coordinates='TLONG TLAT time')
+
+   call define_tavg_field(tavg_SHF_2, 'SHF_2', 2,                                &
                           long_name='Total Surface Heat Flux, Including SW', &
                           units='watt/m^2', grid_loc='2110',                 &
                           coordinates='TLONG TLAT time')
@@ -511,6 +517,7 @@
          end where
 
          call accumulate_tavg_field(WORK,tavg_SHF,iblock,1)
+         call accumulate_tavg_field(WORK,tavg_SHF_2,iblock,1)
       endif
 
       if (accumulate_tavg_now(tavg_SHF_QSW)) then

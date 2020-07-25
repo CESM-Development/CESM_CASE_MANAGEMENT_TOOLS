@@ -54,8 +54,8 @@ queue = 'None'
 
 # Add/Revove/Modify any of the CESM xml variables you would like to set or change
 cesm_xml={
-         'RESUBMIT': '12',
-         'STOP_N': '10',
+         'RESUBMIT': '44',
+         'STOP_N': '3',
          'STOP_OPTION': 'nyears',
          'DOUT_S': 'TRUE'
          }

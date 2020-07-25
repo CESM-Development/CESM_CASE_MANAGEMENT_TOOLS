@@ -326,10 +326,12 @@
                           long_name='Potential Temperature at k=6',   &
                           units='degC', grid_loc='2111',               &
                           coordinates='TLONG TLAT time')
+
    call define_tavg_field(tavg_TEMP_27,'TEMP_27',2,                    &
                           long_name='Potential Temperature at k=27',   &
                           units='degC', grid_loc='2111',               &
                           coordinates='TLONG TLAT time')
+
    call define_tavg_field(tavg_TEMP_43,'TEMP_43',2,                    &
                           long_name='Potential Temperature at k=43',   &
                           units='degC', grid_loc='2111',               &
