@@ -23,7 +23,7 @@ set STOP_N=3
 set STOP_OPTION=nyears
 set PROJECT=NCGD0044
 
-setenv SCENARIO GHG11
+setenv SCENARIO GHG
 setenv REFDATE  1850-01-01
 setenv BASENAME b.e21.${COMPSET}.${RESOLN}.CESM2-SF-${SCENARIO}
 setenv BASEROOT /glade/work/cesmsf/CESM2-SF/
