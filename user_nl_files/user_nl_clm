@@ -132,7 +132,7 @@ use_c14 = .false.
          'FSDSNI', 'SNOWLIQ', 'SOILICE', 'SOILLIQ', 'QINTR', 'SNOBCMSL', 'TSOI', 'SNOTXMASS', 'SNOWICE', 
          'QRUNOFF', 'RAIN', 'SNOW', 'GPP', 'NPP', 'AR', 'HR', 'ALT', 'FAREA_BURNED', 'NFIRE','LAKEICETHICK',
          'TLAKE','NBP','NEP','JCONVECT:X'
- hist_fincl7 = 'TREFMXAV', 'TREFMNAV'
+ hist_fincl7 = 'TREFMXAV', 'TREFMNAV','NPP'
 
  hist_mfilt(6) = 365
  hist_mfilt(7) = 365
