@@ -16,9 +16,9 @@ endif
 @ s1 = 1   # use base-model stream 1
 
 cat >! $CASEROOT/Buildconf/popconf/abio_dic_dic14_tavg_contents << EOF
-5  ABIO_DIC  # move to [ecosys tracer module] annual stream
-5  ABIO_DIC14  # move to [ecosys tracer module] annual stream
-5  ABIO_D14Cocn  # move to [ecosys tracer module] annual stream
+6  ABIO_DIC  # move to [ecosys tracer module] annual stream
+6  ABIO_DIC14  # move to [ecosys tracer module] annual stream
+6  ABIO_D14Cocn  # move to [ecosys tracer module] annual stream
 $s1  FvICE_ABIO_DIC
 $s1  FvPER_ABIO_DIC
 $s1  FvICE_ABIO_DIC14

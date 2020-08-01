@@ -83,11 +83,11 @@ endif
   mv SourceMods SourceMods.`date +%m%d-%H%M`
   cp -r $CESM2_SF_TOOLS_ROOT/SourceMods $CASEROOT/
 
-  cp $CESM2_SF_TOOLS_ROOT/user_nl_files/user_nl_cam $CASEROOT/
-  cp $CESM2_SF_TOOLS_ROOT/user_nl_files/user_nl_clm $CASEROOT/
-  cp $CESM2_SF_TOOLS_ROOT/user_nl_files/user_nl_cpl $CASEROOT/
-  cp $CESM2_SF_TOOLS_ROOT/user_nl_files/user_nl_cice $CASEROOT/
-  cp $CESM2_SF_TOOLS_ROOT/user_nl_files/user_nl_ww $CASEROOT/
+  cp $CESM2_SF_TOOLS_ROOT/user_nl_files/hist-ghg/user_nl_cam $CASEROOT/
+  cp $CESM2_SF_TOOLS_ROOT/user_nl_files/hist-ghg/user_nl_clm $CASEROOT/
+  cp $CESM2_SF_TOOLS_ROOT/user_nl_files/hist-ghg/user_nl_cpl $CASEROOT/
+  cp $CESM2_SF_TOOLS_ROOT/user_nl_files/hist-ghg/user_nl_cice $CASEROOT/
+  cp $CESM2_SF_TOOLS_ROOT/user_nl_files/hist-ghg/user_nl_ww $CASEROOT/
 
   ./case.setup
 

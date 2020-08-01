@@ -79,7 +79,7 @@
 #  WTS  # remove from monthly
 1  KAPPA_ISOP
 1  KAPPA_THIC
-5  HOR_DIFF  # move to [ecosys tracer module] annual stream
+6  HOR_DIFF  # move to [ecosys tracer module] annual stream
 1  PV
 1  KVMIX
 1  TPOWER
