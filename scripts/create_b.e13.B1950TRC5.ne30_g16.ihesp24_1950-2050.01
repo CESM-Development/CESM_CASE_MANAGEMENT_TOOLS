@@ -12,7 +12,8 @@ set TAG     = ihesp24
 #setenv CESMROOT /glade/work/nanr/cesm_tags/sandbox/cesm1_3_beta17_sehires36
 setenv CESMROOT /gpfs/fs1/work/nanr/cesm_tags/cesm-ihesp-hires1.0.24/
 
-set mbr = 1
+set mbr = 99
+set mbr = 98
 setenv CASE b.e13.${COMPSET}.${RESOLN}.${TAG}_1950-2050.00${mbr}
 setenv CASEROOT /glade/work/nanr/ihesp-HiRes/cases/ne30_g16/$CASE
 
@@ -23,7 +24,7 @@ setenv CASEROOT /glade/work/nanr/ihesp-HiRes/cases/ne30_g16/$CASE
 cd $CASEROOT
 
 ### modify case parameters
-./xmlchange RUN_TYPE=branch
+./xmlchange RUN_TYPE=hybrid
 ./xmlchange RUN_REFCASE=b.e13.B1950C5.ne30_g16.cesm-ihesp-NCPL-CESM1_MOD-ROF2OCN_RMAP_1950cntl.01
 ./xmlchange RUN_REFDATE=0031-01-01
 ./xmlchange GET_REFCASE=FALSE
@@ -31,6 +32,7 @@ cd $CASEROOT
 ./xmlchange STOP_N=10
 ./xmlchange DIN_LOC_ROOT='/glade/p/cesm/cseg/inputdata'
 ./xmlchange DIN_LOC_ROOT_CLMFORC='/glade/p/cesm/cseg/inputdata/atm/datm7'
+./xmlchange PIO_NETCDF_FORMAT_LND=64bit_offset
 
 #./xmlchange PROJECT=P93300612
 
@@ -57,8 +59,8 @@ cd $CASEROOT
  cp /glade/work/nanr/cesm_tags/CASE_tools/ihesp-tools/user_nl_files/* $CASEROOT
  cp /glade/work/nanr/cesm_tags/CASE_tools/ihesp-tools/SourceMods/src.pop/* $CASEROOT/SourceMods/src.pop/
 
- cp /glade/scratch/fredc/archive/b.e13.B1950C5.ne30_g16.cesm-ihesp-NCPL-CESM1_MOD-ROF2OCN_RMAP_1950cntl.01/rest/0031-01-01-00000/* /glade/scratch/nanr/$CASE/run
+ cp /glade/p/cesm/cseg/inputdata/ccsm4_init/b.e13.B1950C5.ne30_g16.cesm-ihesp-NCPL-CESM1_MOD-ROF2OCN_RMAP_1950cntl.01/0031-01-01/* /glade/scratch/nanr/$CASE/run
 
 
 
-#qcmd -- ./$CASE.build
+qcmd -- ./$CASE.build
