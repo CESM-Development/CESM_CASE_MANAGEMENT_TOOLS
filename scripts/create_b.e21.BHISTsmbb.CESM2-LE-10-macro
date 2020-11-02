@@ -6,20 +6,20 @@ source $POSTPROCESS_PATH/cesm-env2/bin/activate
 #if ($USER==jedwards)
 #set test=test
 #else
-set test=
+set test=nanr
 #endif
 
-setenv CESMROOT /mnt/lustre/share/CESM/cesm2.1.4-exp03
+setenv CESMROOT /mnt/lustre/share/CESM/cesm2.1.4-rc.05
 
-set COMPSET = BHISTcmip6
+set COMPSET = BHISTsmbb
 set MACHINE = aleph
 set RESOLN = f09_g17
-set RESUBMIT = 1
+set RESUBMIT = 0
 set STOP_N=10
 set STOP_OPTION=nyears
 
 set smbr =  1
-set embr =  20
+set embr =  1
 
 @ mb = $smbr
 @ me = $embr
@@ -48,9 +48,11 @@ if ( $mbr == $smbr ) then
   mv user_nl_clm user_nl_clm.`date +%m%d-%H%M`
   mv user_nl_cpl user_nl_cpl.`date +%m%d-%H%M`
   mv user_nl_cice user_nl_cice.`date +%m%d-%H%M`
-  cp $CESM2_LE_TOOLS_ROOT/user_nl_files/* $CASEROOT/
-  mv SourceMods SourceMods.`date +%m%d-%H%M`
-  cp -r $CESM2_LE_TOOLS_ROOT/SourceMods $CASEROOT/
+
+  cp $CESM2_LE_TOOLS_ROOT/user_nl_files/BHISTsmbb/mbrs1-10/user_nl* $CASEROOT/
+  cp $CESM2_LE_TOOLS_ROOT/SourceMods/src.pop/BHISTsmbb/* $CASEROOT/SourceMods/src.pop/
+  cp $CESM2_LE_TOOLS_ROOT/SourceMods/src.cam/* $CASEROOT/SourceMods/src.cam/
+  cp $CESM2_LE_TOOLS_ROOT/SourceMods/src.clm/* $CASEROOT/SourceMods/src.clm/
  
   ./xmlchange RUN_REFCASE=b.e21.B1850.f09_g17.CMIP6-piControl.001
   ./xmlchange RUN_REFDATE=${USE_REFDATE}-01-01
@@ -61,13 +63,13 @@ if ( $mbr == $smbr ) then
   ./preview_namelists
 
   qcmd -- ./case.build >& bld.`date +%m%d-%H%M`
-  $POSTPROCESS_PATH/cesm-env2/bin/create_postprocess --caseroot $CASEROOT 
+  #$POSTPROCESS_PATH/cesm-env2/bin/create_postprocess --caseroot $CASEROOT 
 else
   $CESMROOT/cime/scripts/create_clone --case $CASEROOT --clone $masterroot --keepexe
   cd $CASEROOT
   ./xmlchange DOUT_S_ROOT=/mnt/lustre/share/CESM/archive/$CASENAME
-  rm -fr postprocess
-  $POSTPROCESS_PATH/cesm-env2/bin/create_postprocess --caseroot $CASEROOT 
+  #rm -fr postprocess
+  #$POSTPROCESS_PATH/cesm-env2/bin/create_postprocess --caseroot $CASEROOT 
   ./xmlchange RUN_REFDATE=${USE_REFDATE}-01-01
   ./xmlchange RESUBMIT=$RESUBMIT
   ./preview_namelists

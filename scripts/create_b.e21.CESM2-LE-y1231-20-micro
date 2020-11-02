@@ -99,7 +99,7 @@ endif
 # =========================
 
   ./preview_namelists
-  ./case.build >& bld.`date +%m%d-%H%M`
+  qcmd -- ./case.build >& bld.`date +%m%d-%H%M`
   $POSTPROCESS_PATH/cesm-env2/bin/create_postprocess --caseroot $CASEROOT 
 
 # ===================================================================================
