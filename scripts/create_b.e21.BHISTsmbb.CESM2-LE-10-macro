@@ -19,22 +19,25 @@ set STOP_N=10
 set STOP_OPTION=nyears
 
 set smbr =  1
-set embr =  1
+set embr =  20
+set mmm  = 0
 
 @ mb = $smbr
 @ me = $embr
 
 foreach mbr ( `seq $mb 2 $me` )
 @ USE_REFDATE = 1001 + ( $mbr - 1 ) * 10
+@ mmm++
 
-if    ($mbr < 10) then
-	setenv CASENAME b.e21${test}.${COMPSET}.${RESOLN}.LE2-${USE_REFDATE}.00${mbr}
-else if ($mbr >= 10 && $mbr < 100) then
-	setenv CASENAME b.e21${test}.${COMPSET}.${RESOLN}.LE2-${USE_REFDATE}.0${mbr}
+if    ($mmm < 10) then
+	setenv CASENAME b.e21${test}.${COMPSET}.${RESOLN}.LE2-${USE_REFDATE}.00${mmm}
+else if ($mmm >= 10 && $mmm < 100) then
+	setenv CASENAME b.e21${test}.${COMPSET}.${RESOLN}.LE2-${USE_REFDATE}.0${mmm}
 else
-	setenv CASENAME b.e21${test}.${COMPSET}.${RESOLN}.LE2-${USE_REFDATE}.${mbr}
+	setenv CASENAME b.e21${test}.${COMPSET}.${RESOLN}.LE2-${USE_REFDATE}.${mmm}
 endif
-setenv CASEROOT /mnt/lustre/share/CESM/${test}/$CASENAME
+#setenv CASEROOT /mnt/lustre/share/CESM/${test}/$CASENAME
+setenv CASEROOT /mnt/lustre/share/CESM/cases/$CASENAME
 
 
 echo $CASEROOT
