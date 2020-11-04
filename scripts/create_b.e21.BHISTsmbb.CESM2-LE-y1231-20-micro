@@ -6,7 +6,7 @@ source $POSTPROCESS_PATH/cesm-env2/bin/activate
 #if ($USER==jedwards)
 #set test=test
 #else
-set test=nanr
+set test=
 #endif
 
 #Start years:  1231, 1251, 1281, 1301
@@ -21,7 +21,7 @@ set STOP_N=10
 set STOP_OPTION=nyears
 
 set smbr =  11
-set embr =  13
+set embr =  20
 
 @ mb = $smbr
 @ me = $embr
@@ -58,6 +58,7 @@ if ( $mbr == $smbr ) then
   ./case.setup
   mv user_nl_ww   user_nl_ww.`date +%m%d-%H%M`
   mv user_nl_clm  user_nl_clm.`date +%m%d-%H%M`
+  mv user_nl_cam  user_nl_cam.`date +%m%d-%H%M`
   mv user_nl_cpl  user_nl_cpl.`date +%m%d-%H%M`
   mv user_nl_cice user_nl_cice.`date +%m%d-%H%M`
   mv user_nl_mosart user_nl_mosart.`date +%m%d-%H%M`
