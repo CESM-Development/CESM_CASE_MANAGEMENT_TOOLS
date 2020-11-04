@@ -6,7 +6,7 @@ source $POSTPROCESS_PATH/cesm-env2/bin/activate
 #if ($USER==jedwards)
 #set test=test
 #else
-set test=
+set test=nanr
 #endif
 
 #Start years:  1231, 1251, 1281, 1301
@@ -21,7 +21,7 @@ set STOP_N=10
 set STOP_OPTION=nyears
 
 set smbr =  11
-set embr =  20
+set embr =  13
 
 @ mb = $smbr
 @ me = $embr
@@ -38,7 +38,8 @@ else if ($mbr >= 10 && $mbr < 100) then
 else
 	setenv CASENAME b.e21${test}.${COMPSET}.${RESOLN}.LE2-${USE_REFDATE}.${mbr}
 endif
-setenv CASEROOT /mnt/lustre/share/CESM/${test}/$CASENAME
+setenv CASEROOT /mnt/lustre/share/CESM/cases/$CASENAME
+#setenv CASEROOT /mnt/lustre/share/CESM/${test}/$CASENAME
 
 
 echo $CASEROOT
@@ -56,13 +57,11 @@ if ( $mbr == $smbr ) then
   
   ./case.setup
   mv user_nl_ww   user_nl_ww.`date +%m%d-%H%M`
-  mv user_nl_cam  user_nl_cam.`date +%m%d-%H%M`
   mv user_nl_clm  user_nl_clm.`date +%m%d-%H%M`
   mv user_nl_cpl  user_nl_cpl.`date +%m%d-%H%M`
   mv user_nl_cice user_nl_cice.`date +%m%d-%H%M`
   mv user_nl_mosart user_nl_mosart.`date +%m%d-%H%M`
   cp $CESM2_LE_TOOLS_ROOT/user_nl_files/BHISTsmbb/mbrs1-10/user_nl*  $CASEROOT/
-  mv SourceMods SourceMods.`date +%m%d-%H%M`
   cp $CESM2_LE_TOOLS_ROOT/SourceMods/src.pop/BHISTsmbb/* $CASEROOT/SourceMods/src.pop/
   cp $CESM2_LE_TOOLS_ROOT/SourceMods/src.cam/* $CASEROOT/SourceMods/src.cam/
   cp $CESM2_LE_TOOLS_ROOT/SourceMods/src.clm/* $CASEROOT/SourceMods/src.clm/
@@ -75,28 +74,8 @@ if ( $mbr == $smbr ) then
   ./xmlchange RESUBMIT=$RESUBMIT
   ./xmlchange DOUT_S_ROOT=/mnt/lustre/share/CESM/archive/$CASENAME
 
-# =========================
-# add pertlim perturbation to micro members 2 .. N 
-# =========================
-if ($mbr != 1) then
-cat >> head.${mbr} << EOF
-! micro-member perturbation
-pertlim = ${mbr}.d-14
-
-EOF
-
-mv user_nl_cam tmp.cam
-cat head.${mbr} tmp.cam  > user_nl_cam
-rm tmp.cam head.${mbr}
-
-endif
-# =========================
-# END - pertlim 
-# =========================
-
-  ./preview_namelists
-  qcmd -- ./case.build >& bld.`date +%m%d-%H%M`
-  $POSTPROCESS_PATH/cesm-env2/bin/create_postprocess --caseroot $CASEROOT 
+ ./case.build >& bld.`date +%m%d-%H%M`
+  #$POSTPROCESS_PATH/cesm-env2/bin/create_postprocess --caseroot $CASEROOT 
 
 # ===================================================================================
 # ===================================================================================
@@ -110,17 +89,24 @@ else
   $CESMROOT/cime/scripts/create_clone --case $CASEROOT --clone $masterroot --keepexe
   cd $CASEROOT
   ./xmlchange DOUT_S_ROOT=/mnt/lustre/share/CESM/archive/$CASENAME
-  rm -fr postprocess
-  $POSTPROCESS_PATH/cesm-env2/bin/create_postprocess --caseroot $CASEROOT 
+  #rm -fr postprocess
+  #$POSTPROCESS_PATH/cesm-env2/bin/create_postprocess --caseroot $CASEROOT 
 
   ./xmlchange RUN_REFDATE=${USE_REFDATE}-01-01
   ./xmlchange RESUBMIT=$RESUBMIT
+
+  ./preview_namelists
+endif
+
+echo $CASEROOT
 
 # =========================
 # add pertlim perturbation to 
 # micro members 2 .. N 
 # =========================
+
 if ($mbr != 1) then
+cp $CESM2_LE_TOOLS_ROOT/user_nl_files/BHISTsmbb/mbrs1-10/user_nl_cam $CASEROOT/
 cat >> head.${mbr} << EOF
 ! micro-member perturbation
 pertlim = ${mbr}.d-14
@@ -135,10 +121,6 @@ endif
 # =========================
 # END - pertlim 
 # =========================
-
-  ./preview_namelists
-endif
-
 end             # member loop
 
 exit
