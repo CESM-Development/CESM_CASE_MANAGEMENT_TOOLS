@@ -23,7 +23,7 @@ set STOP_N=3
 set STOP_OPTION=nyears
 set PROJECT=NCGD0044
 
-setenv SCENARIO AER
+setenv SCENARIO GHG
 setenv REFDATE  1850-01-01
 setenv BASENAME b.e21.${COMPSET}.${RESOLN}.CESM2-SF-${SCENARIO}
 setenv BASEROOT /glade/work/cesmsf/CESM2-SF/
@@ -36,8 +36,10 @@ cd ~cesmsf/CESM-WF/
 
 
 # case name counter
-set smbr =  1
+set smbr =  1 
 set embr =  5
+#set smbr =  6 
+#set embr =  10
 
 
 @ mb = $smbr
@@ -83,11 +85,11 @@ endif
   mv SourceMods SourceMods.`date +%m%d-%H%M`
   cp -r $CESM2_SF_TOOLS_ROOT/SourceMods $CASEROOT/
 
-  cp $CESM2_SF_TOOLS_ROOT/user_nl_files/hist-aer/user_nl_cam $CASEROOT/
-  cp $CESM2_SF_TOOLS_ROOT/user_nl_files/hist-aer/user_nl_clm $CASEROOT/
-  cp $CESM2_SF_TOOLS_ROOT/user_nl_files/hist-aer/user_nl_cpl $CASEROOT/
-  cp $CESM2_SF_TOOLS_ROOT/user_nl_files/hist-aer/user_nl_cice $CASEROOT/
-  cp $CESM2_SF_TOOLS_ROOT/user_nl_files/hist-aer/user_nl_ww $CASEROOT/
+  cp $CESM2_SF_TOOLS_ROOT/user_nl_files/user_nl_cam $CASEROOT/
+  cp $CESM2_SF_TOOLS_ROOT/user_nl_files/user_nl_clm $CASEROOT/
+  cp $CESM2_SF_TOOLS_ROOT/user_nl_files/user_nl_cpl $CASEROOT/
+  cp $CESM2_SF_TOOLS_ROOT/user_nl_files/user_nl_cice $CASEROOT/
+  cp $CESM2_SF_TOOLS_ROOT/user_nl_files/user_nl_ww $CASEROOT/
 
   ./case.setup
 
