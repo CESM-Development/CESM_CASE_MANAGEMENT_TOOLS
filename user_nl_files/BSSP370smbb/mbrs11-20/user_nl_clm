@@ -145,12 +145,11 @@ hist_fincl4 += 'C14_SOILC_vr'
          'FSDSNI', 'SNOWLIQ', 'SOILICE', 'SOILLIQ', 'QINTR', 'SNOBCMSL', 'TSOI', 'SNOTXMASS', 'SNOWICE', 
          'QRUNOFF', 'RAIN', 'SNOW', 'GPP', 'NPP', 'AR', 'HR', 'ALT', 'FAREA_BURNED', 'NFIRE','LAKEICETHICK',
          'TLAKE','NBP','NEP','JCONVECT:X','QRGWL','EFLX_GRND_LAKE','UST_LAKE','BTRANMN','TSOI_10CM','CPHASE',
-	 'TKE1', 'FSR','FSDSVDLN','FSRVDLN','FSDSNDLN','FSRNDLN','FSDSVI', 'FSRVI','FSDSNI','FSRNI','FSH','FCTR','FCEV','FGEV'
+	 'FSR','FSDSVDLN','FSRVDLN','FSDSNDLN','FSRNDLN','FSDSVI', 'FSRVI','FSDSNI','FSRNI','FSH','FCTR','FCEV','FGEV'
 
 
 ! h6 stream (daily average, landunit-level)
- hist_fincl7 = 'TREFMXAV', 'TREFMNAV','QRGWL','FGR','FSM',
-         'SABG','FIRE','FLDS','FIRA','FSH','EFLX_LH_TOT','H2OSNO'
+ hist_fincl7 = 'TREFMXAV', 'TREFMNAV','QRGWL','FGR','FSM'
 
 ! h7 stream (3-hourly average, gridcell-level)
  hist_fincl8 = 'PBOT', 'TSA', 'RH2M', 'WBT'

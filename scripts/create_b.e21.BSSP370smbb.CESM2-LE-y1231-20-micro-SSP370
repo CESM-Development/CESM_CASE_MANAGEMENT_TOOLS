@@ -2,11 +2,11 @@
 ### set env variables
 setenv CESM2_LE_TOOLS_ROOT $HOME/CESM_CASE_MANAGEMENT_TOOLS
 setenv POSTPROCESS_PATH /home/jedwards/workflow/CESM_postprocessing
-source $POSTPROCESS_PATH/cesm-env2/bin/activate
+#source $POSTPROCESS_PATH/cesm-env2/bin/activate
 #if ($USER==jedwards)
 #set test=test
 #else
-set test=
+set test=nanr
 #endif
 
 #Start years:  1231, 1251, 1281, 1301
@@ -23,7 +23,7 @@ set STOP_OPTION=nyears
 set rootmbr =  11
 
 set smbr =  11
-set embr =  20
+set embr =  12
 
 @ mb = $smbr
 @ me = $embr
@@ -98,7 +98,7 @@ if ( $mbr == $rootmbr ) then
 
   ./preview_namelists
 # qcmd -- ./case.build >& bld.`date +%m%d-%H%M`
-  $POSTPROCESS_PATH/cesm-env2/bin/create_postprocess --caseroot $CASEROOT 
+# $POSTPROCESS_PATH/cesm-env2/bin/create_postprocess --caseroot $CASEROOT 
 
 # ===================================================================================
 # ===================================================================================
@@ -112,8 +112,8 @@ else
   $CESMROOT/cime/scripts/create_clone --case $CASEROOT --clone $masterroot --keepexe
   cd $CASEROOT
   ./xmlchange DOUT_S_ROOT=/mnt/lustre/share/CESM/archive/$CASENAME
-  rm -fr postprocess
-  $POSTPROCESS_PATH/cesm-env2/bin/create_postprocess --caseroot $CASEROOT 
+  # rm -fr postprocess
+  # $POSTPROCESS_PATH/cesm-env2/bin/create_postprocess --caseroot $CASEROOT 
 
   cp     /mnt/lustre/share/CESM/archive/${USE_REFCASE}/rest/2015-01-01-00000/rpointer* /mnt/lustre/share/CESM/output/${CASENAME}/run/
   ln -s  /mnt/lustre/share/CESM/archive/${USE_REFCASE}/rest/2015-01-01-00000/b.e21.BHISTsmbb.* /mnt/lustre/share/CESM/output/${CASENAME}/run/.
