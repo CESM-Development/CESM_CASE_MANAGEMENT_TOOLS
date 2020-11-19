@@ -1540,7 +1540,7 @@ contains
       call outfld('Q500    ', p_surf, pcols, lchnk )
     end if
     if (hist_fld_active('Q300')) then
-      call vertinterp(nol, pcols, pver, state%pmid, 30000._r8, state%q(1,1,1), p_surf)
+      call vertinterp(ncol, pcols, pver, state%pmid, 30000._r8, state%q(1,1,1), p_surf)
       call outfld('Q300    ', p_surf, pcols, lchnk )
     end if
     if (hist_fld_active('Q200')) then
