@@ -149,7 +149,7 @@ hist_fincl4 += 'C14_SOILC_vr'
 
 
 ! h6 stream (daily average, landunit-level)
- hist_fincl7 = 'TREFMXAV', 'TREFMNAV','QRGWL','FGR','FSM'
+ hist_fincl7 = 'TREFMXAV', 'TREFMNAV','QRGWL'
 
 ! h7 stream (3-hourly average, gridcell-level)
  hist_fincl8 = 'PBOT', 'TSA', 'RH2M', 'WBT'
