@@ -80,35 +80,43 @@ fincl1 =
     'ZM_CLUBB:A','ZMDQ:A','ZMDT:A','ZMMTT:A','ZMMU:A','ZT_CLUBB:A'
     
 !! daily single level (h1)
+!! Q010, OMEGA010 could be jettisoned if we lack disk space
 fincl2 =
     'ACTNI:A','ACTNL:A','ACTREI:A','ACTREL:A','AODVIS:A','BURDENBCdn:A',
     'BURDENDUSTdn:A','BURDENPOMdn:A','BURDENSEASALTdn:A','BURDENSO4dn:A','BURDENSO4:A','BURDENSOAdn:A',
     'CAPE:A','CDNUMC:A','CLDTOT:A','FCTI:A','FCTL:A','FLDSC:A','FLDS:A',
     'FLNR:A','FLNSC:A','FLNS:A','FLNTC:A','FLNT:A','FLUTC:A',
     'FLUT:A','FSDSC:A','FSDS:A','FSNR:A','FSNSC:A','FSNS:A',
-    'FSNTOAC:A','FSNT:A','LHFLX:A','LWCF:A','MSKtem:A','OMEGA500:A',
+    'FSNTOAC:A','FSNT:A','LHFLX:A','LWCF:A','MSKtem:A',
     'PBLH:A','PHIS:A','PRECC:A','PRECL:A','PRECSC:A','PRECSL:A',
-    'PRECTMX:X','PRECT:A','PSL:A','PS:A','Q200:A','Q500:A','Q700:A',
+    'PRECTMX:X','PRECT:A','PSL:A','PS:A',
     'Q850:A','QREFHT:A','RHREFHT:A','SHFLX:A','SOLIN:A','SOLLD:A',
-    'SOLSD:A','SWCF:A','T200:A','T500:A','T700:A', 'T850:A',
+    'SOLSD:A','SWCF:A',
     'TAUBLJX:A','TAUBLJY:A','TAUGWX:A','TAUGWY:A','TAUX:A',
     'TAUY:A','TGCLDIWP:A','TGCLDLWP:A','TMQ:A','TREFHTMN:M','TREFHTMX:X',
     'TREFHT:A','TSMN:M','TSMX:X','TS:A','U10:A',
-    'U200:A','U500:A','U700:A','U850:A','V200:A','V500:A', 'V700:A',
-    'V850:A','WSPDSRFAV:A','WSPDSRFMX:X','Z200:A','Z500:A','Z700:A','Z850:A','TBOT'
+    'WSPDSRFAV:A','WSPDSRFMX:X', 
+    'Q1000:A', 'Q850:A', 'Q700:A', 'Q500:A', 'Q200:A', 'Q100:A', 'Q050:A', 'Q010:A', 'QBOT:A',
+    'U1000:A', 'U850:A', 'U700:A', 'U500:A', 'U200:A', 'U100:A', 'U050:A', 'U010:A', 'UBOT:A',
+    'V1000:A', 'V850:A', 'V700:A', 'V500:A', 'V200:A', 'V100:A', 'V050:A', 'V010:A', 'VBOT:A',
+    'T1000:A', 'T850:A', 'T700:A', 'T500:A', 'T200:A', 'T100:A', 'T050:A', 'T010:A', 'TBOT:A', 
+    'Z1000:A', 'Z850:A', 'Z700:A', 'Z500:A', 'Z200:A', 'Z100:A', 'Z050:A', 'Z010:A', 
+    'OMEGA1000:A', 'OMEGA850:A', 'OMEGA700:A', 'OMEGA500:A', 'OMEGA200:A', 'OMEGA100:A', 'OMEGA050:A', 'OMEGA010:A'
+
+
 
 !! 6hr (h2)
 fincl3 =
     'PRECC:A','PRECL:A','PRECSC:A','PRECSL:A','PRECT:A','PSL:I',
     'U850:I','UBOT:I','V850:I','VBOT:I','Z300:I','Z500:I',
-    'OMEGA500:A', 'U200:A', 'FLUT:A'
+    'OMEGA500:A', 'U200:A', 'FLUT:A',
+    'TMQ:I','IVT:I','vIVT:I','uIVT:I'
     
 !! 3hr (h3)
 fincl4 = 'PRECC:A', 'PRECL:A', 'CLDLOW:A', 'UBOT:A', 'VBOT:A'
 
 !! daily-FC-level (h6)
 fincl7 =
-    'U:A','V:A','T:A','Q:A','Z3:A','OMEGA:A', 
     'VTHzm','UVzm','UWzm','Uzm','Vzm','THzm','Wzm'
 
 history_dust                   = .true. 
