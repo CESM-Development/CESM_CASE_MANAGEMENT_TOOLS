@@ -6,7 +6,7 @@ setenv CESM2_LE_TOOLS_ROOT $HOME/CESM_CASE_MANAGEMENT_TOOLS
 #if ($USER==jedwards)
 #set test=test
 #else
-set test=nanr
+set test=
 #endif
 
 
@@ -38,7 +38,7 @@ else
 	setenv CASENAME b.e21${test}.${COMPSET}.${RESOLN}.LE2-${USE_REFDATE}.${mbr}
 endif
 setenv CASEROOT /mnt/lustre/share/CESM/cases/$CASENAME
-setenv CASEROOT /mnt/lustre/share/CESM/${test}/$CASENAME
+#setenv CASEROOT /mnt/lustre/share/CESM/${test}/$CASENAME
 
 
 echo $CASEROOT
@@ -74,7 +74,7 @@ if ( $mbr == $smbr ) then
   ./xmlchange RESUBMIT=$RESUBMIT
   ./xmlchange DOUT_S_ROOT=/mnt/lustre/share/CESM/archive/$CASENAME
 
- #./case.build >& bld.`date +%m%d-%H%M`
+ ./case.build >& bld.`date +%m%d-%H%M`
   #$POSTPROCESS_PATH/cesm-env2/bin/create_postprocess --caseroot $CASEROOT 
 
 # ===================================================================================
