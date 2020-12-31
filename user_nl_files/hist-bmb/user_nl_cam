@@ -122,7 +122,7 @@ fincl7 =
  n2ovmr         =    275.68e-9
 /
 
-! Evolving anthropogenic aerosols; natural aerosols CYCLICAL over 1850 values (by interpolating between two 1850 repeating sets of values).
+! Evolving BMB aerosols; natural aerosols CYCLICAL over 1850 values (by interpolating between two 1850 repeating sets of values).
 &chem_inparm
  chem_use_chemtrop              = .true.
  clim_soilw_file                = '/glade/p/cesmdata/cseg/inputdata/atm/cam/chem/trop_mozart/dvel/clim_soilw.nc'
@@ -132,42 +132,42 @@ fincl7 =
 
 !! piCntl
  ext_frc_cycle_yr  = 1850
- ext_frc_specifier = 'H2O    ->  atm/cam/chem/emis/elev/H2O_emission_CH4_oxidationx2_elev_3DmonthlyL70_1850climoCMIP6piControl001_y21-50avg_c180802.nc',
-         'num_a1 ->  atm/cam/chem/emis/CMIP6_emissions_1750_2015/emissions-cmip6_num_so4_a1_anthro-ene_vertical_1750-2015_0.9x1.25_c20170616.nc',
-         'num_a1 ->  atm/cam/chem/emis/CMIP6_emissions_1750_2015/emissions-cmip6_num_a1_so4_contvolcano_vertical_850-5000_0.9x1.25_c20170724.nc',
-         'num_a2 ->  atm/cam/chem/emis/CMIP6_emissions_1750_2015/emissions-cmip6_num_a2_so4_contvolcano_vertical_850-5000_0.9x1.25_c20170724.nc',
-         'SO2    ->  atm/cam/chem/emis/CMIP6_emissions_1750_2015/emissions-cmip6_SO2_contvolcano_vertical_850-5000_0.9x1.25_c20170724.nc',
-         'so4_a1 ->  atm/cam/chem/emis/CMIP6_emissions_1750_2015/emissions-cmip6_so4_a1_anthro-ene_vertical_1750-2015_0.9x1.25_c20170616.nc',
-         'so4_a1 ->  atm/cam/chem/emis/CMIP6_emissions_1750_2015/emissions-cmip6_so4_a1_contvolcano_vertical_850-5000_0.9x1.25_c20170724.nc',
-         'so4_a2 ->  atm/cam/chem/emis/CMIP6_emissions_1750_2015/emissions-cmip6_so4_a2_contvolcano_vertical_850-5000_0.9x1.25_c20170724.nc'
+ ext_frc_specifier = 'H2O    ->  /glade/p/cesmdata/cseg/inputdata/atm/cam/chem/emis/elev/H2O_emission_CH4_oxidationx2_elev_3DmonthlyL70_1850climoCMIP6piControl001_y21-50avg_c180802.nc',
+         'num_a1 ->  /glade/p/cesmdata/cseg/inputdata/atm/cam/chem/emis/CMIP6_emissions_1750_2015/emissions-cmip6_num_so4_a1_anthro-ene_vertical_1750-2015_0.9x1.25_c20170616.nc',
+         'num_a1 ->  /glade/p/cesmdata/cseg/inputdata/atm/cam/chem/emis/CMIP6_emissions_1750_2015/emissions-cmip6_num_a1_so4_contvolcano_vertical_850-5000_0.9x1.25_c20170724.nc',
+         'num_a2 ->  /glade/p/cesmdata/cseg/inputdata/atm/cam/chem/emis/CMIP6_emissions_1750_2015/emissions-cmip6_num_a2_so4_contvolcano_vertical_850-5000_0.9x1.25_c20170724.nc',
+         'SO2    ->  /glade/p/cesmdata/cseg/inputdata/atm/cam/chem/emis/CMIP6_emissions_1750_2015/emissions-cmip6_SO2_contvolcano_vertical_850-5000_0.9x1.25_c20170724.nc',
+         'so4_a1 ->  /glade/p/cesmdata/cseg/inputdata/atm/cam/chem/emis/CMIP6_emissions_1750_2015/emissions-cmip6_so4_a1_anthro-ene_vertical_1750-2015_0.9x1.25_c20170616.nc',
+         'so4_a1 ->  /glade/p/cesmdata/cseg/inputdata/atm/cam/chem/emis/CMIP6_emissions_1750_2015/emissions-cmip6_so4_a1_contvolcano_vertical_850-5000_0.9x1.25_c20170724.nc',
+         'so4_a2 ->  /glade/p/cesmdata/cseg/inputdata/atm/cam/chem/emis/CMIP6_emissions_1750_2015/emissions-cmip6_so4_a2_contvolcano_vertical_850-5000_0.9x1.25_c20170724.nc'
  ext_frc_type           = 'CYCLICAL'
 
  fstrat_list            = ' '
  rsf_file               = '/glade/p/cesmdata/cseg/inputdata/atm/waccm/phot/RSF_GT200nm_v3.0_c080811.nc'
  season_wes_file                = '/glade/p/cesmdata/cseg/inputdata/atm/cam/chem/trop_mozart/dvel/season_wes.nc'
  srf_emis_cycle_yr              =  -999999
- srf_emis_specifier      = 'bc_a4 -> atm/cam/chem/emis/CMIP6_emissions_1850_cyclical/emissions-cmip6_bc_a4_anthro_surface_1850cycling_0.9x1.25_c20201214.nc’,
-	 'bc_a4  -> atm/cam/chem/emis/emissions_ssp370-BB_smoothed/emissions-cmip6-ScenarioMIP_IAMC-AIM-ssp370-1-1_smoothed_bc_a4_bb_surface_mol_175001-210101_0.9x1.25_c20201016.nc',
-	 'DMS    -> atm/cam/chem/emis/emissions_ssp370-BB_smoothed/emissions-cmip6-ScenarioMIP_IAMC-AIM-ssp370-1-1_smoothed_DMS_bb_surface_mol_175001-210101_0.9x1.25_c20201016.nc',
-         'DMS    -> atm/cam/chem/emis/CMIP6_emissions_1850_cyclical/emissions-cmip6_DMS_other_surface_1850cycling_0.9x1.25_c191116.nc',
-         'num_a1 -> atm/cam/chem/emis/emissions_ssp370-BB_smoothed/emissions-cmip6-ScenarioMIP_IAMC-AIM-ssp370-1-1_smoothed_num_so4_a1_bb_surface_mol_175001-210101_0.9x1.25_c20201016.nc',
-         'num_a1 -> atm/cam/chem/emis/CMIP6_emissions_1850_cyclical/emissions-cmip6_num_so4_a1_anthro-ag-ship_surface_1850cycling_0.9x1.25_c20201214.nc’,
-         'num_a2 -> atm/cam/chem/emis/CMIP6_emissions_1850_cyclical/emissions-cmip6_num_so4_a2_anthro-res_surface_1850cycling_0.9x1.25_c20201214.nc’,
-	 'num_a4 -> atm/cam/chem/emis/emissions_ssp370-BB_smoothed/emissions-cmip6-ScenarioMIP_IAMC-AIM-ssp370-1-1_smoothed_num_bc_a4_bb_surface_mol_175001-210101_0.9x1.25_c20201016.nc',
-         'num_a4 -> atm/cam/chem/emis/CMIP6_emissions_1850_cyclical/emissions-cmip6_num_bc_a4_anthro_surface_1850cycling_0.9x1.25_c20201223.nc’,
-         'num_a4 -> atm/cam/chem/emis/CMIP6_emissions_1850_cyclical/emissions-cmip6_num_pom_a4_anthro_surface_1850cycling_0.9x1.25_c20201223.nc’,
-         'num_a4 -> atm/cam/chem/emis/emissions_ssp370-BB_smoothed/emissions-cmip6-ScenarioMIP_IAMC-AIM-ssp370-1-1_smoothed_num_pom_a4_bb_surface_mol_175001-210101_0.9x1.25_c20201016.nc',
-         'pom_a4 -> atm/cam/chem/emis/CMIP6_emissions_1850_cyclical/emissions-cmip6_pom_a4_anthro_surface_1850cycling_0.9x1.25_c20201223.nc’,
-         'pom_a4 -> atm/cam/chem/emis/emissions_ssp370-BB_smoothed/emissions-cmip6-ScenarioMIP_IAMC-AIM-ssp370-1-1_smoothed_pom_a4_bb_surface_mol_175001-210101_0.9x1.25_c20201016.nc',
-         'SO2    -> atm/cam/chem/emis/CMIP6_emissions_1850_cyclical/emissions-cmip6_SO2_anthro-ag-ship-res_surface_1850cycling_0.9x1.25_c20201214.nc’,
-         'SO2    -> atm/cam/chem/emis/CMIP6_emissions_1850_cyclical/emissions-cmip6_SO2_anthro-ene_surface_1850cycling_0.9x1.25_c20201223.nc’,
-         'SO2    -> atm/cam/chem/emis/emissions_ssp370-BB_smoothed/emissions-cmip6-ScenarioMIP_IAMC-AIM-ssp370-1-1_smoothed_SO2_bb_surface_mol_175001-210101_0.9x1.25_c20201016.nc',
-         'so4_a1 -> atm/cam/chem/emis/CMIP6_emissions_1850_cyclical/emissions-cmip6_so4_a1_anthro-ag-ship_surface_1850cycling_0.9x1.25_c20201214.nc’,
-         'so4_a1 -> atm/cam/chem/emis/emissions_ssp370-BB_smoothed/emissions-cmip6-ScenarioMIP_IAMC-AIM-ssp370-1-1_smoothed_so4_a1_bb_surface_mol_175001-210101_0.9x1.25_c20201016.nc',
-         'so4_a2 -> atm/cam/chem/emis/CMIP6_emissions_1850_cyclical/emissions-cmip6_so4_a2_anthro-res_surface_1850cycling_0.9x1.25_c20201214.nc’,
-         'SOAG -> atm/cam/chem/emis/CMIP6_emissions_1850_cyclical/emissions-cmip6_SOAGx1.5_anthro_surface_1850cycling_0.9x1.25_c20201223.nc’,
-         'SOAG -> atm/cam/chem/emis/emissions_ssp370-BB_smoothed/emissions-cmip6-ScenarioMIP_IAMC-AIM-ssp370-1-1_smoothed_SOAGx1.5_bb_surface_mol_175001-210101_0.9x1.25_c20201016.nc',
-         'SOAG -> atm/cam/chem/emis/CMIP6_emissions_1850_cyclical/emissions-cmip6_SOAGx1.5_biogenic_surface_1850cycling_0.9x1.25_c191116.nc'
+ srf_emis_specifier      = 'bc_a4 -> /glade/p/cesmdata/cseg/inputdata/atm/cam/chem/emis/CMIP6_emissions_1850_cyclical/emissions-cmip6_bc_a4_anthro_surface_1850cycling_0.9x1.25_c20201230.nc',
+	 'bc_a4  -> /glade/p/cesmdata/cseg/inputdata/atm/cam/chem/emis/emissions_ssp370-BB_smoothed/emissions-cmip6-ScenarioMIP_IAMC-AIM-ssp370-1-1_smoothed_bc_a4_bb_surface_mol_175001-210101_0.9x1.25_c20201016.nc',
+	 'DMS    -> /glade/p/cesmdata/cseg/inputdata/atm/cam/chem/emis/emissions_ssp370-BB_smoothed/emissions-cmip6-ScenarioMIP_IAMC-AIM-ssp370-1-1_smoothed_DMS_bb_surface_mol_175001-210101_0.9x1.25_c20201016.nc',
+         'DMS    -> /glade/p/cesmdata/cseg/inputdata/atm/cam/chem/emis/CMIP6_emissions_1850_cyclical/emissions-cmip6_DMS_other_surface_1850cycling_0.9x1.25_c191116.nc',
+         'num_a1 -> /glade/p/cesmdata/cseg/inputdata/atm/cam/chem/emis/emissions_ssp370-BB_smoothed/emissions-cmip6-ScenarioMIP_IAMC-AIM-ssp370-1-1_smoothed_num_so4_a1_bb_surface_mol_175001-210101_0.9x1.25_c20201016.nc',
+         'num_a1 -> /glade/p/cesmdata/cseg/inputdata/atm/cam/chem/emis/CMIP6_emissions_1850_cyclical/emissions-cmip6_num_so4_a1_anthro-ag-ship_surface_1850cycling_0.9x1.25_c20201230.nc',
+         'num_a2 -> /glade/p/cesmdata/cseg/inputdata/atm/cam/chem/emis/CMIP6_emissions_1850_cyclical/emissions-cmip6_num_so4_a2_anthro-res_surface_1850cycling_0.9x1.25_c20201230.nc',
+	 'num_a4 -> /glade/p/cesmdata/cseg/inputdata/atm/cam/chem/emis/emissions_ssp370-BB_smoothed/emissions-cmip6-ScenarioMIP_IAMC-AIM-ssp370-1-1_smoothed_num_bc_a4_bb_surface_mol_175001-210101_0.9x1.25_c20201016.nc',
+         'num_a4 -> /glade/p/cesmdata/cseg/inputdata/atm/cam/chem/emis/CMIP6_emissions_1850_cyclical/emissions-cmip6_num_bc_a4_anthro_surface_1850cycling_0.9x1.25_c20201230.nc',
+         'num_a4 -> /glade/p/cesmdata/cseg/inputdata/atm/cam/chem/emis/CMIP6_emissions_1850_cyclical/emissions-cmip6_num_pom_a4_anthro_surface_1850cycling_0.9x1.25_c20201230.nc',
+         'num_a4 -> /glade/p/cesmdata/cseg/inputdata/atm/cam/chem/emis/emissions_ssp370-BB_smoothed/emissions-cmip6-ScenarioMIP_IAMC-AIM-ssp370-1-1_smoothed_num_pom_a4_bb_surface_mol_175001-210101_0.9x1.25_c20201016.nc',
+         'pom_a4 -> /glade/p/cesmdata/cseg/inputdata/atm/cam/chem/emis/CMIP6_emissions_1850_cyclical/emissions-cmip6_pom_a4_anthro_surface_1850cycling_0.9x1.25_c20201230.nc',
+         'pom_a4 -> /glade/p/cesmdata/cseg/inputdata/atm/cam/chem/emis/emissions_ssp370-BB_smoothed/emissions-cmip6-ScenarioMIP_IAMC-AIM-ssp370-1-1_smoothed_pom_a4_bb_surface_mol_175001-210101_0.9x1.25_c20201016.nc',
+         'SO2    -> /glade/p/cesmdata/cseg/inputdata/atm/cam/chem/emis/CMIP6_emissions_1850_cyclical/emissions-cmip6_SO2_anthro-ag-ship-res_surface_1850cycling_0.9x1.25_c20201230.nc',
+         'SO2    -> /glade/p/cesmdata/cseg/inputdata/atm/cam/chem/emis/CMIP6_emissions_1850_cyclical/emissions-cmip6_SO2_anthro-ene_surface_1850cycling_0.9x1.25_c20201230.nc',
+         'SO2    -> /glade/p/cesmdata/cseg/inputdata/atm/cam/chem/emis/emissions_ssp370-BB_smoothed/emissions-cmip6-ScenarioMIP_IAMC-AIM-ssp370-1-1_smoothed_SO2_bb_surface_mol_175001-210101_0.9x1.25_c20201016.nc',
+         'so4_a1 -> /glade/p/cesmdata/cseg/inputdata/atm/cam/chem/emis/CMIP6_emissions_1850_cyclical/emissions-cmip6_so4_a1_anthro-ag-ship_surface_1850cycling_0.9x1.25_c20201230.nc',
+         'so4_a1 -> /glade/p/cesmdata/cseg/inputdata/atm/cam/chem/emis/emissions_ssp370-BB_smoothed/emissions-cmip6-ScenarioMIP_IAMC-AIM-ssp370-1-1_smoothed_so4_a1_bb_surface_mol_175001-210101_0.9x1.25_c20201016.nc',
+         'so4_a2 -> /glade/p/cesmdata/cseg/inputdata/atm/cam/chem/emis/CMIP6_emissions_1850_cyclical/emissions-cmip6_so4_a2_anthro-res_surface_1850cycling_0.9x1.25_c20201230.nc',
+         'SOAG -> /glade/p/cesmdata/cseg/inputdata/atm/cam/chem/emis/CMIP6_emissions_1850_cyclical/emissions-cmip6_SOAGx1.5_anthro_surface_1850cycling_0.9x1.25_c20201230.nc',
+         'SOAG -> /glade/p/cesmdata/cseg/inputdata/atm/cam/chem/emis/emissions_ssp370-BB_smoothed/emissions-cmip6-ScenarioMIP_IAMC-AIM-ssp370-1-1_smoothed_SOAGx1.5_bb_surface_mol_175001-210101_0.9x1.25_c20201016.nc',
+         'SOAG -> /glade/p/cesmdata/cseg/inputdata/atm/cam/chem/emis/CMIP6_emissions_1850_cyclical/emissions-cmip6_SOAGx1.5_biogenic_surface_1850cycling_0.9x1.25_c191116.nc'
 srf_emis_type          = 'INTERP_MISSING_MONTHS'               
 
 !! piCNTL
@@ -207,9 +207,6 @@ srf_emis_type          = 'INTERP_MISSING_MONTHS'
  solar_htng_spctrl_scl          = .true.
  solar_irrad_data_file          = '/glade/p/cesmdata/cseg/inputdata/atm/cam/solar/SolarForcingCMIP6piControl_c160921.nc'
 /
-
-
-
 
 history_dust                   = .true. 
 do_circulation_diags           = .true. 

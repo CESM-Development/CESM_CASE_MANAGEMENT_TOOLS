@@ -14,6 +14,30 @@ begin
 
   fixit = (/"emiss_biogenic"/)
 
+; extract the date/time for 2100 
+  idatefile    =  "/glade/p/cesmdata/cseg/inputdata/atm/cam/chem/emis/emissions_ssp370/emissions-cmip6-ScenarioMIP_IAMC-AIM-ssp370-1-1_so4_a1_anthro-ag-ship_surface_mol_175001-210101_0.9x1.25_c20200924.nc"
+  idt = addfile(idatefile,"r")
+;   20901216,   // date(3288)
+;   21000116,   // date(3289)
+;   21000215,   // date(3290)
+;   21000316,   // date(3291)
+;   21000416,   // date(3292)
+;   21000516,   // date(3293)
+;   21000616,   // date(3294)
+;   21000716,   // date(3295)
+;   21000816,   // date(3296)
+;   21000916,   // date(3297)
+;   21001016,   // date(3298)
+;   21001116,   // date(3299)
+;   21001216,   // date(3300)
+
+   usedate = idt->date
+   usetime = idt->time
+
+
+;;;  =============================
+;;;  =============================
+
   ifile    = "/glade/p/cesmdata/cseg/inputdata/atm/cam/chem/emis/CMIP6_emissions_1750_2015/emissions-cmip6_SOAGx1.5_biogenic_surface_1750-2015_0.9x1.25_c20170322.nc"
   foutname = "./emissions_1850_cyclical/emissions-cmip6_SOAGx1.5_biogenic_surface_1850cycling_0.9x1.25_c"+dd+".nc"
 
@@ -60,12 +84,21 @@ end if
 ;   18501216,   // date(1212)
 
 
-
 r0 = 1188
+; 1850 data
 r1 = 1200
 r2 = 1211
-r3 = 3180
-r4 = 3191
+; 2100
+r3 = 3288
+r4 = 3299
+
+; 1850 time/date
+t1 = 1188
+t2 = 1199
+; 2100 time/date
+t11=3288
+t22=3299
+
 ; copy variables
 if (.not.all(ismissing(in1_vars))) then
 do i = 0, dimsizes(in1_vars) - 1
@@ -89,14 +122,14 @@ else
 	time = in1->time
 	tvar = tmp(r0:r2)
 	tvar = 0
-        tvar(0:11)  = tmp(r1:r2)
+        tvar(0:11)  = tmp(t1:t2)
         ntime = new((/24/),typeof(time))
-	ntime(0:11) = time(r1:r2)
+	ntime(0:11) = time(t1:t2)
 	print(in1_vars(i))
 	; print(tmp(r1:r2))
 	; print(tmp(r3:r4))
-        tvar(12:23)  = tmp(r3:r4)
-	ntime(12:23) = time(r3:r4)
+        tvar(12:23)  = usedate(r3:r4)
+	ntime(12:23) = usetime(r3:r4)
 	print(tvar)
        delete([/tmp/])
 	print("tvar = " + tvar)

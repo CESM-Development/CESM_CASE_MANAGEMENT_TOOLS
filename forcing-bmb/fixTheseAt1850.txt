@@ -7,18 +7,26 @@ NOTE:  the script assigns a date of 1849, but the DATA are from 1850.  I'm not s
 oldScript: fix_emissions-cmip6_SOAGx1.5.ncl
 newScript: check_SOAGx1.5.ncl
 
- 1086 cheyenne4:/glade/work/nanr/cmip6/DAMIP/hist-aer/inputdata/atm/cam/chem/emis/CMIP6_emissions_1850_cyclical > ncdiff emissions-cmip6_SOAGx1.5_biogenic_surface_1850cycling_0.9x1.25_c201230.nc emissions-cmip6_SOAGx1.5_biogenic_surface_1850cycling_0.9x1.25_c191116.nc doh.nc
- 1087 cheyenne4:/glade/work/nanr/cmip6/DAMIP/hist-aer/inputdata/atm/cam/chem/emis/CMIP6_emissions_1850_cyclical > ncl
- Copyright (C) 1995-2019 - All Rights Reserved
- University Corporation for Atmospheric Research
- NCAR Command Language Version 6.6.2
- The use of this software is governed by a License Agreement.
- See http://www.ncl.ucar.edu/ for more details.
-ncl 0> f = addfile("doh.nc","r")
-ncl 1> print(f)
-ncl 2> v = f->emiss_biogenic
-ncl 3> printMinMax(v,0)
-(0)     biogenic emissions (molecules/cm2/s) : min=0   max=0
+ 	1086 cheyenne4:/glade/work/nanr/cmip6/DAMIP/hist-aer/inputdata/atm/cam/chem/emis/CMIP6_emissions_1850_cyclical > ncdiff emissions-cmip6_SOAGx1.5_biogenic_surface_1850cycling_0.9x1.25_c201230.nc emissions-cmip6_SOAGx1.5_biogenic_surface_1850cycling_0.9x1.25_c191116.nc doh.nc
+ 	1087 cheyenne4:/glade/work/nanr/cmip6/DAMIP/hist-aer/inputdata/atm/cam/chem/emis/CMIP6_emissions_1850_cyclical > ncl
+ 	Copyright (C) 1995-2019 - All Rights Reserved
+ 	University Corporation for Atmospheric Research
+ 	NCAR Command Language Version 6.6.2
+ 	The use of this software is governed by a License Agreement.
+ 	See http://www.ncl.ucar.edu/ for more details.
+	ncl 0> f = addfile("doh.nc","r")
+	ncl 1> print(f)
+	ncl 2> v = f->emiss_biogenic
+	ncl 3> printMinMax(v,0)
+	(0)     biogenic emissions (molecules/cm2/s) : min=0   max=0
+
+
+!!!!! ===========  Use 1849 instead of 1850 for time data
+ 1005 cheyenne2:/glade/p/cesm/cseg/inputdata > ls -l atm/cam/chem/emis/CMIP6_emissions_1850_cyclical/
+done:  emissions-cmip6_DMS_other_surface_1850cycling_0.9x1.25_c191116.nc
+done:  emissions-cmip6_SOAGx1.5_biogenic_surface_1850cycling_0.9x1.25_c191116.nc
+!!!!! ===========
+
 
 
 

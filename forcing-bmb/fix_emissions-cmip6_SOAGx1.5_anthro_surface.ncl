@@ -14,6 +14,34 @@ begin
 
   fixit = (/"emiss_anthro"/)
 
+; extract the date/time for 2100 
+  idatefile    =  "/glade/p/cesmdata/cseg/inputdata/atm/cam/chem/emis/emissions_ssp370/emissions-cmip6-ScenarioMIP_IAMC-AIM-ssp370-1-1_so4_a1_anthro-ag-ship_surface_mol_175001-210101_0.9x1.25_c20200924.nc"
+  idt = addfile(idatefile,"r")
+;   20901216,   // date(3288)
+;   21000116,   // date(3289)
+;   21000215,   // date(3290)
+;   21000316,   // date(3291)
+;   21000416,   // date(3292)
+;   21000516,   // date(3293)
+;   21000616,   // date(3294)
+;   21000716,   // date(3295)
+;   21000816,   // date(3296)
+;   21000916,   // date(3297)
+;   21001016,   // date(3298)
+;   21001116,   // date(3299)
+;   21001216,   // date(3300)
+
+   usedate = idt->date
+   usetime = idt->time
+
+   ; 2100
+   t11=3288
+   t22=3299
+
+;;;  =============================
+;;;  =============================
+
+
 
   ifile    = "/glade/p/cesmdata/cseg/inputdata/atm/cam/chem/emis/CMIP6_emissions_1750_2015/emissions-cmip6_SOAGx1.5_anthro_surface_1750-2015_0.9x1.25_c20170608.nc"
   foutname = "./emissions_1850_cyclical/emissions-cmip6_SOAGx1.5_anthro_surface_1850cycling_0.9x1.25_c"+dd+".nc"
@@ -79,16 +107,13 @@ sname = get_script_name()
 ;   20141116,   // date(3179)
 ;   20141216,   // date(3180)
 
+; 1849 for date/time to get the model to run
+year1=1188
+year2=1199
 
-
-
-; 1850
+; 1850 for data
 t1=1200
 t2=1211
-
-; 2100
-t11=3168
-t22=3179	
 
 r0=0
 r1=12
@@ -116,17 +141,18 @@ if (in1_vars(i) .eq. fixit(0) ) then
 	fout->$fixit$ = nvar
         delete([/tmp,nvar/])
 else 
+;;  Use 1849 date/time
    if (in1_vars(i) .eq. "date" .or. in1_vars(i) .eq. "time") then
         tmp  = in1->$in1_vars(i)$
         time = in1->time
         tvar = tmp(r0:r2)
         tvar = 0
-        tvar(0:11)  = tmp(t1:t2)
+        tvar(0:11)  = tmp(year1:year2)
         ntime = new((/24/),typeof(time))
-        ntime(0:11) = time(t1:t2)
+        ntime(0:11) = time(year1:year2)
         print(in1_vars(i))
-        tvar(12:23)  = tmp(t11:t22)
-        ntime(12:23) = time(t11:t22)
+        tvar(12:23)  = usedate(t11:t22)
+        ntime(12:23) = usetime(t11:t22)
         print(tvar)
         print("tvar = " + tvar)
 	ntime!0="time"
