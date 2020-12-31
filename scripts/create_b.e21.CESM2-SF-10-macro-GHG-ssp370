@@ -24,7 +24,7 @@ set STOP_OPTION=nyears
 set PROJECT=NCGD0044
 
 setenv SCENARIO GHG-SSP370
-setenv REFDATE  2015-01-01
+setenv REFDATE  2015
 setenv BASENAME b.e21.${COMPSET}.${RESOLN}.CESM2-SF-${SCENARIO}
 setenv BASEROOT /glade/work/cesmsf/CESM2-SF/
 setenv RUNROOT  /glade/scratch/cesmsf/
@@ -58,7 +58,7 @@ endif
   cd $CASEROOT
 
   ./xmlchange RUN_REFCASE=$REFCASE
-  ./xmlchange RUN_REFDATE=$REFDATE-01-01
+  ./xmlchange RUN_REFDATE=2015-01-01
   ./xmlchange RUN_STARTDATE=2015-01-01
   ./xmlchange GET_REFCASE=FALSE
   ./xmlchange PROJECT=NCGD0044
