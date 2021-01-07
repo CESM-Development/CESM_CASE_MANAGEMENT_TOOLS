@@ -17,7 +17,6 @@ echo $RUNDIR
 $CESMROOT/cime/scripts/create_newcase --case $CASEROOT --res $RESOLN  --mach $MACHINE --compset $COMPSET --pecount L --run-unsupported
 
 cd $CASEROOT
-./case.setup
 
 ./xmlchange NTASKS_CPL=28840
 ./xmlchange NTASKS_ATM=28800
@@ -47,6 +46,27 @@ cd $CASEROOT
 
 cp /home1/06091/nanr/CESM_tools/ihesp-tools/user_nl_files/BHIST/* $CASEROOT/
 cp /home1/06091/nanr/CESM_tools/ihesp-tools/SourceMods/src.pop/*  $CASEROOT/SourceMods/src.pop/
+
+# =========================
+# add pertlim perturbation to micro members 2 .. N 
+# =========================
+if ($mbr != 1) then
+cat >> head.${mbr} << EOF
+
+# ! add micro-member perturbation
+pertlim = ${mbr}.d-14
+
+EOF
+
+mv user_nl_cam tmp.cam
+cat head.${mbr} tmp.cam  > user_nl_cam
+rm tmp.cam head.${mbr}
+
+endif
+# =========================
+# END - pertlim 
+# =========================
+#
 
 ./case.setup --reset
 ./case.setup
