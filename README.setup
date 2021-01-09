@@ -1,0 +1,12 @@
+
+Script path:		/glade/work/nanr/cesm_tags/CASE_tools/cesm2-ssp245/scripts/
+Setup script:  		setup_ssp245.sh
+Processing script:  	create_cylc_covid_ensemble-ssp245
+
+
+Option 1:
+(1)  D
+
+git clone https://github.com/CESM-Development/CESM_CASE_MANAGEMENT_TOOLS -b cesm2-ssp245 cesm2-ssp245
+
+
