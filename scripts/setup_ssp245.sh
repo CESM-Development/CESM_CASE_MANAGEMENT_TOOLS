@@ -20,7 +20,7 @@ ENDMEMBER=5
 
 CASEROOTBASE=$CESMROOT/runs/CESM2_SSP245/
 CASEROOTBASE=/glade/scratch/nanr/CESM2_SSP245/
-BASENAME=b.e21.$COMPSET'.'$GRID'.test'
+BASENAME=b.e21.$COMPSET'.'$GRID
 SCRATCHBASE="/glade/scratch/nanr/" # !!! change this
 
 #cd ~nanr/CESM-WF/
