@@ -5,8 +5,29 @@ Processing script:  	create_cylc_covid_ensemble-ssp245
 
 
 Option 1:
-(1)  D
+	mkdir /glade/work/asphilli/CASE_tools/
+	cd /glade/work/asphilli/CASE_tools/
+	git clone https://github.com/CESM-Development/CESM_CASE_MANAGEMENT_TOOLS -b cesm2-ssp245 cesm2-ssp245
+	cd ~asphilli/CESM-WF/
+	ln -s /glade/work/asphilli/CASE_tools/cesm2-ssp245/scripts/create_cylc_covid_ensemble-ssp245 .
+	cd /glade/work/asphilli/CASE_tools/cesm2-ssp245/scripts
 
-git clone https://github.com/CESM-Development/CESM_CASE_MANAGEMENT_TOOLS -b cesm2-ssp245 cesm2-ssp245
+	EDIT:  edit script to point to your case (search for nanr)
+		setup_ssp245.sh 
+			TOOLSDIR
+			CASEROOTBASE 
+			SCRATCHBASE
 
+Option 2:
+	cd ~asphilli/CESM-WF/
+	ln -s /glade/work/nanr/CASE_tools/cesm2-ssp245/scripts/create_cylc_covid_ensemble-ssp245 .
+	cd <path_to_your_scripts>
+	cp /glade/work/asphilli/CASE_tools/cesm2-ssp245/scripts/setup_ssp245.sh .
+
+	EDIT:  edit script to point to your case (search for nanr)
+		setup_ssp245.sh 
+			CASEROOTBASE 
+			SCRATCHBASE
+
+Cylc:  You can run these cases with cylc, or you can launch them from the command line.  We can talk about this!
 
