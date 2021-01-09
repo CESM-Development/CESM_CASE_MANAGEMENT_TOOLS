@@ -1,0 +1,9 @@
+./rimport -file atm/cam/chem/emis/emissions_ssp245-BB_smoothed/emissions-cmip6-ScenarioMIP_IAMC-MESSAGE-GLOBIOM-ssp245-1-1_smoothed_bc_a4_bb_surface_mol_175001-210101_0.9x1.25_c20201203.nc
+./rimport -file atm/cam/chem/emis/emissions_ssp245-BB_smoothed/emissions-cmip6-ScenarioMIP_IAMC-MESSAGE-GLOBIOM-ssp245-1-1_smoothed_DMS_bb_surface_mol_175001-210101_0.9x1.25_c20201203.nc
+./rimport -file atm/cam/chem/emis/emissions_ssp245-BB_smoothed/emissions-cmip6-ScenarioMIP_IAMC-MESSAGE-GLOBIOM-ssp245-1-1_smoothed_num_bc_a4_bb_surface_mol_175001-210101_0.9x1.25_c20201203.nc
+./rimport -file atm/cam/chem/emis/emissions_ssp245-BB_smoothed/emissions-cmip6-ScenarioMIP_IAMC-MESSAGE-GLOBIOM-ssp245-1-1_smoothed_num_pom_a4_bb_surface_mol_175001-210101_0.9x1.25_c20201203.nc
+./rimport -file atm/cam/chem/emis/emissions_ssp245-BB_smoothed/emissions-cmip6-ScenarioMIP_IAMC-MESSAGE-GLOBIOM-ssp245-1-1_smoothed_num_so4_a1_bb_surface_mol_175001-210101_0.9x1.25_c20201203.nc
+./rimport -file atm/cam/chem/emis/emissions_ssp245-BB_smoothed/emissions-cmip6-ScenarioMIP_IAMC-MESSAGE-GLOBIOM-ssp245-1-1_smoothed_pom_a4_bb_surface_mol_175001-210101_0.9x1.25_c20201203.nc
+./rimport -file atm/cam/chem/emis/emissions_ssp245-BB_smoothed/emissions-cmip6-ScenarioMIP_IAMC-MESSAGE-GLOBIOM-ssp245-1-1_smoothed_SO2_bb_surface_mol_175001-210101_0.9x1.25_c20201203.nc
+./rimport -file atm/cam/chem/emis/emissions_ssp245-BB_smoothed/emissions-cmip6-ScenarioMIP_IAMC-MESSAGE-GLOBIOM-ssp245-1-1_smoothed_so4_a1_bb_surface_mol_175001-210101_0.9x1.25_c20201203.nc
+./rimport -file atm/cam/chem/emis/emissions_ssp245-BB_smoothed/emissions-cmip6-ScenarioMIP_IAMC-MESSAGE-GLOBIOM-ssp245-1-1_smoothed_SOAGx1.5_bb_surface_mol_175001-210101_0.9x1.25_c20201203.nc
