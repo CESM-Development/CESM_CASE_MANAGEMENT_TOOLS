@@ -1,0 +1,71 @@
+#!/bin/csh -f
+
+set PATH    = /work/06091/nanr/
+set COMPSET = BRCP85C5
+set RESOLN  = ne120_t12
+set MACHINE = frontera
+set TAG     = cesm-ihesp-hires1.0.31
+setenv CESMROOT ${PATH}/cesm_tags/${TAG}/
+
+# ===========================================================
+# NOTE: # This is what Hong did because she did not have access to a BRCP85C5 compset
+# ===========================================================
+# ===========================================================
+# use compset:  BRCP85C5CN  but turn off CN
+# ===========================================================
+# 2)  modify env_build.xml:    ./xmlchange CLM_CONFIG_OPTS="-phys clm4_0"
+# 3)  Check for the change in env_build.xml
+# 		OLD:  "CLM_CONFIG_OPTS"   value="-phys clm4_0 -bgc cn" 
+# 	        NEW:  "CLM_CONFIG_OPTS"   value="-phys clm4_0" 
+# 4)  $CASE.clean_build
+# 5)  $CASE.build
+# 1850-2005:  BHISTC5
+# 2006-2100:  BRCP85C5CN  (turn off cn in the land model).
+# ===========================================================
+# ===========================================================
+
+set mbr = 2
+setenv CASE b.e13.${COMPSET}.${RESOLN}.${TAG}.00${mbr}
+setenv CASEROOT /work/06091/nanr/frontera/cases/cesm13/$CASE
+set RUNDIR   = /scratch1/06091/nanr/$CASE/run
+
+echo $RUNDIR
+
+$CESMROOT/cime/scripts/create_newcase --case $CASEROOT --res $RESOLN  --mach $MACHINE --compset $COMPSET --pecount L --run-unsupported
+
+cd $CASEROOT
+#./case.setup
+
+./xmlchange NTASKS_CPL=28840
+./xmlchange NTASKS_ATM=28800
+./xmlchange NTASKS_LND=896
+./xmlchange NTASKS_ICE=27944
+./xmlchange ROOTPE_ICE=896
+./xmlchange NTASKS_OCN=16295
+./xmlchange ROOTPE_OCN=28840
+./xmlchange NTASKS_ROF=896
+./xmlchange NTASKS_GLC=1
+./xmlchange NTASKS_WAV=1
+
+./xmlchange RUN_REFCASE=b.e13.BHISTC5.ne120_t12.cesm-ihesp-hires1.0.30-1920-2100.002
+./xmlchange RUN_REFDATE=2006-01-01
+./xmlchange RUN_STARTDATE=2006-01-01
+./xmlchange RUN_TYPE=hybrid
+./xmlchange GET_REFCASE=TRUE
+./xmlchange RUN_REFDIR=ccsm4_init
+./xmlchange STOP_OPTION=nyears
+./xmlchange STOP_N=4
+./xmlchange RESUBMIT=4
+./xmlchange DOUT_S_SAVE_INTERIM_RESTART_FILES=TRUE
+./xmlchange REST_N=1
+./xmlchange REST_OPTION=nyears
+
+./xmlchange --append CAM_CONFIG_OPTS=-cosp
+#./xmlchange CLM_CONFIG_OPTS="-phys clm4_0"
+
+cp /home1/06091/nanr/CESM_tools/ihesp-tools/user_nl_files/BRCP85/* $CASEROOT/
+cp /home1/06091/nanr/CESM_tools/ihesp-tools/SourceMods/src.pop/*  $CASEROOT/SourceMods/src.pop/
+
+./case.setup --reset
+./case.setup
+#./case.build
