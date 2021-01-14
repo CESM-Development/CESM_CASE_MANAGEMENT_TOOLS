@@ -13,8 +13,11 @@ set GITREPO = https://github.com/ihesp/cesm.git
 setenv CESMROOT ${PATH}/cesm_tags/${TAG}/
 
 if ( ! -d $CESMROOT ) then
-  mkdir -pf ${PATH}/cesm_tags
+  mkdir -p ${PATH}/cesm_tags
+  cd $PATH/cesm_tags
   git clone $GITREPO -b $TAG $TAG
+  cd $TAG
+  ./manage_externals/checkout_externals
 endif
 
 set mbr = 99
@@ -22,7 +25,7 @@ set mbr = 97
 set mbr = 96
 setenv CASE f.e13.${COMPSET}.${RESOLN}.${TAG}_gen-restarts.00${mbr}
 if ( ! -d $WORK/cases/cesm13 ) then
-  mkdir -pf $WORK/cases/cesm13
+  mkdir -p $WORK/cases/cesm13
 endif
 setenv CASEROOT $WORK/cases/cesm13/$CASE
 set RUNDIR   = $SCRATCH/$CASE/run
