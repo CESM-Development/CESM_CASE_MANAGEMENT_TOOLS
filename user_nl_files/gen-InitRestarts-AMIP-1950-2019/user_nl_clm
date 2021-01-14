@@ -1,0 +1,2 @@
+fsurdat = '/work/02503/edwardsj/CESM/inputdata//lnd/clm2/surfdata_map/surfdata_ne120np4_simyr1850_c130311.nc'
+flanduse_timeseries = '/work/02503/edwardsj/CESM/inputdata//lnd/clm2/surfdata_map/surfdata.pftdyn_ne120np4_hist_simyr1850-2005_c130313.nc'
