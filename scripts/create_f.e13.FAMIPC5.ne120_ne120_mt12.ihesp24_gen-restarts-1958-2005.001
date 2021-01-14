@@ -4,21 +4,27 @@
 
 ## We need to create
 
-set PATH    = /work/06091/nanr/
+set PATH    = $STOCKYARD
 set COMPSET = FAMIPC5
 set RESOLN  = ne120_ne120_mt12
 set MACHINE = frontera
-set TAG     = ihesp24
 set TAG     = cesm-ihesp-hires1.0.31
+set GITREPO = https://github.com/ihesp/cesm.git
 setenv CESMROOT ${PATH}/cesm_tags/${TAG}/
+
+if ( ! -d $CESMROOT ) then
+  mkdir -pf ${PATH}/cesm_tags
+  git clone $GITREPO -b $TAG $TAG
+endif
 
 set mbr = 99
 set mbr = 97
 setenv CASE f.e13.${COMPSET}.${RESOLN}.${TAG}_gen-restarts.00${mbr}
-
-setenv CASEROOT /work/06091/nanr/frontera/cases/cesm13/$CASE
-set RUNDIR   = /scratch1/06091/nanr/$CASE/run
-
+if ( ! -d $WORK/cases/cesm13 ) then
+  mkdir -pf $WORK/cases/cesm13
+endif
+setenv CASEROOT $WORK/cases/cesm13/$CASE
+set RUNDIR   = $SCRATCH/$CASE/run
 
 # $CESMROOT/scripts/create_newcase -case $CASEROOT -res $RESOLN  -mach $MACHINE -compset $COMPSET -compiler $COMPILER
   $CESMROOT/cime/scripts/create_newcase --case $CASEROOT --res $RESOLN  --mach $MACHINE --compset $COMPSET --run-unsupported
@@ -33,8 +39,8 @@ cd $CASEROOT
 ./xmlchange RUN_REFDATE=1956-01-01
 ./xmlchange STOP_N=5
 ./xmlchange GET_REFCASE=FALSE
-./xmlchange DIN_LOC_ROOT='/glade/p/cesm/cseg/inputdata'
-./xmlchange DIN_LOC_ROOT_CLMFORC='/glade/p/cesm/cseg/inputdata/atm/datm7'
+#./xmlchange DIN_LOC_ROOT='/glade/p/cesm/cseg/inputdata'
+#./xmlchange DIN_LOC_ROOT_CLMFORC='/glade/p/cesm/cseg/inputdata/atm/datm7'
 
 
  ./xmlchange REST_N=1
@@ -51,12 +57,12 @@ cd $CASEROOT
  ./xmlchange --append CAM_CONFIG_OPTS=-cosp
 
 
- ./xmlchange RUNDIR='/glade/scratch/nanr/$CASE/run'
- ./xmlchange EXEROOT='/glade/scratch/nanr/$CASE/bld'
+# ./xmlchange RUNDIR='/glade/scratch/nanr/$CASE/run'
+# ./xmlchange EXEROOT='/glade/scratch/nanr/$CASE/bld'
 
  ./xmlchange ICE_DOMAIN_FILE=domain.ocn.ne120np4_tx0.1v2.191122.nc
  ./xmlchange OCN_DOMAIN_FILE=domain.ocn.ne120np4_tx0.1v2.191122.nc
- ./xmlchange SSTICE_GRID_FILENAME=/scratch1/06091/nanr/SST-highres/domain.ocn.0.25x0.25_mask.181109.nc
+ ./xmlchange SSTICE_GRID_FILENAME=/work/06091/nanr/frontera/SST-highres/domain.ocn.0.25x0.25_mask.181109.nc
  ./xmlchange SSTICE_YEAR_ALIGN=1950
  ./xmlchange SSTICE_YEAR_START=1950
  ./xmlchange SSTICE_YEAR_END=2050
@@ -66,8 +72,8 @@ cd $CASEROOT
 
 ./case.setup
 
-cp /home1/06091/nanr/CESM_tools/ihesp-tools/user_nl_files/gen-InitRestarts-AMIP-1950-2019/* $CASEROOT/
+cp $IHESPTOOLS/user_nl_files/gen-InitRestarts-AMIP-1950-2019/* $CASEROOT/
 
-cp /work/02503/edwardsj/CESM/inputdata/ccsm4_init/f.e13.FAMIPC5.ne120_ne120_mt12.cesm-ihesp-1950-2050.001/rest/1956-01-01-00000/* /glade/scratch/nanr/$CASE/run
+cp /work/02503/edwardsj/CESM/inputdata/ccsm4_init/f.e13.FAMIPC5.ne120_ne120_mt12.cesm-ihesp-1950-2050.001/rest/1956-01-01-00000/* $RUNDIR
 
 #qcmd -- ./case.build
