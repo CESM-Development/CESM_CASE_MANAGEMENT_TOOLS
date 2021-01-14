@@ -19,6 +19,7 @@ endif
 
 set mbr = 99
 set mbr = 97
+set mbr = 96
 setenv CASE f.e13.${COMPSET}.${RESOLN}.${TAG}_gen-restarts.00${mbr}
 if ( ! -d $WORK/cases/cesm13 ) then
   mkdir -pf $WORK/cases/cesm13
@@ -38,7 +39,7 @@ cd $CASEROOT
 ./xmlchange RUN_REFCASE=f.e13.FAMIPC5.ne120_ne120_mt12.cesm-ihesp-1950-2050.001
 ./xmlchange RUN_REFDATE=1956-01-01
 ./xmlchange STOP_N=5
-./xmlchange GET_REFCASE=FALSE
+./xmlchange GET_REFCASE=TRUE
 #./xmlchange DIN_LOC_ROOT='/glade/p/cesm/cseg/inputdata'
 #./xmlchange DIN_LOC_ROOT_CLMFORC='/glade/p/cesm/cseg/inputdata/atm/datm7'
 
@@ -74,6 +75,6 @@ cd $CASEROOT
 
 cp $IHESPTOOLS/user_nl_files/gen-InitRestarts-AMIP-1950-2019/* $CASEROOT/
 
-cp /work/02503/edwardsj/CESM/inputdata/ccsm4_init/f.e13.FAMIPC5.ne120_ne120_mt12.cesm-ihesp-1950-2050.001/rest/1956-01-01-00000/* $RUNDIR
+cp /work/02503/edwardsj/CESM/inputdata/ccsm4_init/f.e13.FAMIPC5.ne120_ne120_mt12.cesm-ihesp-1950-2050.001/1956-01-01/* $RUNDIR
 
 #qcmd -- ./case.build
