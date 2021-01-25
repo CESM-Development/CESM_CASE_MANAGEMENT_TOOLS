@@ -8,8 +8,10 @@ set PATH    = $STOCKYARD
 set COMPSET = FAMIPC5
 set RESOLN  = ne120_ne120_mt12
 set MACHINE = frontera
-set TAG     = cesm-ihesp-hires1.0.31
+set TAG     = cesm-ihesp-hires1.0.32
 set GITREPO = https://github.com/ihesp/cesm.git
+set IHESPTOOLS = $WORK/ihesp-tools
+
 setenv CESMROOT ${PATH}/cesm_tags/${TAG}/
 
 if ( ! -d $CESMROOT ) then
@@ -51,12 +53,12 @@ cd $CASEROOT
  ./xmlchange REST_OPTION=nmonths
  ./xmlchange DOUT_S_SAVE_INTERIM_RESTART_FILES=TRUE
 
- ./xmlchange NTASKS_ATM=2160
- ./xmlchange NTASKS_LND=2160
- ./xmlchange NTASKS_ICE=2160
- ./xmlchange NTASKS_OCN=2160
- ./xmlchange NTASKS_CPL=2160
- ./xmlchange NTASKS_ROF=2160
+ ./xmlchange NTASKS_ATM=21616
+ ./xmlchange NTASKS_LND=21616
+ ./xmlchange NTASKS_ICE=21616
+ ./xmlchange NTASKS_OCN=21616
+ ./xmlchange NTASKS_CPL=21616
+ ./xmlchange NTASKS_ROF=21616
 
  ./xmlchange --append CAM_CONFIG_OPTS=-cosp
 
