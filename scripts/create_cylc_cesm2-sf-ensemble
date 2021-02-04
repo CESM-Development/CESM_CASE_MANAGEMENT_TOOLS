@@ -105,7 +105,6 @@ pp_xml={
 def main(argv=None):
     # Location of cesm code base
     # cesm_code_base = '/glade/work/'+os.environ['USER']+'/cesm_tags/cesm2.0'
-    # cesm_code_base = '/glade/work/nanr/cesm_tags/cesm2.1.4-exp03'
     cesm_code_base = '/glade/work/nanr/cesm_tags/cesm2.1.4-rc.07'
 
     create(cesm_code_base, testing=False)
