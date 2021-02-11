@@ -105,12 +105,12 @@ sname = get_script_name()
 ; 1850 
 ; year1=1200
 ; year2=1199
-year1=12
-year2=23
+year1=0
+year2=11
 
 ; 1850 for data
-t1=12
-t2=23
+t1=0
+t2=11
 
 r0=0
 r1=12
