@@ -134,7 +134,7 @@ fincl7 =
 
 !! 
  ext_frc_cycle_yr  = -99999
- ext_frc_specifier = 'H2O    ->  /glade/p/cesmdata/cseg/inputdata/atm/cam/chem/emis/elev/H2OemissionCH4oxidationx2_3D_L70_1850cycling_0.9x1.25_c20210209.nc',
+ ext_frc_specifier = 'H2O    ->  /glade/p/cesmdata/cseg/inputdata/atm/cam/chem/emis/elev/H2OemissionCH4oxidationx2_3D_L70_1850cycling_0.9x1.25_c20210210.nc',
          'num_a1 ->  /glade/p/cesmdata/cseg/inputdata/atm/cam/chem/emis/CMIP6_emissions_1750_2015/emissions-cmip6_num_so4_a1_anthro-ene_vertical_1750-2015_0.9x1.25_c20170616.nc',
          'num_a1 ->  /glade/p/cesmdata/cseg/inputdata/atm/cam/chem/emis/CMIP6_emissions_1850_cyclical/emissions-cmip6_num_a1_so4_contvolcano_vertical_1850cycling_0.9x1.25_c191116.nc',
          'num_a2 ->  /glade/p/cesmdata/cseg/inputdata/atm/cam/chem/emis/CMIP6_emissions_1850_cyclical/emissions-cmip6_num_a2_so4_contvolcano_vertical_1850cycling_0.9x1.25_c191116.nc',
@@ -169,13 +169,15 @@ srf_emis_specifier             = 'bc_a4 -> /glade/p/cesmdata/cseg/inputdata/atm/
         'SOAG -> /glade/p/cesmdata/cseg/inputdata/atm/cam/chem/emis/CMIP6_emissions_1850_cyclical/emissions-cmip6_SOAGx1.5_biogenic_surface_1850cycling_0.9x1.25_c191116.nc'
 srf_emis_type          = 'INTERP_MISSING_MONTHS'
 
+
 !! piCNTL
- tracer_cnst_cycle_yr           = -999999
+ tracer_cnst_cycle_yr           =    1850
  tracer_cnst_datapath           = '/glade/p/cesmdata/cseg/inputdata/atm/cam/tracer_cnst'
- tracer_cnst_file               = 'tracer_cnst_halons_3D_L70_1850cycling_c20210209.nc'
+ tracer_cnst_file               = 'tracer_cnst_WACCM6_halons_3DmonthlyL70_1850climoCMIP6piControl001_y21-50avg_c180802.nc'
  tracer_cnst_filelist           = ''
  tracer_cnst_specifier          = 'O3','OH','NO3','HO2'
- tracer_cnst_type               = 'INTERP_MISSING_MONTHS'
+ tracer_cnst_type               = 'CYCLICAL'
+
 
  xactive_prates         = .false.
  xs_long_file           = '/glade/p/cesmdata/cseg/inputdata/atm/waccm/phot/temp_prs_GT200nm_JPL10_c140624.nc'
