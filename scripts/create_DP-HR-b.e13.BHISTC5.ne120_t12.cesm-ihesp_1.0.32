@@ -8,8 +8,8 @@ set RESOLN  = ne120_t12
 set TAG     = cesm-ihesp-hires1.0.32
 
 set RESUBMIT = 1
-set STOP_N=1
 set STOP_OPTION=nmonths
+set STOP_N=31
 
 set syr =  1982
 set eyr =  1982
@@ -26,7 +26,7 @@ foreach year ( `seq $yb 2  $ye` )
 foreach mbr  ( `seq $mb  $me` )
 
 setenv CASE b.e13.${EXPERIMENT}.${RESOLN}.${year}-11.00${mbr}
-setenv REFCASE b.e13.DP-HR_IC.f09_g16.${year}-11.01
+setenv REFCASE b.e13.DP-HR_IC.ne120_t12.${year}-11.01
 
 if ($MACHINE == frontera) then
 	set PATH    = /work/06091/nanr/
@@ -74,11 +74,7 @@ endif
 
 
 ./xmlchange RUN_TYPE=hybrid
-./xmlchange STOP_OPTION=ndays
-./xmlchange STOP_N=10
 ./xmlchange RUN_STARTDATE=${year}-11-01
-#./xmlchange RUN_REFCASE=b.e13.DP-HR_IC.f09_g16.1982-11.01
-#./xmlchange RUN_REFDATE=1982-11-01
 ./xmlchange RUN_REFCASE=${REFCASE}
 ./xmlchange RUN_REFDATE=${year}-11-01
 ./xmlchange GET_REFCASE=FALSE

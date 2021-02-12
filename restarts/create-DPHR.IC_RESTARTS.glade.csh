@@ -29,7 +29,7 @@ foreach year ( `seq $ib 2 $ie` )
 #foreach year ( `seq $ib $ie` )
 foreach mon ( 11 )
 
-set case = b.e13.DP-HR_IC.f09_g16.${year}-${mon}.01
+set case = b.e13.DP-HR_IC.ne120_t12.${year}-${mon}.01
 set Picdir = ${SCRATCH}/DP-HR/inputdata/cesm2_init/{$case}/
 set icdir  = ${SCRATCH}/DP-HR/inputdata/cesm2_init/{$case}/${year}-${mon}-01
 if (! -d ${Picdir}) then
