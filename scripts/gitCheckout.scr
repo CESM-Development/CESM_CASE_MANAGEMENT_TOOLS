@@ -1,0 +1,30 @@
+#!/bin/csh -f
+### set env variables
+
+
+## We need to create
+
+set MACHINE = frontera
+set MACHINE = cheyenne
+set TAG     = cesm-ihesp-hires1.0.32
+set GITREPO = https://github.com/ihesp/cesm.git
+
+if ($MACHINE == frontera) then
+	set PATH    = $STOCKYARD
+else
+        set PATH    = /glade/work/nanr/
+endif
+
+setenv CESMROOT ${PATH}/cesm_tags/${TAG}/
+
+## =================================
+## download latest TAG if needed
+## =================================
+if ( ! -d $CESMROOT ) then
+	mkdir -p ${PATH}/cesm_tags
+  	cd $PATH/cesm_tags
+  	git clone $GITREPO -b $TAG $TAG
+  	cd $TAG
+  	./manage_externals/checkout_externals
+endif
+## =================================

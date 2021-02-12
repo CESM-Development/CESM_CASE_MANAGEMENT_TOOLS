@@ -7,10 +7,12 @@
 set mach = cheyenne
 if ($mach == "cheyenne") then
 	set SCRATCH = /glade/scratch/nanr/
-	set atmdir  = /glade/p/cesm/espwg/JRA55_regridded_to_CAM/ne120_L32/
+        set atmdir  = /glade/p/cesm/espwg/JRA55_regridded_to_CAM/ne120_L30/
 	set ocnpath = /glade/scratch/fredc/archive/
+	#set ocnpath = /glade/scratch/fredc/archive/g.e21.GIAF.TL319_t13.5thCyc.ice.001/rest/0269-11-01-00000
         #set restdir = /glade/scratch/fredc/archive/f.e13.FAMIPC5.ne120_ne120_mt12.cesm-ihesp-1950-2050.001/rest/1982-01-01-00000/
-        set lndpath = /glade/scratch/jedwards/
+        #set lndpath = /glade/scratch/jedwards/
+        set lndpath = /glade/scratch/nanr/archive/
 
 else
 	set atmdir = /scratch1/06091/nanr/JRA55/
@@ -38,18 +40,21 @@ if (! -d ${icdir}) then
 endif
 
 # atm, lnd initial conditions
-set atmcase =  JRA55_ne120_L32
-set lndcase =  f.e13.FAMIPC5.ne120_ne120_mt12.cesm-ihesp-hires1.0.32_gen-restarts.0097
+set atmcase =  JRA55_ne120_L30
+set lndcase =  f.e13.FAMIPC5.ne120_ne120_mt12.chey-gen-restarts.001
 
 # names
 set atmfname = ${atmcase}.cam2.i.${year}-${mon}-01-00000.nc
-#set lndfname = ${lndcase}.clm2.r.${year}-${mon}-01-00000.nc
-set lndfname = ${lndcase}.clm2.r.1960-${mon}-01-00000.nc
+set lndfname = ${lndcase}.clm2.r.${year}-${mon}-01-00000.nc
 set roffname = ${lndcase}.rtm.r.${year}-${mon}-01-00000.nc
+#set lndfname = ${lndcase}.clm2.r.1960-${mon}-01-00000.nc
+#set roffname = ${lndcase}.rtm.r.1960-${mon}-01-00000.nc
 
 # directories
 #set lnddir = /scratch1/02503/edwardsj/archive/f.e13.FAMIPC5.ne120_ne120_mt12.cesm-ihesp-hires1.0.32_gen-restarts.0097/rest/${year}-${mon}-01-00000/
-set lnddir = ${lndpath}/f.e13.FAMIPC5.ne120_ne120_mt12.cesm-ihesp-hires1.0.32_gen-restarts.0097/rest/1960-11-01-00000/
+#set lnddir = ${lndpath}/f.e13.FAMIPC5.ne120_ne120_mt12.cesm-ihesp-hires1.0.32_gen-restarts.0097/1960-11-01-00000/
+#set lnddir = ${lndpath}/f.e13.FAMIPC5.ne120_ne120_mt12.gen-restarts.001/${year}-${mon}-11-01-00000/
+set lnddir = ${lndpath}/${lndcase}/rest/${year}-${mon}-01-00000/
 
 # rename atm, land IC files
 set atmfout = ${case}.cam.i.${year}-${mon}-01-00000.nc
@@ -85,12 +90,15 @@ set ocean_base_year = 245
 @ offset = $first_rest_year - $ocean_base_year 
 @ ocnyr   = $year - $offset
 set ocndir = ${ocnpath}/g.e21.GIAF.TL319_t13.5thCyc.ice.001/rest/0${ocnyr}-${mon}-01-00000/
+
 set icefout = ${case}.cice.r.${year}-${mon}-01-00000.nc
 set lndfout = ${case}.clm2.r.${year}-${mon}-01-00000.nc
 set roffout = ${case}.rtm.r.${year}-${mon}-01-00000.nc
 
-set icefname   = ${ocncase}.cice.r.0${ocnyr}-${mon}-01-00000.nc 
-set poprfname  = ${ocncase}.pop.r.0${ocnyr}-${mon}-01-00000.nc  
+set icefname   = ${ocncase}.cice4.r.tx01v2.0${ocnyr}-${mon}-01-00000.nc 
+set poprfname  = ${ocncase}.pop.r.tx01v2.0${ocnyr}-${mon}-01-00000.nc  
+#set icefname   = g.e21.GIAF.TL319_t13.5thCyc.ice.001.cice4.r.tx01v2.0269-11-01-00000.nc
+#set poprfname  = g.e21.GIAF.TL319_t13.5thCyc.ice.001.pop.r.tx01v2.0269-11-01-00000.nc
 set poprofname = ${ocncase}.pop.ro.0${ocnyr}-${mon}-01-00000    
 set poprhfname = ${ocncase}.pop.rh.ecosys.nyear1.0${ocnyr}-${mon}-01-00000.nc 
 #set popwwfname = ${ocncase}.ww3.r.0${ocnyr}-${mon}-01-00000    
@@ -114,8 +122,8 @@ cp $ocndir/${poprhfname}  $icdir/${poprhfout}
 
 ncatted -a OriginalFile,global,a,c,$icefname    $icdir/$icefout
 ncatted -a OriginalFile,global,a,c,$poprfname   $icdir/$poprfout
-ncatted -a OriginalFile,global,a,c,$poprofname  $icdir/$poprofout
-ncatted -a OriginalFile,global,a,c,$poprhfname  $icdir/$poprhfout
+#ncatted -a OriginalFile,global,a,c,$poprofname  $icdir/$poprofout
+#ncatted -a OriginalFile,global,a,c,$poprhfname  $icdir/$poprhfout
 
 # create rpointer files
 
@@ -125,8 +133,8 @@ echo "$case.cam.i.$year-${mon}-01-00000.nc"   > ${icdir}/rpointer.atm
 echo "$case.cpl.r.$year-${mon}-01-00000.nc"   > ${icdir}/rpointer.drv
 echo "$case.clm2.r.$year-${mon}-01-00000.nc"  > ${icdir}/rpointer.clm
 echo "$case.rtm.r.$year-${mon}-01-00000.nc"   > ${icdir}/rpointer.rof
-echo "$case.pop.rh.ecosys.nyear1.$year-${mon}-01-00000.nc"   > ${icdir}/rpointer.ocn.tavg.5
-echo "$case.pop.rh.$year-${mon}-01-00000.nc"   > ${icdir}/rpointer.ocn.tavg
+#echo "$case.pop.rh.ecosys.nyear1.$year-${mon}-01-00000.nc"   > ${icdir}/rpointer.ocn.tavg.5
+#echo "$case.pop.rh.$year-${mon}-01-00000.nc"   > ${icdir}/rpointer.ocn.tavg
 
 echo "./$case.pop.r.$year-${mon}-01-00000.nc"    >> ${icdir}/rpointer.ocn.restart
 echo "RESTART_FMT=nc"                          >> ${icdir}/rpointer.ocn.restart

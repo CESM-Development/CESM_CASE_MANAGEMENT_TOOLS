@@ -1,0 +1,5 @@
+!---> History output
+rtmhist_nhtfrq = 0,  -6
+rtmhist_mfilt  = 1,1460
+
+rtmhist_fincl2 = 'QCHOCNR:A','QCHANR:A'

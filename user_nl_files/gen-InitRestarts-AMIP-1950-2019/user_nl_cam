@@ -3,10 +3,10 @@ nhtfrq =  0,  -24,    -6,  -6,   -6,   -3
 mfilt   = 1,  365,   146,  73,  146,  292
 
 ! exclude these variables (from h0)
-fexcl1 = 'RFL_PARASOL','CFAD_SR532_CAL','MOL532_CAL','MEANTB_ISCCP','MEANTBCLR_ISCCP'
+! fexcl1 = 'RFL_PARASOL','CFAD_SR532_CAL','MOL532_CAL','MEANTB_ISCCP','MEANTBCLR_ISCCP'
 
-cosp_llidar_sim = .true.
-cosp_lisccp_sim = .true.
+! cosp_llidar_sim = .true.
+! cosp_lisccp_sim = .true.
 
 
  ext_frc_specifier              = 'SO2         -> /work/02503/edwardsj/CESM/inputdata//atm/cam/chem/trop_mozart_aero/emis/RCP85_mam3_so2_elev_19400115-20601215_c190718.nc',
