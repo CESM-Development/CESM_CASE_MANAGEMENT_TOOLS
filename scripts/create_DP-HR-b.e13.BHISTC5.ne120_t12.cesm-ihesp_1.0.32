@@ -28,7 +28,7 @@ foreach year ( `seq $yb 2  $ye` )
 foreach mbr  ( `seq $mb  $me` )
 
 setenv CASE b.e13.${EXPERIMENT}.${RESOLN}.${year}-11.00${mbr}
-setenv REFCASE b.e13.DP-HR_IC.ne120_t12.${year}-11.01
+setenv REFCASE b.e13.DP-HR_IC.${RESOLN}.${year}-11.01
 
 if ($MACHINE == frontera) then
 	set PATH      = $STOCKYARD
