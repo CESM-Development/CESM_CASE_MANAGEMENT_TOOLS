@@ -10,10 +10,6 @@ set RESOLN  = ne120_t12
 set TAG     = cesm-ihesp-hires1.0.32
 
 set RESUBMIT = 1
-<<<<<<< HEAD
-=======
-set STOP_N=26
->>>>>>> 148f072077633756eeb9971786166db14a916a08
 set STOP_OPTION=nmonths
 set STOP_N=31
 
