@@ -1,0 +1,41 @@
+!----------------------------------------------------------------------------------
+! Users should add all user specific namelist changes below in the form of
+! namelist_var = new_namelist_value
+!
+! EXCEPTIONS:
+! Set use_cndv           by the compset you use and the CLM_BLDNML_OPTS -dynamic_vegetation setting
+! Set use_vichydro       by the compset you use and the CLM_BLDNML_OPTS -vichydro           setting
+! Set use_cn             by the compset you use and CLM_BLDNML_OPTS -bgc  setting
+! Set use_crop           by the compset you use and CLM_BLDNML_OPTS -crop setting
+! Set spinup_state       by the CLM_BLDNML_OPTS -bgc_spinup      setting
+! Set irrigate           by the CLM_BLDNML_OPTS -irrig           setting
+! Set co2_ppmv           with CCSM_CO2_PPMV                      option
+! Set dtime              with L_NCPL                             option
+! Set fatmlndfrc         with LND_DOMAIN_PATH/LND_DOMAIN_FILE    options
+! Set finidat            with RUN_REFCASE/RUN_REFDATE/RUN_REFTOD options for hybrid or branch cases
+!                        (includes $inst_string for multi-ensemble cases)
+! Set maxpatch_glcmec    with GLC_NEC                            option
+! Set glc_do_dynglacier  with GLC_TWO_WAY_COUPLING               env variable
+!----------------------------------------------------------------------------------
+hist_fincl1 = 'CROPPROD1C', 'FAREA_BURNED', 'FINUNDATED', 'NBP', 'PCT_LANDUNIT', 'SOILICE', 'SOILLIQ', 'TOT_WOODPRODC', 'FSNO', 'GPP', 'H2OSNO', 'HR', 'HTOP', 'NPP', 'PCT_CFT', 'PCT_LANDUNIT', 'QFLX_SUB_SNOW', 'QRUNOFF', 'QSNOMELT', 'SNOBCMSL', 'SNOTXMASS', 'SNOW', 'SNOWDP', 'SNOWICE', 'SNOWLIQ', 'SOILWATER_10CM', 'TLAI', 'TOTECOSYSC', 'TOTLITC', 'TOTSOMC', 'TOTSOMC_1m', 'TOTVEGC', 'landfrac', 
+
+hist_fincl2 = 
+
+hist_fincl3 = 'TREFMNAV', 'TREFMXAV', 
+
+hist_fincl4 = 'PCT_LANDUNIT', 'PCT_NAT_PFT', 'PCT_CFT', 'PCT_LANDUNIT', 'PCT_NAT_PFT', 'landfrac', 
+
+hist_fincl5 = 'QRUNOFF', 'SOILWATER_10CM', 'TOTSOILICE', 'TOTSOILLIQ', 
+
+hist_fincl6 = 'FSNO', 'H2OSNO', 'SNOW', 'TSKIN', 
+
+hist_fincl7 = 
+
+hist_fincl8 = 'FIRE:X', 
+
+hist_fincl9 = 'FIRE:M', 
+
+hist_mfilt = 1,1,1,1,365,365,8760,365,365
+hist_dov2xy = .true.,.false.,.false.,.true.,.true.,.false.,.true.,.false.,.false.
+hist_nhtfrq = 0,0,0,-8760,-24,-24,-1,-24,-24
+hist_type1d_pertape = ' ',' ','LAND',' ',' ','LAND',' ',' ',' '

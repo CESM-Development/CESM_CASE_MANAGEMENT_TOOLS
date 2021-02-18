@@ -1,0 +1,1 @@
+/glade/p/cesmdata/cseg/inputdata/atm/waccm/lb/LBC_1750-2015_CMIP6_GlobAnnAvg_c180926.nc

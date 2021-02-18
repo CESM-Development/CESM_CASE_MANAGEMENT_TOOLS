@@ -1,0 +1,5 @@
+Email from Mike Mills:  Oct 24, 2019
+
+1) The H2OemissionCH4oxidation file is a production rate for water vapor in the stratosphere from methane oxidation, as calculated in the WACCM historical simulations. Therefore, I would classify that as anthropogenic, since anthropogenic methane is increasing in the historical period. For a natural forcing run, use the file that was used in the piControl runs.
+
+2) Those settings are correct. I created one file that has both stratospheric ozone and stratospheric aerosol, but they are in different variables addressed by different namelist settings. You want to have the stratospheric ozone set to the piControl file, and the stratospheric aerosol set to the historical file. That is what you have.

@@ -1,0 +1,73 @@
+#!/bin/csh -f
+### set env variables
+
+setenv CESMROOT ~cmip6/cesm_tags/release-cesm2.1.2/
+
+set COMPSET = B1850cmip6
+set MACHINE = cheyenne
+set RESOLN = f09_g17
+set mbr = 2
+
+setenv CASENAME b.e21.B1850cmip6.f09_g17.DAMIP-hist-co2.00${mbr}
+setenv REFCASE  b.e21.B1850.f09_g17.CMIP6-piControl.001
+setenv RUNROOT  /glade/scratch/nanr/$CASENAME/run/
+
+setenv BASEROOT /glade/work/cmip6/cases/DAMIP/
+setenv CASEROOT /glade/work/cmip6/cases/DAMIP/$CASENAME
+echo --case $BASEROOT$CASENAME --res $RESOLN  --compset $COMPSET 
+
+cd ~/CESM-WF/
+./create_cylc_DAMIP-hist-co2-moar --case $BASEROOT$CASENAME --res $RESOLN  --compset $COMPSET 
+
+if ($mbr == 1) then
+     setenv REFDATE  0841-01-01
+endif
+if ($mbr == 2) then
+     setenv REFDATE  0871-01-01
+endif
+if ($mbr == 3) then
+     setenv REFDATE  0501-01-01
+endif
+
+setenv REFROOT  /glade/p/cesmdata/cseg/inputdata/cesm2_init/b.e21.B1850.f09_g17.CMIP6-piControl.001/${REFDATE}/
+
+echo $CASEROOT
+cd $CASEROOT
+
+./xmlchange RUN_REFCASE=$REFCASE
+./xmlchange RUN_REFDATE=$REFDATE
+./xmlchange RUN_STARTDATE=1850-01-01
+./xmlchange --append CAM_CONFIG_OPTS=-cosp
+
+./xmlchange NTASKS_CPL=576
+./xmlchange NTASKS_ATM=576
+./xmlchange NTASKS_LND=504
+./xmlchange NTASKS_ICE=36
+./xmlchange NTASKS_OCN=144
+./xmlchange NTASKS_ROF=468
+./xmlchange NTASKS_GLC=576
+./xmlchange NTASKS_WAV=36
+./xmlchange ROOTPE_ICE=504
+./xmlchange ROOTPE_OCN=576
+./xmlchange ROOTPE_WAV=540
+
+./case.setup
+
+
+mv user_nl_cam user_nl_cam.`date +%m%d-%H%M`
+mv user_nl_clm user_nl_clm.`date +%m%d-%H%M`
+mv user_nl_cice user_nl_cice.`date +%m%d-%H%M`
+mv user_nl_cpl user_nl_cpl.`date +%m%d-%H%M`
+
+cp /glade/work/nanr/cesm_tags/CASE_tools/cesm2-cmip6/user_nl_files/DAMIP-hist-co2/hist-moar/user_nl_cam .
+cp /glade/work/nanr/cesm_tags/CASE_tools/cesm2-cmip6/user_nl_files/DAMIP-hist-co2/hist-moar/user_nl_clm .
+cp /glade/work/nanr/cesm_tags/CASE_tools/cesm2-cmip6/user_nl_files/DAMIP-hist-co2/hist-moar/user_nl_cice .
+cp /glade/work/nanr/cesm_tags/CASE_tools/cesm2-cmip6/user_nl_files/DAMIP-hist-co2/hist-moar/user_nl_cpl .
+
+cp $REFROOT/rpointer* $RUNROOT/
+ln -s $REFROOT/b.e21* $RUNROOT/
+
+./preview_namelists
+
+qcmd -- ./case.build >& bld.`date +%m%d-%H%M`
+

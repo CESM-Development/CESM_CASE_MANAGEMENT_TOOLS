@@ -1,0 +1,1 @@
+/glade/work/nanr/cmip6/DAMIP/hist-co2/inputdata/atm/waccm/lb/LBC_1750-2015_CMIP6_GlobAnnAvg_ConstantGHG-with-co2-evolving_c200902.nc
