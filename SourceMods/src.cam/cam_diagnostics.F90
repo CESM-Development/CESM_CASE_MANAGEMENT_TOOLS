@@ -319,8 +319,6 @@ subroutine diag_init()
       call add_default ('OMEGAT  ', 1, ' ')
       call add_default ('TMQ     ', 1, ' ')
       call add_default ('IVT     ', 1, ' ')
-      call add_default ('uIVT    ', 1, ' ')
-      call add_default ('vIVT    ', 1, ' ')
       call add_default ('PSL     ', 1, ' ')
       if (moist_physics) then
          call add_default ('RELHUM  ', 1, ' ')

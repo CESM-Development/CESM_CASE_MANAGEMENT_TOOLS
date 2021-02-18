@@ -1,7 +1,7 @@
 #!/bin/csh -f
 
-set MACHINE = cheyenne
 set MACHINE = frontera
+set MACHINE = cheyenne
 
 
 set COMPSET = BHISTC5
@@ -18,8 +18,8 @@ set eyr =  1982
 @ yb = $syr
 @ ye = $eyr
 
-set smbr =  1
-set embr =  1
+set smbr =  2
+set embr =  2
 
 @ mb = $smbr
 @ me = $embr
@@ -133,6 +133,6 @@ echo "================="
 cp    $REFROOT/$REFCASE/${year}-11-01/rpoint* $RUNDIR
 ln -s $REFROOT/$REFCASE/${year}-11-01/b.* $RUNDIR
 
-./case.build
+#./case.build
 end
 end

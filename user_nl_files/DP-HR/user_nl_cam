@@ -26,8 +26,8 @@ fincl1 = 'ANRAIN','ANSNOW','AQRAIN','AQSNOW','AREI','AREL','AWNC','AWNI','CCN3',
 fincl2 = 'FLUT','IVT','OMEGA850','PRECT','RHREFHT','TMQ','TS','U10:X','Z500','PRECC','TREFHT','TREFHTMN:M','TREFHTMX:X','PRECTMX'
 
 ! averaged 6hr (h2)
-fincl3 = 'FLUT:A','OMEGA500:A','PRECC:A','PRECSC:A','PRECSL:A','PRECT:A','PSL:I','U200:A',
-         'UBOT:I','IVT:A','uIVT:I','vIVT:I','VBOT:I','Z200','Z500','U10','U850','V850','TMQ','PS'
+fincl3 = 'FLUT:A','OMEGA500:A','PRECC:A','PRECSC:A','PRECSL:A','PRECT:A','U200:A',
+         'IVT:A','uIVT:I','vIVT:I','Z200','Z500','U10','U850','V850','TMQ','PS'
 
 ! instantaneous 6hr (h3)
 fincl4 = 'PRECT:I','UBOT:I','VBOT:I','ZBOT:I','PSL:I','Z250:I','Z500:I'
