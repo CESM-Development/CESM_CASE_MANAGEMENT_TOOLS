@@ -21,6 +21,8 @@ endif
 
 set syr = 1982
 set eyr = 1982
+set syr = 1990
+set eyr = 1990
 
 @ ib = $syr
 @ ie = $eyr
@@ -42,6 +44,7 @@ endif
 # atm, lnd initial conditions
 set atmcase =  JRA55_ne120_L30
 set lndcase =  f.e13.FAMIPC5.ne120_ne120_mt12.chey-gen-restarts.001
+set lndcase =  f.e13.FAMIPC5.ne120_ne120_mt12.chey-gen-restarts.1990-05-01.001
 
 # names
 set atmfname = ${atmcase}.cam2.i.${year}-${mon}-01-00000.nc

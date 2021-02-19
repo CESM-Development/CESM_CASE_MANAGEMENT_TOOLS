@@ -90,15 +90,16 @@ endif
  	./xmlchange SSTICE_GRID_FILENAME=/work/06091/nanr/frontera/SST-highres/domain.ocn.0.25x0.25_mask.181109.nc
 	cp /work/02503/edwardsj/CESM/inputdata/cesm2_init/f.e13.FAMIPC5.ne120_ne120_mt12.cesm-ihesp-1950-2050.001/1982-01-01/rpoint* $RUNDIR
 	ln -s /work/02503/edwardsj/CESM/inputdata/cesm2_init/f.e13.FAMIPC5.ne120_ne120_mt12.cesm-ihesp-1950-2050.001/1982-01-01/f.e13.F* $RUNDIR
+	cp $IHESPTOOLS/user_nl_files/gen-InitRestarts-AMIP-1950-2019/frontera/* $CASEROOT/
  else
- 	./xmlchange SSTICE_GRID_FILENAME=domain.ocn.0.25x0.25_mask.181109.nc
+	./xmlchange SSTICE_GRID_FILENAME=/glade/p/cesm/cseg/inputdata/atm/cam/ocnfrac/domain.ocn.0.25x0.25_mask.181109.nc
 	cp /glade/scratch/fredc/archive/f.e13.FAMIPC5.ne120_ne120_mt12.cesm-ihesp-1950-2050.001/rest/1982-01-01-00000/rpoint* $RUNDIR
 	ln -s /glade/scratch/fredc/archive/f.e13.FAMIPC5.ne120_ne120_mt12.cesm-ihesp-1950-2050.001/rest/1982-01-01-00000/f.e13.F* $RUNDIR
+	cp $IHESPTOOLS/user_nl_files/gen-InitRestarts-AMIP-1950-2019/cheyenne/* $CASEROOT/
  endif
 
 ./case.setup
 
-cp $IHESPTOOLS/user_nl_files/gen-InitRestarts-AMIP-1950-2019/* $CASEROOT/
 
 
 #qcmd -- ./case.build
