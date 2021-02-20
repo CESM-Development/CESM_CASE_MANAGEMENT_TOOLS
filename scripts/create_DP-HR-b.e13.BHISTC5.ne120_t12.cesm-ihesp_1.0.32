@@ -98,7 +98,7 @@ cp $TOOLSROOT/user_nl_files/DP-HR/user_nl_cice $CASEROOT/user_nl_cice
 cp $TOOLSROOT/user_nl_files/DP-HR/user_nl_rtm $CASEROOT/user_nl_rtm
 
 
-cp $TOOLSROOT/SourceMods/src.cice/*  $CASEROOT/SourceMods/src.cice/
+cp $TOOLSROOT/SourceMods/src.cice/DP-HR/*  $CASEROOT/SourceMods/src.cice/
 cp $TOOLSROOT/SourceMods/src.pop/DP-HR/*  $CASEROOT/SourceMods/src.pop/
 cp $TOOLSROOT/SourceMods/src.cam/*F90  $CASEROOT/SourceMods/src.cam/
 
