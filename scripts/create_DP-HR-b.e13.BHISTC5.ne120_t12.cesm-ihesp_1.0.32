@@ -18,8 +18,8 @@ set eyr =  1982
 @ yb = $syr
 @ ye = $eyr
 
-set smbr =  2
-set embr =  2
+set smbr =  1
+set embr =  1
 
 @ mb = $smbr
 @ me = $embr
