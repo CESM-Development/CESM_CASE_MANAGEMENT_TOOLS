@@ -10,8 +10,10 @@ set RESOLN  = ne120_t12
 set TAG     = cesm-ihesp-hires1.0.32
 
 set RESUBMIT = 1
-set STOP_OPTION=nmonths
-set STOP_N=31
+#set STOP_OPTION=nmonths
+#set STOP_N=31
+set STOP_OPTION=nyears
+set STOP_N=5
 
 set syr =  1982
 set eyr =  1982
@@ -79,12 +81,15 @@ endif
 ./xmlchange RESUBMIT=$RESUBMIT
 ./xmlchange STOP_OPTION=$STOP_OPTION
 ./xmlchange STOP_N=$STOP_N
+./xmlchange REST_OPTION=nyears
+./xmlchange REST_N=2
 ./xmlchange RUN_TYPE=hybrid
 ./xmlchange RUN_STARTDATE=${year}-11-01
 ./xmlchange RUN_REFCASE=${REFCASE}
 ./xmlchange RUN_REFDATE=${year}-11-01
 ./xmlchange GET_REFCASE=FALSE
 ./xmlchange OCN_TRACER_MODULES=""
+./xmlchange JOB_WALLCLOCK_TIME=2:00:00 --subgroup case.st_archive
 ##./xmlchange --append CAM_CONFIG_OPTS=-cosp
 
 if ($MACHINE == cheyenne) then

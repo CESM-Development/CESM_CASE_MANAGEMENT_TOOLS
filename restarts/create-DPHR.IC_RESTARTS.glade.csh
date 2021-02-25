@@ -13,16 +13,18 @@ if ($mach == "cheyenne") then
         #set restdir = /glade/scratch/fredc/archive/f.e13.FAMIPC5.ne120_ne120_mt12.cesm-ihesp-1950-2050.001/rest/1982-01-01-00000/
         #set lndpath = /glade/scratch/jedwards/
         set lndpath = /glade/scratch/nanr/archive/
+	set lndcase =  f.e13.FAMIPC5.ne120_ne120_mt12.chey-gen-restarts.001
+	set lndcase =  f.e13.FAMIPC5.ne120_ne120_mt12.chey-gen-restarts.1990-05-01.001
 
 else
 	set atmdir = /scratch1/06091/nanr/JRA55/
 	set ocnpath = /scratch1/06090/fredc/
+        set lndpath = /scratch1/06091/nanr/archive/
+	set lndcase =  f.e13.FAMIPC5.ne120_ne120_mt12.gen-restarts.001
 endif
 
-set syr = 1982
-set eyr = 1982
-set syr = 1990
-set eyr = 1990
+set syr = 1984
+set eyr = 1985
 
 @ ib = $syr
 @ ie = $eyr
@@ -43,8 +45,6 @@ endif
 
 # atm, lnd initial conditions
 set atmcase =  JRA55_ne120_L30
-set lndcase =  f.e13.FAMIPC5.ne120_ne120_mt12.chey-gen-restarts.001
-set lndcase =  f.e13.FAMIPC5.ne120_ne120_mt12.chey-gen-restarts.1990-05-01.001
 
 # names
 set atmfname = ${atmcase}.cam2.i.${year}-${mon}-01-00000.nc
