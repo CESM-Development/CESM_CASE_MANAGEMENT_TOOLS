@@ -1,0 +1,17 @@
+	float levgrnd(levgrnd) ;
+	float levlak(levlak) ;
+	float levdcmp(levdcmp) ;
+	float time(time) ;
+	float lon(lon) ;
+	float lat(lat) ;
+	float area(lat, lon) ;
+	float landfrac(lat, lon) ;
+	float DEADCROOTC(time, landunit) ;
+	float FROOTC(time, landunit) ;
+	float LIVECROOTC(time, landunit) ;
+	float TOTECOSYSC(time, landunit) ;
+	float TOTLITC(time, landunit) ;
+	float TOTSOMC(time, landunit) ;
+	float TOTSOMC_1m(time, landunit) ;
+	float TOTVEGC(time, landunit) ;
+	float WOODC(time, landunit) ;

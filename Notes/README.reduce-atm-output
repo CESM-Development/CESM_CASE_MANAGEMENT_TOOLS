@@ -1,0 +1,27 @@
+GaryStrand - Sep 24, 2020
+	Would any science be lost if we took the daily Q/U/V/T/Z3/OMEGA and interpolated 
+	them to the CMIP6 standard daily pressure levels (as Isla listed):
+		1000, 850, 700, 500, 250, 100, 50, 10
+	And we keep the bottom-most level as ${VAR}BOT.
+	That will cut the volume down of these daily data from ~300 TB to ~85 TB.
+
+ClaraDeser:
+	I agree with Gary's proposal for the daily data. 
+
+Isla:
+	I think we should do what we did in the CESM1 large ensemble, which would be 200 instead of 250.  
+	I guess I had suggested 250 before because it is equivalent to the CMIP levels, but I think 
+	it would be preferable to be equivalent to the LENS1 levels, unless anyone else has a 
+	strong preference?  I don't feel too strongly about it.
+
+RichNeale:
+	I agree with this as 250 is a bit below key upper tropospheric climate features such as 
+	cloud maxima, tropical outflow and the standard MJO analysis level is also 200 mb.
+
+    'Q1000:A', 'Q850:A', 'Q700:A', 'Q500:A', 'Q200:A', 'Q100:A', 'Q50:A', 'Q10:A', 'QBOT:A',
+    'U1000:A', 'U850:A', 'U700:A', 'U500:A', 'U200:A', 'U100:A', 'U50:A', 'U10:A', 'UBOT:A',
+    'V1000:A', 'V850:A', 'V700:A', 'V500:A', 'V200:A', 'V100:A', 'V50:A', 'V10:A', 'VBOT:A',
+    'T1000:A', 'T850:A', 'T700:A', 'T500:A', 'T200:A', 'T100:A', 'T50:A', 'T10:A', 'TBOT:A',
+    'Z1000:A', 'Z850:A', 'Z700:A', 'Z500:A', 'Z200:A', 'Z100:A', 'Z50:A', 'Z10:A',
+    'OMEGA1000:A', 'OMEGA850:A', 'OMEGA700:A', 'OMEGA500:A', 'OMEGA200:A', 'OMEGA100:A', 'OMEGA50:A', 'OMEGA10:A'
+

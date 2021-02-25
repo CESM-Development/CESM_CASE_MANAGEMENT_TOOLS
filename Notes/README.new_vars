@@ -1,0 +1,117 @@
+LAND:  Daily Fields on Gridcell  (requested by Lei Huang)
+	TLAKE
+	QRGWL
+	LAKEICETHICK
+	EFLX_GRND_LAKE
+	UST_LAKE
+	JCONVECT
+	TKE1 (only for first ten ensemble members)
+
+LAND:  Daily Fields on LandUnit (requested by Lei Huang)
+	QRGWL
+	FGR
+	FSM
+	SABG (only for first ten ensemble members)
+	FIRE (only for first ten ensemble members)
+	FLDS (only for first ten ensemble members)
+	FIRA (only for first ten ensemble members)
+	FSH (only for first ten ensemble members)
+	EFLX_LH_TOT (only for first ten ensemble members)
+	H2OSNO (only for first ten ensemble members)
+	
+LAND:  Grid average: Daily mean
+	BTRANMN
+	TSOI_10CM
+	CPHASE
+
+LAND:  Grid average: (blue = files suggested by Will on Oct 6th that already exist in standard output)
+	SOILWATER_10CM
+	H2OSNO
+	SNOWDP
+	GPP
+	AR
+	HR
+	NEP
+	NBP
+	TLAI
+	ALT
+	TWS
+	FAREA_BURNED
+	NFIRE
+
+
+LAND:  Daily mean on PFT grid
+	CPHASE     (crop phase)
+	GPP
+	TLAI
+	AR
+
+LAND:  monthly mean on PFT grid
+	CPHASE
+
+ATMOSPHERE:  Daily Mean fields
+	FSR
+	FSDSVDLN
+	FSRVDLN,
+	FSDSNDLN
+	FSRNDLN
+	FSDSVI
+	FSRVI
+	FSDSNI
+	FSRNI
+	FSH
+	FCTR
+	FCEV
+	FGEV
+
+ATMOSPHERE:  monthly means  (requested by Shih-Yu Li)
+	HR   (heating rate)
+
+OCEAN:   monthly mean fields  (from MARBL)
+	diatC_zint_100m
+	diazC_zint_100m
+	spC_zint_100m
+
+high_freq = daily
+medium_freq = monthly
+midhigh_freq = 5 day means
+low_freq = annual
+
+# lists output streams in MARBL
+
+#MARBL is smart enough to be able to add variables.
+/pop/externals/MARBL/defaults/diagnostics_latest.yaml
+
+OCEAN: Daily mean fields
+	SFWF
+	SHF
+	QFLUX
+
+OCEAN:  5-day mean fields
+	EVAP_F
+	PREC_F
+	ROFF_F
+	IOFF_F
+	MELT_F
+	SALT_F
+	SNOW_F
+	SHF_QSW
+	LWDN_F
+	LWUP_F
+	SENH_F
+	MELTH_F
+
+I think these are ones we want daily values for on the grid, if possible (not just monthly output)  I think many of these were already saved as daily output in the first 50 members?
+	SOILWATER_10CM
+	H2OSNO
+	SNOWDP
+	GPP
+	AR
+	HR
+	NEP
+	NBP
+	TLAI
+	ALT
+	TWS
+	FAREA_BURNED
+	NFIRE

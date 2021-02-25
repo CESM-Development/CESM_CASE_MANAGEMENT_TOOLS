@@ -1,0 +1,33 @@
+Gokhan :: I think we are all happy, so please go ahead. As far as I know, 
+we will have the following changes in this new ensemble compared to the completed set:
+
+	1. Smoothened BB emissions data sets;
+	2. SO2 and SO4 data sets corrected for partitioning;
+	3. CLM crop harvest bug fix;
+	4. Possible additional CLM output fields.
+	5. 2D ocn fields + 5day mean fields
+
+    Simone Tilmes:  New forcing (so2 + so4 fixes)
+ 	Thu, Sep 24, 2020 at 11:44 AM Simone Tilmes <tilmes@ucar.edu> wrote:
+	glade:  /gpfs/fs1/p/acom/acom-climate/cmip6inputs/emissions_ssp370/175001-210101/
+	aleph:	/share/CESM/cesm_input/atm/cam/chem/emis/emissions_ssp370/
+
+		emissions-cmip6-ScenarioMIP_IAMC-AIM-ssp370-1-1_SO2_anthro-ag-ship-res_surface_mol_175001-210101_0.9x1.25_c20200924.nc
+		emissions-cmip6-ScenarioMIP_IAMC-AIM-ssp370-1-1_so4_a1_anthro-ag-ship_surface_mol_175001-210101_0.9x1.25_c20200924.nc
+		emissions-cmip6-ScenarioMIP_IAMC-AIM-ssp370-1-1_so4_a2_anthro-res_surface_mol_175001-210101_0.9x1.25_c20200924.nc
+		emissions-cmip6-ScenarioMIP_IAMC-AIM-ssp370-1-1_num_so4_a1_anthro-ag-ship_surface_mol_175001-210101_0.9x1.25_c20200924.nc
+		emissions-cmip6-ScenarioMIP_IAMC-AIM-ssp370-1-1_num_so4_a2_anthro-res_surface_mol_175001-210101_0.9x1.25_c20200924.nc
+
+     JF Lamarque :: smoothed BB burning from 1990 onward
+	I have processed the new SOAG file to create the smoothed BB emissions.  You can find them
+	glade: /glade/scratch/lamar/BB_test_SSP_smoothed
+		emissions-cmip6-ScenarioMIP_IAMC-AIM-ssp370-1-1_smoothed_bc_a4_bb_surface_mol_175001-210101_0.9x1.25_c20201016.nc
+		emissions-cmip6-ScenarioMIP_IAMC-AIM-ssp370-1-1_smoothed_DMS_bb_surface_mol_175001-210101_0.9x1.25_c20201016.nc
+		emissions-cmip6-ScenarioMIP_IAMC-AIM-ssp370-1-1_smoothed_num_bc_a4_bb_surface_mol_175001-210101_0.9x1.25_c20201016.nc
+		emissions-cmip6-ScenarioMIP_IAMC-AIM-ssp370-1-1_smoothed_num_pom_a4_bb_surface_mol_175001-210101_0.9x1.25_c20201016.nc
+		emissions-cmip6-ScenarioMIP_IAMC-AIM-ssp370-1-1_smoothed_num_so4_a1_bb_surface_mol_175001-210101_0.9x1.25_c20201016.nc
+		emissions-cmip6-ScenarioMIP_IAMC-AIM-ssp370-1-1_smoothed_pom_a4_bb_surface_mol_175001-210101_0.9x1.25_c20201016.nc
+		emissions-cmip6-ScenarioMIP_IAMC-AIM-ssp370-1-1_smoothed_SO2_bb_surface_mol_175001-210101_0.9x1.25_c20201016.nc
+		emissions-cmip6-ScenarioMIP_IAMC-AIM-ssp370-1-1_smoothed_so4_a1_bb_surface_mol_175001-210101_0.9x1.25_c20201016.nc
+		emissions-cmip6-ScenarioMIP_IAMC-AIM-ssp370-1-1_smoothed_SOAGx1.5_bb_surface_mol_175001-210101_0.9x1.25_c20201016.nc
+
