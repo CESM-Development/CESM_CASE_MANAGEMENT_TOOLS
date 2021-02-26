@@ -13,10 +13,10 @@ set TAG     = cesm-ihesp-hires1.0.32
 #set STOP_OPTION=nmonths
 #set STOP_N=31
 set RESUBMIT = 0
-set STOP_OPTION=nyears
-set STOP_N=5
-set REST_OPTION=nyears
-set REST_N=2
+set STOP_OPTION=nmonths
+set STOP_N=62
+set REST_OPTION=nmonths
+set REST_N=12
 
 set syr =  1984
 set eyr =  1984
