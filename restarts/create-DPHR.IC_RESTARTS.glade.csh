@@ -5,6 +5,7 @@
 #  That's 7 start dates. After we finish these, we'll decide whether to do 1980 or 1996 as the 8th start date.
 
 set mach = cheyenne
+set mach = frontera
 if ($mach == "cheyenne") then
 	set SCRATCH = /glade/scratch/nanr/
         set atmdir  = /glade/p/cesm/espwg/JRA55_regridded_to_CAM/ne120_L30/

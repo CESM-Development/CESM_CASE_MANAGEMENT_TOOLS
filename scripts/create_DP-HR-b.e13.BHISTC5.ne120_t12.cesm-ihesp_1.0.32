@@ -9,19 +9,22 @@ set EXPERIMENT = BDP-HR
 set RESOLN  = ne120_t12
 set TAG     = cesm-ihesp-hires1.0.32
 
-set RESUBMIT = 1
+#set RESUBMIT = 1
 #set STOP_OPTION=nmonths
 #set STOP_N=31
+set RESUBMIT = 0
 set STOP_OPTION=nyears
 set STOP_N=5
+set REST_OPTION=nyears
+set REST_N=2
 
-set syr =  1982
-set eyr =  1982
+set syr =  1984
+set eyr =  1984
 @ yb = $syr
 @ ye = $eyr
 
 set smbr =  1
-set embr =  1
+set embr =  5
 
 @ mb = $smbr
 @ me = $embr
@@ -77,12 +80,12 @@ else
 	./xmlchange NTASKS_WAV=1
 endif
 
-
+./xmlchange DOUT_S_SAVE_INTERIM_RESTART_FILES=TRUE 
 ./xmlchange RESUBMIT=$RESUBMIT
 ./xmlchange STOP_OPTION=$STOP_OPTION
 ./xmlchange STOP_N=$STOP_N
-./xmlchange REST_OPTION=nyears
-./xmlchange REST_N=2
+./xmlchange REST_OPTION=$REST_OPTION
+./xmlchange REST_N=$REST_N
 ./xmlchange RUN_TYPE=hybrid
 ./xmlchange RUN_STARTDATE=${year}-11-01
 ./xmlchange RUN_REFCASE=${REFCASE}
