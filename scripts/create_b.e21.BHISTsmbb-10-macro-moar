@@ -1,12 +1,12 @@
 #!/bin/csh -fx
 ### set env variables
 
-set MACHINE = aleph
 set MACHINE = cheyenne
+set MACHINE = aleph
 #if ($USER==jedwards)
 #set test=test
 #else
-set test=nanr
+set test=
 #endif
 
 if ($MACHINE == cheyenne) then
