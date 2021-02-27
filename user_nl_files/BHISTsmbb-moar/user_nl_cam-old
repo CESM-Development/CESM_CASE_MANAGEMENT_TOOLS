@@ -1,11 +1,15 @@
 ! Users should add all user specific namelist changes below in the form of 
 ! namelist_var = new_namelist_value 
 
-!!       f1,   f2,  f3,  f4,  f5,  f6,  f7,  f8
-!!       h0,   h1,  h2,  h3,  h4,  h5,  h6,  h7
-nhtfrq =  0,  -24,  -6,  -3,  -1,  -6, -24, -24
-mfilt  =  1,  365, 146, 292, 240,  73, 365, 365
-ndens  =  2,    2,   2,   2,   2,   2,   1,   1
+!!      f1,  f2, f3, f4,  f5,  f6,  f7,  f8,  f9
+!!      h0,  h1, h2, h3,  h4,  h5,  h6,  h7,  h8
+nhtfrq = 0, -24, -6, -3,  -1,  -6, -24, -24, -24
+mfilt  = 1,   5, 20, 40, 120, 240, 365,  20, 365 
+ndens  = 2,   2,  2,  2,   2,   2,   1,   1,   1
+
+!!       h0,   h1,  h2,  h3,   h4,   h5,   h6,  h7
+nhtfrq =  0,  -24,  -6,  -3,   -1,   -6,  -24, -24
+mfilt   = 1,  365, 146, 292,  240,   73,  365, 365
 
 
 !! monthly (h0)
