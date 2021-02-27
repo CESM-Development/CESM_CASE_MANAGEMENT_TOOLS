@@ -1,8 +1,8 @@
 #!/bin/csh -fx
 ### set env variables
 setenv CESM2_LE_TOOLS_ROOT $HOME/CESM_CASE_MANAGEMENT_TOOLS
-setenv POSTPROCESS_PATH /home/jedwards/workflow/CESM_postprocessing
-source $POSTPROCESS_PATH/cesm-env2/bin/activate
+#setenv POSTPROCESS_PATH /home/jedwards/workflow/CESM_postprocessing
+#source $POSTPROCESS_PATH/cesm-env2/bin/activate
 #if ($USER==jedwards)
 #set test=test
 #else
@@ -107,7 +107,7 @@ echo $CASEROOT
 # =========================
 
 if ($mbr != 1) then
-cp $CESM2_LE_TOOLS_ROOT/user_nl_files/BHISTsmbb/mbrs1-10/user_nl_cam $CASEROOT/
+cp $CESM2_LE_TOOLS_ROOT/user_nl_files/BHISTsmbb/mbrs11-50/user_nl_cam $CASEROOT/
 cat >> head.${mbr} << EOF
 ! micro-member perturbation
 pertlim = ${mbr}.d-14
