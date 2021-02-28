@@ -20,8 +20,8 @@
 !----------------------------------------------------------------------------------
 ! evolving landuse
 !----------------------------------------------------------------------------------
- atm_c13_filename = '/glade/p/cesmdata/cseg/inputdata/lnd/clm2/isotopes/atm_delta_C13_CMIP6_1850-2015_yearly_v2.0_c171012.nc'
- atm_c14_filename = '/glade/p/cesmdata/cseg/inputdata/lnd/clm2/isotopes/atm_delta_C14_CMIP6_3x1_global_1850-2015_yearly_v2.0_c171012.nc'
+!atm_c13_filename = '/glade/p/cesmdata/cseg/inputdata/lnd/clm2/isotopes/atm_delta_C13_CMIP6_1850-2015_yearly_v2.0_c171012.nc'
+!atm_c14_filename = '/glade/p/cesmdata/cseg/inputdata/lnd/clm2/isotopes/atm_delta_C14_CMIP6_3x1_global_1850-2015_yearly_v2.0_c171012.nc'
  fsurdat = '/glade/p/cesmdata/cseg/inputdata/lnd/clm2/surfdata_map/surfdata_0.9x1.25_78pfts_CMIP6_simyr1850_c170824.nc'
  irrigate=.true.
 
