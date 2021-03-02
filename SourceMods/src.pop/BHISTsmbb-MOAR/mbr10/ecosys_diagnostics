@@ -85,16 +85,16 @@ tend_zint_100m_DIC : medium_average, midhigh_average
 DIC_RIV_FLUX : medium_average
 FvPER_DIC : medium_average
 FvICE_DIC : medium_average
-UE_DIC : medium_average
-VN_DIC : medium_average
+UE_DIC : medium_average, midhigh_average
+VN_DIC : medium_average, midhigh_average
 WT_DIC : medium_average
-DIA_IMPVF_DIC : medium_average
-HDIFE_DIC : medium_average
-HDIFN_DIC : medium_average
-HDIFB_DIC : medium_average
+DIA_IMPVF_DIC : medium_average, midhigh_average
+HDIFE_DIC : medium_average, midhigh_average
+HDIFN_DIC : medium_average, midhigh_average
+HDIFB_DIC : medium_average, midhigh_average
 TEND_DIC : low_average
 RF_TEND_DIC : low_average
-KPP_SRC_DIC : medium_average
+KPP_SRC_DIC : medium_average, midhigh_average
 #
 # Diagnostics for tracer DIC_ALT_CO2
 #
@@ -351,22 +351,22 @@ KPP_SRC_O2 : low_average
 #
 PO4 : medium_average, midhigh_average
 STF_PO4 : never_average
-J_PO4 : medium_average
+J_PO4 : medium_average, midhigh_average
 Jint_100m_PO4 : medium_average, midhigh_average
 Jint_PO4 : never_average
 PO4_zint_100m : never_average
 tend_zint_100m_PO4 : medium_average, midhigh_average
 PO4_RIV_FLUX : medium_average
-UE_PO4 : medium_average
-VN_PO4 : medium_average
-WT_PO4 : medium_average
-DIA_IMPVF_PO4 : medium_average
-HDIFE_PO4 : medium_average
-HDIFN_PO4 : medium_average
-HDIFB_PO4 : medium_average
+UE_PO4 : medium_average, midhigh_average
+VN_PO4 : medium_average, midhigh_average
+WT_PO4 : medium_average, midhigh_average
+DIA_IMPVF_PO4 : medium_average, midhigh_average
+HDIFE_PO4 : medium_average, midhigh_average
+HDIFN_PO4 : medium_average, midhigh_average
+HDIFB_PO4 : medium_average, midhigh_average
 TEND_PO4 : never_average
 RF_TEND_PO4 : never_average
-KPP_SRC_PO4 : medium_average
+KPP_SRC_PO4 : medium_average, midhigh_average
 #
 # Diagnostics for tracer SiO3
 #
@@ -711,7 +711,7 @@ diat_N_lim_Cweight_avg_100m : medium_average, midhigh_average
 diaz_N_lim_Cweight_avg_100m : never_average
 sp_N_lim_surf : medium_average, midhigh_average
 diat_N_lim_surf : medium_average, midhigh_average
-diaz_N_lim_surf : never_average, midhigh_average
+diaz_N_lim_surf : midhigh_average
 diaz_Nfix : medium_average
 sp_P_lim_Cweight_avg_100m : medium_average, midhigh_average
 diat_P_lim_Cweight_avg_100m : medium_average, midhigh_average
@@ -989,7 +989,7 @@ graze_zoo_zoo_zint : never_average
 graze_zoo_zoo_zint_100m : never_average
 graze_auto_TOT : low_average
 insitu_temp : medium_average
-pCO2SURF : medium_average, midhigh_average
+pCO2SURF : medium_average, midhigh_average, high_average
 pCO2SURF_ALT_CO2 : never_average
 pH_3D : medium_average, midhigh_average
 pH_3D_ALT_CO2 : never_average
