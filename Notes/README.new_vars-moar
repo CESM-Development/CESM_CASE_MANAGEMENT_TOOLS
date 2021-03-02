@@ -79,3 +79,74 @@ BrianM:  Yes, I think it would be useful. From my perspective, I’d just turn o
 
 JenK:  Yes, I think very useful.  The full COSP monthly should be great.  I’m happy to review the namelist if you want Nan?
 All 10 would be great - Having COSP fields in 10 ensemble members would be a first globally for any modeling center. Seems like a great first for CESM2 to go for!
+
+
+====================== REQUESTED MOAR CHANGES FROM FEB 10th EMAIL ================================
+
+(A) New fields requested for all 10 MOAR members
+
+	(i) 5-day mean:  
+		DIC (three-dimensional)
+		Jint_100m_PO4
+		Jint_100m_DIC
+		Jint_100m_DIC_ALT
+		tend_zint_100m_PO4
+		tend_zint_100m_DIC
+		Jint_100m_DOCr
+		Jint_100m_DOC
+
+	(ii) 1-day mean
+		pCO2SURF
+
+	(iii) monthly-mean
+		ADV_3D_PO4
+		ADV_3D_DIC
+
+
+(B) New fields requested for only 1 of the MOAR members (somewhat more demanding with storage requirements, so we’ve scaled this back to 1 run)
+
+	(i) 5-day mean
+
+##============
+** for these variables in red, is it possible to save them? We don’t have them saved as monthly means
+		ADV_3D_DIC 
+		ADV_3D_PO4
+##============
+
+		J_PO4
+
+		HDIFE_DIC
+		HDIFN_DIC
+		HDICB_DIC
+
+		HDIFE_PO4
+		HDIFN_PO4
+		HDICB_PO4
+
+		KPP_SRC_DIC
+		KPP_SRC_PO4
+
+		DIA_IMPVF_DIC
+		DIA_IMPVF_PO4
+
+		QSW_3D
+
+		UE_DIC
+		UN_DIC
+		WT_DIC
+
+		UE_PO4
+		UN_PO4
+		WT_PO4
+
+		UET
+		VNT
+		WTT
+
+		UES
+		VNS
+		WTS
+
+		TEND_SALT
+		TEND_TEMP
+		TEND_PO4
