@@ -900,7 +900,7 @@
                              coordinates='ULONG TLAT z_t time' )
 
 
-      call define_tavg_field(tavg_VN_TRACER(n),                        &
+      call define_tavg_field(tavg_VN_TRACER(n,1),                        &
                              'VN_' /&
                                     &/ trim(tracer_d(n)%short_name),3, &
                              long_name=trim(tracer_d(n)%short_name)   /&
@@ -910,9 +910,31 @@
                              grid_loc='3121',                          &
                              coordinates='TLONG ULAT z_t time')
 
-      call define_tavg_field(tavg_WT_TRACER(n),                        &
+      call define_tavg_field(tavg_VN_TRACER(n,2),                        &
+                             'VN_' /&
+                                    &/ trim(tracer_d(n)%short_name)   /&
+                                    &/'_2',3, &
+                             long_name=trim(tracer_d(n)%short_name)   /&
+                                    &/ ' Flux in grid-y direction',    &
+                             units=trim(tracer_d(n)%tend_units),       &
+                             scale_factor=tracer_d(n)%scale_factor,    &
+                             grid_loc='3121',                          &
+                             coordinates='TLONG ULAT z_t time')
+
+      call define_tavg_field(tavg_WT_TRACER(n,1),                        &
                              'WT_' /&
                                     &/ trim(tracer_d(n)%short_name),3, &
+                             long_name=trim(tracer_d(n)%short_name)   /&
+                                    &/ ' Flux Across Top Face',        &
+                             units=trim(tracer_d(n)%tend_units),       &
+                             scale_factor=tracer_d(n)%scale_factor,    &
+                             grid_loc='3112',                          &
+                             coordinates='TLONG TLAT z_w time' )
+
+      call define_tavg_field(tavg_WT_TRACER(n,2),                        &
+                             'WT_' /&
+                                    &/ trim(tracer_d(n)%short_name)   /&
+                                    &/'_2',3, &
                              long_name=trim(tracer_d(n)%short_name)   /&
                                     &/ ' Flux Across Top Face',        &
                              units=trim(tracer_d(n)%tend_units),       &
