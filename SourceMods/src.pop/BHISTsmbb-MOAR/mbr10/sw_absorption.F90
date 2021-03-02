@@ -459,7 +459,7 @@
                           units='watt/m^2', grid_loc='3112',           &
                           coordinates='TLONG TLAT z_w_top time')
 
-   call define_tavg_field(tavg_QSW_3D,'QSW_3D_2',3,                    &
+   call define_tavg_field(tavg_QSW_3D_2,'QSW_3D_2',3,                    &
                           long_name='Solar Short-Wave Heat Flux', &
                           units='watt/m^2', grid_loc='3112',           &
                           coordinates='TLONG TLAT z_w_top time')
