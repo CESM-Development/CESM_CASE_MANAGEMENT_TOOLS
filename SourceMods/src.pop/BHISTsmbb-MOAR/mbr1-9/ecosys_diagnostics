@@ -711,7 +711,7 @@ diat_N_lim_Cweight_avg_100m : medium_average, midhigh_average
 diaz_N_lim_Cweight_avg_100m : never_average
 sp_N_lim_surf : medium_average, midhigh_average
 diat_N_lim_surf : medium_average, midhigh_average
-diaz_N_lim_surf : never_average, midhigh_average
+diaz_N_lim_surf : midhigh_average
 diaz_Nfix : medium_average
 sp_P_lim_Cweight_avg_100m : medium_average, midhigh_average
 diat_P_lim_Cweight_avg_100m : medium_average, midhigh_average

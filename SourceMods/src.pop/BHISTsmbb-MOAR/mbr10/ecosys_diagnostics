@@ -87,7 +87,7 @@ FvPER_DIC : medium_average
 FvICE_DIC : medium_average
 UE_DIC : medium_average, midhigh_average
 VN_DIC : medium_average, midhigh_average
-WT_DIC : medium_average
+WT_DIC : medium_average, midhigh_average
 DIA_IMPVF_DIC : medium_average, midhigh_average
 HDIFE_DIC : medium_average, midhigh_average
 HDIFN_DIC : medium_average, midhigh_average

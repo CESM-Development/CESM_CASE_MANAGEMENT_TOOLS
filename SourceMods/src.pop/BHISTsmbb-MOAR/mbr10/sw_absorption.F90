@@ -217,7 +217,7 @@
 
    integer (int_kind) :: &
       tavg_QSW_HTP,     & ! tavg id for QSW_HTP (solar short-wave heat flux in top layer)
-      tavg_QSW_3D       & ! tavg id for 3D QSW at top of cell
+      tavg_QSW_3D,      & ! tavg id for 3D QSW at top of cell
       tavg_QSW_3D_2       ! tavg id for 3D QSW at top of cell
 
 !-----------------------------------------------------------------------
