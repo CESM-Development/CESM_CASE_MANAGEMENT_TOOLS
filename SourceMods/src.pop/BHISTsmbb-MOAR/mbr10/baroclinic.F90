@@ -1520,6 +1520,7 @@
          endif
 
          call accumulate_tavg_field(WORK, tavg_var_tend(n), iblock, k)
+         call accumulate_tavg_field(WORK, tavg_var_tend_2(n), iblock, k)
 
          WORK_ZINT = dz(k) * merge(WORK, c0, k<=KMT(:,:,iblock))
 
@@ -1537,6 +1538,7 @@
             endif
 
             call accumulate_tavg_field(WORK, tavg_var_tend(n), iblock, k)
+            call accumulate_tavg_field(WORK, tavg_var_tend_2(n), iblock, k)
 
             if (zw(k-1) < 100.0e2_r8) then
                if (partial_bottom_cells) then
