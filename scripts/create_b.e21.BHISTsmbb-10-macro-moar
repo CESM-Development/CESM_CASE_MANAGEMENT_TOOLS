@@ -68,10 +68,16 @@ if ( $mbr == $smbr ) then
   mv user_nl_clm user_nl_clm.`date +%m%d-%H%M`
   mv user_nl_cpl user_nl_cpl.`date +%m%d-%H%M`
   mv user_nl_cice user_nl_cice.`date +%m%d-%H%M`
-  cp $CESM2_LE_TOOLS_ROOT/user_nl_files/BHISTsmbb-moar/mbr1-9/* $CASEROOT/
-  cp -r $CESM2_LE_TOOLS_ROOT/SourceMods/src.pop/BHISTsmbb-MOAR/mbr1-9/* $CASEROOT/SourceMods/src.pop/
+  cp $CESM2_LE_TOOLS_ROOT/user_nl_files/BHISTsmbb-moar/* $CASEROOT/
   cp -r $CESM2_LE_TOOLS_ROOT/SourceMods/src.clm/* $CASEROOT/SourceMods/src.clm/
   cp -r $CESM2_LE_TOOLS_ROOT/SourceMods/src.cam/* $CASEROOT/SourceMods/src.cam/
+  
+## add ocn output for 10th member
+  if ($mbr == 10) then
+      cp -r $CESM2_LE_TOOLS_ROOT/SourceMods/src.pop/BHISTsmbb-MOAR/mbr10/* $CASEROOT/SourceMods/src.pop/
+  else
+      cp -r $CESM2_LE_TOOLS_ROOT/SourceMods/src.pop/BHISTsmbb-MOAR/mbr1-9/* $CASEROOT/SourceMods/src.pop/
+  endif
  
   ./xmlchange RUN_REFCASE=b.e21.B1850.f09_g17.CMIP6-piControl.001
   ./xmlchange RUN_REFDATE=${USE_REFDATE}-01-01
