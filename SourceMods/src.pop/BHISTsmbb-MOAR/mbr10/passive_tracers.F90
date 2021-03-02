@@ -779,18 +779,6 @@
                              scale_factor=tracer_d(n)%scale_factor, &
                              coordinates='TLONG TLAT time')
 
-      sname = 'tend_zint_100m_' /&
-                            &/ trim(tracer_d(n)%short_name)  /&
-                                            &/ '_2'
-      lname = trim(tracer_d(n)%long_name) /&
-                                           &/ ' Tendency Vertical Integral, 0-100m'
-      units = tracer_d(n)%flux_units
-      call define_tavg_field(tavg_var_tend_zint_100m_2(n),            &
-                             sname, 2, long_name=lname,             &
-                             units=units, grid_loc='2110',          &
-                             scale_factor=tracer_d(n)%scale_factor, &
-                             coordinates='TLONG TLAT time')
-
       sname = 'RF_TEND_' /&
            &/ trim(tracer_d(n)%short_name)
       lname = 'Robert Filter Tendency for '/&
