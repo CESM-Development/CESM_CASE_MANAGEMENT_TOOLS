@@ -870,7 +870,7 @@
                           units='centimeter degC/s', grid_loc='2110',      &
                           coordinates='TLONG TLAT time')
 
-   call define_tavg_field(tavg_ADV_TRACER(1,2),'ADVS',2,                        &
+   call define_tavg_field(tavg_ADV_TRACER(2,1),'ADVS',2,                        &
                     long_name='Vertically-Integrated S Advection Tendency',   &
                           scale_factor=1000.0_r8,                             &
                           units='centimeter gram/kilogram/s', grid_loc='2110',&
@@ -1856,7 +1856,8 @@
             else
                WORK = dz2r(k)*WTK*(TRCR(:,:,k  ,n) + TRCR(:,:,k-1,n))
             endif
-            call accumulate_tavg_field(WORK,tavg_WT_TRACER(n),bid,k)
+            call accumulate_tavg_field(WORK,tavg_WT_TRACER(n,1),bid,k)
+            call accumulate_tavg_field(WORK,tavg_WT_TRACER(n,2),bid,k)
 
          else
 
@@ -1865,9 +1866,11 @@
             call accumulate_tavg_field(WORK,tavg_UE_TRACER(n,2),bid,k)
 
             WORK = c2*FVN*TRACER_N(:,:,n)
-            call accumulate_tavg_field(WORK,tavg_VN_TRACER(n),bid,k)
+            call accumulate_tavg_field(WORK,tavg_VN_TRACER(n,1),bid,k)
+            call accumulate_tavg_field(WORK,tavg_VN_TRACER(n,2),bid,k)
 
-            call accumulate_tavg_field(FLUX_T(:,:,n),tavg_WT_TRACER(n),bid,k)
+            call accumulate_tavg_field(FLUX_T(:,:,n),tavg_WT_TRACER(n,1),bid,k)
+            call accumulate_tavg_field(FLUX_T(:,:,n),tavg_WT_TRACER(n,2),bid,k)
 
          endif
 

@@ -364,7 +364,7 @@ DIA_IMPVF_PO4 : medium_average, midhigh_average
 HDIFE_PO4 : medium_average, midhigh_average
 HDIFN_PO4 : medium_average, midhigh_average
 HDIFB_PO4 : medium_average, midhigh_average
-TEND_PO4 : never_average
+TEND_PO4 : midhigh_average
 RF_TEND_PO4 : never_average
 KPP_SRC_PO4 : medium_average, midhigh_average
 #
