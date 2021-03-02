@@ -1463,7 +1463,7 @@
 !  same as module
 
    use time_management, only: robert_newtime, robert_curtime, lrf_nonzero_newtime
-   use passive_tracers, only: tavg_var_tend, tavg_var_tend_zint_100m, tavg_var_rf_tend
+   use passive_tracers, only: tavg_var_tend, tavg_var_tend_zint_100m, tavg_var_rf_tend, tavg_var_tend_2
    use grid, only: zw, RCALCT_OPEN_OCEAN_3D
 
 ! !INPUT PARAMETERS:
