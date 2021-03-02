@@ -68,8 +68,8 @@ if ( $mbr == $smbr ) then
   mv user_nl_clm user_nl_clm.`date +%m%d-%H%M`
   mv user_nl_cpl user_nl_cpl.`date +%m%d-%H%M`
   mv user_nl_cice user_nl_cice.`date +%m%d-%H%M`
-  cp $CESM2_LE_TOOLS_ROOT/user_nl_files/BHISTsmbb-moar/* $CASEROOT/
-  cp -r $CESM2_LE_TOOLS_ROOT/SourceMods/src.pop/BHISTsmbb-MOAR/* $CASEROOT/SourceMods/src.pop/
+  cp $CESM2_LE_TOOLS_ROOT/user_nl_files/BHISTsmbb-moar/mbr1-9/* $CASEROOT/
+  cp -r $CESM2_LE_TOOLS_ROOT/SourceMods/src.pop/BHISTsmbb-MOAR/mbr1-9/* $CASEROOT/SourceMods/src.pop/
   cp -r $CESM2_LE_TOOLS_ROOT/SourceMods/src.clm/* $CASEROOT/SourceMods/src.clm/
   cp -r $CESM2_LE_TOOLS_ROOT/SourceMods/src.cam/* $CASEROOT/SourceMods/src.cam/
  
