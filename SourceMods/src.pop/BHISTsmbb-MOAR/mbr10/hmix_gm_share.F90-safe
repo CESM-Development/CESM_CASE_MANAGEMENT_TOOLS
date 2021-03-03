@@ -244,7 +244,7 @@ module hmix_gm_share
       FX, FY,            &! fluxes across east, north faces
       FZTOP               ! vertical flux
 
-   integer (int_kind), dimension(nt,2), intent(in) :: &
+   integer (int_kind), dimension(nt), intent(in) :: &
       tavg_HDIFE_TRACER, &! tavg id for east face diffusive flux of tracer
       tavg_HDIFN_TRACER, &! tavg id for north face diffusive flux of tracer
       tavg_HDIFB_TRACER   ! tavg id for bottom face diffusive flux of tracer
@@ -428,7 +428,7 @@ module hmix_gm_share
         endif ! bolus velocity option on
 
         do n = 1,nt
-          if (accumulate_tavg_now(tavg_HDIFE_TRACER(n,1))) then
+          if (accumulate_tavg_now(tavg_HDIFE_TRACER(n))) then
             if (partial_bottom_cells) then
                do j=this_block%jb,this_block%je
                do i=this_block%ib,this_block%ie
@@ -442,11 +442,10 @@ module hmix_gm_share
                enddo
                enddo
             endif
-            call accumulate_tavg_field(WORK1,tavg_HDIFE_TRACER(n,1),bid,k)
-            call accumulate_tavg_field(WORK1,tavg_HDIFE_TRACER(n,2),bid,k)
+            call accumulate_tavg_field(WORK1,tavg_HDIFE_TRACER(n),bid,k)
           endif
 
-          if (accumulate_tavg_now(tavg_HDIFN_TRACER(n,1))) then
+          if (accumulate_tavg_now(tavg_HDIFN_TRACER(n))) then
             if (partial_bottom_cells) then
                do j=this_block%jb,this_block%je
                do i=this_block%ib,this_block%ie
@@ -460,11 +459,10 @@ module hmix_gm_share
                enddo
                enddo
             endif
-            call accumulate_tavg_field(WORK1,tavg_HDIFN_TRACER(n,1),bid,k)
-            call accumulate_tavg_field(WORK1,tavg_HDIFN_TRACER(n,2),bid,k)
+            call accumulate_tavg_field(WORK1,tavg_HDIFN_TRACER(n),bid,k)
           endif
 
-          if (accumulate_tavg_now(tavg_HDIFB_TRACER(n,1))) then
+          if (accumulate_tavg_now(tavg_HDIFB_TRACER(n))) then
             if (partial_bottom_cells) then
                do j=this_block%jb,this_block%je
                do i=this_block%ib,this_block%ie
@@ -478,8 +476,7 @@ module hmix_gm_share
                enddo
                enddo
             endif
-            call accumulate_tavg_field(WORK1,tavg_HDIFB_TRACER(n,1),bid,k)
-            call accumulate_tavg_field(WORK1,tavg_HDIFB_TRACER(n,2),bid,k)
+            call accumulate_tavg_field(WORK1,tavg_HDIFB_TRACER(n),bid,k)
           endif
         enddo
    endif
