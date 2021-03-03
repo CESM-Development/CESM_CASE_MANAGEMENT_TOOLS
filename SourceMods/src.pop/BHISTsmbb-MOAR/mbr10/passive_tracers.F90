@@ -123,6 +123,7 @@
       tavg_var_tend,            & ! tavg id for tracer tendency
       tavg_var_tend_2,          & ! tavg id for tracer tendency
       tavg_var_tend_zint_100m,  & ! vertically integrated tracer tendency, 0-100m
+      tavg_var_tend_zint_100m_2, & ! vertically integrated tracer tendency, 0-100m
       tavg_var_rf_tend            ! tavg id for Robert Filter tracer adjustment
 
    integer (int_kind), dimension (3:nt) ::  &
@@ -742,6 +743,12 @@
          coordinates = 'TLONG TLAT z_t_150m time'
       end if
 
+      call define_tavg_field(tavg_var_tend(n),                      &
+                             sname, 3, long_name=lname,             &
+                             units=units, grid_loc=grid_loc,        &
+                             scale_factor=tracer_d(n)%scale_factor, &
+                             coordinates=coordinates)
+
       sname = 'TEND_' /&
            &/ trim(tracer_d(n)%short_name)  /&
                                             &/ '_2'
@@ -756,11 +763,6 @@
          coordinates = 'TLONG TLAT z_t_150m time'
       end if
 
-      call define_tavg_field(tavg_var_tend(n),                      &
-                             sname, 3, long_name=lname,             &
-                             units=units, grid_loc=grid_loc,        &
-                             scale_factor=tracer_d(n)%scale_factor, &
-                             coordinates=coordinates)
 
       call define_tavg_field(tavg_var_tend_2(n),                    &
                              sname, 3, long_name=lname,             &
@@ -774,6 +776,18 @@
                                            &/ ' Tendency Vertical Integral, 0-100m'
       units = tracer_d(n)%flux_units
       call define_tavg_field(tavg_var_tend_zint_100m(n),            &
+                             sname, 2, long_name=lname,             &
+                             units=units, grid_loc='2110',          &
+                             scale_factor=tracer_d(n)%scale_factor, &
+                             coordinates='TLONG TLAT time')
+
+      sname = 'tend_zint_100m_' /&
+                            &/ trim(tracer_d(n)%short_name)  /&
+                                            &/ '_2'
+      lname = trim(tracer_d(n)%long_name) /&
+                                           &/ ' Tendency Vertical Integral, 0-100m'
+      units = tracer_d(n)%flux_units
+      call define_tavg_field(tavg_var_tend_zint_100m_2(n),            &
                              sname, 2, long_name=lname,             &
                              units=units, grid_loc='2110',          &
                              scale_factor=tracer_d(n)%scale_factor, &
