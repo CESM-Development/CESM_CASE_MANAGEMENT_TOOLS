@@ -1867,7 +1867,8 @@
             call accumulate_tavg_field(WORK,tavg_UE_TRACER(n,2),bid,k)
 
             WORK = FVN*(        TRCR(:,:,k,n) +  eoshift(TRCR(:,:,k,n),dim=2,shift=1))
-            call accumulate_tavg_field(WORK,tavg_VN_TRACER(n),bid,k)
+            call accumulate_tavg_field(WORK,tavg_VN_TRACER(n,1),bid,k)
+            call accumulate_tavg_field(WORK,tavg_VN_TRACER(n,2),bid,k)
 
             if (k == 1) then
                if (sfc_layer_type /= sfc_layer_varthick) then
