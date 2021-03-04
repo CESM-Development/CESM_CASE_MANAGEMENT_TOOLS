@@ -78,7 +78,7 @@
       tavg_HDIFS                     ! tavg id for horizontal diffusion
 
    integer (POP_i4), dimension(nt) :: &
-      tavg_HDIF_EXPLICIT_3D_TRACER, &! tavg id for explicit diffusive tendency of tracer
+      tavg_HDIF_EXPLICIT_3D_TRACER   ! tavg id for explicit diffusive tendency of tracer
 
    integer (POP_i4), dimension(nt,2) :: &
       tavg_HDIFE_TRACER,            &! tavg id for east face diffusive flux of tracer
@@ -699,7 +699,7 @@
    endif
 
    do n = 1,nt
-      lcompute_HDIFB = accumulate_tavg_now(tavg_HDIFB_TRACER(n))
+      lcompute_HDIFB = accumulate_tavg_now(tavg_HDIFB_TRACER(n,1))
       if ( diag_gm_bolus ) then
          lcompute_Redi_TEND = accumulate_tavg_now(tavg_Redi_TEND_TRACER(n))
       else
@@ -716,7 +716,8 @@
                              ,c0, k < KMT(:,:,bid))
                if ( lcompute_HDIFB ) then
                   WORK3 = WORK2*DZTR(:,:,k)
-                  call accumulate_tavg_field(WORK3,tavg_HDIFB_TRACER(n),bid,k)
+                  call accumulate_tavg_field(WORK3,tavg_HDIFB_TRACER(n,1),bid,k)
+                  call accumulate_tavg_field(WORK3,tavg_HDIFB_TRACER(n,2),bid,k)
                endif
                if ( lcompute_Redi_TEND ) then
                   WORK3 = (WORK2_km1 - WORK2)*DZTR(:,:,k)
@@ -736,7 +737,8 @@
                              ,c0, k < KMT(:,:,bid))
                if ( lcompute_HDIFB ) then
                   WORK3 = WORK2*dzr(k)
-                  call accumulate_tavg_field(WORK3,tavg_HDIFB_TRACER(n),bid,k)
+                  call accumulate_tavg_field(WORK3,tavg_HDIFB_TRACER(n,1),bid,k)
+                  call accumulate_tavg_field(WORK3,tavg_HDIFB_TRACER(n,2),bid,k)
                endif
                if ( lcompute_Redi_TEND ) then
                   WORK3 = (WORK2_km1 - WORK2)*dzr(k)
