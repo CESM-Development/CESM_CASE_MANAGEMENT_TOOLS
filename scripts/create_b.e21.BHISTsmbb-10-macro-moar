@@ -29,7 +29,7 @@ endif
 set COMPSET = BHISTsmbb
 set RESOLN = f09_g17
 set RESUBMIT = 1
-set STOP_N=10
+set STOP_N=5
 set STOP_OPTION=nyears
 
 set smbr =  2
