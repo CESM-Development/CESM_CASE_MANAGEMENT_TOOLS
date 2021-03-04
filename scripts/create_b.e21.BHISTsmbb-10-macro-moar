@@ -73,10 +73,10 @@ if ( $mbr == $smbr ) then
   cp -r $CESM2_LE_TOOLS_ROOT/SourceMods/src.cam/* $CASEROOT/SourceMods/src.cam/
   
 ## add ocn output for 10th member
-  if ($mbr == 10) then
-      cp -r $CESM2_LE_TOOLS_ROOT/SourceMods/src.pop/BHISTsmbb-MOAR/mbr10/* $CASEROOT/SourceMods/src.pop/
+  if ($mmm == 10) then
+      cp $CESM2_LE_TOOLS_ROOT/SourceMods/src.pop/BHISTsmbb-MOAR/mbr10/* $CASEROOT/SourceMods/src.pop/
   else
-      cp -r $CESM2_LE_TOOLS_ROOT/SourceMods/src.pop/BHISTsmbb-MOAR/mbr1-9/* $CASEROOT/SourceMods/src.pop/
+      cp $CESM2_LE_TOOLS_ROOT/SourceMods/src.pop/BHISTsmbb-MOAR/mbr1-9/* $CASEROOT/SourceMods/src.pop/
   endif
  
   ./xmlchange RUN_REFCASE=b.e21.B1850.f09_g17.CMIP6-piControl.001
