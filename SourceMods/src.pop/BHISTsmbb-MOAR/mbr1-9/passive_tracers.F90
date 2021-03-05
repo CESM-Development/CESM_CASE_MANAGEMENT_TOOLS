@@ -121,7 +121,9 @@
 
    integer (int_kind), dimension(nt), public :: &
       tavg_var_tend,            & ! tavg id for tracer tendency
+      tavg_var_tend_2,          & ! tavg id for tracer tendency
       tavg_var_tend_zint_100m,  & ! vertically integrated tracer tendency, 0-100m
+      tavg_var_tend_zint_100m_2, & ! vertically integrated tracer tendency, 0-100m
       tavg_var_rf_tend            ! tavg id for Robert Filter tracer adjustment
 
    integer (int_kind), dimension (3:nt) ::  &
@@ -132,8 +134,11 @@
       tavg_var_zint_100m,       & ! 0-100m integral of tracer
       tavg_var_zint_100m_2,     & ! 0-100m integral of tracer
       tavg_var_J,               & ! tracer source sink term
+      tavg_var_J_2,             & ! tracer source sink term
       tavg_var_Jint,            & ! vertically integrated tracer source sink term
+      tavg_var_Jint_2,          & ! vertically integrated tracer source sink term
       tavg_var_Jint_100m,       & ! vertically integrated tracer source sink term, 0-100m
+      tavg_var_Jint_100m_2,     & ! vertically integrated tracer source sink term, 0-100m
       tavg_var_stf,             & ! surface tracer flux
       tavg_var_stf_riv,         & ! riverine tracer flux
       tavg_var_resid,           & ! tracer residual surface flux
@@ -605,6 +610,18 @@
                              scale_factor=tracer_d(n)%scale_factor, &
                              coordinates=coordinates)
 
+      sname = 'J_' /&
+                    &/ trim(tracer_d(n)%short_name) /&
+                                            &/ '_2'
+      lname = trim(tracer_d(n)%long_name) /&
+                                           &/ ' Source Sink Term'
+      units = tracer_d(n)%tend_units
+      call define_tavg_field(tavg_var_J_2(n),                       &
+                             sname, 3, long_name=lname,             &
+                             units=units, grid_loc=grid_loc,        &
+                             scale_factor=tracer_d(n)%scale_factor, &
+                             coordinates=coordinates)
+
       sname = 'Jint_' /&
                        &/ trim(tracer_d(n)%short_name)
       lname = trim(tracer_d(n)%long_name) /&
@@ -616,12 +633,36 @@
                              scale_factor=tracer_d(n)%scale_factor, &
                              coordinates='TLONG TLAT time')
 
+      sname = 'Jint_' /&
+                       &/ trim(tracer_d(n)%short_name) /&
+                                            &/ '_2'
+      lname = trim(tracer_d(n)%long_name) /&
+                                           &/ ' Source Sink Term Vertical Integral'
+      units = tracer_d(n)%flux_units
+      call define_tavg_field(tavg_var_Jint_2(n),                    &
+                             sname, 2, long_name=lname,             &
+                             units=units, grid_loc='2110',          &
+                             scale_factor=tracer_d(n)%scale_factor, &
+                             coordinates='TLONG TLAT time')
+
       sname = 'Jint_100m_' /&
                             &/ trim(tracer_d(n)%short_name)
       lname = trim(tracer_d(n)%long_name) /&
                                            &/ ' Source Sink Term Vertical Integral, 0-100m'
       units = tracer_d(n)%flux_units
       call define_tavg_field(tavg_var_Jint_100m(n),                 &
+                             sname, 2, long_name=lname,             &
+                             units=units, grid_loc='2110',          &
+                             scale_factor=tracer_d(n)%scale_factor, &
+                             coordinates='TLONG TLAT time')
+
+      sname = 'Jint_100m_' /&
+                            &/ trim(tracer_d(n)%short_name) /&
+                            &/ '_2'
+      lname = trim(tracer_d(n)%long_name) /&
+                                           &/ ' Source Sink Term Vertical Integral, 0-100m'
+      units = tracer_d(n)%flux_units
+      call define_tavg_field(tavg_var_Jint_100m_2(n),                 &
                              sname, 2, long_name=lname,             &
                              units=units, grid_loc='2110',          &
                              scale_factor=tracer_d(n)%scale_factor, &
@@ -708,12 +749,45 @@
                              scale_factor=tracer_d(n)%scale_factor, &
                              coordinates=coordinates)
 
+      sname = 'TEND_' /&
+           &/ trim(tracer_d(n)%short_name)  /&
+                                            &/ '_2'
+      lname = 'Tendency of Thickness Weighted '/&
+           &/ trim(tracer_d(n)%short_name)
+      units = tracer_d(n)%tend_units
+      if (tracer_d(n)%lfull_depth_tavg) then
+         grid_loc = '3111'
+         coordinates = 'TLONG TLAT z_t time'
+      else
+         grid_loc = '3114'
+         coordinates = 'TLONG TLAT z_t_150m time'
+      end if
+
+
+      call define_tavg_field(tavg_var_tend_2(n),                    &
+                             sname, 3, long_name=lname,             &
+                             units=units, grid_loc=grid_loc,        &
+                             scale_factor=tracer_d(n)%scale_factor, &
+                             coordinates=coordinates)
+
       sname = 'tend_zint_100m_' /&
                             &/ trim(tracer_d(n)%short_name)
       lname = trim(tracer_d(n)%long_name) /&
                                            &/ ' Tendency Vertical Integral, 0-100m'
       units = tracer_d(n)%flux_units
       call define_tavg_field(tavg_var_tend_zint_100m(n),            &
+                             sname, 2, long_name=lname,             &
+                             units=units, grid_loc='2110',          &
+                             scale_factor=tracer_d(n)%scale_factor, &
+                             coordinates='TLONG TLAT time')
+
+      sname = 'tend_zint_100m_' /&
+                            &/ trim(tracer_d(n)%short_name)  /&
+                                            &/ '_2'
+      lname = trim(tracer_d(n)%long_name) /&
+                                           &/ ' Tendency Vertical Integral, 0-100m'
+      units = tracer_d(n)%flux_units
+      call define_tavg_field(tavg_var_tend_zint_100m_2(n),            &
                              sname, 2, long_name=lname,             &
                              units=units, grid_loc='2110',          &
                              scale_factor=tracer_d(n)%scale_factor, &
@@ -856,6 +930,7 @@
    if (mix_pass /= 1) then
       do n = 3, nt
          call accumulate_tavg_field(TRACER_SOURCE(:,:,n),tavg_var_J(n),bid,k)
+         call accumulate_tavg_field(TRACER_SOURCE(:,:,n),tavg_var_J_2(n),bid,k)
 
          if (accumulate_tavg_now(tavg_var_Jint(n))) then
                if (partial_bottom_cells) then
@@ -866,6 +941,7 @@
                                c0, k<=KMT(:,:,bid))
                endif
                call accumulate_tavg_field(WORK,tavg_var_Jint(n),bid,k)
+               call accumulate_tavg_field(WORK,tavg_var_Jint_2(n),bid,k)
          endif
       enddo
 
@@ -882,6 +958,7 @@
                                   * TRACER_SOURCE(:,:,n), c0, k<=KMT(:,:,bid))
                   endif
                   call accumulate_tavg_field(WORK,tavg_var_Jint_100m(n),bid,k)
+                  call accumulate_tavg_field(WORK,tavg_var_Jint_100m_2(n),bid,k)
             endif
          enddo
       endif
