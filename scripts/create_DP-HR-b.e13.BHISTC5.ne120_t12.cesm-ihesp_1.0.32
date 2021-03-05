@@ -32,7 +32,11 @@ set embr =  5
 foreach year ( `seq $yb 2  $ye` )
 foreach mbr  ( `seq $mb  $me` )
 
-setenv CASE b.e13.${EXPERIMENT}.${RESOLN}.${year}-11.00${mbr}
+if ($mbr < 10) then
+	setenv CASE b.e13.${EXPERIMENT}.${RESOLN}.${year}-11.00${mbr}
+else
+	setenv CASE b.e13.${EXPERIMENT}.${RESOLN}.${year}-11.0${mbr}
+endif
 setenv REFCASE b.e13.DP-HR_IC.${RESOLN}.${year}-11.01
 
 if ($MACHINE == frontera) then
@@ -114,6 +118,7 @@ cp $TOOLSROOT/SourceMods/src.cam/*F90  $CASEROOT/SourceMods/src.cam/
 # add pertlim perturbation to micro members 2 .. N 
 # =========================
 if ($mbr != 1) then
+
 cat >> head.${mbr} << EOF
 
 ! add micro-member perturbation

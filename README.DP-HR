@@ -1,6 +1,13 @@
-1982-11-01 001-nanr; 002-fred; 003-nanr; 004-nanr ; 005-qiuying
-1990-11-01 001-005-qiuying
-1992-11-01 001-005-nanr
-1994-11-01 001-005-fred
-1996-11-01 001-005-fred
+1982-11-01 001-nanr (DONE:1,2,4); 002-fred; 003-nanr; 004-nanr; 005-qiuying
+1984-11-01 001-005-abishek (Nan took over)
+1986-11-01 001-005-qiuying
+1988-11-01 001-005-nanr
+1990-11-01 001-005-qiuying (DONE:  2,4) (Running: 5)
+1992-11-01 001-005-nanr (1,4,5 = 1996-11-01)  (2,3 1995-06-01 restart, both in queue:  2628607, 2628597) 
+1994-11-01 001-005-fred (DONE: 1,4)(CRASH: 2,3,5)
+1996-11-01 001-005-fred --> waiting for F-case on cheyenne
+
+I have 1982.002, 1994.001and 1994.004 completed.
+1994.002, 1994.003, and 1994.005 crashed because of what looks like file system issues.
+I am waiting for the IC to resubmit 1996.
 
