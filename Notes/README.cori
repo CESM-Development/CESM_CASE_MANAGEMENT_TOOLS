@@ -1,0 +1,51 @@
+set RUNDIR /global/cscratch1/sd/$USER/$CASE
+set COMPSET = FRCP85C5
+set RESOLN  = ne120_t12
+set MACHINE = cori-knl
+set TAG     = sehires32		!! I think the changes between 32 and 36 only affect the ice.
+
+CESMROOT /global/project/projectdirs/ccsm1/people/nanr/cesm_tags/capt-cesm1_3_beta17_${TAG}
+set mbr = 1
+setenv CASE b.e13.${COMPSET}.${RESOLN}.${TAG}.capt.0${mbr}
+setenv RUNDIR   /global/cscratch1/sd/olson/$CASE
+setenv CASEROOT /global/project/projectdirs/ccsm1/people/olson/cases/cesm1_3/$CASE
+
+
+./xmlchange -file env_run.xml -id DIN_LOC_ROOT -val '/global/project/projectdirs/ccsm1/inputdata'
+./xmlchange -file env_run.xml -id DIN_LOC_ROOT_CLMFORC -val '/global/project/projectdirs/ccsm1/inputdata/atm/datm7'
+./xmlchange -file env_run.xml -id ICE_PIO_TYPENAME -val 'netcdf'
+
+./xmlchange -file env_run.xml   -id RUNDIR          -val '/global/cscratch1/sd/nanr/$CASE/run'
+./xmlchange -file env_build.xml -id EXEROOT         -val '/global/cscratch1/sd/nanr/$CASE/bld'
+
+./xmlchange -file env_run.xml -id PIO_TYPENAME -val 'pnetcdf'
+
+
+Note: Nan should check: OCN_NCPL,ATM2OCN_SMAPNAME,ATM2OCN_VMAPNAME
+
+  ./xmlchange -file env_mach_pes.xml -id NTASKS_ATM -val '16256'
+  ./xmlchange -file env_mach_pes.xml -id NTHRDS_ATM -val '1'
+  ./xmlchange -file env_mach_pes.xml -id NTASKS_LND -val '16256'
+  ./xmlchange -file env_mach_pes.xml -id NTHRDS_LND -val '1'
+  ./xmlchange -file env_mach_pes.xml -id NTASKS_ICE -val '16256'
+  ./xmlchange -file env_mach_pes.xml -id NTHRDS_ICE -val '1'
+  ./xmlchange -file env_mach_pes.xml -id ROOTPE_ICE -val '16256'
+  ./xmlchange -file env_mach_pes.xml -id NTASKS_OCN -val '16256'
+  ./xmlchange -file env_mach_pes.xml -id NTHRDS_OCN -val '1'
+  ./xmlchange -file env_mach_pes.xml -id ROOTPE_OCN -val '16256'
+  ./xmlchange -file env_mach_pes.xml -id NTASKS_CPL -val '16256'
+  ./xmlchange -file env_mach_pes.xml -id NTHRDS_CPL -val '1'
+  ./xmlchange -file env_mach_pes.xml -id NTASKS_GLC -val '1'
+  ./xmlchange -file env_mach_pes.xml -id NTHRDS_GLC -val '1'
+  ./xmlchange -file env_mach_pes.xml -id NTASKS_ROF -val '16256'
+  ./xmlchange -file env_mach_pes.xml -id NTHRDS_ROF -val '1'
+  ./xmlchange -file env_mach_pes.xml -id NTASKS_WAV -val '1'
+  ./xmlchange -file env_mach_pes.xml -id NTHRDS_WAV -val '1'
+
+
+user_nl_clm --> if needed!
+
+  hist_nhtfrq=0,-6
+  hist_mfilt=1,1460
+  hist_fincl2='QRUNOFF:A'
+

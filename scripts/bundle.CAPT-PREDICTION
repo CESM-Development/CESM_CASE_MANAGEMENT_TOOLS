@@ -1,0 +1,79 @@
+#!/bin/bash
+#COBALT -q prod-capability
+#COBALT -A CESM_HighRes_2
+#COBALT -t 04:00:00
+#COBALT -n 8192
+#COBALT -O capt-pred
+#COBALT --disable_preboot
+
+# -q is the queue
+# -A is the project #
+# -t is time in minutes
+# -n is # of nodes must be 4*BLOCKS size
+# By Ray Loy
+
+
+#DEBUG=echo
+
+# rootdir is the root directory of the jobs
+rootdir='/gpfs/mira-fs0/projects/CESM_HighRes_2/usr/olsonjg/capt-prediction/'
+
+# case1-4 are the case names of the jobs to be run
+case1=ca_s2s_1p3_ne120.2012-01-05-00000
+case2=ca_s2s_1p3_ne120.2012-01-10-00000
+case3=ca_s2s_1p3_ne120.2012-01-15-00000
+case4=ca_s2s_1p3_ne120.2012-01-20-00000
+
+defdir=`pwd`
+dir[0]=$rootdir/$case1
+dir[1]=$rootdir/$case2
+dir[2]=$rootdir/$case3
+dir[3]=$rootdir/$case4
+
+
+# 
+cmd[0]="$rootdir/$case1/$case1.run"
+cmd[1]="$rootdir/$case2/$case2.run"
+cmd[2]="$rootdir/$case3/$case3.run"
+cmd[3]="$rootdir/$case4/$case4.run"
+
+ncmd=4
+
+
+BLOCKS=`get-bootable-blocks --size 2048 --geometry=4x4x4x16x2 $COBALT_PARTNAME`	  # geometry suggestion from Adam Scovel 2/14/2017
+# size = multiples of 2 from 512 up
+echo "COBALT_PARTNAME: $COBALT_PARTNAME"
+#BLOCKS="block0 block1 block2 block3"
+#PARTLIST shows all defined blocks
+
+echo "BLOCKS: $BLOCKS"
+
+for BLOCK in $BLOCKS
+do
+ $DEBUG boot-block --block $BLOCK &
+done
+wait
+
+i=0;
+for BLOCK in $BLOCKS
+do
+ echo "$DEBUG COBALT_PARTNAME=$BLOCK ${cmd[$i]}"
+# $DEBUG COBALT_PARTNAME=$BLOCK ${cmd[$i]}
+ cd ${dir[$i]}
+#COBALT_PARTNAME=$BLOCK ${cmd[$i]} > COMMAND.$COBALT_JOBID 2>&1 &
+ BUNDLE_PARTNAME=$BLOCK ${cmd[$i]} > COMMAND.$COBALT_JOBID 2>&1 &
+ cd $defdir
+ i=$((i+1))
+done
+wait
+
+
+for BLOCK in $BLOCKS
+do
+  $DEBUG boot-block --block $BLOCK --free &
+done
+wait
+
+
+
+# and they ran happily ever after

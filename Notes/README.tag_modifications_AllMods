@@ -1,0 +1,42 @@
+Description:  Adding John Dennis' pop2+cice code optimizations to sehires32 tag (which already has atm optimizations in it)
+POP optimizations from John Dennis:
+
+svn co https://svn-ccsm-models.cgd.ucar.edu/cesm1/exp/branch_tags/cesm1_3_sehires_tags/cesm1_3_beta17_sehires32/ ./capt-cesm1_3_beta17_sehires32/
+
+Per Jim Edwards:  only modifying mpi version.  I also compared JDennis' version against the MPI version and the changes were consistent with MPI only
+> cd  /global/project/projectdirs/ccsm1/people/nanr/cesm_tags/capt-cesm1_3_beta17_sehires32/models/ice/cice/src/mpi
+src/mpi> cp ice_boundary.F90 ice_boundary.F90.OTB
+src/mpi> cp /global/project/projectdirs/ccsm1/people/nanr/cesm_tags/OPTIMIZED_cesm1_3_beta17/opt_hrv6/SourceMods/src.cice/ice_boundary.F90 .
+
+> cd  /global/project/projectdirs/ccsm1/people/nanr/cesm_tags/capt-cesm1_3_beta17_sehires32/models/ocn/pop2/src/mpi
+pop2/mpi> cp POP_HaloMod.F90 POP_HaloMod.F90.OTB
+pop2/mpi> cp /global/project/projectdirs/ccsm1/people/nanr/cesm_tags/OPTIMIZED_cesm1_3_beta17/opt_hrv6/SourceMods/src.pop2/POP_HaloMod.F90 .
+
+
+(On glade) Compare to Jerry's:
+/glade/u/home/olson/src/capt_cesm1_3_beta17_sehires22/cesm
+
+cesm_tags/capt-cesm1_3_beta17_sehires32> cd scripts/ccsm_utils/Case.template/
+cp config_compsets.xml config_compsets.xml.OTB
+scp cheyenne.ucar.edu:/gpfs/fs1/work/nanr/cesm_tags/capt-cesm1_3_beta17_sehires32/scripts/ccsm_utils/Case.template/config_compsets.xml .
+
+
+Include the capt tools:
+scp cheyenne.ucar.edu:/gpfs/fs1/work/nanr/cesm_tags/capt-cesm1_3_beta17_sehires32/capt-tools.tar .
+ ./cesm/models/atm/cam/tools/capt/
+
+From Jerry:
+	SourceMods for cam_diagnostics + JCaron mods
+	Here are the files "cam_diagnostics.F90" and "interpolate_data.F90" that
+	contain the "IVT" addition, Julie's mods for extrapolating Z and T,  and
+	all the additional addflds/outflds needed to accommodate our fincls.
+
+	/glade/u/home/olson/forNanrJulie
+
+On Cori:
+nanr/cesm_tags> cp capt-SourceMods/cam_diagnostics.F90 capt-cesm1_3_beta17_sehires32/models/atm/cam/src/physics/cam/
+nanr/cesm_tags> cp capt-SourceMods/interpolate_data.F90 ./capt-cesm1_3_beta17_sehires32/models/atm/cam/tools/interpic_new/interpolate_data.F90
+nanr/cesm_tags> cp capt-SourceMods/interpolate_data.F90 ./capt-cesm1_3_beta17_sehires32/models/atm/cam/src/utils/interpolate_data.F90
+
+
+Need to make tag:

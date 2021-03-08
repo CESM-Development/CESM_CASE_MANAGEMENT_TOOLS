@@ -1,0 +1,59 @@
+
+ dust_emis_fact = 1.05D0
+ zmconv_c0_lnd  =  0.0059D0
+ zmconv_c0_ocn  =  0.0450D0
+ micro_mg_dcs   =  600.D-6
+ cldfrc_rhminl  =  0.95D0
+ se_ftype       =  2
+
+!! ========================================
+!! Output:
+!! ========================================
+! h0=fincl1=monthly Add extra monthly output (h0 output)
+! h1=fincl2=daily
+! h2=fincl3=6 hrly values
+! h3=fincl4=3 hrly values - averaged
+! h4=fincl5=3 hrly values - averaged
+! h4=fincl6=3 hrly values - instantanous
+! h4=fincl7=6 hrly values - full field
+! h5=fincl8=1 hrly values
+
+
+    mfilt  =  1, 365, 292,  292, 146, 292, 146, 876
+    nhtfrq =  0, -24,  -6,   -3,  -3,  -3,  -6,  -1
+
+! monthly h0
+    fincl1 = 'TAUTMSX','TAUTMSY','TAUGWX','TAUGWY','UQ','VQ','UT','VT','OMEGAQ','OMEGAT'
+
+! daily h1
+    fincl2 = 'U200','V200','PRECT','U850','V850','Z500','TSMN','TSMX','TREFMNAV','TREFMXAV'
+
+! 6hourly h2
+    fincl3 = 'OMEGA500','U200','FLUT','TMQ','U850','V850','U500','V500','PRECT','PSL','Q850','IVT','Z300:I','PRECSL','PRECSC'
+
+! 3hourly h3
+    fincl4 = 'PRECT','PRECC','CAPE','PS','FLUT','FLNT','FSNT','LHFLX','SHFLX','FLDS','FLNS',
+             'FSNS','FSDS','QFLX','TAUX','TAUY','PRECSL','PRECSC',
+             'OMEGA1000','OMEGA925','OMEGA850','OMEGA700','OMEGA500','OMEGA300','OMEGA250','OMEGA200','OMEGA100','OMEGA050',
+             'U1000','U925','U850','U700','U500','U300','U250','U200','U100','U050',
+             'V1000','V925','V850','V700','V500','V300','V250','V200','V100','V050',
+             'T1000','T925','T850','T700','T500','T300','T250','T200','T100','T050',
+	     'Q1000','Q925','Q850','Q700','Q500','Q300','Q250','Q200','Q100','Q050',
+             'VT1000','VT925','VT850','VT700','VT500','VT300','VT250','VT200','VT100','VT050',
+             'VQ1000','VQ925','VQ850','VQ700','VQ500','VQ300','VQ250','VQ200','VQ100','VQ050',
+             'VZ1000','VZ925','VZ850','VZ700','VZ500','VZ300','VZ250','VZ200','VZ100','VZ050',
+             'Z1000','Z925','Z850','Z700','Z500','Z300','Z250','Z200','Z100','Z050'
+
+! 3hourly h4
+	fincl5 = 'PTEQ','PTTEND'
+
+! 3hourly h5
+	fincl6 = 'U850:I','U500:I','U200:I','V850:I','V500:I','V200:I','T850:I','T500:I','T200:I','Z1000:I','Z850:I','Z500:I',
+          	 'Z200:I','PSL:I','PS:I','TS:I','U010:I','UBOT:I','VBOT:I','PRECT:I'
+
+! 3hourly h6
+	fincl7 = 'Z3:I'
+
+! 1hourly h7
+	fincl8 = 'PRECT','FLUT'
+
