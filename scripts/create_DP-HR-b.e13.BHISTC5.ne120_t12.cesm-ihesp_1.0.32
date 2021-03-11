@@ -97,6 +97,7 @@ endif
 ./xmlchange GET_REFCASE=FALSE
 ./xmlchange OCN_TRACER_MODULES=""
 ./xmlchange JOB_WALLCLOCK_TIME=2:00:00 --subgroup case.st_archive
+./xmlchange JOB_WALLCLOCK_TIME=26:00:00 --subgroup case.run
 ##./xmlchange --append CAM_CONFIG_OPTS=-cosp
 
 if ($MACHINE == cheyenne) then

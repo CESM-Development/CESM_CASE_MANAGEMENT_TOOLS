@@ -24,8 +24,8 @@ else
 	set lndcase =  f.e13.FAMIPC5.ne120_ne120_mt12.gen-restarts.001
 endif
 
-set syr = 1988
-set eyr = 1988
+set syr = 1996
+set eyr = 1996
 
 @ ib = $syr
 @ ie = $eyr
