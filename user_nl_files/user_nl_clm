@@ -1,0 +1,102 @@
+!---------------------------------------------------------------------------------
+! Users should add all user specific namelist changes below in the form of 
+! namelist_var = new_namelist_value 
+!
+! EXCEPTIONS: 
+! Set use_cndv           by the compset you use and the CLM_BLDNML_OPTS -dynamic_vegetation setting
+! Set use_vichydro       by the compset you use and the CLM_BLDNML_OPTS -vichydro           setting
+! Set use_cn             by the compset you use and CLM_BLDNML_OPTS -bgc  setting
+! Set use_crop           by the compset you use and CLM_BLDNML_OPTS -crop setting
+! Set spinup_state       by the CLM_BLDNML_OPTS -bgc_spinup      setting
+! Set irrigate           by the CLM_BLDNML_OPTS -irrig           setting
+! Set co2_ppmv           with CCSM_CO2_PPMV                      option
+! Set dtime              with L_NCPL                             option
+! Set fatmlndfrc         with LND_DOMAIN_PATH/LND_DOMAIN_FILE    options
+! Set finidat            with RUN_REFCASE/RUN_REFDATE/RUN_REFTOD options for hybrid or branch cases
+!                        (includes $inst_string for multi-ensemble cases)
+! Set maxpatch_glcmec    with GLC_NEC                            option
+! Set glc_do_dynglacier  with GLC_TWO_WAY_COUPLING               env variable
+!----------------------------------------------------------------------------------
+!----------------------------------------------------------------------------------
+
+use_init_interp = .true.
+
+!----------------------------------------------------------------------------------
+! Settings for WACCM-geo
+!----------------------------------------------------------------------------------
+!! MONTHLY MEAN
+hist_fexcl1 = 'PCT_GLC_MEC', 'PCT_NAT_PFT', 'SOIL1C_vr', 'SOIL1N_vr', 'SOIL2C_vr', 'SOIL2N_vr', 'SOIL3C_vr', 'SOIL3N_vr',
+         'SOILC_vr', 'SOILN_vr', 'CWDC_vr', 'LITR1C_vr', 'LITR2C_vr', 'LITR3C_vr', 'LITR1N_vr', 'LITR2N_vr',
+         'LITR3N_vr', 'CWDN_vr', 'SMIN_NO3_vr', 'CONC_O2_UNSAT', 'CONC_O2_SAT', 'SMIN_NH4_vr', 'SMINN_vr', 'PCT_CFT',
+         'C14_SOILC_vr'
+
+ hist_fincl1 = 'EFLX_LH_TOT_ICE', 'FIRE_ICE', 'FLDS_ICE', 'FSH_ICE', 'FSNO_ICE', 'FSR_ICE',
+         'QFLX_SUB_SNOW_ICE', 'QRUNOFF_ICE', 'QSNOFRZ_ICE', 'QSNOMELT_ICE', 'RAIN_ICE', 'SNOW_ICE',
+         'SNOWICE_ICE', 'SNOWLIQ_ICE', 'SNOTXMASS_ICE', 'TG_ICE', 'TOPO_COL_ICE', 'TSA_ICE',
+         'TSOI_ICE', 'LEAFC_TO_LITTER', 'FROOTC_TO_LITTER', 'LITR1C_TO_SOIL1C', 'LITR1N_TO_SOIL1N', 'LITR2C_TO_SOIL1C',
+         'LITR2N_TO_SOIL1N', 'LITR3C_TO_SOIL2C', 'LITR3N_TO_SOIL2N', 'DWT_WOOD_PRODUCTC_GAIN_PATCH'
+ 
+ hist_fincl2 = 'TLAI', 'TSA', 'TREFMNAV', 'TREFMXAV', 'BTRANMN', 'Vcmx25Z', 'FSH', 'VEGWP', 'FCTR', 'FCEV', 'FGEV',  
+         'FIRE', 'FSR', 'FIRA', 'FSA', 'GSSUNLN', 'GSSHALN', 'TSKIN', 'GPP', 'NPP', 'AGNPP', 'TOTVEGC',   'NPP_NUPTAKE', 
+         'AR', 'HR', 'HTOP', 'GRAINC_TO_FOOD', 'NFERTILIZATION'
+
+
+!! DAILY:
+ hist_fincl3 = 'FSR', 'H2OSNO', 'Q2M', 'SNOWDP', 'TSA', 'TREFMNAV', 'TREFMXAV', 'TG', 'QRUNOFF', 'FSH', 'FIRE', 'FIRA', 
+         'FGR', 'EFLX_LH_TOT', 'RH2M', 'TLAI', 'SOILWATER_10CM', 'TOTSOILLIQ',         'TOTSOILICE', 'U10', 'TSOI_10CM', 
+         'QIRRIG', 'URBAN_HEAT', 'WASTEHEAT', 'TSKIN', 'GPP', 'NPP', 'AR', 'HR', 'DWT_CONV_CFLUX_PATCH', 'WOOD_HARVESTC', 
+         'DWT_WOOD_PRODUCTC_GAIN_PATCH', 'SLASH_HARVESTC', 'COL_FIRE_CLOSS', 'DWT_SLASH_CFLUX', 'FROOTC:I', 'HTOP', 'GRAINC_TO_FOOD', 
+         'GDDPLANT','CPHASE','GDDHARV','TREFMNAV', 'TREFMXAV', 'U10_DUST','DSTFLXT','DSTDEP','TLAI','TV', 'QDRAI_XS', 'QTOPSOIL', 'QSNOMELT'
+
+
+!! Daily
+ hist_fincl4 = 'PCT_GLC_MEC', 'QICE_FORC', 'TSRF_FORC', 'TOPO_FORC', 'PCT_NAT_PFT', 'PCT_LANDUNIT', 'FSNO_ICE', 'SOILC_vr',
+         'SOILN_vr', 'CWDC_vr', 'LITR1C_vr', 'LITR2C_vr', 'LITR3C_vr', 'LITR1N_vr', 'LITR2N_vr', 'LITR3N_vr', 'CWDN_vr', 
+         'TOTLITC:I', 'TOT_WOODPRODC:I', 'TOTSOMC:I', 'TOTVEGC:I', 'PCT_CFT', 'CROPPROD1C:I', 'C14_SOILC_vr'
+
+ hist_fincl5 = 'TOTSOMC:I', 'TOTSOMC_1m:I', 'TOTECOSYSC:I', 'TOTVEGC:I', 'WOODC:I', 'TOTLITC:I', 'LIVECROOTC:I',  
+         'DEADCROOTC:I', 'FROOTC:I', 'GDDPLANT','CPHASE','GDDHARV','TREFMNAV', 'TREFMXAV','TV'
+
+!! ADDING 6-HOURLY:
+ hist_fincl6 = 'QRUNOFF', 'H2OSNO','QSNOMELT','QSOIL','TOTSOILLIQ'
+
+ hist_mfilt(1) = 1
+ hist_mfilt(2) = 1
+ hist_mfilt(3) = 30
+ hist_mfilt(4) = 30
+ hist_mfilt(5) = 1
+ hist_nhtfrq(1) = 0
+ hist_nhtfrq(2) = 0
+ hist_nhtfrq(3) = -24
+ hist_nhtfrq(4) = -24
+ hist_nhtfrq(5) = -6
+ hist_type1d_pertape(1) = ' '
+ hist_type1d_pertape(2) = ' '
+ hist_type1d_pertape(3) = 'LAND'
+ hist_type1d_pertape(4) = ' '
+ hist_type1d_pertape(5) = 'LAND'
+ hist_dov2xy    = .true.,.false.,.true.,.false. 
+
+!----------------------------------------------------------------------------------
+! Settings from cmip6_carbon_isotopes
+!----------------------------------------------------------------------------------
+
+use_c13 = .false.
+use_c14 = .false.
+! use_c13_timeseries = .true.
+! use_c14_bombspike = .true.
+
+! h0 stream (monthly average, gridcell-level)
+! hist_fexcl1 += 'C14_SOILC_vr'
+! h3 stream (yearly average, gridcell-level)
+! hist_fincl4 += 'C14_SOILC_vr'
+
+!----------------------------------------------------------------------------------
+! Settings from cmip6_glaciers_virtual_antarctica
+!----------------------------------------------------------------------------------
+! This differs from the default in that it turns on virtual columns over Antarctica
+! This is desired so that we have the output needed to drive a later offline CISM Antarctica simulation
+! However, this increases the cost of CLM by about 10%
+
+glacier_region_behavior = 'single_at_atm_topo', 'virtual', 'virtual', 'virtual'
+
