@@ -103,7 +103,7 @@ fincl3 = 'PRECT:A', 'PRECC:A', 'PRECSC:A', 'PRECSL:A', 'U925:A', 'V925:A', 'Q925
   'IVT:A', 'uIVT:A', 'vIVT:A'
 
 !! 3-hourly instantaneous (h3) (mostly full-column): 
-fincl4 = 'PS:I', 'PSL:I', 'U:I', 'V:I','T:I','Z:I','Q:I','U10:I', 'RH:I' 
+fincl4 = 'PS:I', 'PSL:I', 'U:I', 'V:I','T:I','Z3:I','Q:I','U10:I', 'RELHUM:I' 
 
 !! hourly means:  (h4)
 fincl5 = 'O3_SRF', 'TS', 'PM25_SRF', 'NO2_SRF', 'PRECC', 'PRECT'

@@ -6,11 +6,8 @@ setenv CESM2_TOOLS_ROOT /glade/work/nanr/cesm_tags/CASE_tools/cesm2-waccm/
 setenv CESMROOT /glade/u/home/cmip6/cesm_tags/release-cesm2.1.3
 setenv CESMROOT /glade/work/nanr/cesm_tags/cesm2.1.4-rc.07
 
-setenv POSTPROCESS_PATH /glade/u/home/mickelso/CESM_postprocessing_3/
-setenv POSTPROCESS_PATH_GEYSER /glade/u/home/mickelso/CESM_postprocessing_3/
-
 set COMPSET = BWSSP245cmip6
-set SCENARIO = SSP245-TSMLT-GAUSS-DEFAULT.001
+set SCENARIO = SSP245
 set VERSION = TSMLT
 set NAMESIM = DEFAULT
 set ENS = 001

@@ -27,8 +27,8 @@ use_init_interp = .true.
 !! MONTHLY MEAN
 hist_fexcl1 = 'PCT_GLC_MEC', 'PCT_NAT_PFT', 'SOIL1C_vr', 'SOIL1N_vr', 'SOIL2C_vr', 'SOIL2N_vr', 'SOIL3C_vr', 'SOIL3N_vr',
          'SOILC_vr', 'SOILN_vr', 'CWDC_vr', 'LITR1C_vr', 'LITR2C_vr', 'LITR3C_vr', 'LITR1N_vr', 'LITR2N_vr',
-         'LITR3N_vr', 'CWDN_vr', 'SMIN_NO3_vr', 'CONC_O2_UNSAT', 'CONC_O2_SAT', 'SMIN_NH4_vr', 'SMINN_vr', 'PCT_CFT',
-         'C14_SOILC_vr'
+         'LITR3N_vr', 'CWDN_vr', 'SMIN_NO3_vr', 'CONC_O2_UNSAT', 'CONC_O2_SAT', 'SMIN_NH4_vr', 'SMINN_vr', 'PCT_CFT'
+         
 
  hist_fincl1 = 'EFLX_LH_TOT_ICE', 'FIRE_ICE', 'FLDS_ICE', 'FSH_ICE', 'FSNO_ICE', 'FSR_ICE',
          'QFLX_SUB_SNOW_ICE', 'QRUNOFF_ICE', 'QSNOFRZ_ICE', 'QSNOMELT_ICE', 'RAIN_ICE', 'SNOW_ICE',
@@ -52,7 +52,7 @@ hist_fexcl1 = 'PCT_GLC_MEC', 'PCT_NAT_PFT', 'SOIL1C_vr', 'SOIL1N_vr', 'SOIL2C_vr
 !! Daily
  hist_fincl4 = 'PCT_GLC_MEC', 'QICE_FORC', 'TSRF_FORC', 'TOPO_FORC', 'PCT_NAT_PFT', 'PCT_LANDUNIT', 'FSNO_ICE', 'SOILC_vr',
          'SOILN_vr', 'CWDC_vr', 'LITR1C_vr', 'LITR2C_vr', 'LITR3C_vr', 'LITR1N_vr', 'LITR2N_vr', 'LITR3N_vr', 'CWDN_vr', 
-         'TOTLITC:I', 'TOT_WOODPRODC:I', 'TOTSOMC:I', 'TOTVEGC:I', 'PCT_CFT', 'CROPPROD1C:I', 'C14_SOILC_vr'
+         'TOTLITC:I', 'TOT_WOODPRODC:I', 'TOTSOMC:I', 'TOTVEGC:I', 'PCT_CFT', 'CROPPROD1C:I'
 
  hist_fincl5 = 'TOTSOMC:I', 'TOTSOMC_1m:I', 'TOTECOSYSC:I', 'TOTVEGC:I', 'WOODC:I', 'TOTLITC:I', 'LIVECROOTC:I',  
          'DEADCROOTC:I', 'FROOTC:I', 'GDDPLANT','CPHASE','GDDHARV','TREFMNAV', 'TREFMXAV','TV'
