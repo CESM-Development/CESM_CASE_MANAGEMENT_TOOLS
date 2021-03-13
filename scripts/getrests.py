@@ -12,7 +12,7 @@ for restyr in glob.iglob(srcpath+"*/rest/*"):
     if (yr >= 1850 and yr <= 1870) or (yr >= 2010 and yr <= 2015):
         if mon != 1:
             # first delete unneeded files, then move directory
-            for _file in glob.iglob(restyr+"/*.h*"):
+            for _file in glob.iglob(restyr+"/*.r?h*"):
                 print ("Removing {}".format(_file))
                 if not dryrun:
                     os.remove(_file)
@@ -28,7 +28,7 @@ for restyr in glob.iglob(srcpath+"*/rest/*"):
             if not dryrun:
                 os.makedirs(newdir)
             for _file in glob.iglob(restyr+"/*"):
-                if ".h" not in _file:
+                if ".h" not in _file and ".rh" not in _file:
                     print("Copy {} to {}".format(_file, newdir))
                     if not dryrun:
                         shutil.copy(_file,newdir)
