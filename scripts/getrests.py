@@ -18,7 +18,10 @@ for restyr in glob.iglob(srcpath+"*/rest/*"):
                     os.remove(_file)
             print("moving dir {}".format(restyr))
             if not dryrun:
-                shutil.move(restyr, restyr.replace(srcpath,destpath))
+                try:
+                    shutil.move(restyr, restyr.replace(srcpath,destpath))
+                except OSError as e:
+                    print("ERROR: {} - {}.".format(e.filename, e.strerror))
         else:
             newdir = restyr.replace(srcpath,destpath)
             print("create dir {}".format(newdir))
@@ -36,4 +39,4 @@ for restyr in glob.iglob(srcpath+"*/rest/*"):
             if not dryrun:
                 shutil.rmtree(restyr)
         except OSError as e:
-            print("ERROR: %s - %s.".format(e.filename, e.strerror))
+            print("ERROR: {} - {}.".format(e.filename, e.strerror))
