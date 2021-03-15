@@ -18,14 +18,27 @@ set STOP_N=1
 set STOP_OPTION=nmonths
 set PROJECT=P93300607
 
-setenv CASENAME  b.e21.BW.${RESOLN}.${SCENARIO}-${VERSION}-GAUSS-${NAMESIM}.${ENS}
+set smbr =  2
+set embr =  2
+
+@ mb = $smbr
+@ me = $embr
+
+foreach mbr ( `seq $mb $me` )
+
+if    ($mbr < 10) then
+  setenv CASENAME  b.e21.BW.${RESOLN}.${SCENARIO}-${VERSION}-GAUSS-${NAMESIM}.00${mbr}
+else
+  setenv CASENAME  b.e21.BW.${RESOLN}.${SCENARIO}-${VERSION}-GAUSS-${NAMESIM}.0${mbr}
+endif
+
 #setenv CASEROOT  /glade/work/geostrat/cases/$CASENAME
-setenv CASEROOT  /glade/scratch/nanr/$CASENAME
+setenv CASEROOT  /glade/scratch/$USER/$CASENAME
 setenv REFCASE  b.e21.BWSSP245cmip6.f09_g17.CMIP6-SSP2-4.5-WACCM.001
 setenv REFDATE  2035-01-01
 setenv REFROOT  /glade/scratch/nanr/archive/$REFCASE/${REFDATE}-00000/
 setenv STARTDATE  $REFDATE
-set RUNDIR = /glade/scratch/nanr/$CASENAME/run/
+set RUNDIR = /glade/scratch/$USER/$CASENAME/run/
 
 $CESMROOT/cime/scripts/create_newcase --compset ${COMPSET} --res f09_g17 --case ${CASEROOT} --project=${PROJECT} --queue=economy
 
@@ -75,6 +88,8 @@ echo " End restarts copy -----------"
 
    #./case.setup --reset; ./case.setup
    ./case.setup --reset; ./case.setup; qcmd -- ./case.build >& bld.`date +%m%d-%H%M`
+
+end  # member loop
 
 exit
 
