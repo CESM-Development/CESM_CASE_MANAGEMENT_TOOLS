@@ -92,29 +92,29 @@ fincl2 = 'ACTNL:A', 'ACTREL:A', 'BURDENBCdn:A', 'BURDENDUSTdn:A', 'BURDENPOMdn:A
   'Q:A', 'QREFHT:A', 'QSNOW:A', 'RELHUM:A', 'RHREFHT:A', 'SHFLX:A', 'SOLIN:A', 'SOLLD:A', 'SOLSD:A', 'T:A', 'T500:A',
   'T700:A', 'T850:A', 'TAUBLJX:A', 'TAUBLJY:A', 'TAUGWX:A', 'TAUGWY:A', 'TAUX:A', 'TAUY:A', 'TGCLDIWP:A', 'TGCLDLWP:A',
   'TMQ:A', 'TREFHT:A', 'TREFHTMN:M', 'TREFHTMX:X', 'TS:A', 'TSMN:M', 'TSMX:X', 'U:A', 'U10:A', 'UTGWORO:A', 'UTGWSPEC:A',
-  'V:A', 'Z3:A', 'Z500:A', 'dst_a1:A', 'dst_a2:A', 'dst_a3:A', 'U10:A', 'dst_a2_SRF:A', 'bc_a4_SRF:A', 'pom_a4_SRF:A',
-  'PM25_SRF:A', 'SFso4_a1:A', 'SFso4_a2:A', 'SFbc_a4:A', 'SFpom_a4:A', 'SFdst_a1:A', 'SFdst_a2:A', 'SFdst_a3:A'
+  'V:A', 'Z3:A', 'Z500:A', 'SO2', 'dst_a1:A', 'dst_a2:A', 'dst_a3:A', 'dst_a2_SRF:A', 'bc_a4_SRF:A', 'pom_a4_SRF:A',
+  'SFso4_a1:A', 'SFso4_a2:A', 'SFbc_a4:A', 'SFpom_a4:A', 'SFdst_a1:A', 'SFdst_a2:A', 'SFdst_a3:A'
 
 !! 3-hourly average (h2) (mostly single level): 
 fincl3 = 'PRECT:A', 'PRECC:A', 'PRECSC:A', 'PRECSL:A', 'U925:A', 'V925:A', 'Q925:A', 'T925:A', 'Z925:A', 
   'U500:A', 'V500:A', 'Q500:A', 'T500:A', 'Z500:A', 'U200:A', 'V200:A', 'T200:A', 'Q200:A', 
   'Z200:A', 'CAPE:A', 'CIN:A', 'CLDLOW:A', 'U850:A', 'V850:A', 'T850:A', 'Q850:A', 'Z850:A', 
-  'U700:A', 'V700:A', 'T700:A', 'Q700:A', 'Z700:A', 'PSL:A', 'TMQ:A', 'T300:A', 'U300:A', 'V300:A'
-  'IVT:A', 'uIVT:A', 'vIVT:A', 'FLUT:A'
+  'U700:A', 'V700:A', 'T700:A', 'Q700:A', 'Z700:A', 'PSL:A', 'TMQ:A', 'T300:A', 'U300:A', 'V300:A','FLUT:A'
 
 !! 3-hourly instantaneous (h3) (mostly full-column): 
-fincl4 = 'PS:I', 'PSL:I', 'U:I',V:I','T:I','Z3:I','Q:I','U10:I','RELHUM:I','TS:I','U850:I', 'V850:I'
+fincl4 = 'PS:I', 'PSL:I', 'U:I',V:I','T:I','Z3:I','Q:I','U10:I','RELHUM:I','TS:I',
+   'TMQ:I','U850:I','V850:I','IVT:I','uIVT:I','vIVT:I','TS:I'
 
 !! hourly means:  (h4)
-fincl5 = 'O3_SRF', 'TS', 'PM25_SRF', 'NO2_SRF', 'PRECC', 'PRECT'
+fincl5 = 'O3_SRF:A', 'TS:A', 'PM25_SRF:A', 'NO2_SRF:A', 'PRECC:A', 'PRECT:A'
 
 !! daily (h6)
- fincl7 = 'MSKtem','PS','PSL','VTHzm','UVzm','UWzm','Uzm','Vzm','THzm','Wzm','PHIS'
+ fincl7 = 'MSKtem','PS','PSL','VTHzm','UVzm','UWzm','Uzm','Vzm','THzm','Wzm','PHIS','SO2'
 
 !! 5-day means (h7) (stratospheric aerosols and ozone needed to produce CAM forcing files)
 fincl8 = 'PS', 'PSL', 'U', 'V', 'T', 'Z3', 'PHIS', 'FRONTGF:I', 'OMEGA', 'O3',
   'REFF_AERO', 'SAD_AERO', 'so4_a1', 'so4_a2', 'so4_a3', 'AODVISstdn', 'NITROP_PD', 
-  'dgnumwet1', 'dgnumwet2', 'dgnumwet3', 'QRS_TOT', 'CO2', 'H', 'NO', 'O'
+  'dgnumwet1', 'dgnumwet2', 'dgnumwet3', 'QRS_TOT', 'CO2', 'H', 'NO', 'O','SO2'
 
 history_cesm_forcing = .true.
 history_scwaccm_forcing = .true.

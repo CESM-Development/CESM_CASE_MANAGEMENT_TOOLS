@@ -105,12 +105,12 @@ hist_dov2xy(5) = .false.
 hist_nhtfrq(5) = -8760
 hist_type1d_pertape(5) = 'LAND'
 
-! h5 stream (6 hourly average, landunit-level)
+! h5 stream (6-hourly average, gridcell average)
 ! fincl6
-hist_mfilt(6) = 1
-hist_dov2xy(6) = .false.
+hist_mfilt(6) = 120
+hist_dov2xy(6) = .true.
 hist_nhtfrq(6) = -6
-hist_type1d_pertape(6) = 'LAND'
+hist_type1d_pertape(6) = ' '
 
 !----------------------------------------------------------------------------------
 ! Settings from output_bgc
