@@ -1,22 +1,17 @@
  use_init_interp = .true.
-
  irrigate = .true.
 
 !! Question:
-   fsurdat  = '$DIN_LOC_ROOT/lnd/clm2/surfdata_map/surfdata_0.9x1.25_78pfts_CMIP6_simyr1850_c181209.nc'
+!  fsurdat  = '$DIN_LOC_ROOT/lnd/clm2/surfdata_map/surfdata_0.9x1.25_78pfts_CMIP6_simyr1850_c181209.nc'
 !! ScenarioMip
 !! fsurdat = '/glade/p/cesmdata/cseg/inputdata/lnd/clm2/surfdata_map/release-clm5.0.18/surfdata_0.9x1.25_hist_78pfts_CMIP6_simyr1850_c190214.nc'
 !! DECK
 !! fsurdat = '/glade/p/cesmdata/cseg/inputdata/lnd/clm2/surfdata_map/surfdata_0.9x1.25_78pfts_CMIP6_simyr1850_c170824.nc'
 
 !! Question:
-   flanduse_timeseries = '$DIN_LOC_ROOT/lnd/clm2/surfdata_map/landuse.timeseries_0.9x1.25_SSP2-4.5_78pfts_CMIP6_simyr1850-2100_c190102.nc'
+!  flanduse_timeseries = '$DIN_LOC_ROOT/lnd/clm2/surfdata_map/landuse.timeseries_0.9x1.25_SSP2-4.5_78pfts_CMIP6_simyr1850-2100_c190102.nc'
 !! ScenarioMip
 !! flanduse_timeseries = 'seg/inputdata/lnd/clm2/surfdata_map/release-clm5.0.18/landuse.timeseries_0.9x1.25_SSP2-4.5_78pfts_CMIP6_simyr1850-2100_c190214.nc'
-
-!! Question:  should these be include?
- atm_c13_filename = '$DIN_LOC_ROOT/lnd/clm2/isotopes/atm_delta_C13_CMIP6_SSP245_1850-2100_yearly_c181209.nc'
- atm_c14_filename = '$DIN_LOC_ROOT/lnd/clm2/isotopes/atm_delta_C14_CMIP6_SSP245_3x1_global_1850-2100_yearly_c181209.nc'
 
 ! stream_fldfilename_popdens = '$DIN_LOC_ROOT/lnd/clm2/firedata/clmforc.Li_2018_SSP2_CMIP6_hdm_0.5x0.5_AVHRR_simyr1850-2100_c181205.nc'
 ! stream_year_first_popdens = 2015
@@ -94,7 +89,8 @@ hist_mfilt(4) = 30
 hist_dov2xy(4) = .false.
 hist_nhtfrq(4) = -24
 hist_type1d_pertape(4) = ' '
-hist_fincl4 += 'PCT_GLC_MEC', 'QICE_FORC', 'TSRF_FORC', 'TOPO_FORC', 'PCT_NAT_PFT','PCT_LANDUNIT','FSNO_ICE','GDDPLANT','CPHASE','GDDHARV','TREFMNAV', 'TREFMXAV','TV'
+hist_fincl4 += 'PCT_GLC_MEC', 'QICE_FORC', 'TSRF_FORC', 'TOPO_FORC', 'PCT_NAT_PFT','PCT_LANDUNIT','FSNO_ICE','GDDPLANT','CPHASE','GDDHARV','TREFMNAV', 'TREFMXAV','TV','TLAI', 'GRAINC', 'SMP', 'LEAFC','LIVESTEMC','FROOTC','H2OSOI','QIRRIG','EFLX_LH_TOT','FSH','Rnet','RAIN', 'SMINN','GPP','FPSN','TSA','HTOP','TSAI','LEAFN','FGR'
+
 
 ! h4 stream (yearly average, landunit-level)
 ! fincl5
