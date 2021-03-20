@@ -18,8 +18,8 @@ set STOP_N=1
 set STOP_OPTION=nmonths
 set PROJECT=P93300607
 
-set smbr =  2
-set embr =  2
+set smbr =  1
+set embr =  1
 
 @ mb = $smbr
 @ me = $embr
@@ -32,8 +32,8 @@ else
   setenv CASENAME  b.e21.BW.${RESOLN}.${SCENARIO}-${VERSION}-GAUSS-${NAMESIM}.0${mbr}
 endif
 
-#setenv CASEROOT  /glade/work/geostrat/cases/$CASENAME
-setenv CASEROOT  /glade/scratch/$USER/$CASENAME
+setenv CASEROOT  /glade/work/geostrat/cases/$CASENAME
+#setenv CASEROOT  /glade/scratch/$USER/$CASENAME
 setenv REFCASE  b.e21.BWSSP245cmip6.f09_g17.CMIP6-SSP2-4.5-WACCM.001
 setenv REFDATE  2035-01-01
 setenv REFROOT  /glade/scratch/nanr/archive/$REFCASE/${REFDATE}-00000/
