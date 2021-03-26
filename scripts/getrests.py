@@ -5,6 +5,7 @@ import shutil
 srcpath="/proj/CESM2/archive/"
 destpath="/proj/jedwards/restarts/"
 dryrun = False
+#dryrun = True
 
 for restyr in glob.iglob(srcpath+"*/rest/*"):
     yr = int(os.path.basename(restyr)[0:4])
@@ -43,3 +44,14 @@ for restyr in glob.iglob(srcpath+"*/rest/*"):
                 shutil.rmtree(restyr)
         except OSError as e:
             print("ERROR: {} - {}.".format(e.filename, e.strerror))
+
+# check the run directory for pop.rh.ecosys.nyear1 files which were not being properly archived
+for casedir in glob.iglob("/proj/CESM2/output/*"):
+    for _file in glob.iglob(casedir +"/run/*pop.rh.ecosys.nyear1*"):
+        yr = int(os.path.basename(_file)[58:62])
+        fulldate = os.path.basename(_file)[58:74]
+        if (yr >= 1850 and yr <= 1870) or (yr >= 2010 and yr <= 2015):
+            print("copy {} to {}".format(_file, os.path.join(destpath, os.path.basename(casedir), "rest", fulldate)))
+            if not dryrun:
+                shutil.copy(_file, os.path.join(destpath, os.path.basename(casedir), "rest", fulldate))
+
