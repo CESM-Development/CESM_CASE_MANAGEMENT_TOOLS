@@ -6,7 +6,7 @@ set MACHINE = aleph
 #if ($USER==jedwards)
 #set test=test
 #else
-set test=moartest
+set test=
 #endif
 
 if ($MACHINE == cheyenne) then
@@ -81,10 +81,8 @@ if ( $mbr == $smbr || $mmm == 10) then
       cp $CESM2_LE_TOOLS_ROOT/SourceMods/src.pop/BHISTsmbb-MOAR/mbr1-9/* $CASEROOT/SourceMods/src.pop/
   endif
 
-# cp     $ARCHDIR/${USE_REFCASE}/rest/2015-01-01-00000/rpointer* /mnt/lustre/share/CESM/output/${CASENAME}/run/
-# ln -s  $ARCHDIR/${USE_REFCASE}/rest/2015-01-01-00000/b.e21.BHISTsmbb.* /mnt/lustre/share/CESM/output/${CASENAME}/run/.
-  cp     $ARCHDIR/${USE_REFCASE}/rest/1990-01-01-00000/rpointer* /mnt/lustre/share/CESM/output/${CASENAME}/run/
-  ln -s  $ARCHDIR/${USE_REFCASE}/rest/1990-01-01-00000/b.e21.BHISTsmbb.* /mnt/lustre/share/CESM/output/${CASENAME}/run/.
+  cp     $ARCHDIR/${USE_REFCASE}/rest/2015-01-01-00000/rpointer* /mnt/lustre/share/CESM/output/${CASENAME}/run/
+  ln -s  $ARCHDIR/${USE_REFCASE}/rest/2015-01-01-00000/b.e21.BHISTsmbb.* /mnt/lustre/share/CESM/output/${CASENAME}/run/.
  
   ./xmlchange RUN_REFCASE=${USE_REFCASE}
   ./xmlchange RUN_REFDATE=2015-01-01
@@ -137,10 +135,8 @@ else
   ./xmlchange GET_REFCASE=FALSE
 
 
-# cp     $ARCHDIR/${USE_REFCASE}/rest/2015-01-01-00000/rpointer* /mnt/lustre/share/CESM/output/${CASENAME}/run/
-# ln -s  $ARCHDIR/${USE_REFCASE}/rest/2015-01-01-00000/b.e21.BHISTsmbb.* /mnt/lustre/share/CESM/output/${CASENAME}/run/.
-  cp     $ARCHDIR/${USE_REFCASE}/rest/1990-01-01-00000/rpointer* /mnt/lustre/share/CESM/output/${CASENAME}/run/
-  ln -s  $ARCHDIR/${USE_REFCASE}/rest/1990-01-01-00000/b.e21.BHISTsmbb.* /mnt/lustre/share/CESM/output/${CASENAME}/run/.
+  cp     $ARCHDIR/${USE_REFCASE}/rest/2015-01-01-00000/rpointer* /mnt/lustre/share/CESM/output/${CASENAME}/run/
+  ln -s  $ARCHDIR/${USE_REFCASE}/rest/2015-01-01-00000/b.e21.BHISTsmbb.* /mnt/lustre/share/CESM/output/${CASENAME}/run/.
 
   ./preview_namelists
   #./case.setup --reset; ./case.setup; ./xmlchange BUILD_COMPLETE=TRUE
