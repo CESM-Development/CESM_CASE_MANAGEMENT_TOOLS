@@ -22,8 +22,9 @@ else
 	setenv POSTPROCESS_PATH /home/jedwards/workflow/CESM_postprocessing
 	#source $POSTPROCESS_PATH/cesm-env2/bin/activate
   	#setenv ARCHDIR /mnt/lustre/share/CESM/archive/
-  	setenv ARCHDIR /proj/CESM2/archive/
-  	setenv SCRATCH /mnt/lustre/share/CESM/output/
+  	#setenv SCRATCH /mnt/lustre/share/CESM/output/
+  	setenv ARCHDIR /mnt/lustre/proj/CESM2/archive/
+  	setenv SCRATCH /mnt/lustre/proj/CESM2/output/
 endif
 
 
@@ -81,8 +82,8 @@ if ( $mbr == $smbr || $mmm == 10) then
       cp $CESM2_LE_TOOLS_ROOT/SourceMods/src.pop/BHISTsmbb-MOAR/mbr1-9/* $CASEROOT/SourceMods/src.pop/
   endif
 
-  cp     $ARCHDIR/${USE_REFCASE}/rest/2015-01-01-00000/rpointer* /mnt/lustre/share/CESM/output/${CASENAME}/run/
-  ln -s  $ARCHDIR/${USE_REFCASE}/rest/2015-01-01-00000/b.e21.BHISTsmbb.* /mnt/lustre/share/CESM/output/${CASENAME}/run/.
+  cp     $ARCHDIR/${USE_REFCASE}/rest/2015-01-01-00000/rpointer* $SCRATCH/${CASENAME}/run/
+  ln -s  $ARCHDIR/${USE_REFCASE}/rest/2015-01-01-00000/b.e21.BHISTsmbb.* $SCRATCH/${CASENAME}/run/.
  
   ./xmlchange RUN_REFCASE=${USE_REFCASE}
   ./xmlchange RUN_REFDATE=2015-01-01
@@ -134,9 +135,8 @@ else
   ./xmlchange RUN_REFCASE=${USE_REFCASE}
   ./xmlchange GET_REFCASE=FALSE
 
-
-  cp     $ARCHDIR/${USE_REFCASE}/rest/2015-01-01-00000/rpointer* /mnt/lustre/share/CESM/output/${CASENAME}/run/
-  ln -s  $ARCHDIR/${USE_REFCASE}/rest/2015-01-01-00000/b.e21.BHISTsmbb.* /mnt/lustre/share/CESM/output/${CASENAME}/run/.
+  cp     $ARCHDIR/${USE_REFCASE}/rest/2015-01-01-00000/rpointer* $SCRATCH/${CASENAME}/run/
+  ln -s  $ARCHDIR/${USE_REFCASE}/rest/2015-01-01-00000/b.e21.BHISTsmbb.* $SCRATCH/${CASENAME}/run/.
 
   ./preview_namelists
   #./case.setup --reset; ./case.setup; ./xmlchange BUILD_COMPLETE=TRUE
