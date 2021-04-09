@@ -4,7 +4,7 @@ module load ncl nco
 
 setenv CESM2_TOOLS_ROOT /glade/work/nanr/cesm_tags/CASE_tools/cesm2-waccm/
 setenv CESMROOT /glade/u/home/cmip6/cesm_tags/release-cesm2.1.3
-setenv CESMROOT /glade/work/nanr/cesm_tags/cesm2.1.4-rc.07
+setenv CESMROOT /glade/work/nanr/cesm_tags/cesm2.1.4-rc.08
 
 set COMPSET = BWSSP245cmip6
 set SCENARIO = SSP245
@@ -19,7 +19,7 @@ set STOP_OPTION=nmonths
 set PROJECT=P93300607
 
 set smbr =  1
-set embr =  1
+set embr =  5
 
 @ mb = $smbr
 @ me = $embr
@@ -28,13 +28,14 @@ foreach mbr ( `seq $mb $me` )
 
 if    ($mbr < 10) then
   setenv CASENAME  b.e21.BW.${RESOLN}.${SCENARIO}-${VERSION}-GAUSS-${NAMESIM}.00${mbr}
+  setenv REFCASE   b.e21.BWSSP245cmip6.f09_g17.CMIP6-SSP2-4.5-WACCM.00${mbr}
 else
   setenv CASENAME  b.e21.BW.${RESOLN}.${SCENARIO}-${VERSION}-GAUSS-${NAMESIM}.0${mbr}
+  setenv REFCASE   b.e21.BWSSP245cmip6.f09_g17.CMIP6-SSP2-4.5-WACCM.0${mbr}
 endif
 
 setenv CASEROOT  /glade/work/geostrat/cases/$CASENAME
 #setenv CASEROOT  /glade/scratch/$USER/$CASENAME
-setenv REFCASE  b.e21.BWSSP245cmip6.f09_g17.CMIP6-SSP2-4.5-WACCM.001
 setenv REFDATE  2035-01-01
 setenv REFROOT  /glade/scratch/nanr/archive/$REFCASE/${REFDATE}-00000/
 setenv STARTDATE  $REFDATE
@@ -65,10 +66,13 @@ $CESMROOT/cime/scripts/create_newcase --compset ${COMPSET} --res f09_g17 --case 
   ./xmlchange PROJECT=${PROJECT}
   ./xmlchange JOB_QUEUE=economy --subgroup case.run
 
-  ./case.setup
 
   cp $CESM2_TOOLS_ROOT/SourceMods/src.cam/* $CASEROOT/SourceMods/src.cam/
   cp $CESM2_TOOLS_ROOT/user_nl_files/user_nl_* $CASEROOT/
+
+  mv  env_batch.xml tmp.batch
+  cat tmp.batch | sed 's/-N {{ job_id }}/-N TSMLT.{{ job_id }}/' > env_batch.xml
+  ./case.setup
 
   ./xmlchange STOP_N=$STOP_N
   ./xmlchange STOP_OPTION=$STOP_OPTION
