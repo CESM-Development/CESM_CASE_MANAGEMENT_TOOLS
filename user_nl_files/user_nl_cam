@@ -119,4 +119,24 @@ history_cesm_forcing = .true.
 history_scwaccm_forcing = .true.
 
 
+ ext_frc_specifier = 'bc_a4  -> /glade/p/cesmdata/cseg/inputdata/atm/cam/chem/emis/emissions_ssp245/emissions-cmip6-ScenarioMIP_IAMC-MESSAGE-GLOBIOM-ssp245-1-1_bc_a4_aircraft_vertical_mol_175001-210101_0.9x1.25_c20190222.nc',
+         'NO2    -> /glade/p/cesmdata/cseg/inputdata/atm/cam/chem/emis/emissions_ssp245/emissions-cmip6-ScenarioMIP_IAMC-MESSAGE-GLOBIOM-ssp245-1-1_NO2_aircraft_vertical_mol_175001-210101_0.9x1.25_c20190222.nc',
+         'num_a1 -> /glade/p/cesmdata/cseg/inputdata/atm/cam/chem/emis/emissions_ssp245/emissions-cmip6-ScenarioMIP_IAMC-MESSAGE-GLOBIOM-ssp245-1-1_num_so4_a1_anthro-ene_vertical_mol_175001-210101_0.9x1.25_c20190222.nc',
+         'num_a1 -> /glade/p/cesmdata/cseg/inputdata/atm/cam/chem/emis/CMIP6_emissions_1750_2015/emissions-cmip6_num_a1_so4_contvolcano_vertical_850-5000_0.9x1.25_c20170724.nc',
+         'num_a2 -> /glade/p/cesmdata/cseg/inputdata/atm/cam/chem/emis/CMIP6_emissions_1750_2015/emissions-cmip6_num_a2_so4_contvolcano_vertical_850-5000_0.9x1.25_c20170724.nc',
+         'num_a4 -> /glade/p/cesmdata/cseg/inputdata/atm/cam/chem/emis/emissions_ssp245/emissions-cmip6-ScenarioMIP_IAMC-MESSAGE-GLOBIOM-ssp245-1-1_num_bc_a4_aircraft_vertical_mol_175001-210101_0.9x1.25_c20190222.nc',
+         'SO2    -> /glade/p/cesmdata/cseg/inputdata/atm/cam/chem/emis/emissions_ssp245/emissions-cmip6-ScenarioMIP_IAMC-MESSAGE-GLOBIOM-ssp245-1-1_SO2_aircraft_vertical_mol_175001-210101_0.9x1.25_c20190222.nc',
+         'SO2    -> /glade/p/cesmdata/cseg/inputdata/atm/cam/chem/emis/CMIP6_emissions_1750_2015/emissions-cmip6_SO2_contvolcano_vertical_850-5000_0.9x1.25_c20170724.nc',
+         'SO2    -> /glade/p/cesmdata/cseg/inputdata/atm/cam/chem/stratvolc/VolcanEESMv3.10_piControl_SO2_1850-2014average_ext_1deg_ZeroTrop_c181020.nc',
+         'so4_a1 -> /glade/p/cesmdata/cseg/inputdata/atm/cam/chem/emis/emissions_ssp245/emissions-cmip6-ScenarioMIP_IAMC-MESSAGE-GLOBIOM-ssp245-1-1_so4_a1_anthro-ene_vertical_mol_175001-210101_0.9x1.25_c20190222.nc',
+         'so4_a1 -> /glade/p/cesmdata/cseg/inputdata/atm/cam/chem/emis/CMIP6_emissions_1750_2015/emissions-cmip6_so4_a1_contvolcano_vertical_850-5000_0.9x1.25_c20170724.nc',
+         'so4_a2 -> /glade/p/cesmdata/cseg/inputdata/atm/cam/chem/emis/CMIP6_emissions_1750_2015/emissions-cmip6_so4_a2_contvolcano_vertical_850-5000_0.9x1.25_c20170724.nc',
+         'SO2    ->  0.72615263*/glade/work/geostrat/injection_files/SO2_geoeng_2020-2100_serial_1Tg_21.9-22.1km_15.6N_180E_0.95x1.25_cANN210319.nc',
+         'SO2    ->  0.68347451*/glade/work/geostrat/injection_files/SO2_geoeng_2020-2100_serial_1Tg_21.9-22.1km_15.6S_180E_0.95x1.25_cANN210319.nc',
+         'SO2    ->  0.0*/glade/work/geostrat/injection_files/SO2_geoeng_2020-2100_serial_1Tg_21.9-22.1km_30.6S_180E_0.95x1.25_cANN210319.nc',
+         'SO2    ->  0.01896805*/glade/work/geostrat/injection_files/SO2_geoeng_2020-2100_serial_1Tg_21.9-22.1km_30.6N_180E_0.95x1.25_cANN210319.nc'
+ ext_frc_type           = 'INTERP_MISSING_MONTHS'
+
+
+
 
