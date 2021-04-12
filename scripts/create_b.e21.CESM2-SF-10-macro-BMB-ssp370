@@ -35,11 +35,10 @@ cd ~cesmsf/CESM-WF/
 
 
 # case name counter
-set smbr =  1
-set embr =  5
-#set smbr =  6
-#set embr =  10
-
+#set smbr =  1
+#set embr =  5
+set smbr =  6
+set embr =  10
 
 @ mb = $smbr
 @ me = $embr
