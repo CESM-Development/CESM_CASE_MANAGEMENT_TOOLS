@@ -1,0 +1,12 @@
+ ! NOAA/PMEL TMAP
+ ! PyFerret v7.5 (optimized)
+ ! Linux 4.12.14-94.41-default - 06/28/19
+ !  8-Apr-21 16:29     
+
+set mode verify
+use hosing_highRes_originalHosing.nc
+show d
+fill hosing
+use hosing_highRes.nc
+fill hosing
+quit
