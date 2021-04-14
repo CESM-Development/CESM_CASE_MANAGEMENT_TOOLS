@@ -1,0 +1,148 @@
+#!/bin/csh -f
+### set env variables
+
+set COMPSET = E1850C5
+set EXPERIMENT = capt-SOM
+set RESOLN  = ne120_t12
+set MACHINE = cori-knl
+set MACHINE = cheyenne
+set TAG     = sehires32
+
+set mbr = 1
+setenv CASE f.e13.${COMPSET}.${RESOLN}.${TAG}.${EXPERIMENT}.0${mbr}
+
+if ($MACHINE == cori-knl) then
+        set SCRATCH   = /global/cscratch1/sd
+        set PATH      = /global/project/projectdirs/ccsm1/people/nanr/
+	set RUNDIR    = $SCRATCH/nanr/$CASE/run
+	set CASEROOT  = $PATH/cases/cesm1_3/$CASE
+        set TOOLS     = $HOME/CESM_tools/
+        set REFROOT   = /scratch1/06091/nanr/DP-HR/inputdata/cesm2_init/
+        setenv CESMROOT /global/project/projectdirs/ccsm1/people/nanr/cesm_tags/capt-cesm1_3_beta17_${TAG}
+else 
+        set PATH      = /glade/work/nanr/
+        set RUNDIR    = /glade/scratch/nanr/$CASE/run
+        setenv CASEROOT /glade/work/nanr/ihesp-HiRes/cases/ne120_t12/$CASE
+	set           = /glade/work/nanr/cesm_tags/CASE_tools/
+        set REFROOT   = /glade/scratch/nanr/DP-HR/inputdata/cesm2_init/
+        setenv CESMROOT /glade/work/nanr/cesm_tags/capt-cesm1_3_beta17_${TAG}
+endif
+
+set TOOLSROOT = $TOOLS/cesm1-capt/
+
+$CESMROOT/scripts/create_newcase -case $CASEROOT -res $RESOLN  -mach $MACHINE -compset $COMPSET --run-unsupported
+
+cd $CASEROOT
+
+### modify case parameters
+./xmlchange -file env_run.xml -id RUN_TYPE -val 'startup'
+./xmlchange -file env_run.xml -id RUN_STARTDATE -val '2010-01-05'
+./xmlchange -file env_run.xml -id RUN_REFDATE -val '2010-01-05'
+./xmlchange -file env_run.xml -id STOP_OPTION -val ndays
+./xmlchange -file env_run.xml -id STOP_N -val 90
+./xmlchange DOCN_SOM_FILENAME=/glade/scratch/jet/pop.frc.g.e21.GIAF.TL319_t13.5thCyc.ice.001_c20210325.nc
+
+if ($MACHINE == "cori-knl") then
+   	./xmlchange -file env_run.xml -id DIN_LOC_ROOT -val '/global/project/projectdirs/ccsm1/inputdata'
+   	./xmlchange -file env_run.xml -id DIN_LOC_ROOT_CLMFORC -val '/global/project/projectdirs/ccsm1/inputdata/atm/datm7'
+   	./xmlchange -file env_run.xml -id PIO_STRIDE -val 64
+   	./xmlchange -file env_run.xml -id PIO_TYPENAME -val 'pnetcdf'
+   	./xmlchange -file env_run.xml -id ICE_PIO_TYPENAME -val 'netcdf'
+   	./xmlchange -file env_run.xml   -id RUNDIR          -val ${RUNDIR}
+   	./xmlchange -file env_build.xml -id EXEROOT         -val '/global/cscratch1/sd/nanr/$CASE/bld'
+        ./xmlchange NTASKS_CPL=16256
+        ./xmlchange NTASKS_ATM=16256
+        ./xmlchange NTASKS_LND=4096
+        ./xmlchange NTASKS_ICE=8192
+        ./xmlchange NTASKS_OCN=16256
+        ./xmlchange NTASKS_ROF=1280
+        ./xmlchange NTASKS_GLC=1
+        ./xmlchange NTASKS_WAV=1
+        ./xmlchange ROOTPE_CPL=1216
+        ./xmlchange ROOTPE_ICE=4096
+        ./xmlchange ROOTPE_OCN=16256
+  ./xmlchange -file env_mach_pes.xml -id NTASKS_ROF -val '16256'
+else
+        ./xmlchange NTASKS_CPL=7200
+        ./xmlchange NTASKS_ATM=7200
+        ./xmlchange NTASKS_LND=1200
+        ./xmlchange NTASKS_ICE=6000
+        ./xmlchange ROOTPE_ICE=1200
+        ./xmlchange NTASKS_OCN=2135
+        ./xmlchange ROOTPE_OCN=7200
+        ./xmlchange NTASKS_ROF=1200
+        ./xmlchange NTASKS_GLC=1
+        ./xmlchange NTASKS_WAV=1
+endif
+
+./xmlchange -file env_run.xml   -id ATM_NCPL        -val 96
+./xmlchange -file env_run.xml   -id OCN_NCPL        -val 96
+./xmlchange -file env_run.xml   -id ROF_NCPL        -val 96
+./xmlchange -file env_run.xml   -id CAM_NAMELIST_OPTS    -val 'irad_always=-1'
+
+  ./xmlchange -file env_mach_pes.xml -id NTHRDS_GLC -val '1'
+  ./xmlchange -file env_mach_pes.xml -id NTHRDS_ROF -val '1'
+  ./xmlchange -file env_mach_pes.xml -id NTASKS_WAV -val '1'
+  ./xmlchange -file env_mach_pes.xml -id NTHRDS_WAV -val '1'
+
+
+### call cesm_setup and create user namelists
+./cesm_setup
+
+###  Add new variables
+cp user_nl_cam user_nl_cam.output.`date +%m%d-%H%M`
+cat > user_nl_cam <<EOF
+ CASE_DESC           = 'f.e13.FRCP85C5.ne120_t12.sehires32.capt.0${mbr}'
+!NCDATA              = '/global/cscratch1/sd/nanr/capt-prediction/atm/ERA5/regridded/hannay_ERA5_IC_ne120_L30/hannay_ERA5_IC_ne120_L30.cam2.i.2010-01-05-00000.nc'
+ dust_emis_fact      = 1.05D0
+ zmconv_c0_lnd       =  0.0059D0
+ zmconv_c0_ocn       =  0.0450D0
+ micro_mg_dcs        =  600.D-6
+ cldfrc_rhminl       =  0.95D0
+ se_nsplit           =  4
+ se_ftype            =  2
+ mfilt               =    2,   2,   8,  16,  16,  16,   8,  48,    1
+ nhtfrq              =  -24, -24,  -6,  -3,  -3,  -3,  -6,  -1, -120
+ empty_htapes        =  .true.
+ fincl1              = 'T','U','V','Q','PS'
+ fincl2              = 'U200','V200','PRECT','U850','V850','Z500','TSMN','TSMX','TREFMNAV','TREFMXAV'
+ fincl3              = 'OMEGA500','U200','FLUT','TMQ','U850','V850','U500','V500','PRECT','PSL','Q850','IVT','Z300:I','PRECSL','PRECSC'
+ fincl4              = 'PRECT','PRECC','CAPE',      'PS','FLUT','FLNT','FSNT','LHFLX','SHFLX','FLDS','FLNS',
+                       'FSNS','FSDS','QFLX','TAUX','TAUY','PRECSL','PRECSC',
+                       'OMEGA1000','OMEGA925','OMEGA850','OMEGA700','OMEGA500','OMEGA300','OMEGA250','OMEGA200','OMEGA100','OMEGA050',
+                           'U1000',    'U925',    'U850',    'U700',    'U500',    'U300',    'U250',    'U200',    'U100',    'U050',
+                           'V1000',    'V925',    'V850',    'V700',    'V500',    'V300',    'V250',    'V200',    'V100',    'V050',
+                           'T1000',    'T925',    'T850',    'T700',    'T500',    'T300',    'T250',    'T200',    'T100',    'T050',
+                           'Q1000',    'Q925',    'Q850',    'Q700',    'Q500',    'Q300',    'Q250',    'Q200',    'Q100',    'Q050',
+                           'Z1000',    'Z925',    'Z850',    'Z700',    'Z500',    'Z300',    'Z250',    'Z200',    'Z100',    'Z050',
+                          'VT1000',   'VT925',   'VT850',   'VT700',   'VT500',   'VT300',   'VT250',   'VT200',   'VT100',   'VT050',
+                          'VQ1000',   'VQ925',   'VQ850',   'VQ700',   'VQ500',   'VQ300',   'VQ250',   'VQ200',   'VQ100',   'VQ050',
+                          'VZ1000',   'VZ925',   'VZ850',   'VZ700',   'VZ500',   'VZ300',   'VZ250',   'VZ200',   'VZ100',   'VZ050'
+ fincl5              = 'PTEQ','PTTEND'
+ fincl6              = 'U850:I','U500:I','U200:I','V850:I','V500:I','V200:I','T850:I','T500:I','T200:I','Z1000:I','Z850:I','Z500:I',
+                       'Z200:I','PSL:I','PS:I','TS:I','U010:I','UBOT:I','VBOT:I','PRECT:I'
+ fincl7              = 'Z3:I'
+ fincl8              = 'PRECT','FLUT'
+ fincl9              = 'TAUTMSX','TAUTMSY','TAUGWX','TAUGWY','UQ','VQ','UT','VT','OMEGAQ','OMEGAT'
+
+
+EOF
+
+mv user_nl_clm user_nl_clm.`date +%m%d-%H%M`
+cat >> user_nl_clm << EOF
+! finidat = '/global/cscratch1/sd/nanr/capt-prediction/lnd/spinups/archive/i.e13.ICRUCN.ne120_ne120.2009-2016.001/lnd/rest/i.e13.ICRUCN.ne120_ne120.2009-2016.001.clm2.r.2010-01-05-00000.nc'
+ HIST_MFILT              = 500
+ HIST_EMPTY_HTAPES       = .true.
+ HIST_FINCL1             = 'TSOI'
+ HIST_NHTFRQ             = -24
+
+EOF
+
+
+
+
+if ($MACHINE == cheyenne) then
+   qcmd -- ./*.build
+else
+   ./*.build
+endif
