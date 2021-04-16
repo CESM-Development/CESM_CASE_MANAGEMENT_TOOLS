@@ -87,7 +87,7 @@ endif
 ./xmlchange STOP_N=$STOP_N
 ./xmlchange REST_OPTION=$REST_OPTION
 ./xmlchange REST_N=$REST_N
-./xmlchange RUN_TYPE=branch
+./xmlchange RUN_TYPE=hybrid
 ./xmlchange RUN_REFCASE=${REFCASE}
 ./xmlchange RUN_REFDATE=${REFDATE}
 ./xmlchange RUN_STARTDATE=${REFDATE}
@@ -100,6 +100,8 @@ endif
 ./case.setup
 
 cp    $TOOLSROOT/user_nl_files/user_nl_cam $CASEROOT/
+cp    $TOOLSROOT/user_nl_files/user_nl_rtm $CASEROOT/
+cp    $TOOLSROOT/user_nl_files/user_nl_clm $CASEROOT/
 cp    $TOOLSROOT/SourceMods/src.pop2/* $CASEROOT/SourceMods/src.pop/
 cp    /global/cscratch1/sd/nanr/amoc $CASEROOT/SourceMods/src.pop/
 
