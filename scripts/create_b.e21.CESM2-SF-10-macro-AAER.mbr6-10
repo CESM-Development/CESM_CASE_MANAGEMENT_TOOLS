@@ -1,7 +1,6 @@
 #!/bin/csh -fx
 ### set env variables
 setenv CESM2_SF_TOOLS_ROOT /glade/work/cesmsf/cesm_tags/CASE_tools/cesm2-sf/
-#setenv CESMROOT /glade/work/nanr/cesm_tags/cesm2.1.4-exp03
 setenv CESMROOT /glade/work/nanr/cesm_tags/cesm2.1.4-rc.07
 
 #module load intel/17.0.1
@@ -19,20 +18,21 @@ setenv POSTPROCESS_PATH_GEYSER /glade/u/home/mickelso/CESM_postprocessing_3/
 set COMPSET = B1850cmip6
 set MACHINE = cheyenne
 set RESOLN = f09_g17
-set RESUBMIT = 11
+set RESUBMIT = 54
 set STOP_N=3
 set STOP_OPTION=nyears
 set PROJECT=NCGD0044
 
-setenv REFHIST  AAER
-setenv SCENARIO AAER-SSP370
-setenv REFDATE  2015
+setenv SCENARIO AAER
+setenv REFDATE  1850-01-01
 setenv BASENAME b.e21.${COMPSET}.${RESOLN}.CESM2-SF-${SCENARIO}
 setenv BASEROOT /glade/work/cesmsf/CESM2-SF/
+setenv REFROOT  /glade/scratch/nanr/archive/b.e21.B1850.f09_g17.CMIP6-piControl.001/rest/
 setenv RUNROOT  /glade/scratch/cesmsf/
+setenv REFCASE  b.e21.B1850.f09_g17.CMIP6-piControl.001
 
 cd ~cesmsf/CESM-WF/
-./create_cylc_cesm2-sf-ensemble-ssp370 --case $BASEROOT$BASENAME --res $RESOLN  --compset $COMPSET --project $PROJECT 
+./create_cylc_cesm2-sf-ensemble --case $BASEROOT$BASENAME --res $RESOLN  --compset $COMPSET --project $PROJECT 
 
 
 # case name counter
@@ -46,26 +46,36 @@ set embr =  10
 @ me = $embr
 
 # reference name counter
+@ mmm = ($smbr * 2) - 1
+
+
 foreach mbr ( `seq $mb  $me` )
+
+@ USE_REFDATE = 1001 + ( $mmm - 1 ) * 10
+@ mmm+=2
+
+setenv REFDATE  ${USE_REFDATE}
+
+echo $REFDATE
 
 if    ($mbr < 10) then
 	setenv CASENAME b.e21.${COMPSET}.${RESOLN}.CESM2-SF-${SCENARIO}.00${mbr}
-	setenv REFCASE  b.e21.B1850cmip6.f09_g17.CESM2-SF-${REFHIST}.00${mbr}
 else if ($mbr >= 10 && $mbr < 100) then
 	setenv CASENAME b.e21.${COMPSET}.${RESOLN}.CESM2-SF-${SCENARIO}.0${mbr}
-	setenv REFCASE  b.e21.B1850cmip6.f09_g17.CESM2-SF-${REFHIST}.0${mbr}
 else
 	setenv CASENAME b.e21.${COMPSET}.${RESOLN}.CESM2-SF-${SCENARIO}.${mbr}
-	setenv REFCASE  b.e21.B1850cmip6.f09_g17.CESM2-SF-${REFHIST}.${mbr}
 endif
+
+## Uncomment for testing (when not creating a cylc suite)
+# cd $CESMROOT/cime/scripts
+# ./create_newcase --case $BASEROOT$CASENAME --res $RESOLN  --compset $COMPSET --project $PROJECT 
  
   setenv CASEROOT  $BASEROOT$CASENAME
-  setenv REFROOT  /glade/scratch/cesmsf/archive/${REFCASE}/rest/
   cd $CASEROOT
 
   ./xmlchange RUN_REFCASE=$REFCASE
   ./xmlchange RUN_REFDATE=$REFDATE-01-01
-  ./xmlchange RUN_STARTDATE=2015-01-01
+  ./xmlchange RUN_STARTDATE=1850-01-01
   ./xmlchange GET_REFCASE=FALSE
   ./xmlchange PROJECT=NCGD0044
 
@@ -81,11 +91,11 @@ endif
   mv SourceMods SourceMods.`date +%m%d-%H%M`
   cp -r $CESM2_SF_TOOLS_ROOT/SourceMods $CASEROOT/
 
-  cp $CESM2_SF_TOOLS_ROOT/user_nl_files/ssp370-aaer/user_nl_cam $CASEROOT/
-  cp $CESM2_SF_TOOLS_ROOT/user_nl_files/ssp370-aaer/user_nl_clm $CASEROOT/
-  cp $CESM2_SF_TOOLS_ROOT/user_nl_files/ssp370-aaer/user_nl_cpl $CASEROOT/
-  cp $CESM2_SF_TOOLS_ROOT/user_nl_files/ssp370-aaer/user_nl_cice $CASEROOT/
-  cp $CESM2_SF_TOOLS_ROOT/user_nl_files/ssp370-aaer/user_nl_ww $CASEROOT/
+  cp $CESM2_SF_TOOLS_ROOT/user_nl_files/hist-aaer/user_nl_cam $CASEROOT/
+  cp $CESM2_SF_TOOLS_ROOT/user_nl_files/hist-aaer/user_nl_clm $CASEROOT/
+  cp $CESM2_SF_TOOLS_ROOT/user_nl_files/hist-aaer/user_nl_cpl $CASEROOT/
+  cp $CESM2_SF_TOOLS_ROOT/user_nl_files/hist-aaer/user_nl_cice $CASEROOT/
+  cp $CESM2_SF_TOOLS_ROOT/user_nl_files/hist-aaer/user_nl_ww $CASEROOT/
 
   ./case.setup
 
@@ -95,6 +105,17 @@ endif
 
    cp    $REFROOT/$REFDATE-01-01-00000/rpointer* $RUNROOT/$CASENAME/run/
    ln -s $REFROOT/$REFDATE-01-01-00000/b.e21*    $RUNROOT/$CASENAME/run/
+
+  if (${mbr} == $smbr) then
+      ./case.setup --reset; ./case.setup; qcmd -- ./case.build
+      set masterroot = $CASENAME	
+  else
+      ./case.setup --reset; ./case.setup; 
+      ./xmlchange EXEROOT=/glade/scratch/cesmsf/$masterroot/bld/
+      ./xmlchange BUILD_COMPLETE=TRUE
+  endif
+
+
 
 # ./preview_namelists
 
