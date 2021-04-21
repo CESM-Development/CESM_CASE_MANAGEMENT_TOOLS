@@ -1,0 +1,130 @@
+/glade/work/brianpm/VRM/ne0np4.trbelt.ne30x8
+
+Hi Nan,
+
+Here is some info about these TRBELT configurations. 
+The one I’d like to run is ne30 in the extratropics and refined down to ~14km (ne240) in 15S-15N. 
+
+The grid files for the atmosphere are here: /glade/work/brianpm/VRM/ne0np4.trbelt.ne30x8/grids 
+It looks like I might need to generate some additional files to get the model to run. 
+
+The prototype that I mocked up previously was coarser ne30->ne120 in 30S-30N.  
+The grid files for that one are in /glade/work/brianpm/VRM/aquatrbelt_ne30_ne120/ne0np4.aquatrbelt.001.ne30x4/grids.
+
+The case directory for that test run is here: /glade/work/brianpm/my_cases/test_cases/qpc6_trbelt_001. I think the important thing in there is that I’ve got a bunch of user_nl_cam modifications to use the new grid. 
+
+Looks like I didn’t make a custom compset, but just used the usual QPC6 (i.e., CAM6 aquaplanet with fixed SST). The resolution was set to "ne0np4.aquatrbelt.001.ne30x4_mg17”. 
+
+To use that resolution, I made three changes in CIME and one in CAM, basically trying to follow the other variable resolution configurations:
+
+First, in cime/config/cesm/config_grids.xml
+
+<model_grid alias="ne0np4.aquatrbelt.001.ne30x4_g17">
+ <grid name="atm">ne0np4.aquatrbelt.001.ne30x4</grid>
+ <grid name="lnd">ne0np4.aquatrbelt.001.ne30x4</grid>
+ <grid name="ocnice">gx1v7</grid>
+ <mask>gx1v7</mask>
+ </model_grid>
+
+<model_grid alias="ne0np4.aquatrbelt.001.ne30x4_mg17" not_compset="_POP">
+ <grid name="atm">ne0np4.aquatrbelt.001.ne30x4</grid>
+ <grid name="lnd">ne0np4.aquatrbelt.001.ne30x4</grid>
+ <grid name="ocnice">ne0np4.aquatrbelt.001.ne30x4</grid>
+ <mask>gx1v7</mask>
+ </model_grid>
+
+ <model_grid alias="ne0np4.aquatrbelt.001.ne30x4_t12">
+ <grid name="atm">ne0np4.aquatrbelt.001.ne30x4</grid>
+ <grid name="lnd">ne0np4.aquatrbelt.001.ne30x4</grid>
+ <grid name="ocnice">tx0.1v2</grid>
+ <mask>tx0.1v2</mask>
+ </model_grid>
+
+ <model_grid alias="ne0np4.aquatrbelt.001.ne30x4_mt12" not_compset="_POP">
+ <grid name="atm">ne0np4.aquatrbelt.001.ne30x4</grid>
+ <grid name="lnd">ne0np4.aquatrbelt.001.ne30x4</grid>
+ <grid name="ocnice">ne0np4.aquatrbelt.001.ne30x4</grid>
+ <mask>tx0.1v2</mask>
+ </model_grid>
+
+and later in that file:
+
+<!-- ======================================================== -->
+ <!-- Tropical Belt -->
+ <!-- ======================================================== -->
+
+ <domain name="ne0np4.aquatrbelt.001.ne30x4">
+ <nx>219890</nx> <ny>1</ny>
+ <file grid="atm|lnd" mask="gx1v7" >/glade/work/brianpm/VRM/aquatrbelt_ne30_ne120/ne0np4.aquatrbelt.001.ne30x4/domains/domain.lnd.ne0np4.aquatrbelt.001.ne30x4_gx1v7.20201209.nc</file>
+ <file grid="ocnice" mask="gx1v7" >/glade/work/brianpm/VRM/aquatrbelt_ne30_ne120/ne0np4.aquatrbelt.001.ne30x4/domains/domain.ocn.ne0np4.aquatrbelt.001.ne30x4_gx1v7.20201209.nc</file>
+ <file grid="atm|lnd" mask="tx0.1v2">/glade/work/brianpm/VRM/aquatrbelt_ne30_ne120/ne0np4.aquatrbelt.001.ne30x4/domains/domain.lnd.ne0np4.aquatrbelt.001.ne30x4_tx0.1v2.20201209.nc</file>
+ <file grid="ocnice" mask="tx0.1v2">/glade/work/brianpm/VRM/aquatrbelt_ne30_ne120/ne0np4.aquatrbelt.001.ne30x4/domains/domain.ocn.ne0np4.aquatrbelt.001.ne30x4_tx0.1v2.20201209.nc</file>
+ <mesh driver="nuopc">/glade/work/brianpm/VRM/aquatrbelt_ne30_ne120/ne0np4.aquatrbelt.001.ne30x4/grids/ne0np4.aquatrbelt.001.ne30x4_np4_MESH.nc</mesh>
+ <desc>ADD A DESCRIPTION OF THE GRID HERE</desc>
+ <support>Test support only</support>
+ </domain>
+
+Second, in cime/config/cesm/config_grids_mct.xml, I have similar changes:
+
+<gridmap atm_grid="ne0np4.aquatrbelt.001.ne30x4" ocn_grid="gx1v7">
+ <map name="ATM2OCN_FMAPNAME">/glade/work/brianpm/VRM/aquatrbelt_ne30_ne120/ne0np4.aquatrbelt.001.ne30x4/ne0np4.aquatrbelt.001.ne30x4/maps/map_ne0np4.aquatrbelt.001.ne30x4_TO_gx1v7_aave.20201209.nc</map>
+ <map name="ATM2OCN_SMAPNAME">/glade/work/brianpm/VRM/aquatrbelt_ne30_ne120/ne0np4.aquatrbelt.001.ne30x4/ne0np4.aquatrbelt.001.ne30x4/maps/map_ne0np4.aquatrbelt.001.ne30x4_TO_gx1v7_blin.20201209.nc</map>
+ <map name="ATM2OCN_VMAPNAME">/glade/work/brianpm/VRM/aquatrbelt_ne30_ne120/ne0np4.aquatrbelt.001.ne30x4/ne0np4.aquatrbelt.001.ne30x4/maps/map_ne0np4.aquatrbelt.001.ne30x4_TO_gx1v7_blin.20201209.nc</map>
+ <map name="OCN2ATM_FMAPNAME">/glade/work/brianpm/VRM/aquatrbelt_ne30_ne120/ne0np4.aquatrbelt.001.ne30x4/ne0np4.aquatrbelt.001.ne30x4/maps/map_gx1v7_TO_ne0np4.aquatrbelt.001.ne30x4_aave.20201209.nc</map>
+ <map name="OCN2ATM_SMAPNAME">/glade/work/brianpm/VRM/aquatrbelt_ne30_ne120/ne0np4.aquatrbelt.001.ne30x4/ne0np4.aquatrbelt.001.ne30x4/maps/map_gx1v7_TO_ne0np4.aquatrbelt.001.ne30x4_aave.20201209.nc</map>
+</gridmap>
+<gridmap atm_grid="ne0np4.aquatrbelt.001.ne30x4" ocn_grid="tx0.1v2">
+ <map name="ATM2OCN_FMAPNAME">/glade/work/brianpm/VRM/aquatrbelt_ne30_ne120/ne0np4.aquatrbelt.001.ne30x4/maps/map_ne0np4.aquatrbelt.001.ne30x4_TO_tx0.1v2_aave.20201209.nc</map>
+ <map name="ATM2OCN_SMAPNAME">/glade/work/brianpm/VRM/aquatrbelt_ne30_ne120/ne0np4.aquatrbelt.001.ne30x4/ne0np4.aquatrbelt.001.ne30x4/maps/map_ne0np4.aquatrbelt.001.ne30x4_TO_tx0.1v2_blin.20201209.nc</map>
+ <map name="ATM2OCN_VMAPNAME">/glade/work/brianpm/VRM/aquatrbelt_ne30_ne120/ne0np4.aquatrbelt.001.ne30x4/ne0np4.aquatrbelt.001.ne30x4/maps/map_ne0np4.aquatrbelt.001.ne30x4_TO_tx0.1v2_blin.20201209.nc</map>
+ <map name="OCN2ATM_FMAPNAME">/glade/work/brianpm/VRM/aquatrbelt_ne30_ne120/ne0np4.aquatrbelt.001.ne30x4/ne0np4.aquatrbelt.001.ne30x4/maps/map_tx0.1v2_TO_ne0np4.aquatrbelt.001.ne30x4_aave.20201209.nc</map>
+ <map name="OCN2ATM_SMAPNAME">/glade/work/brianpm/VRM/aquatrbelt_ne30_ne120/ne0np4.aquatrbelt.001.ne30x4/ne0np4.aquatrbelt.001.ne30x4/maps/map_tx0.1v2_TO_ne0np4.aquatrbelt.001.ne30x4_aave.20201209.nc</map>
+</gridmap>
+<gridmap lnd_grid="ne0np4.aquatrbelt.001.ne30x4" glc_grid="gland4" >
+ <map name="LND2GLC_FMAPNAME">/glade/work/brianpm/VRM/aquatrbelt_ne30_ne120/ne0np4.aquatrbelt.001.ne30x4/ne0np4.aquatrbelt.001.ne30x4/maps/map_ne0np4.aquatrbelt.001.ne30x4_TO_gland4km_aave.20201209.nc</map>
+ <map name="LND2GLC_SMAPNAME">/glade/work/brianpm/VRM/aquatrbelt_ne30_ne120/ne0np4.aquatrbelt.001.ne30x4/ne0np4.aquatrbelt.001.ne30x4/maps/map_ne0np4.aquatrbelt.001.ne30x4_TO_gland4km_blin.20201209.nc</map>
+ <map name="GLC2LND_FMAPNAME">/glade/work/brianpm/VRM/aquatrbelt_ne30_ne120/ne0np4.aquatrbelt.001.ne30x4/ne0np4.aquatrbelt.001.ne30x4/maps/map_gland4km_TO_ne0np4.aquatrbelt.001.ne30x4_aave.20201209.nc</map>
+ <map name="GLC2LND_SMAPNAME">/glade/work/brianpm/VRM/aquatrbelt_ne30_ne120/ne0np4.aquatrbelt.001.ne30x4/ne0np4.aquatrbelt.001.ne30x4/maps/map_gland4km_TO_ne0np4.aquatrbelt.001.ne30x4_aave.20201209.nc</map>
+</gridmap>
+<gridmap lnd_grid="ne0np4.aquatrbelt.001.ne30x4" rof_grid="r05">
+ <map name="LND2ROF_FMAPNAME">/glade/work/brianpm/VRM/aquatrbelt_ne30_ne120/ne0np4.aquatrbelt.001.ne30x4/ne0np4.aquatrbelt.001.ne30x4/maps/map_ne0np4.aquatrbelt.001.ne30x4_TO_r05_aave.20201209.nc</map>
+ <map name="ROF2LND_FMAPNAME">/glade/work/brianpm/VRM/aquatrbelt_ne30_ne120/ne0np4.aquatrbelt.001.ne30x4/ne0np4.aquatrbelt.001.ne30x4/maps/map_r05_TO_ne0np4.aquatrbelt.001.ne30x4_aave.20201209.nc</map>
+</gridmap>
+<gridmap atm_grid="ne0np4.aquatrbelt.001.ne30x4" wav_grid="ww3a">
+ <map name="ATM2WAV_SMAPNAME">/glade/work/brianpm/VRM/aquatrbelt_ne30_ne120/ne0np4.aquatrbelt.001.ne30x4/ne0np4.aquatrbelt.001.ne30x4/maps/map_ne0np4.aquatrbelt.001.ne30
+x4_TO_ww3a_blin.20201209.nc</map>
+</gridmap>
+
+Third in the file cime/src/drivers/mct/cime_config/config_component_cesm.xml
+
+I added an entry into ATM_NCPL, so it starts like this:
+<entry id="ATM_NCPL">
+ <type>integer</type>
+ <default_value>48</default_value>
+ <values match="last">
+ <value compset=".+" grid="a%ne0np4.aquatrbelt.001.ne30x4">144</value>
+
+*Note: I don’t remember what this value means, and I’m not sure if it needs to change for another grid. I can try to figure it out by retracing the steps to make the grid. 
+
+
+Finally, in CAM, I added the grid to bld/config_files/horiz_grid.xml:
+<horiz_grid dyn="se" hgrid="ne0np4.aquatrbelt.001.ne30x4" ncol="219890" csne="0" csnp="4" npg="0" />
+
+
+I don’t think the tag will matter. I’d especially guess that things should go smoothly if we use a version that has the CONUS regional-refined compset, since the settings will be similar. 
+
+Hi Nan,
+
+I just wanted to let you know that over yesterday and today I have worked through Patrick’s instructions and generated all the other kinds of files that might be needed for TRBELT. Since we are using aquaplanet, most of them won’t matter, but I think a few of them will be needed (initial conditions etc).
+
+The files are all under this directory:
+/glade/work/brianpm/VRM/ne0np4.trbelt.ne30x8
+
+The instructions that I have followed to generate all the grid information is from Patrick’s repo:
+https://github.com/ESMCI/Community_Mesh_Generation_Toolkit
+Specifically this pdf: https://github.com/ESMCI/Community_Mesh_Generation_Toolkit/blob/master/VRM_tools/Docs/VRM_Grids_For_CAMSE.pdf
+
+
+Let me know if you run into any trouble.
+
+
