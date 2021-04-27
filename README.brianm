@@ -104,23 +104,23 @@ I added an entry into ATM_NCPL, so it starts like this:
  <values match="last">
  <value compset=".+" grid="a%ne0np4.aquatrbelt.001.ne30x4">144</value>
 
-*Note: I don’t remember what this value means, and I’m not sure if it needs to change for another grid. I can try to figure it out by retracing the steps to make the grid. 
+*Note: I dont remember what this value means, and Im not sure if it needs to change for another grid. I can try to figure it out by retracing the steps to make the grid. 
 
 
 Finally, in CAM, I added the grid to bld/config_files/horiz_grid.xml:
 <horiz_grid dyn="se" hgrid="ne0np4.aquatrbelt.001.ne30x4" ncol="219890" csne="0" csnp="4" npg="0" />
 
 
-I don’t think the tag will matter. I’d especially guess that things should go smoothly if we use a version that has the CONUS regional-refined compset, since the settings will be similar. 
+I dont think the tag will matter. Id especially guess that things should go smoothly if we use a version that has the CONUS regional-refined compset, since the settings will be similar. 
 
 Hi Nan,
 
-I just wanted to let you know that over yesterday and today I have worked through Patrick’s instructions and generated all the other kinds of files that might be needed for TRBELT. Since we are using aquaplanet, most of them won’t matter, but I think a few of them will be needed (initial conditions etc).
+I just wanted to let you know that over yesterday and today I have worked through Patricks instructions and generated all the other kinds of files that might be needed for TRBELT. Since we are using aquaplanet, most of them wont matter, but I think a few of them will be needed (initial conditions etc).
 
 The files are all under this directory:
 /glade/work/brianpm/VRM/ne0np4.trbelt.ne30x8
 
-The instructions that I have followed to generate all the grid information is from Patrick’s repo:
+The instructions that I have followed to generate all the grid information is from Patricks repo:
 https://github.com/ESMCI/Community_Mesh_Generation_Toolkit
 Specifically this pdf: https://github.com/ESMCI/Community_Mesh_Generation_Toolkit/blob/master/VRM_tools/Docs/VRM_Grids_For_CAMSE.pdf
 

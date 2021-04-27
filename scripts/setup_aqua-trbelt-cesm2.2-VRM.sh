@@ -7,6 +7,7 @@ set EXPERIMENT = trbelt
 # "mg17 = masked ocn.  Ignored for aquaplanet
 set RESOLN  = ne0np4.trbelt.ne30x8_mg17
 set TAG     = cesm2.1.4-rc.08
+set TAG     = cesm2.2-VRM
 set COMPSET = QPC6
 
 #set RESUBMIT = 1
@@ -21,9 +22,9 @@ set REST_N=1
 set mbr=1
 
 if ($mbr < 10) then
-	setenv CASE q.e21.${COMPSET}.${RESOLN}.${EXPERIMENT}.00${mbr}
+	setenv CASE q.e21.${COMPSET}.${RESOLN}.${EXPERIMENT}-${TAG}.00${mbr}
 else
-	setenv CASE q.e21.${COMPSET}.${RESOLN}.${EXPERIMENT}.0${mbr}
+	setenv CASE q.e21.${COMPSET}.${RESOLN}.${EXPERIMENT}-${TAG}.0${mbr}
 endif
 
 if ($MACHINE == cori-knl) then
