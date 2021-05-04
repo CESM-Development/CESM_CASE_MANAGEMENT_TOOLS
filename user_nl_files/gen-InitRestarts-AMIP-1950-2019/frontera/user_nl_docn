@@ -13,4 +13,4 @@
 ! As an example, to modify docn.streams.txt.prescribed, place the modified
 ! version in $CASEROOT with the name user_docn.streams.txt.prescribed
 !------------------------------------------------------------------------
- domainfile = "/work/02503/edwardsj/CESM/inputdata/share/domains/domain.ocn.ne120np4_tx0.1v2.191122.nc"
+ domainfile = "/work2/02503/edwardsj/CESM/inputdata/share/domains/domain.ocn.ne120np4_tx0.1v2.191122.nc"
