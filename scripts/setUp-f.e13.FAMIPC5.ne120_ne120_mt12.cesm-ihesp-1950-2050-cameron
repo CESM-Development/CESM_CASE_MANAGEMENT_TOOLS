@@ -17,7 +17,7 @@ setenv CASE f.e13.${COMPSET}.${RESOLN}.cesm-ihesp-1950-2050.00${mbr}
 if ($MACHINE == frontera) then
 	set PATH    = $STOCKYARD2
         set RUNDIR  = /scratch1/06091/nanr/$CASE/run
-	setenv CROOT     $WORK2/cases/cesm13/$CASE
+	setenv CROOT     $WORK2/cases/cesm13/
         set IHESPTOOLS = $WORK2/CESM_tools/ihesp-tools/
 else
         set PATH    = /glade/work/nanr/
@@ -79,19 +79,17 @@ endif
  ./xmlchange SSTICE_YEAR_START=1950
  ./xmlchange SSTICE_YEAR_END=2050
 
- ./xmlchange RUN_REFDIR=cesm2_init
+ ./xmlchange RUN_REFDIR=ccsm4_init
  ./xmlchange GET_REFCASE=FALSE
 
  if (${MACHINE} == frontera) then
  	./xmlchange SSTICE_GRID_FILENAME=/work2/06091/nanr/frontera/SST-highres/domain.ocn.0.25x0.25_mask.181109.nc
-	cp /work2/02503/edwardsj/CESM/inputdata/cesm2_init/f.e13.FAMIPC5.ne120_ne120_mt12.cesm-ihesp-1950-2050.001/1982-01-01/rpoint* $RUNDIR
-	ln -s /work2/02503/edwardsj/CESM/inputdata/cesm2_init/f.e13.FAMIPC5.ne120_ne120_mt12.cesm-ihesp-1950-2050.001/1982-01-01/f.e13.F* $RUNDIR
-	cp $IHESPTOOLS/user_nl_files/gen-InitRestarts-AMIP-1950-2019/frontera/* $CASEROOT/
+        cp /work2/02503/edwardsj/CESM/inputdata/ccsm4_init/B.E.13.B1950C5.ne120_t12.cesm-ihesp-1950cntl.011/0055-01-01/rpoint* $RUNDIR
+        ln -s /work2/02503/edwardsj/CESM/inputdata/ccsm4_init/B.E.13.B1950C5.ne120_t12.cesm-ihesp-1950cntl.011/0055-01-01/B.E.13.B1950C5.ne120_t* $RUNDIR
+	cp $IHESPTOOLS/user_nl_files/AMIP-1950-2050-highRes/frontera/* $CASEROOT/
  else
 	./xmlchange SSTICE_GRID_FILENAME=/glade/p/cesm/cseg/inputdata/atm/cam/ocnfrac/domain.ocn.0.25x0.25_mask.181109.nc
-	cp /glade/scratch/fredc/archive/f.e13.FAMIPC5.ne120_ne120_mt12.cesm-ihesp-1950-2050.001/rest/1982-01-01-00000/rpoint* $RUNDIR
-	ln -s /glade/scratch/fredc/archive/f.e13.FAMIPC5.ne120_ne120_mt12.cesm-ihesp-1950-2050.001/rest/1982-01-01-00000/f.e13.F* $RUNDIR
-	cp $IHESPTOOLS/user_nl_files/gen-InitRestarts-AMIP-1950-2019/cheyenne/* $CASEROOT/
+	cp $IHESPTOOLS/user_nl_files/AMIP-1950-2050-highRes/cheyenne/* $CASEROOT/
  endif
 
 ./case.setup
