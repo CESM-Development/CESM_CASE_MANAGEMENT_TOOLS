@@ -1,24 +1,26 @@
 #!/bin/csh -f
 ### set env variables
 
+set COMPSET = E1850C5CN
 set COMPSET = E1850C5
 set EXPERIMENT = capt-SOM
 set RESOLN  = ne120_t12
 set MACHINE = cheyenne
 set MACHINE = cori-knl
-set TAG     = sehires32
+set TAG     = cesm-ihesp-hires1.0.35
 
 set mbr = 1
-setenv CASE e.e13.${COMPSET}.${RESOLN}.${TAG}.${EXPERIMENT}.0${mbr}
+setenv CASE e.e13.${COMPSET}.${RESOLN}.${TAG}.${EXPERIMENT}.5-day
 
 if ($MACHINE == cori-knl) then
         set SCRATCH   = /global/cscratch1/sd
         set PATH      = /global/project/projectdirs/ccsm1/people/nanr/
 	set RUNDIR    = $SCRATCH/nanr/$CASE/run
-	set CASEROOT  = $PATH/cases/cesm1_3/$CASE
+	set CASEROOT  = $PATH/cases/cesm1_3/capt-SOM/$CASE
         set TOOLS     = $HOME/CESM_tools/
         set REFROOT   = /scratch1/06091/nanr/DP-HR/inputdata/cesm2_init/
-        setenv CESMROOT /global/project/projectdirs/ccsm1/people/nanr/cesm_tags/capt-cesm1_3_beta17_${TAG}
+        #setenv CESMROOT /global/project/projectdirs/ccsm1/people/nanr/cesm_tags/capt-cesm1_3_beta17_${TAG}
+        setenv CESMROOT /global/project/projectdirs/ccsm1/people/nanr/cesm_tags/cesm-ihesp-hires1.0.35
 else 
         set PATH      = /glade/work/nanr/
         set RUNDIR    = /glade/scratch/nanr/$CASE/run
@@ -30,38 +32,39 @@ endif
 
 set TOOLSROOT = $TOOLS/cesm1-capt/
 
-$CESMROOT/scripts/create_newcase -case $CASEROOT -res $RESOLN  -mach $MACHINE -compset $COMPSET
+$CESMROOT/cime/scripts/create_newcase --case $CASEROOT --res $RESOLN  --mach $MACHINE --compset $COMPSET --run-unsupported
 
 cd $CASEROOT
 
 ### modify case parameters
-./xmlchange -file env_run.xml -id RUN_TYPE -val 'startup'
-./xmlchange -file env_run.xml -id RUN_STARTDATE -val '2010-01-05'
-./xmlchange -file env_run.xml -id RUN_REFDATE -val '2010-01-05'
-./xmlchange -file env_run.xml -id STOP_OPTION -val ndays
-./xmlchange -file env_run.xml -id STOP_N -val 90
+./xmlchange RUN_TYPE=startup
+./xmlchange RUN_STARTDATE=2010-01-05
+./xmlchange RUN_REFDATE=2010-01-05
+./xmlchange STOP_OPTION=ndays
+./xmlchange STOP_N=5
 
 if ($MACHINE == "cori-knl") then
-         ./xmlchange DOCN_SOM_FILENAME=pop.frc.g.e21.GIAF.TL319_t13.5thCyc.ice.001_c20210325.casp.nc
-   	./xmlchange -file env_run.xml -id DIN_LOC_ROOT -val '/global/project/projectdirs/ccsm1/inputdata'
-   	./xmlchange -file env_run.xml -id DIN_LOC_ROOT_CLMFORC -val '/global/project/projectdirs/ccsm1/inputdata/atm/datm7'
-   	./xmlchange -file env_run.xml -id PIO_STRIDE -val 64
-   	./xmlchange -file env_run.xml -id PIO_TYPENAME -val 'pnetcdf'
-   	./xmlchange -file env_run.xml -id ICE_PIO_TYPENAME -val 'netcdf'
-   	./xmlchange -file env_run.xml   -id RUNDIR          -val ${RUNDIR}
-   	./xmlchange -file env_build.xml -id EXEROOT         -val '/global/cscratch1/sd/nanr/$CASE/bld'
+        ./xmlchange DOCN_SOM_FILENAME=pop.frc.g.e21.GIAF.TL319_t13.5thCyc.ice.001_c20210325.casp.nc
+   	./xmlchange DIN_LOC_ROOT=/global/project/projectdirs/ccsm1/inputdata
+   	./xmlchange DIN_LOC_ROOT_CLMFORC=/global/project/projectdirs/ccsm1/inputdata/atm/datm7
+   	./xmlchange PIO_STRIDE=64
+   	./xmlchange PIO_TYPENAME=pnetcdf
+   	./xmlchange ICE_PIO_TYPENAME=netcdf
+   	./xmlchange RUNDIR=${RUNDIR}
+   	./xmlchange EXEROOT=/global/cscratch1/sd/nanr/$CASE/bld
         ./xmlchange NTASKS_CPL=16256
+        ./xmlchange ROOTPE_CPL=1216
         ./xmlchange NTASKS_ATM=16256
         ./xmlchange NTASKS_LND=4096
         ./xmlchange NTASKS_ICE=8192
-        ./xmlchange NTASKS_OCN=16256
-        ./xmlchange NTASKS_ROF=1280
-        ./xmlchange NTASKS_GLC=1
-        ./xmlchange NTASKS_WAV=1
-        ./xmlchange ROOTPE_CPL=1216
         ./xmlchange ROOTPE_ICE=4096
+        ./xmlchange NTASKS_OCN=16256
         ./xmlchange ROOTPE_OCN=16256
-  ./xmlchange -file env_mach_pes.xml -id NTASKS_ROF -val '16256'
+        ./xmlchange NTASKS_ROF=1280
+        ./xmlchange NTASKS_GLC=64
+        ./xmlchange NTASKS_WAV=64
+        #./xmlchange JOB_WALLCLOCK_TIME=24:00:00 --subgroup case.run
+
 else
         ./xmlchange NTASKS_CPL=7200
         ./xmlchange NTASKS_ATM=7200
@@ -75,25 +78,25 @@ else
         ./xmlchange NTASKS_WAV=1
 endif
 
-./xmlchange -file env_run.xml   -id ATM_NCPL        -val 96
-./xmlchange -file env_run.xml   -id OCN_NCPL        -val 96
-./xmlchange -file env_run.xml   -id ROF_NCPL        -val 96
-./xmlchange -file env_run.xml   -id CAM_NAMELIST_OPTS    -val 'irad_always=-1'
+#./xmlchange -file env_run.xml   -id ATM_NCPL        -val 96
+#./xmlchange -file env_run.xml   -id OCN_NCPL        -val 96
+#./xmlchange -file env_run.xml   -id ROF_NCPL        -val 96
+#./xmlchange CAM_NAMELIST_OPTS='irad_always=-1'
 
-  ./xmlchange -file env_mach_pes.xml -id NTHRDS_GLC -val '1'
-  ./xmlchange -file env_mach_pes.xml -id NTHRDS_ROF -val '1'
-  ./xmlchange -file env_mach_pes.xml -id NTASKS_WAV -val '1'
-  ./xmlchange -file env_mach_pes.xml -id NTHRDS_WAV -val '1'
-
+ #./xmlchange -file env_mach_pes.xml -id NTHRDS_GLC -val '1'
+ #./xmlchange -file env_mach_pes.xml -id NTHRDS_ROF -val '1'
+ #./xmlchange -file env_mach_pes.xml -id NTASKS_WAV -val '1'
+ #./xmlchange -file env_mach_pes.xml -id NTHRDS_WAV -val '1'
+#
 
 ### call cesm_setup and create user namelists
-./cesm_setup
+./case.setup
 
 ###  Add new variables
 cp user_nl_cam user_nl_cam.output.`date +%m%d-%H%M`
 cat > user_nl_cam <<EOF
- CASE_DESC           = 'f.e13.FRCP85C5.ne120_t12.sehires32.capt.0${mbr}'
-!NCDATA              = '/global/cscratch1/sd/nanr/capt-prediction/atm/ERA5/regridded/hannay_ERA5_IC_ne120_L30/hannay_ERA5_IC_ne120_L30.cam2.i.2010-01-05-00000.nc'
+!CASE_DESC           = 'f.e13.FRCP85C5.ne120_t12.sehires32.capt.0${mbr}'
+ ncdata              = '/global/cscratch1/sd/nanr/capt-prediction/atm/ERA5/regridded/hannay_ERA5_IC_ne120_L30/hannay_ERA5_IC_ne120_L30.cam2.i.2010-01-05-00000.nc'
  dust_emis_fact      = 1.05D0
  zmconv_c0_lnd       =  0.0059D0
  zmconv_c0_ocn       =  0.0450D0
@@ -128,21 +131,21 @@ cat > user_nl_cam <<EOF
 
 EOF
 
-mv user_nl_clm user_nl_clm.`date +%m%d-%H%M`
-cat >> user_nl_clm << EOF
-! finidat = '/global/cscratch1/sd/nanr/capt-prediction/lnd/spinups/archive/i.e13.ICRUCN.ne120_ne120.2009-2016.001/lnd/rest/i.e13.ICRUCN.ne120_ne120.2009-2016.001.clm2.r.2010-01-05-00000.nc'
- HIST_MFILT              = 500
- HIST_EMPTY_HTAPES       = .true.
- HIST_FINCL1             = 'TSOI'
- HIST_NHTFRQ             = -24
+#mv user_nl_clm user_nl_clm.`date +%m%d-%H%M`
+#cat >> user_nl_clm << EOF
+ #finidat = /global/cscratch1/sd/nanr/capt-prediction/lnd/spinups/archive/i.e13.ICRUCN.ne120_ne120.2009-2016.001/lnd/rest/i.e13.ICRUCN.ne120_ne120.2009-2016.001.clm2.r.2010-01-05-00000.nc
+#
+#EOF
 
-EOF
-
-
+#mv user_nl_clm user_nl_clm.`date +%m%d-%H%M`
+#cat >> user_nl_clm << EOF
+ #finidat_rtm = '/global/cscratch1/sd/nanr/capt-prediction/lnd/spinups/archive/i.e13.ICRUCN.ne120_ne120.2009-2016.001/rof/rest/i.e13.ICRUCN.ne120_ne120.2009-2016.001.rtm.r.2010-01-05-00000.nc'
+#EOF
+#
 
 
 if ($MACHINE == cheyenne) then
-   qcmd -- ./*.build
+   qcmd -- ./case.build
 else
-   ./*.build
+   ./case.build
 endif
