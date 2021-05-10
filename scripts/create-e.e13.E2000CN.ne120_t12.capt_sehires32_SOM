@@ -1,16 +1,17 @@
 #!/bin/csh -f
 ### set env variables
 
-set COMPSET = FRCP85C5		
-set RESOLN  = ne120_ne120
+set COMPSET = E2000CN
+set RESOLN  = ne120_mt12
 set MACHINE = cori-knl
 set TAG     = sehires32
+set ME      = nanr
 setenv CESMROOT /global/project/projectdirs/ccsm1/people/nanr/cesm_tags/capt-cesm1_3_beta17_${TAG}
 
-set mbr = 2
+set mbr = 1
 setenv CASE f.e13.${COMPSET}.${RESOLN}.${TAG}.capt.0${mbr}
-setenv RUNDIR   /global/cscratch1/sd/nanr/$CASE
-setenv CASEROOT /global/project/projectdirs/ccsm1/people/nanr/cases/cesm1_3/$CASE
+setenv RUNDIR   /global/cscratch1/sd/$ME/$CASE
+setenv CASEROOT /global/project/projectdirs/ccsm1/people/$ME/cases/cesm1_3/$CASE
 
 $CESMROOT/scripts/create_newcase -case $CASEROOT -res $RESOLN  -mach $MACHINE -compset $COMPSET 
 
@@ -31,13 +32,8 @@ cd $CASEROOT
 ./xmlchange -file env_run.xml   -id ATM_NCPL        -val 96
 ./xmlchange -file env_run.xml   -id OCN_NCPL        -val 96
 ./xmlchange -file env_run.xml   -id ROF_NCPL        -val 96
-./xmlchange -file env_run.xml   -id RUNDIR          -val '/global/cscratch1/sd/nanr/$CASE/run'
+./xmlchange -file env_run.xml   -id RUNDIR          -val '/global/cscratch1/sd/$ME/$CASE/run'
 ./xmlchange -file env_run.xml   -id CAM_NAMELIST_OPTS    -val 'irad_always=-1'
-./xmlchange -file env_run.xml   -id SSTICE_DATA_FILENAME -val '/global/project/projectdirs/ccsm1/people/nanr/capt-prediction/sst/sst_NOAA_0.25deg_Blended_Analysis_daily_mean.2009-2017.nc'
-./xmlchange -file env_run.xml   -id SSTICE_GRID_FILENAME -val '/global/project/projectdirs/ccsm1/people/nanr/capt-prediction/sst/domain.ocn.0.25x0.25.181109.nc'
-./xmlchange -file env_run.xml   -id SSTICE_YEAR_ALIGN    -val '2009'
-./xmlchange -file env_run.xml   -id SSTICE_YEAR_START    -val '2009'
-./xmlchange -file env_run.xml   -id SSTICE_YEAR_END      -val '2017'
 ./xmlchange -file env_build.xml -id EXEROOT         -val '/global/cscratch1/sd/nanr/$CASE/bld'
 
   ./xmlchange -file env_mach_pes.xml -id NTASKS_ATM -val '16256'
