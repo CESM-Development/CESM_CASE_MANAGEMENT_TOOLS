@@ -1,0 +1,20 @@
+Not sure what notes you are looking for wrt CAPT, but here are a few things I dug up:
+
+https://www.cgd.ucar.edu/cms/olson/CAPT/CAPT_analyses.html
+
+https://www.cgd.ucar.edu/cms/olson/CAPT/CAPT_runs.html
+
+These and a bunch of namelist files are on CGD systems at: /web/web-data/cms/olson/CAPT
+
+There are also a lot files in /home/olson/fs <— This is probably where you should go hunting around. I don’t immediately see anything that looks like notes, but a lot of the CAPT scripts (both spinup and forecast).
+
+
+/glade/p/cgd/ccr/people/olson/analyses/atm/ERA5/regridded/hannay_ERA5_IC_ne120_L30/
+
+/glade/p/cgd/ccr/people/olson/spinups/lnd/archive/i.e13.ICRUCN.ne120_ne120.2009-2016.001/rof/rest
+
+
+ERA5/regridded/hannay_ERA5_IC_ne120_L30/hannay_ERA5_IC_ne120_L30.cam2.i.2010-01-05-00000.nc
+i.e13.ICRUCN.ne120_ne120.2009-2016.001/lnd/rest/i.e13.ICRUCN.ne120_ne120.2009-2016.001.clm2.r.2010-01-05-00000.nc
+
+Archived: /glade/campaign/cgd/ccr/nanr/CAPT/

@@ -1,0 +1,8 @@
+tx1v2 has Caspian
+tx1v3 no Caspian
+
+My SOM was created from a tx1v3 set of forcing data so no Caspian.  If you are comparing to tx1v2 data maybe its best just to mask out the Caspian when comparing since adding the Caspian to this file is going to be a kluge anyway since it won't be consistent with the rest of the forcing that we are using.
+
+I saw that the filename had a weird character ('^') and I renamed it. 
+
+/glade/scratch/jet/pop.frc.g.e21.GIAF.TL319_t13.5thCyc.ice.001_c20210325.nc

@@ -1,0 +1,15 @@
+Here are the 2 directories that need to be moved over to NERSC for the ne120 AMIP runs:
+
+/glade/p/cgd/amp/olson/analyses/atm/ERA5/regridded/hannay_ERA5_IC_ne120_L30
+
+/glade/p/cgd/amp/olson/spinups/lnd/archive/i.e13.ICRUCN.ne120_ne120.2009-2016.001/lnd/rest
+
+
+topaz:
+~olson/fs
+Data:
+/project/amp02/olson/regridded_analyses
+
+cheyenne:
+/glade/work/brianpm/OLSON
+

@@ -1,0 +1,73 @@
+Nan and John,
+Below is the set of instructions I sent to Nan. I hope this helps.
+------
+
+As a reference, I am taking a SOM run that I did before in. The case directory is: 
+/glade/p/cesmdata/cseg/runs/cesm2_0/e.e20.E1850.f09_g17.4xco2.297_revert125_alpha7_t1
+NB Some of the directories relative to this run have been scrubbed because I did this a while ago but the case directory is still there. 
+
+This was a CESM2 type run, but it should be similar for CESM1
+
+There are 2 steps:
+- compute qfluxes from a coupled run (there are scripts in CESM to do that) 
+- run the SOM (this is similar to any CESM run).  
+
+###
+### Step 1: compute qfluxes from a coupled run
+###
+
+## You compute the qfluxes  with 2 scripts: pop_frc.csh  and  pop_frc_mlt.ncl
+## Look for a directory called pop_som_frc in your tag
+## For instance for cesm2.0.0, these scripts are in:  cesm2.0.0/cime/src/components/data_comps/docn/tools/pop_som_frc/
+## The directory pop_som_frc moved around over the years so it might be a different location in your tag but the names should be the same. 
+
+
+## You need to download the *pop.h.* from your coupled run. (I didn't download the files here).
+## I like to use 50 years to capture sea-ice variability but I assume you can use less   
+## I am going to assume the *pop.h.* are in the directory
+/glade/scratch/hannay/som/b.e20.B1850.f09_g17.pi_control.all.297_revert125_alpha7_t1/ocn/hist
+
+## edit pop_frc.csh
+
+setenv CASE b.e20.B1850.f09_g17.pi_control.all.297_revert125_alpha7_t1  => your case directory
+set BEGYR = 50   => first year
+set ENDYR = 99  = last year
+set SCRIPT_HOME = cesm2.0.0/cime/src/components/data_comps/docn/tools/pop_som_frc/  => where your script is
+setenv WKDIR /glade/scratch/hannay/som/b.e20.B1850.f09_g17.pi_control.all.297_revert125_alpha7_t1/ocn/hist   => where the ocean files pop.h.
+
+## run script
+./pop_frc.csh > pop_frc.out
+
+=> This should create the file
+/glade/scratch/hannay/som/b.e20.B1850.f09_g17.pi_control.all.297_revert125_alpha7_t1/ocn/hist/b.e20.B1850.f09_g17.pi_control.all.297_revert125_alpha7_t1.pop.h.50-99.MAC.nc
+
+## edit  pop_frc_mlt.ncl
+
+# Change
+case = "b.e20.B1850.f09_g17.pi_control.all.297_revert125_alpha7_t1"
+popmac = "/glade/scratch/hannay/som/b.e20.B1850.f09_g17.pi_control.all.297_revert125_alpha7_t1/ocn/hist/b.e20.B1850.f09_g17.pi_control.all.297_revert125_alpha7_t1.pop.h.50-99.MAC.nc"
+f3 = addfile("/glade/p/cesmdata/cseg/inputdata/share/domains/domain.ocn.gx1v7.151008.nc","r")    => The ocean domain might be different for your case.
+
+# run script
+ncl pop_frc_mlt.ncl
+
+=> This should create the file
+oceanmixed_ice.nc
+
+# You may want to rename this file. In my case I rename it:
+oceanmixed_ice.nc => pop_frc.b.e20.B1850.f09_g17.pi_control.all.297_revert125_alpha7_t1.20190405.nc
+
+####
+#### Step 2: Run the SOM
+####
+
+I used the compset: 1850_CAM60_CLM50%BGC-CROP_CICE_DOCN%SOM_MOSART_CISM2%NOEVOLVE_SWAV
+There might have a compset already for your tag. Looks for something like: E1850. Otherwise use a long name similar to that. 
+
+
+cd /glade/work/hannay/cesm_tags/cesm2.0.0/cime/scripts
+./create_newcase --case /glade/p/cesmdata/cseg/runs/cesm2_0/e.e20.E1850.f09_g17.4xco2.297_revert125_alpha7_t1  --compset 1850_CAM60_CLM50%BGC-CROP_CICE_DOCN%SOM_MOSART_CISM2%NOEVOLVE_SWAV --res f09_g17 --project CESM0005 --run-unsupported
+
+You will need to change the DOCN_SOM_FILENAME to use the qfluxes created in the previous step:
+./xmlchange DOCN_SOM_FILENAME=pop_frc.b.e20.B1850.f09_g17.pi_control.all.297_revert125_alpha7_t1.20190405.nc
+
