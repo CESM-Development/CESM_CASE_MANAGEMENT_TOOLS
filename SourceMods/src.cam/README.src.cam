@@ -1,0 +1,7 @@
+Here are the files "cam_diagnostics.F90" and "interpolate_data.F90" that
+contain the "IVT" addition, Julie's mods for extrapolating Z and T,  and
+all the additional addflds/outflds needed to accommodate our fincls.
+
+/glade/u/home/olson/forNanrJulie
+
+Adding to CAPT-tag.
