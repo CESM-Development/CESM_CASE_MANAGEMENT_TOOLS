@@ -1,7 +1,6 @@
 #!/bin/csh -f
 ### set env variables
 
-#setenv CESMROOT ~cmip6/cesm_tags/release-cesm2.1.1/
 setenv CESMROOT /glade/work/nanr/cesm_tags/cesm2.1.4-rc.08
 setenv CESM_TOOLS /glade/work/nanr/cesm_tags/CASE_tools/cesm2-co2-aixue/
 
@@ -24,6 +23,9 @@ cd $CASEROOT
 
 ./xmlchange RUN_REFCASE=$REFCASE
 ./xmlchange RUN_REFDATE=$REFDATE
+./xmlchange STOP_N=3
+./xmlchange STOP_OPTION=nyears
+./xmlchange RESUBMIT=49
 
 ./xmlchange NTASKS_ICE=36
 ./xmlchange NTASKS_LND=504
