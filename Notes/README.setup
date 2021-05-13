@@ -1,0 +1,19 @@
+ 1%CO2 increase to year 150, then keep the CO2 concentration constant at 4xCO2 level (280*4 or 285*4 or 4 times of whatever the PI CO2 level is) 
+for 300 years, then the CO2 will ramp down by 1% per year until it is at PI level. For this experiment, I would like to know whether it will be 
+easier to predefine the CO2 time series in a file as the 20C simulation or set this experiment as 1%CO2 run for the first 150 years, then do the 
+changes afterward. It seems to me that it will be easier to set this run as the 20C run with changes of CO2 only and keep every other forcing at 
+PI level and we can build a CO2 time series for this 600-year long simulation. Please let me know what your thoughts are.
+
+
+!! =============
+Hi Aixue - Perhaps we should discuss the plan for the simulation.  At the moment, I've set it up as a 1%CO2 run, but maybe it will be important to understand how you want to make changes at year 151, etc.  For example, do you want to branch the simulation, renaming it at the same time, or retain the casename for the entire run (which is more opaque and more difficult to track changes after the run is complete).
+
+
+!! =============
+Hi Nan,
+
+I think branch runs should be fine. You can branch the CO2 stabilizing at quadruple level run from the end of the 1%CO2 run, then branch the CO2 ramp down run from the CO2 stabilizing run:
+
+1%CO2 to quadrupling (150 years) -- branch at year 151 as CO2 stabilization run at CO2 quadruple level and run for 300 years, then branches the CO2 ramp-down run from the CO2 stabilizing run by 1% per year to the PI level (about 150 years). So the total length is 600 years.
+
+If you need more discussion, I can give you a call Wednesday next week.

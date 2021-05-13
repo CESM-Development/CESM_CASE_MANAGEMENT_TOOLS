@@ -18,10 +18,7 @@
 ! Set glc_do_dynglacier  with GLC_TWO_WAY_COUPLING               env variable
 !----------------------------------------------------------------------------------
 
-!----------------------------------------------------------------------------------
-! per Keith Oleson and Erik:  To fix the year 2100
-!----------------------------------------------------------------------------------
-stream_year_last_ndep = 2101
+use_init_interp = .true.
 
 !----------------------------------------------------------------------------------
 ! Settings from output_base
@@ -110,15 +107,15 @@ hist_fincl4 += 'PCT_CFT','CROPPROD1C:I'
 ! Settings from cmip6_carbon_isotopes
 !----------------------------------------------------------------------------------
 
-use_c13 = .false.
-use_c14 = .false.
-!use_c13_timeseries = .true.
-!use_c14_bombspike = .true.
+use_c13 = .true.
+use_c14 = .true.
+use_c13_timeseries = .true.
+use_c14_bombspike = .true.
 
 ! h0 stream (monthly average, gridcell-level)
-! hist_fexcl1 += 'C14_SOILC_vr'
+hist_fexcl1 += 'C14_SOILC_vr'
 ! h3 stream (yearly average, gridcell-level)
-! hist_fincl4 += 'C14_SOILC_vr'
+hist_fincl4 += 'C14_SOILC_vr'
 
 !----------------------------------------------------------------------------------
 ! Settings from cmip6_glaciers_virtual_antarctica
