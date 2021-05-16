@@ -1,0 +1,25 @@
+&clm_inparm
+ create_crop_landunit = .false.
+ dtime = 1800
+ finidat = 'b.e11.BRCP85C5CNBDRD.f09_g16.001.cam.r.2091-01-01-00000.nc'
+ fpftcon = '/glade/p/cesmdata/cseg/inputdata/lnd/clm2/pftdata/pft-physiology.c110425.nc'
+ fpftdyn = '/glade/p/cesmdata/cseg/inputdata/lnd/clm2/surfdata/surfdata.pftdyn_0.9x1.25_rcp8.5_simyr1850-2100_c121014.nc'
+ fsnowaging = '/glade/p/cesmdata/cseg/inputdata/lnd/clm2/snicardata/snicar_drdt_bst_fit_60_c070416.nc'
+ fsnowoptics = '/glade/p/cesmdata/cseg/inputdata/lnd/clm2/snicardata/snicar_optics_5bnd_c090915.nc'
+ fsurdat = '/glade/p/cesmdata/cseg/inputdata/lnd/clm2/surfdata/surfdata_0.9x1.25_simyr1850_c110921.nc'
+ hist_fincl2 = 'FSNO:A', 'H2OSNO:A', 'QRUNOFF:A', 'RAIN:A', 'SNOW:A', 'SOILWATER_10CM:A', 'TREFMNAV_U:A',
+         'TREFMNAV_R:A', 'TREFMXAV_U:A', 'TREFMXAV_R:A'
+ hist_mfilt = 1,365
+ hist_nhtfrq = 0,-24
+ maxpatch_glcmec = 0
+ nsegspc = 20
+ urban_hac = 'ON_WASTEHEAT'
+ urban_traffic = .false.
+/
+&ndepdyn_nml
+ model_year_align_ndep = 1850
+ ndepmapalgo = 'bilinear'
+ stream_fldfilename_ndep = '/glade/p/cesmdata/cseg/inputdata/lnd/clm2/ndepdata/fndep_clm_rcp8.5_simyr1849-2106_1.9x2.5_c100428.nc'
+ stream_year_first_ndep = 2090
+ stream_year_last_ndep = 2090
+/

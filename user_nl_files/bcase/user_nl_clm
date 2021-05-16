@@ -1,0 +1,14 @@
+fpftdyn                 = '//glade/p/cesmdata/cseg/inputdata/lnd/clm2/surfdata/surfdata.pftdyn_0.9x1.25_rcp8.5_simyr1850-2100_c130702.nc'
+!stream_fldfilename_ndep = '//glade/p/cesmdata/cseg/inputdata/lnd/clm2/ndepdata/fndep_clm_rcp8.5_simyr1849-2106_1.9x2.5_c100428.nc'
+!stream_year_last_ndep = 2100
+
+&ndepdyn_nml
+ model_year_align_ndep = 1850
+ ndepmapalgo = 'bilinear'
+ stream_fldfilename_ndep = '/glade/p/cesmdata/cseg/inputdata/lnd/clm2/ndepdata/fndep_clm_rcp8.5_simyr1849-2106_1.9x2.5_c100428.nc'
+ stream_year_first_ndep = 2090
+ stream_year_last_ndep = 2090
+/
+
+
+

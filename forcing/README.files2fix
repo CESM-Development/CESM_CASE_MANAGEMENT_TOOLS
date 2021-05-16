@@ -1,0 +1,87 @@
+ ext_frc_specifier              = 'SO2         -> /glade/p/cesmdata/cseg/inputdata/atm/cam/chem/trop_mozart_aero/emis/RCP85_mam3_so2_elev_2000-2300_c20120214.nc',
+  'bc_a1       -> /glade/p/cesmdata/cseg/inputdata/atm/cam/chem/trop_mozart_aero/emis/RCP85_mam3_bc_elev_2000-2300_c20120214.nc',
+  'num_a1      -> /glade/p/cesmdata/cseg/inputdata/atm/cam/chem/trop_mozart_aero/emis/RCP85_mam3_num_a1_elev_2000-2300_c20120214.nc',
+  'num_a2      -> /glade/p/cesmdata/cseg/inputdata/atm/cam/chem/trop_mozart_aero/emis/RCP85_mam3_num_a2_elev_2000-2300_c20120214.nc',
+  'pom_a1      -> /glade/p/cesmdata/cseg/inputdata/atm/cam/chem/trop_mozart_aero/emis/RCP85_mam3_oc_elev_2000-2300_c20120214.nc',
+  'so4_a1      -> /glade/p/cesmdata/cseg/inputdata/atm/cam/chem/trop_mozart_aero/emis/RCP85_mam3_so4_a1_elev_2000-2300_c20120214.nc',
+  'so4_a2      -> /glade/p/cesmdata/cseg/inputdata/atm/cam/chem/trop_mozart_aero/emis/RCP85_mam3_so4_a2_elev_2000-2300_c20120214.nc'
+ ext_frc_type           = 'INTERP_MISSING_MONTHS'
+ fstrat_list            = ' '
+ rsf_file               = '/glade/p/cesmdata/cseg/inputdata/atm/waccm/phot/RSF_GT200nm_v3.0_c080416.nc'
+ season_wes_file                = '/glade/p/cesmdata/cseg/inputdata/atm/cam/chem/trop_mozart/dvel/season_wes.nc'
+ srf_emis_specifier             = 'DMS       -> /glade/p/cesmdata/cseg/inputdata/atm/cam/chem/trop_mozart_aero/emis/aerocom_mam3_dms_surf_1849-2300_c120214.nc',
+  'SO2       -> /glade/p/cesmdata/cseg/inputdata/atm/cam/chem/trop_mozart_aero/emis/RCP85_mam3_so2_surf_2000-2300_c20120214.nc',
+  'SOAG      -> /glade/p/cesmdata/cseg/inputdata/atm/cam/chem/trop_mozart_aero/emis/RCP85_soag_1.5_surf_2000-2300_c20120214.nc',
+  'bc_a1     -> /glade/p/cesmdata/cseg/inputdata/atm/cam/chem/trop_mozart_aero/emis/RCP85_mam3_bc_surf_2000-2300_c20120214.nc',
+  'num_a1    -> /glade/p/cesmdata/cseg/inputdata/atm/cam/chem/trop_mozart_aero/emis/RCP85_mam3_num_a1_surf_2000-2300_c20120214.nc',
+  'num_a2    -> /glade/p/cesmdata/cseg/inputdata/atm/cam/chem/trop_mozart_aero/emis/RCP85_mam3_num_a2_surf_2000-2300_c20120214.nc',
+  'pom_a1    -> /glade/p/cesmdata/cseg/inputdata/atm/cam/chem/trop_mozart_aero/emis/RCP85_mam3_oc_surf_2000-2300_c20120214.nc',
+  'so4_a1    -> /glade/p/cesmdata/cseg/inputdata/atm/cam/chem/trop_mozart_aero/emis/RCP85_mam3_so4_a1_surf_2000-2300_c20120214.nc',
+  'so4_a2    -> /glade/p/cesmdata/cseg/inputdata/atm/cam/chem/trop_mozart_aero/emis/RCP85_mam3_so4_a2_surf_2000-2300_c20120214.nc'
+
+ prescribed_ozone_datapath              = '/glade/p/cesmdata/cseg/inputdata/atm/cam/ozone'
+ prescribed_ozone_file          = 'ozone_1.9x2.5_L66_2005-2101_c140407.nc'
+
+tracer_cnst_datapath           = '/glade/p/cesmdata/cseg/inputdata/atm/cam/chem/trop_mozart_aero/oxid'
+ tracer_cnst_file               = 'oxid_rcp85_v1_1.9x2.5_L26_1995-2105_c100202.nc'
+ tracer_cnst_filelist           = 'oxid_1.9x2.5_L26_clim_list.c090805.txt'
+
+/glade/p/cesmdata/cseg/inputdata/atm/cam/ggas/ghg_rcp85_1765-2500_c100203.nc
+    20900701,   // date(326)
+    20910701,   // date(327)
+    20920701,   // date(328)
+    20930701,   // date(329)
+    20940701,   // date(330)
+    20950701,   // date(331)
+/glade/p/cesm/cseg/inputdata/atm/cam/ggas/co2flux_fossil_RCP85_2005-2100-monthly_0.9x1.25_c20101013.nc
+    20900115,   // date(1022)
+    20900214,   // date(1023)
+    20900315,   // date(1024)
+    20900415,   // date(1025)
+    20900515,   // date(1026)
+    20900615,   // date(1027)
+    20900715,   // date(1028)
+    20900815,   // date(1029)
+    20900915,   // date(1030)
+    20901015,   // date(1031)
+    20901115,   // date(1032)
+    20901215,   // date(1033)
+
+&prescribed_ozone_nl
+ prescribed_ozone_datapath              = '/glade/p/cesmdata/cseg/inputdata/share/extend/'
+ prescribed_ozone_file          = 'ozone_rcp85_v1_1.9x2.5_L26_1995-2505_c100726.nc'
+ prescribed_ozone_name          = 'O3'
+ prescribed_ozone_type          = 'INTERP_MISSING_MONTHS'
+/
+    20751215,   // date(132)
+    20850115,   // date(133)
+    20850215,   // date(134)
+    20850315,   // date(135)
+    20850415,   // date(136)
+    20850515,   // date(137)
+    20850615,   // date(138)
+    20850715,   // date(139)
+    20850815,   // date(140)
+    20850915,   // date(141)
+    20851015,   // date(142)
+    20851115,   // date(143)
+    20851215,   // date(144)
+    20950115,   // date(145)
+    20950215,   // date(146)
+    20950315,   // date(147)
+    20950415,   // date(148)
+    20950515,   // date(149)
+    20950615,   // date(150)
+    20950715,   // date(151)
+    20950815,   // date(152)
+    20950915,   // date(153)
+    20951015,   // date(154)
+    20951115,   // date(155)
+    20951215,   // date(156)
+
+&prescribed_volcaero_nl
+ prescribed_volcaero_datapath           = '/glade/p/cesmdata/cseg/inputdata/atm/cam/volc'
+ prescribed_volcaero_file               = 'CCSM4_volcanic_1850-2008_prototype1.nc'
+ prescribed_volcaero_fixed_ymd          = 20060101
+ prescribed_volcaero_type               = 'FIXED'
+

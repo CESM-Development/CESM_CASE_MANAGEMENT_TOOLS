@@ -1,0 +1,101 @@
+! Users should add all user specific namelist changes below in the form of
+! namelist_var = new_namelist_value
+! These are specific changes to CAM for the LENS experiment
+ inithist='MONTHLY'
+ cldfrc_rhminl = 0.8925D0
+ nhtfrq=0,-24,-6
+ mfilt=1,365,1460
+ empty_htapes=.true.
+
+ fincl1='ABSORB:A','ANRAIN:A','ANSNOW:A','AODDUST1:A','AODDUST2:A','AODDUST3:A',
+  'AODVIS:A','AQRAIN:A','AQSNOW:A','AREI:A','AREL:A','AWNC:A','AWNI:A','CDNUMC:A',
+  'CLDHGH:A','CLDICE:A','CLDLIQ:A','CLDLOW:A','CLDMED:A','CLDTOT:A','CLOUD:A',
+  'DCQ:A','DTCOND:A','DTV:A','FICE:A','FLDS:A','FLNS:A','FLNSC:A','FLNT:A',
+  'FLNTC:A','FLUT:A','FLUTC:A','FREQI:A','FREQL:A','FREQR:A','FREQS:A','FSDS:A',
+  'FSDSC:A','FSNS:A','FSNSC:A','FSNT:A','FSNTC:A','FSNTOA:A','FSNTOAC:A',
+  'ICEFRAC:A','ICIMR:A','ICWMR:A','IWC:A','LANDFRAC:A','LHFLX:A','LWCF:A',
+  'NUMICE:A','NUMLIQ:A','OCNFRAC:A','OMEGA:A','OMEGAT:A','PBLH:A','PRECC:A',
+  'PRECL:A','PRECSC:A','PRECSL:A','PS:A','PSL:A','Q:A','QFLX:A','QRL:A','QRS:A',
+  'RELHUM:A','SHFLX:A','SNOWHICE:A','SNOWHLND:A','SOLIN:A','SRFRAD:A','SWCF:A',
+  'T:A','TAUX:A','TAUY:A','TGCLDIWP:A','TGCLDLWP:A','TMQ:A','TREFHT:A','TS:A',
+  'U:A','U10:A','UU:A','V:A','VD01:A','VQ:A','VT:A','VU:A','VV:A','WSUB:A','Z3:A',
+  'CCN3:A','UQ:A','WGUSTD:X','WSPDSRFMX:A','TSMX:X','TSMN:M','TREFHTMX:X','TREFHTMN:M',
+  'bc_a1_SRF:A','dst_a1_SRF:A','dst_a3_SRF:A','pom_a1_SRF:A','so4_a1_SRF:A',
+  'so4_a2_SRF:A','so4_a3_SRF:A','soa_a1_SRF:A','soa_a2_SRF:A','BURDENSO4:A',
+  'BURDENBC:A','BURDENPOM:A','BURDENSOA:A','BURDENDUST:A','BURDENSEASALT:A',
+  'AODABS:A','EXTINCT:A','PHIS:A','TROP_P:A','TROP_T:A','TOT_CLD_VISTAU:A',
+  'ICLDIWP:A','ICLDTWP:A','CO2:A','CO2_LND:A','CO2_OCN:A','SFCO2:A','SFCO2_LND:A',
+  'SFCO2_OCN:A','TMCO2:A','TMCO2_LND:A','TMCO2_OCN:A''CO2_FFF:A', 'SFCO2_FFF:A', 'TMCO2_FFF:A'
+
+fincl2='PSL:A','TS:A','TREFHT:A','TREFHTMN:M','TREFHTMX:X','PRECT:A','PRECL:A',
+  'PRECSL:A','PRECSC:A','PRECTMX:A','TMQ:A','Z500:A','T500:A','Q500:A','U500:A',
+  'V500:A','WSPDSRFAV:A','U200:A','V200:A','T200:A','Q200:A','U850:A','V850:A',
+  'T850:A','Q850:A','UBOT:A','VBOT:A','QBOT:A','Z050:A','T010:A','U010:A',
+  'FSNTOA:A','FLUT:A','LHFLX:A','SHFLX:A','FSNS:A','FLNS:A','FSNSC:A','FLNSC:A',
+  'TAUX:A','TAUY:A','ICEFRAC:A','bc_a1_SRF:X','dst_a1_SRF:X','dst_a3_SRF:X','pom_a1_SRF:X',
+  'so4_a1_SRF:X','so4_a2_SRF:X','so4_a3_SRF:X','soa_a1_SRF:X','soa_a2_SRF:X'
+
+fincl3='PSL:I','T400:I','U850:I','UBOT:I','V850:I','VBOT:I','Z300:I','Z500:I'
+
+
+ ext_frc_cycle_yr               =  2090
+ ext_frc_specifier              = 'SO2         -> /glade/scratch/nanr/2090/RCP85_mam3_so2_elev_constant_2090_c210316.nc.nc',
+  'bc_a1       -> /glade/scratch/nanr/2090/RCP85_mam3_bc_elev_constant_2090_c210316.nc.nc',
+  'num_a1      -> /glade/scratch/nanr/2090/RCP85_mam3_num_a1_elev_constant_2090_c210316.nc.nc',
+  'num_a2      -> /glade/scratch/nanr/2090/RCP85_mam3_num_a2_elev_constant_2090_c210316.nc.nc',
+  'pom_a1      -> /glade/scratch/nanr/2090/RCP85_mam3_oc_elev_constant_2090_c210316.nc.nc',
+  'so4_a1      -> /glade/scratch/nanr/2090/RCP85_mam3_so4_a1_elev_constant_c210316.nc.nc',
+  'so4_a2      -> /glade/scratch/nanr/2090/RCP85_mam3_so4_a2_elev_constant_2090_c210316.nc.nc'
+
+
+
+ ext_frc_type           = 'CYCLICAL'
+ fstrat_list            = ' '
+ rsf_file               = '/glade/p/cesmdata/cseg/inputdata/atm/waccm/phot/RSF_GT200nm_v3.0_c080416.nc'
+ season_wes_file                = '/glade/p/cesmdata/cseg/inputdata/atm/cam/chem/trop_mozart/dvel/season_wes.nc'
+ srf_emis_cycle_yr              = 2090
+ srf_emis_specifier             = 
+  'SO2         -> /glade/scratch/nanr/2090/RCP85_mam3_so2_surf_constant_2090_c210316.nc.nc',
+  'SOAG        -> /glade/scratch/nanr/2090/RCP85_soag_1.5_surf_constant_2090_c210316.nc.nc',
+  'bc_a1       -> /glade/scratch/nanr/2090/RCP85_mam3_bc_surf_constant_2090_c210316.nc.nc',
+  'num_a2      -> /glade/scratch/nanr/2090/RCP85_mam3_num_a2_surf_constant_2090_c210316.nc.nc',
+  'pom_a1      -> /glade/scratch/nanr/2090/RCP85_mam3_oc_surf_constant_2090_c210316.nc.nc'
+
+'so4_a2      -> /glade/scratch/nanr/2090/RCP85_mam3_so4_a2_surf_constant_2090_c210316.nc.nc
+'DMS       -> /glade/p/cesmdata/cseg/inputdata/atm/cam/chem/trop_mozart_aero/emis/aerocom_mam3_dms_surf_1849-2300_c120214.nc',
+  'so4_a1    -> /glade/p/cesmdata/cseg/inputdata/atm/cam/chem/trop_mozart_aero/emis/RCP85_mam3_so4_a1_surf_2000-2300_c20120214.nc',
+  'num_a1    -> /glade/p/cesmdata/cseg/inputdata/atm/cam/chem/trop_mozart_aero/emis/RCP85_mam3_num_a1_surf_2000-2300_c20120214.nc',
+
+srf_emis_type          = 'CYCLICAL'
+
+ tracer_cnst_datapath           = '/glade/p/cesmdata/cseg/inputdata/atm/cam/chem/trop_mozart_aero/oxid'
+ tracer_cnst_file               = 'oxid_rcp85_v1_1.9x2.5_L26_1995-2105_c100202.nc'
+ tracer_cnst_filelist           = 'oxid_1.9x2.5_L26_clim_list.c090805.txt'
+ tracer_cnst_specifier          = 'O3','OH','NO3','HO2'
+ tracer_cnst_type               = 'CYCLICAL'
+ tracer_cnst_cycle_yr           = 2090
+
+&chem_surfvals_nl
+ bndtvghg               = '/glade/p/cesmdata/cseg/inputdata/atm/cam/ggas/ghg_rcp85_1765-2500_c100203.nc'
+ ch4vmr         = 3638.592e-9
+ co2vmr         = 844.8047e-6
+ f11vmr         = 973.9469e-12
+ f12vmr         = 196.1307
+ flbc_list              = ' '
+ n2ovmr         = 421.357e-9
+ scenario_ghg           = 'FIXED'
+/
+
+
+&prescribed_ozone_nl
+ prescribed_ozone_datapath              = '/glade/p/cesmdata/cseg/inputdata/atm/cam/ozone'
+ prescribed_ozone_file          = 'ozone_1.9x2.5_L66_2005-2101_c140407.nc'
+ prescribed_ozone_name          = 'O3'
+ prescribed_ozone_type          = '2095'
+/
+&prescribed_volcaero_nl
+ prescribed_volcaero_datapath           = '/glade/p/cesmdata/cseg/inputdata/atm/cam/volc'
+ prescribed_volcaero_file               = 'CCSM4_volcanic_1850-2008_prototype1.nc'
+ prescribed_volcaero_fixed_ymd          = 20060101
+ prescribed_volcaero_type               = 'FIXED'
+/

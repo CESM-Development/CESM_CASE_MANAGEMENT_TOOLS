@@ -1,0 +1,11 @@
+ncks -v date,CO2,N2O,CH4,f11,f12 -d time,325 /glade/p/cesmdata/cseg/inputdata/atm/cam/ggas/ghg_rcp85_1765-2500_c100203.nc
+
+  data:
+    CH4 = 3638.592 ;
+    CO2 = 844.8047 ;
+    N2O = 421.3573 ;
+    date = 20900701 ;
+    f11 = 973.9469 ;
+    f12 = 196.1307 ;
+    time = 118806 ;
+

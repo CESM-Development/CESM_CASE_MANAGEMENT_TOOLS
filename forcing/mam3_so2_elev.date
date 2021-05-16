@@ -1,0 +1,203 @@
+netcdf RCP85_mam3_so2_elev_2000-2300_c20120214 {
+dimensions:
+	lat = 96 ;
+	lon = 144 ;
+	altitude = 13 ;
+	altitude_int = 14 ;
+	time = UNLIMITED ; // (156 currently)
+variables:
+	float lat(lat) ;
+		lat:long_name = "latitude" ;
+		lat:units = "deg" ;
+	float lon(lon) ;
+		lon:long_name = "longitude" ;
+		lon:units = "deg" ;
+	float altitude(altitude) ;
+		altitude:long_name = "altitude midlevel" ;
+		altitude:units = "km" ;
+	float altitude_int(altitude_int) ;
+		altitude_int:long_name = "altitude interval" ;
+		altitude_int:units = "km" ;
+	int date(time) ;
+		date:long_name = "current date as 8 digit integer (YYYYMMDD)" ;
+	float emiss_ene(time, altitude, lat, lon) ;
+		emiss_ene:long_name = "SO2 energy emissions from file IPCC_emissions_RCP85_SO2_anthropogenic_2000_0.5x0.5_v1_21_12_2009.nc" ;
+		emiss_ene:units = "molecules/cm3/s" ;
+	float emiss_ind(time, altitude, lat, lon) ;
+		emiss_ind:long_name = "SO2 industry emissions from file IPCC_emissions_RCP85_SO2_anthropogenic_2000_0.5x0.5_v1_21_12_2009.nc" ;
+		emiss_ind:units = "molecules/cm3/s" ;
+	float forestfire(time, altitude, lat, lon) ;
+		forestfire:long_name = "SO2 forest fire emissions from file IPCC_emissions_RCP85_SO2_biomassburning_2000_0.5x0.5_v1_21_12_2009.nc" ;
+		forestfire:units = "molecules/cm3/s" ;
+	float grassfire(time, altitude, lat, lon) ;
+		grassfire:long_name = "SO2 grass fire emissions from file IPCC_emissions_RCP85_SO2_biomassburning_2000_0.5x0.5_v1_21_12_2009.nc" ;
+		grassfire:units = "molecules/cm3/s" ;
+	float contvolc(time, altitude, lat, lon) ;
+		contvolc:long_name = "SO2 volcanic elevated emissions from aerocom continuous_volc.nc" ;
+		contvolc:units = "molecules/cm3/s" ;
+
+// global attributes:
+		:comments = "IPCC emission files are kg-SO2/m2/s.  Conversion to molecules assumes 1 g-SO2 = 1/64 mol-SO2.  2.5 percent of the SO2 emissions are assumed to be primary sulfate.  Vertical profiles for forestfire and grassfire based on IPCC_emissions_RCP85_SO2_biomassburning_2000_0.5x0.5_v1_21_12_2009.nc.  Vertical profiles for energy and industry use AEROCOM 100-300 m emissions height.  Continuous volcanic emissions directly from continuous_volc.nc." ;
+		:history = "Tue Feb 14 10:25:24 2012: ncrcat RCP85_mam3_so2_elev_2000-2100_c20110913.nc last12_RCP85_mam3_so2_elev_2000-2100_c20110913.nc RCP85_mam3_so2_elev_2000-2300_c20120214.nc\n",
+			"Tue Sep 13 14:45:05 2011: ncrcat /data2/andrew/modal_input/rcpV6/2000/emisOut/emis_ar5_mam3_so2_elev_2000_c20110913.nc /data2/andrew/modal_input/rcpV6/2005/emisOut/emis_ar5_mam3_so2_elev_2005_c20110913.nc /data2/andrew/modal_input/rcpV6/2010/emisOut/emis_ar5_mam3_so2_elev_2010_c20110913.nc /data2/andrew/modal_input/rcpV6/2020/emisOut/emis_ar5_mam3_so2_elev_2020_c20110913.nc /data2/andrew/modal_input/rcpV6/2030/emisOut/emis_ar5_mam3_so2_elev_2030_c20110913.nc /data2/andrew/modal_input/rcpV6/2040/emisOut/emis_ar5_mam3_so2_elev_2040_c20110913.nc /data2/andrew/modal_input/rcpV6/2050/emisOut/emis_ar5_mam3_so2_elev_2050_c20110913.nc /data2/andrew/modal_input/rcpV6/2060/emisOut/emis_ar5_mam3_so2_elev_2060_c20110913.nc /data2/andrew/modal_input/rcpV6/2070/emisOut/emis_ar5_mam3_so2_elev_2070_c20110913.nc /data2/andrew/modal_input/rcpV6/2080/emisOut/emis_ar5_mam3_so2_elev_2080_c20110913.nc /data2/andrew/modal_input/rcpV6/2090/emisOut/emis_ar5_mam3_so2_elev_2090_c20110913.nc /data2/andrew/modal_input/rcpV6/2100/emisOut/emis_ar5_mam3_so2_elev_2100_c20110913.nc /data2/andrew/rcpV6/RCP85/RCP85_mam3_so2_elev_2000-2100_c20110913.nc\n",
+			"Created 2011/09/13 by Andrew Gettelman, NCAR from 2009/07/26 by R Easter, PNNL and script by C. Craig, NCAR" ;
+		:nco_openmp_thread_number = 1 ;
+data:
+
+ date = 20000115,   // date(1)
+    20000215,   // date(2)
+    20000315,   // date(3)
+    20000415,   // date(4)
+    20000515,   // date(5)
+    20000615,   // date(6)
+    20000715,   // date(7)
+    20000815,   // date(8)
+    20000915,   // date(9)
+    20001015,   // date(10)
+    20001115,   // date(11)
+    20001215,   // date(12)
+    20050115,   // date(13)
+    20050215,   // date(14)
+    20050315,   // date(15)
+    20050415,   // date(16)
+    20050515,   // date(17)
+    20050615,   // date(18)
+    20050715,   // date(19)
+    20050815,   // date(20)
+    20050915,   // date(21)
+    20051015,   // date(22)
+    20051115,   // date(23)
+    20051215,   // date(24)
+    20100115,   // date(25)
+    20100215,   // date(26)
+    20100315,   // date(27)
+    20100415,   // date(28)
+    20100515,   // date(29)
+    20100615,   // date(30)
+    20100715,   // date(31)
+    20100815,   // date(32)
+    20100915,   // date(33)
+    20101015,   // date(34)
+    20101115,   // date(35)
+    20101215,   // date(36)
+    20200115,   // date(37)
+    20200215,   // date(38)
+    20200315,   // date(39)
+    20200415,   // date(40)
+    20200515,   // date(41)
+    20200615,   // date(42)
+    20200715,   // date(43)
+    20200815,   // date(44)
+    20200915,   // date(45)
+    20201015,   // date(46)
+    20201115,   // date(47)
+    20201215,   // date(48)
+    20300115,   // date(49)
+    20300215,   // date(50)
+    20300315,   // date(51)
+    20300415,   // date(52)
+    20300515,   // date(53)
+    20300615,   // date(54)
+    20300715,   // date(55)
+    20300815,   // date(56)
+    20300915,   // date(57)
+    20301015,   // date(58)
+    20301115,   // date(59)
+    20301215,   // date(60)
+    20400115,   // date(61)
+    20400215,   // date(62)
+    20400315,   // date(63)
+    20400415,   // date(64)
+    20400515,   // date(65)
+    20400615,   // date(66)
+    20400715,   // date(67)
+    20400815,   // date(68)
+    20400915,   // date(69)
+    20401015,   // date(70)
+    20401115,   // date(71)
+    20401215,   // date(72)
+    20500115,   // date(73)
+    20500215,   // date(74)
+    20500315,   // date(75)
+    20500415,   // date(76)
+    20500515,   // date(77)
+    20500615,   // date(78)
+    20500715,   // date(79)
+    20500815,   // date(80)
+    20500915,   // date(81)
+    20501015,   // date(82)
+    20501115,   // date(83)
+    20501215,   // date(84)
+    20600115,   // date(85)
+    20600215,   // date(86)
+    20600315,   // date(87)
+    20600415,   // date(88)
+    20600515,   // date(89)
+    20600615,   // date(90)
+    20600715,   // date(91)
+    20600815,   // date(92)
+    20600915,   // date(93)
+    20601015,   // date(94)
+    20601115,   // date(95)
+    20601215,   // date(96)
+    20700115,   // date(97)
+    20700215,   // date(98)
+    20700315,   // date(99)
+    20700415,   // date(100)
+    20700515,   // date(101)
+    20700615,   // date(102)
+    20700715,   // date(103)
+    20700815,   // date(104)
+    20700915,   // date(105)
+    20701015,   // date(106)
+    20701115,   // date(107)
+    20701215,   // date(108)
+    20800115,   // date(109)
+    20800215,   // date(110)
+    20800315,   // date(111)
+    20800415,   // date(112)
+    20800515,   // date(113)
+    20800615,   // date(114)
+    20800715,   // date(115)
+    20800815,   // date(116)
+    20800915,   // date(117)
+    20801015,   // date(118)
+    20801115,   // date(119)
+    20801215,   // date(120)
+    20900115,   // date(121)
+    20900215,   // date(122)
+    20900315,   // date(123)
+    20900415,   // date(124)
+    20900515,   // date(125)
+    20900615,   // date(126)
+    20900715,   // date(127)
+    20900815,   // date(128)
+    20900915,   // date(129)
+    20901015,   // date(130)
+    20901115,   // date(131)
+    20901215,   // date(132)
+    21000115,   // date(133)
+    21000215,   // date(134)
+    21000315,   // date(135)
+    21000415,   // date(136)
+    21000515,   // date(137)
+    21000615,   // date(138)
+    21000715,   // date(139)
+    21000815,   // date(140)
+    21000915,   // date(141)
+    21001015,   // date(142)
+    21001115,   // date(143)
+    21001215,   // date(144)
+    23000115,   // date(145)
+    23000215,   // date(146)
+    23000315,   // date(147)
+    23000415,   // date(148)
+    23000515,   // date(149)
+    23000615,   // date(150)
+    23000715,   // date(151)
+    23000815,   // date(152)
+    23000915,   // date(153)
+    23001015,   // date(154)
+    23001115,   // date(155)
+    23001215;  // date(156)
+    }
