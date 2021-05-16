@@ -1,31 +1,26 @@
+Kay's Source:  /glade/work/kmcmonigal/cesm2.1.4-rc.08_decouple_ocn_B1850_f09_g17/Experiments/cesm2.1.4-rc.08_decouple_ocn_B1850_f09_g17/SourceMods
 
-Script path:		/glade/work/nanr/cesm_tags/CASE_tools/cesm2-ssp245/scripts/
-Setup script:  		setup_ssp245.sh
-Processing script:  	create_cylc_covid_ensemble-ssp245
+SourceMods for my code:  /glade/scratch/kmcmonigal/archive/forNan/
+
+Docs:  https://docs.google.com/document/d/1dfYRvCJUzGrSlDicRAaOZ_00I5AI_gKk7BvzRvynAv4/edit
+
+Script path:		/glade/work/nanr/cesm_tags/CASE_tools/cesm2-MD-LE/scripts/
+Setup script:  		setup_MD-LE.csh
+Processing script:  	create_cylc_ensemble-MD-Le
 
 
 Option 1:
-	mkdir /glade/work/asphilli/CASE_tools/
-	cd /glade/work/asphilli/CASE_tools/
-	git clone https://github.com/CESM-Development/CESM_CASE_MANAGEMENT_TOOLS -b cesm2-ssp245 cesm2-ssp245
-	cd ~asphilli/CESM-WF/
-	ln -s /glade/work/asphilli/CASE_tools/cesm2-ssp245/scripts/create_cylc_covid_ensemble-ssp245 .
-	cd /glade/work/asphilli/CASE_tools/cesm2-ssp245/scripts
+	mkdir /glade/work/kmcmonigal/CASE_tools/
+	mkdir ~kmcmonigal/CESM-WF/
+	cd /glade/work/kmcmonigal/CASE_tools/
+	git clone https://github.com/CESM-Development/CESM_CASE_MANAGEMENT_TOOLS -b cesm2-MD-LE cesm2-MD-LE
+	cd ~kmcmonigal/CESM-WF/
+	ln -s /glade/work/kmcmonigal/CASE_tools/cesm2-MD-LE/scripts/create_cylc_ensemble-MD-LE .
+	cd /glade/work/kmcmonigal/CASE_tools/cesm2-MD-LE/scripts
 
 	EDIT:  edit script to point to your case (search for nanr)
-		setup_ssp245.sh 
+		setup_MD-LE.csh 
 			TOOLSDIR
-			CASEROOTBASE 
-			SCRATCHBASE
-
-Option 2:
-	cd ~asphilli/CESM-WF/
-	ln -s /glade/work/nanr/CASE_tools/cesm2-ssp245/scripts/create_cylc_covid_ensemble-ssp245 .
-	cd <path_to_your_scripts>
-	cp /glade/work/asphilli/CASE_tools/cesm2-ssp245/scripts/setup_ssp245.sh .
-
-	EDIT:  edit script to point to your case (search for nanr)
-		setup_ssp245.sh 
 			CASEROOTBASE 
 			SCRATCHBASE
 
