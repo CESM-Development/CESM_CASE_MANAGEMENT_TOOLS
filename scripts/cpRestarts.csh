@@ -10,12 +10,12 @@ setenv RESTDIR   $CAMPDIR/restarts/
 setenv POPDDIR   $CAMPDIR/pop.d_files/
 
 # ...
-#foreach exper ( EE EE-SSP370 GHG GHG-SSP370 AAER AAER-SSP370 BMB BMB-SSP370 )
-foreach exper ( EE-SSP370)
+#foreach exper ( EE GHG AAER BMB )
+foreach exper ( BMB )
 
 # case name counter
 set smbr =  1
-set embr =  5
+set embr =  10
 
 @ mb = $smbr
 @ me = $embr
