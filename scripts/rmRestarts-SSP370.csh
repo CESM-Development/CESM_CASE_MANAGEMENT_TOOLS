@@ -41,6 +41,8 @@ if (! -e $LOGSDIR/$CASE.rest.2018-01-01-00000.tar) then
    rm -rf 2039-01-01-00000/
    rm -rf 2042-01-01-00000/
    rm -rf 2048-01-01-00000/
+else
+   echo "Case exists $CASE"
 endif
 
 end             # member loop
