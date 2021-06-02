@@ -1,6 +1,5 @@
 #!/bin/csh -f
 
-setenv CYLCDIR /glade/u/home/nanr/toolsCylc/wf_decadal-ensemble-BlueAction.che/
 setenv CESMROOT /glade/work/nanr/cesm_tags/cesm1_1_2_LENS_n21
 setenv MACH cheyenne
 setenv COMPSET FAMIPC5CN
@@ -22,7 +21,7 @@ echo 'Case   = ' $CASENAME
 
 setenv CASEROOT /glade/work/$USER/2090const/$CASENAME
 setenv RESTDIR  /glade/scratch/nanr/archive/$REFCASE/rest/2091-01-01-00000/
-setenv RUNDIR   /glade/scratch/nanr/$CASENAME/run
+setenv RUNDIR   /glade/scratch/$USERS/$CASENAME/run
 
 echo "setting up case = " $CASENAME
 

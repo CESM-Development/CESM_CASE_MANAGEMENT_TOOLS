@@ -1,0 +1,12 @@
+October 2015: There is a discontinuity in prescribed ozone concentration values between December 2080 and 
+January 2081 in ensemble members 2-7 and 9-33. This is due to the fact that the CMIP5 ozone file was 
+used starting in January 2081 instead of the WACCM ozone file. This error is expected to mainly affect the 
+high-latitude Southern Hemisphere stratosphere and troposphere in austral spring and summer. Note: This 
+known issue has no impact on any of the ensemble members before 2081. 
+
+Note also that ensemble members 1, 8 and 34-40 use WACCM ozone throughout the entire period of simulation (1920-2100). 
+
+/CCSM/csm/b.e11.BRCP85C5CNBDRD.f09_g16.034
+
+2091-01-01-00000/
+2096-01-01-00000/
