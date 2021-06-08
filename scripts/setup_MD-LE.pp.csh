@@ -37,7 +37,7 @@ endif
 set  REFCASE = cesm2.1.4-rc.08_decouple_ocn_B1850_f09_g17
 
 set smbr =  1
-set embr =  3
+set embr =  2
 
 #@ mb = $smbr
 #@ me = $embr
@@ -82,6 +82,8 @@ foreach REFDATE (1318 1293 1295 1298 1304)
   ./xmlchange ROOTPE_ICE=504
   ./xmlchange ROOTPE_OCN=576
   ./xmlchange ROOTPE_WAV=540
+
+  ./xmlchange RUN_TYPE=hybrid
 
   mv user_nl_clm user_nl_clm.`date +%m%d-%H%M`
   cp $TOOLSROOT/user_nl_files/user_nl_cam $CASEROOT/
