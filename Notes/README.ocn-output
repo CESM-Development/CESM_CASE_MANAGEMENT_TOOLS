@@ -1,0 +1,14 @@
+DIA_IMPVF_TEMP
+DIA_IMPVF_SALT 
+KPP_SRC_TEMP 
+KPP_SRC_SALT 
+QSW_3D 
+HDIFE_TEMP
+HDIFN_TEMP
+HDIFE_SALT
+HDIFN_SALT
+
+./xmlchange OCN_TAVG_TRACER_BUDGET=TRUE in env_run.xml 
+
+Brian will adapt your script for AWS as well, and the way the script is set-up now is that it's taking a different ocean IC from the SSP runs to make the different ensembles. There are 5 members of the SSP so we have made the 5 ensemble members this way. Now we need to run 5 more which should be micro-perturbations onto the existing ocean states, so:
+member 006 should take SSP245.001 ocean + PERTLIM, etc 
