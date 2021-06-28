@@ -1,0 +1,23 @@
+cp /glade/scratch/nanr/archive/b.e21.BSSP245cmip6.f09_g17.COVID-cvd-aufire.026/rest/2023-07-01-00000/rpointer.* /glade/scratch/nanr/b.e21.BSSP245cmip6.f09_g17.COVID-cvd-aufire.026/run/
+cp /glade/scratch/nanr/archive/b.e21.BSSP245cmip6.f09_g17.COVID-cvd-aufire.026/rest/2023-07-01-00000/rpointer.* /glade/scratch/nanr/b.e21.BSSP245cmip6.f09_g17.COVID-cvd-aufire.026/run/
+cp /glade/scratch/nanr/archive/b.e21.BSSP245cmip6.f09_g17.COVID-cvd-aufire.026/rest/2023-07-01-00000/rpointer.* /glade/scratch/nanr/b.e21.BSSP245cmip6.f09_g17.COVID-cvd-aufire.026/run/
+cp /glade/scratch/nanr/archive/b.e21.BSSP245cmip6.f09_g17.COVID-cvd-aufire.026/rest/2023-07-01-00000/rpointer.* /glade/scratch/nanr/b.e21.BSSP245cmip6.f09_g17.COVID-cvd-aufire.026/run/
+cp /glade/scratch/nanr/archive/b.e21.BSSP245cmip6.f09_g17.COVID-cvd-aufire.026/rest/2023-07-01-00000/rpointer.* /glade/scratch/nanr/b.e21.BSSP245cmip6.f09_g17.COVID-cvd-aufire.026/run/
+cp /glade/scratch/nanr/archive/b.e21.BSSP245cmip6.f09_g17.COVID-cvd-aufire.026/rest/2023-07-01-00000/rpointer.* /glade/scratch/nanr/b.e21.BSSP245cmip6.f09_g17.COVID-cvd-aufire.026/run/
+cp /glade/scratch/nanr/archive/b.e21.BSSP245cmip6.f09_g17.COVID-cvd-aufire.026/rest/2023-07-01-00000/rpointer.* /glade/scratch/nanr/b.e21.BSSP245cmip6.f09_g17.COVID-cvd-aufire.026/run/
+cp /glade/scratch/nanr/archive/b.e21.BSSP245cmip6.f09_g17.COVID-cvd-aufire.026/rest/2023-07-01-00000/rpointer.* /glade/scratch/nanr/b.e21.BSSP245cmip6.f09_g17.COVID-cvd-aufire.026/run/
+cp /glade/scratch/nanr/archive/b.e21.BSSP245cmip6.f09_g17.COVID-cvd-aufire.026/rest/2023-07-01-00000/rpointer.* /glade/scratch/nanr/b.e21.BSSP245cmip6.f09_g17.COVID-cvd-aufire.026/run/
+cp /glade/scratch/nanr/archive/b.e21.BSSP245cmip6.f09_g17.COVID-cvd-aufire.026/rest/2023-07-01-00000/rpointer.* /glade/scratch/nanr/b.e21.BSSP245cmip6.f09_g17.COVID-cvd-aufire.026/run/
+cp /glade/scratch/nanr/archive/b.e21.BSSP245cmip6.f09_g17.COVID-cvd-aufire.026/rest/2023-07-01-00000/rpointer.* /glade/scratch/nanr/b.e21.BSSP245cmip6.f09_g17.COVID-cvd-aufire.026/run/
+cp /glade/scratch/nanr/archive/b.e21.BSSP245cmip6.f09_g17.COVID-cvd-aufire.026/rest/2023-07-01-00000/rpointer.* /glade/scratch/nanr/b.e21.BSSP245cmip6.f09_g17.COVID-cvd-aufire.026/run/
+cp /glade/scratch/nanr/archive/b.e21.BSSP245cmip6.f09_g17.COVID-cvd-aufire.026/rest/2023-07-01-00000/rpointer.* /glade/scratch/nanr/b.e21.BSSP245cmip6.f09_g17.COVID-cvd-aufire.026/run/
+cp /glade/scratch/nanr/archive/b.e21.BSSP245cmip6.f09_g17.COVID-cvd-aufire.026/rest/2023-07-01-00000/rpointer.* /glade/scratch/nanr/b.e21.BSSP245cmip6.f09_g17.COVID-cvd-aufire.026/run/
+cp /glade/scratch/nanr/archive/b.e21.BSSP245cmip6.f09_g17.COVID-cvd-aufire.026/rest/2023-07-01-00000/rpointer.* /glade/scratch/nanr/b.e21.BSSP245cmip6.f09_g17.COVID-cvd-aufire.026/run/
+cp /glade/scratch/nanr/archive/b.e21.BSSP245cmip6.f09_g17.COVID-cvd-aufire.026/rest/2023-07-01-00000/rpointer.* /glade/scratch/nanr/b.e21.BSSP245cmip6.f09_g17.COVID-cvd-aufire.026/run/
+cp /glade/scratch/nanr/archive/b.e21.BSSP245cmip6.f09_g17.COVID-cvd-aufire.026/rest/2023-07-01-00000/rpointer.* /glade/scratch/nanr/b.e21.BSSP245cmip6.f09_g17.COVID-cvd-aufire.026/run/
+cp /glade/scratch/nanr/archive/b.e21.BSSP245cmip6.f09_g17.COVID-cvd-aufire.026/rest/2023-07-01-00000/rpointer.* /glade/scratch/nanr/b.e21.BSSP245cmip6.f09_g17.COVID-cvd-aufire.026/run/
+cp /glade/scratch/nanr/archive/b.e21.BSSP245cmip6.f09_g17.COVID-cvd-aufire.026/rest/2023-07-01-00000/rpointer.* /glade/scratch/nanr/b.e21.BSSP245cmip6.f09_g17.COVID-cvd-aufire.026/run/
+cp /glade/scratch/nanr/archive/b.e21.BSSP245cmip6.f09_g17.COVID-cvd-aufire.026/rest/2023-07-01-00000/rpointer.* /glade/scratch/nanr/b.e21.BSSP245cmip6.f09_g17.COVID-cvd-aufire.026/run/
+cp /glade/scratch/nanr/archive/b.e21.BSSP245cmip6.f09_g17.COVID-cvd-aufire.026/rest/2023-07-01-00000/rpointer.* /glade/scratch/nanr/b.e21.BSSP245cmip6.f09_g17.COVID-cvd-aufire.026/run/
+cp /glade/scratch/nanr/archive/b.e21.BSSP245cmip6.f09_g17.COVID-cvd-aufire.026/rest/2023-07-01-00000/rpointer.* /glade/scratch/nanr/b.e21.BSSP245cmip6.f09_g17.COVID-cvd-aufire.026/run/
+ln -s b.e21.BSSP245cmip6.f09_g17.COVID-cvd-aufire.026/rest/2023-07-01-00000/b.e21.BSSP245cmip6.f09_g17.COVID-cvd-aufire.026.* /glade/scratch/nanr/b.e21.BSSP245cmip6.f09_g17.COVID-cvd-aufire.026/run/

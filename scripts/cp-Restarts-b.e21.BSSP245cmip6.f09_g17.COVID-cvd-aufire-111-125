@@ -1,0 +1,76 @@
+#!/bin/csh -fx
+### set env variables
+setenv CESM2_LE_TOOLS_ROOT /glade/work/nanr/cesm_tags/CASE_tools/cesm2-covid/
+setenv CESMROOT /glade/work/nanr/cesm_tags/release-cesm2.1.2/
+
+doThis = 0
+if (doThis == 1) then
+	module load intel/17.0.1
+	module load python/2.7.16
+	module load graphviz/2.40.1
+	module load cylc/7.8.3
+	module load ncarenv/1.3
+	module load ncarcompilers/0.5.0
+	module load mpt/2.19
+	module load netcdf/4.6.3
+endif
+
+setenv POSTPROCESS_PATH /glade/u/home/mickelso/CESM_postprocessing_3/
+setenv POSTPROCESS_PATH_GEYSER /glade/u/home/mickelso/CESM_postprocessing_3/
+
+set COMPSET = BSSP245cmip6
+set SIMULAT = COVID-cvd-aufire
+set MACHINE = cheyenne
+set RESOLN = f09_g17
+set RESUBMIT = 0
+set STOP_N=24
+set STOP_OPTION=nmonths
+
+setenv BASEROOT /glade/work/nanr/CESM2-covid/
+setenv BASENAME b.e21.${COMPSET}.${RESOLN}.${SIMULAT}
+
+set smbr =  11
+set embr =  25
+
+@ mb = $smbr
+@ me = $embr
+
+@ basembr = 1
+@ ctr = 1
+
+foreach mbr ( `seq $mb  $me` )
+
+#  advance reference case every 4th member
+@ rmndr = $ctr % 4
+
+if    ($basembr < 10) then
+        #setenv REFCASE  b.e21.BSSP245cmip6.f09_g17.${SIMULAT}.00${basembr}
+        setenv REFCASE  b.e21.BSSP245cmip6.f09_g17.COVID-gfed-2015-2018.00${basembr}
+else if ($basembr >= 10 && $basembr < 100) then
+        #setenv REFCASE  b.e21.BSSP245cmip6.f09_g17.${SIMULAT}.0${basembr}
+        setenv REFCASE  b.e21.BSSP245cmip6.f09_g17.COVID-gfed-2015-2018.0${basembr}
+endif
+
+if    ($mbr < 10) then
+	setenv CASENAME b.e21.${COMPSET}.${RESOLN}.${SIMULAT}.10${mbr}
+else if ($mbr >= 10 && $mbr < 100) then
+	setenv CASENAME b.e21.${COMPSET}.${RESOLN}.${SIMULAT}.1${mbr}
+endif
+
+
+  setenv REFROOT   /glade/scratch/nanr/archive/$REFCASE/rest/2019-01-01-00000/
+  setenv RUNROOT   /glade/scratch/nanr/$CASENAME/run/
+
+  cp $REFROOT/rpoint*   $RUNROOT/
+  ln -s $REFROOT/b.e21* $RUNROOT/
+
+  # advance REFCASE after every 4th ensemble member
+  if ($rmndr == 0) then
+	@ basembr ++
+  endif
+  @ ctr ++
+
+end             # member loop
+
+exit
+

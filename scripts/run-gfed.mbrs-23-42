@@ -1,0 +1,146 @@
+#!/bin/csh -fx
+### set env variables
+setenv CESM2_LE_TOOLS_ROOT /glade/work/nanr/cesm_tags/CASE_tools/cesm2-covid/
+setenv CESMROOT /glade/work/nanr/cesm_tags/release-cesm2.1.2/
+
+module load intel/17.0.1
+module load python/2.7.16
+module load graphviz/2.40.1
+module load cylc/7.8.3
+module load ncarenv/1.3
+module load ncarcompilers/0.5.0
+module load mpt/2.19
+module load netcdf/4.6.3
+
+setenv POSTPROCESS_PATH /glade/u/home/mickelso/CESM_postprocessing_3/
+setenv POSTPROCESS_PATH_GEYSER /glade/u/home/mickelso/CESM_postprocessing_3/
+
+set COMPSET = BSSP245cmip6
+set SIMULAT = COVID-gfed-2015-2020
+set SIMULAT = COVIDcntl-SSP2-4.5
+set MACHINE = cheyenne
+set RESOLN = f09_g17
+
+setenv BASEROOT /glade/work/nanr/CESM2-covid/
+setenv BASENAME b.e21.${COMPSET}.${RESOLN}.${SIMULAT}
+
+
+# .001: RUN_REFCASE=b.e21.BHISTcmip6.f09_g17.LE2-1001.001
+# .002: RUN_REFCASE=b.e21.BHISTcmip6.f09_g17.LE2-1021.002
+# .003: RUN_REFCASE=b.e21.BHISTcmip6.f09_g17.LE2-1041.003
+# .004: RUN_REFCASE=b.e21.BHISTcmip6.f09_g17.LE2-1061.004
+# .005: RUN_REFCASE=b.e21.BHISTcmip6.f09_g17.LE2-1081.005
+# .006: RUN_REFCASE=b.e21.BHISTcmip6.f09_g17.LE2-1101.006
+# .007: RUN_REFCASE=b.e21.BHISTcmip6.f09_g17.LE2-1121.007
+# .008: RUN_REFCASE=b.e21.BHISTcmip6.f09_g17.LE2-1141.008
+# .009: RUN_REFCASE=b.e21.BHISTcmip6.f09_g17.LE2-1161.009
+# .010: RUN_REFCASE=b.e21.BHISTcmip6.f09_g17.LE2-1181.010
+###
+# .011: RUN_REFCASE=b.e21.BHISTcmip6.f09_g17.LE2-1231.001
+# .012: RUN_REFCASE=b.e21.BHISTcmip6.f09_g17.LE2-1231.002
+# .013: RUN_REFCASE=b.e21.BHISTcmip6.f09_g17.LE2-1231.003
+###
+# .014: RUN_REFCASE=b.e21.BHISTcmip6.f09_g17.LE2-1251.001
+# .015: RUN_REFCASE=b.e21.BHISTcmip6.f09_g17.LE2-1251.002
+# .016: RUN_REFCASE=b.e21.BHISTcmip6.f09_g17.LE2-1251.003
+###
+# .017: RUN_REFCASE=b.e21.BHISTcmip6.f09_g17.LE2-1281.001
+# .018: RUN_REFCASE=b.e21.BHISTcmip6.f09_g17.LE2-1281.002
+# .019: RUN_REFCASE=b.e21.BHISTcmip6.f09_g17.LE2-1281.003
+###
+# .020: RUN_REFCASE=b.e21.BHISTcmip6.f09_g17.LE2-1301.001
+# .021: RUN_REFCASE=b.e21.BHISTcmip6.f09_g17.LE2-1301.002
+# .022: RUN_REFCASE=b.e21.BHISTcmip6.f09_g17.LE2-1301.003
+
+## OPTION #2
+# .023: RUN_REFCASE=b.e21.BHISTcmip6.f09_g17.LE2-1231.004
+# .024: RUN_REFCASE=b.e21.BHISTcmip6.f09_g17.LE2-1231.005
+# .025: RUN_REFCASE=b.e21.BHISTcmip6.f09_g17.LE2-1231.006
+# .026: RUN_REFCASE=b.e21.BHISTcmip6.f09_g17.LE2-1231.007
+# .027: RUN_REFCASE=b.e21.BHISTcmip6.f09_g17.LE2-1231.008
+###
+# .028: RUN_REFCASE=b.e21.BHISTcmip6.f09_g17.LE2-1251.004
+# .029: RUN_REFCASE=b.e21.BHISTcmip6.f09_g17.LE2-1251.005
+# .030: RUN_REFCASE=b.e21.BHISTcmip6.f09_g17.LE2-1251.006
+# .031: RUN_REFCASE=b.e21.BHISTcmip6.f09_g17.LE2-1251.007
+# .032: RUN_REFCASE=b.e21.BHISTcmip6.f09_g17.LE2-1251.008
+###
+# .033: RUN_REFCASE=b.e21.BHISTcmip6.f09_g17.LE2-1281.004
+# .034: RUN_REFCASE=b.e21.BHISTcmip6.f09_g17.LE2-1281.005
+# .035: RUN_REFCASE=b.e21.BHISTcmip6.f09_g17.LE2-1281.006
+# .036: RUN_REFCASE=b.e21.BHISTcmip6.f09_g17.LE2-1281.007
+# .037: RUN_REFCASE=b.e21.BHISTcmip6.f09_g17.LE2-1281.008
+###
+# .038: RUN_REFCASE=b.e21.BHISTcmip6.f09_g17.LE2-1301.004
+# .039: RUN_REFCASE=b.e21.BHISTcmip6.f09_g17.LE2-1301.005
+# .040: RUN_REFCASE=b.e21.BHISTcmip6.f09_g17.LE2-1301.006
+# .041: RUN_REFCASE=b.e21.BHISTcmip6.f09_g17.LE2-1301.007
+# .042: RUN_REFCASE=b.e21.BHISTcmip6.f09_g17.LE2-1301.008
+
+# now create cases
+
+set smbr =  25
+set embr =  42
+
+@ mb = $smbr
+@ me = $embr
+
+setenv REFDATE  1231
+@ basembr = 1
+@ ctr = 1
+@ casectr = 4
+
+
+
+foreach mbr ( `seq $mb  $me` )
+
+#  advance reference case every 4th member
+@ rmndr = $ctr % 5
+
+if ($mbr < 28) then
+        set REFDATE = 1231
+endif
+if ($mbr >= 28 && $mbr < 33) then
+        set REFDATE = 1251
+endif
+if ($mbr >= 33 && $mbr < 38) then
+        set REFDATE = 1281
+endif
+if ($mbr >= 38 && $mbr < 43) then
+        set REFDATE = 1301
+endif
+
+if    ($mbr < 10) then
+        setenv CASENAME b.e21.${COMPSET}.${RESOLN}.${SIMULAT}.00${mbr}
+else if ($mbr >= 10 && $mbr < 100) then
+        setenv CASENAME b.e21.${COMPSET}.${RESOLN}.${SIMULAT}.0${mbr}
+endif
+
+
+  setenv CASEROOT  $BASEROOT$CASENAME
+
+  cd $CASEROOT
+
+  #./case.setup --reset
+  ./xmlchange EXEROOT=/glade/scratch/nanr/b.e21.BSSP245cmip6.f09_g17.COVID-gfed-2015-2020.023/bld
+  ./xmlchange BUILD_COMPLETE=TRUE
+  ./xmlchange PROJECT=CESM0019
+  ./xmlchange JOB_QUEUE=economy --subgroup case.run
+  ./case.submit
+
+  @ casectr ++
+
+  # advance REFCASE after every 5th ensemble member
+  if ($rmndr == 0) then
+        @ basembr ++
+	@ casectr = 1
+        @ REFDATE ++
+  endif
+  @ ctr ++
+
+
+# ./case.build >& bld.`date +%m%d-%H%M`
+end             # member loop
+
+exit
+

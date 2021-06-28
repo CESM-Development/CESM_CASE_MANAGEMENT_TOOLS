@@ -1,0 +1,14 @@
+It looks like what you have now is:
+
+COVID-AustFires:  anthro: standard SSP245; bb: GFED (2018-2020)
+
+COVID-cvd: anthro: cutSSP245-TwoYearBlip; bb: standard SSP245 (which is what we are using for all runs 2019 onward?)
+
+So, I guess the cvd run setup is ok, but maybe we want to combine the anthro from cvd with the bb from AustFires 
+  1053	16:54	cp ../SSP245-forcing/user_nl_* .
+  1055	16:55	cat /glade/p/cesm/chwg_dev/emmons/emissions_covid/nl_cam_emis_covidfires >> user_nl_cam
+
+Here's the combined list for COVID (2-year-blip) for anthro and the Australia Fires:
+
+/glade/p/cesm/chwg_dev/emmons/emissions_covid/nl_cam_emis_covidfires
+

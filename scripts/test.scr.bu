@@ -1,0 +1,43 @@
+#!/bin/csh -fx
+### set env variables
+
+set COMPSET = BSSP245cmip6
+set SIMULAT = COVIDcntl
+set MACHINE = cheyenne
+set RESOLN = f09_g17
+set RESUBMIT = 1
+set STOP_N=3
+set STOP_OPTION=nyears
+
+set smbr =  1
+set embr =  10
+
+@ mb = $smbr
+@ me = $embr
+
+set smbr =  1
+set embr =  20
+set mmm  =  0
+
+@ mb = $smbr
+@ me = $embr
+
+foreach mbr ( `seq $mb 2 $me` )
+@ USE_REFDATE = 1001 + ( $mbr - 1 ) * 10
+@ mmm++
+
+
+
+if    ($mmm < 10) then
+        setenv CASENAME b.e21.${COMPSET}.${RESOLN}.${SIMULAT}-SSP2-4.5.00${mmm}
+        setenv REFCASE  b.e21.BHISTcmip6.${RESOLN}.LE2-${USE_REFDATE}.00${rfm}
+else if ($mmm >= 10 && $mmm < 100) then
+        setenv CASENAME b.e21.${COMPSET}.${RESOLN}.${SIMULAT}-SSP2-4.5.0${mmm}
+        setenv REFCASE  b.e21.BHISTcmip6.${RESOLN}.LE2-${USE_REFDATE}.0${rfm}
+endif
+@ mmm+=2
+echo $USE_REFDATE
+echo $rfm
+echo $mmm
+
+end 

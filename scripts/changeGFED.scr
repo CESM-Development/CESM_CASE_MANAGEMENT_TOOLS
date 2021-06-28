@@ -1,0 +1,45 @@
+#!/bin/csh -fx
+### set env variables
+setenv CESM2_LE_TOOLS_ROOT /glade/work/nanr/cesm_tags/CASE_tools/cesm2-covid/
+setenv CESMROOT /glade/work/nanr/cesm_tags/release-cesm2.1.2/
+
+setenv POSTPROCESS_PATH /glade/u/home/mickelso/CESM_postprocessing_3/
+setenv POSTPROCESS_PATH_GEYSER /glade/u/home/mickelso/CESM_postprocessing_3/
+
+set COMPSET = BSSP245cmip6
+set SIMULAT = COVID-gfed-2015-2018
+set MACHINE = cheyenne
+set RESOLN = f09_g17
+
+setenv BASEROOT /glade/work/nanr/CESM2-covid/
+setenv BASENAME b.e21.${COMPSET}.${RESOLN}.${SIMULAT}
+
+set smbr =  24
+set embr =  42
+
+@ mb = $smbr
+@ me = $embr
+
+
+foreach mbr ( `seq $mb  $me` )
+
+
+if    ($mbr < 10) then
+        setenv CASENAME b.e21.${COMPSET}.${RESOLN}.${SIMULAT}.00${mbr}
+else if ($mbr >= 10 && $mbr < 100) then
+        setenv CASENAME b.e21.${COMPSET}.${RESOLN}.${SIMULAT}.0${mbr}
+endif
+
+  setenv CASEROOT  $BASEROOT$CASENAME
+  cd $CASEROOT
+  mv user_nl_cam user_nl_cam.yrs2015-2018
+  cp /glade/work/nanr/cesm_tags/CASE_tools/cesm2-covid/user_nl_files/GFED-2015-2020/user_nl_cam $CASEROOT
+  ./xmlchange RESUBMIT=0
+  ./xmlchange PROJECT=CESM0019
+  ./xmlchange JOB_QUEUE=economy --subgroup case.run
+  ./case.submit
+
+end             # member loop
+
+exit
+

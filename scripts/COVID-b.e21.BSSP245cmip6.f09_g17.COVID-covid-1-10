@@ -1,0 +1,118 @@
+#!/bin/csh -fx
+### set env variables
+setenv CESM2_LE_TOOLS_ROOT /glade/work/nanr/cesm_tags/CASE_tools/cesm2-covid/
+setenv CESMROOT /glade/work/nanr/cesm_tags/release-cesm2.1.2/
+
+doThis = 0
+if (doThis == 1) then
+	module load intel/17.0.1
+	module load python/2.7.16
+	module load graphviz/2.40.1
+	module load cylc/7.8.3
+	module load ncarenv/1.3
+	module load ncarcompilers/0.5.0
+	module load mpt/2.19
+	module load netcdf/4.6.3
+endif
+
+setenv POSTPROCESS_PATH /glade/u/home/mickelso/CESM_postprocessing_3/
+setenv POSTPROCESS_PATH_GEYSER /glade/u/home/mickelso/CESM_postprocessing_3/
+
+set COMPSET = BSSP245cmip6
+set SIMULAT = COVID-covid
+set MACHINE = cheyenne
+set RESOLN = f09_g17
+set RESUBMIT = 0
+set STOP_N=18
+set STOP_OPTION=nmonths
+
+setenv BASEROOT /glade/work/nanr/CESM2-covid/
+setenv BASENAME b.e21.${COMPSET}.${RESOLN}.${SIMULAT}
+
+cd ~nanr/CESM-WF/
+./create_cylc_covid_ensemble --case $BASEROOT$BASENAME --res $RESOLN  --compset $COMPSET --user-mods-dir /glade/u/home/cmip6/cesm_tags/cesm2.1.2-rc.01/components/clm/cime_config/usermods_dirs/cmip6_deck
+
+# .0[01-10]: RUN_REFCASE=b.e21.BSSP245cmip6.f09_g17.COVID-gfed-2015-2018.0[01-10]
+
+# now create cases
+
+set smbr =  1
+set embr =  10
+
+@ mb = $smbr
+@ me = $embr
+
+
+
+foreach mbr ( `seq $mb  $me` )
+
+if    ($mbr < 10) then
+	setenv CASENAME b.e21.${COMPSET}.${RESOLN}.${SIMULAT}.00${mbr}
+        setenv REFCASE  b.e21.BSSP245cmip6.f09_g17.COVID-ssp245-2019-6monRerun.00${mbr}
+else if ($mbr >= 10 && $mbr < 100) then
+	setenv CASENAME b.e21.${COMPSET}.${RESOLN}.${SIMULAT}.0${mbr}
+        setenv REFCASE  b.e21.BSSP245cmip6.f09_g17.COVID-ssp245-2019-6monRerun.0${mbr}
+endif
+
+
+  setenv REFROOT   /glade/scratch/nanr/archive/$REFCASE/rest/2019-07-01-00000/
+  setenv RUNROOT   /glade/scratch/nanr/$CASENAME/run/
+  setenv CASEROOT  $BASEROOT$CASENAME
+  cd $CASEROOT
+
+
+# 20 nodes
+  ./xmlchange NTASKS_CPL=576
+  ./xmlchange NTASKS_ATM=576
+  ./xmlchange NTASKS_LND=504
+  ./xmlchange NTASKS_ICE=36
+  ./xmlchange NTASKS_OCN=144
+  ./xmlchange NTASKS_ROF=468
+  ./xmlchange NTASKS_GLC=576
+  ./xmlchange NTASKS_WAV=36
+  ./xmlchange ROOTPE_ICE=504
+  ./xmlchange ROOTPE_OCN=576
+  ./xmlchange ROOTPE_WAV=540
+
+  mv user_nl_cam user_nl_cam.`date +%m%d-%H%M`
+  mv user_nl_clm user_nl_clm.`date +%m%d-%H%M`
+  mv user_nl_cpl user_nl_cpl.`date +%m%d-%H%M`
+  mv user_nl_cice user_nl_cice.`date +%m%d-%H%M`
+
+  cp $CESM2_LE_TOOLS_ROOT/user_nl_files/SSP245-forcing/user_nl_cam $CASEROOT/
+  cp $CESM2_LE_TOOLS_ROOT/user_nl_files/SSP245-forcing/user_nl_clm $CASEROOT/
+  cp $CESM2_LE_TOOLS_ROOT/user_nl_files/SSP245-forcing/user_nl_cpl $CASEROOT/
+  cp $CESM2_LE_TOOLS_ROOT/user_nl_files/SSP245-forcing/user_nl_cice $CASEROOT/
+
+  ./case.setup
+
+  ./xmlchange RUN_REFCASE=$REFCASE
+  ./xmlchange GET_REFCASE=FALSE
+  ./xmlchange RUN_REFDATE=2019-07-01
+  ./xmlchange RUN_STARTDATE=2019-07-01
+  ./xmlchange STOP_N=$STOP_N
+  ./xmlchange STOP_OPTION=$STOP_OPTION
+  ./xmlchange DOUT_S_SAVE_INTERIM_RESTART_FILES=TRUE
+  ./xmlchange RESUBMIT=$RESUBMIT
+
+  cp $REFROOT/rpoint*   $RUNROOT/
+  ln -s $REFROOT/b.e21* $RUNROOT/
+
+  if ($mbr == $smbr) then
+        setenv BUILDCASE $CASENAME
+  endif
+
+  # point to one executable
+  if ($mbr > $smbr) then
+        ./xmlchange EXEROOT=/glade/scratch/nanr/$BUILDCASE/bld
+        ./xmlchange BUILD_COMPLETE=TRUE
+  endif
+
+
+  ./preview_namelists
+
+# ./case.build >& bld.`date +%m%d-%H%M`
+end             # member loop
+
+exit
+

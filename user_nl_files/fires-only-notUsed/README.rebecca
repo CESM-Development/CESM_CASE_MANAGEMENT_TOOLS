@@ -1,0 +1,14 @@
+The qfed over Australia 2018 to July 2020 (emissions only over Australia):
+	/glade/work/buchholz/emis/tagged_emis/gfed/
+The cmip6 with masked Australia (no emissions over Australia):
+	/glade/work/buchholz/emis/tagged_emis/cmip6
+
+
+You just need to use the emissions combined, i.e. read in both files. CAM is able to read in two files for one species. For example
+so4_a1   -> /glade/work/buchholz/emis/tagged_emis/gfed/gfed.emis_num_so4_a1_0.9x1.25_mol_2018_2020_AUST_c20200912.nc
+so4_a1   -> /glade/work/buchholz/emis/tagged_emis/cmip6/ssp245.emis_so4_a1_bb_0.9x1.25_mol_175001-210101_NOAUST_c20200912.nc
+
+The "AUST" file only has gfed emissions over Australia and zero everywhere else, the "NOAUST" file has zero emissions over Australia and SSP245 everywhere else.
+
+I suggest from either March or April 2020, going back to only using the full SSP245 emissions.
+

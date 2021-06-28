@@ -1,0 +1,6 @@
+I wrote 6 month restarts but the initial file was set to output YEARLY.
+So I reran the first 6 months, resetting the inithist to MONTHLY to get the cam.i. file needed
+for a hybrid start + pertlim
+
+inithist = 'MONTHLY'
+

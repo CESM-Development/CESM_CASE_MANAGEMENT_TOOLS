@@ -1,0 +1,16 @@
+It looks like we have 420k core hours from CAS (04010022) to use for another 10 members each of the control and GSSP245 2015-2020 if we wish. I suppose we can use the remaining 008, 009, and 010 CESM2LE as initialization? Nan, how is your schedule? Does this sound doable? I don’t want to just dump another 10 runs on your plate so please let me know if time is too tight to do this.
+
+Q:  We will have mbrs 009 and 010 * 4 startyears = 8 mbrs.    How do you want to initialize the final two?
+A:  I guess 1011.001 and 1031.002 - as they are independent macros.
+
+SSP245:  COVIDcntl-SSP2-4.5.
+mbrs:  1-10   Years:  2015-2023  Status:  Complete
+mbrs: 11-22   N/A
+mbrs:  23-42  Years:  2015-2020  Status:  
+**These should extend to 2023 (which is what I ran) but for some reason the timeseries are only 
+include data through 2020.  I've removed the original data, but have the restarts for 2021-01-01.  
+Do we want to extend these runs through 2023?
+
+
+Yes, certainly want to extend the SSP245 to 2023. Also are there 12 more of SSP245/GSSP245 currently planned to run on the CAS allocation?
+

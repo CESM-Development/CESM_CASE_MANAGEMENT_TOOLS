@@ -1,0 +1,86 @@
+#!/bin/csh -fx
+### set env variables
+
+# .001: RUN_REFCASE=b.e21.BHISTcmip6.f09_g17.LE2-1001.001
+# .002: RUN_REFCASE=b.e21.BHISTcmip6.f09_g17.LE2-1021.002
+# .003: RUN_REFCASE=b.e21.BHISTcmip6.f09_g17.LE2-1041.003
+# .004: RUN_REFCASE=b.e21.BHISTcmip6.f09_g17.LE2-1061.004
+# .005: RUN_REFCASE=b.e21.BHISTcmip6.f09_g17.LE2-1081.005
+# .006: RUN_REFCASE=b.e21.BHISTcmip6.f09_g17.LE2-1101.006
+# .007: RUN_REFCASE=b.e21.BHISTcmip6.f09_g17.LE2-1121.007
+# .008: RUN_REFCASE=b.e21.BHISTcmip6.f09_g17.LE2-1141.008
+# .009: RUN_REFCASE=b.e21.BHISTcmip6.f09_g17.LE2-1161.009
+# .010: RUN_REFCASE=b.e21.BHISTcmip6.f09_g17.LE2-1181.010
+###
+# .011: RUN_REFCASE=b.e21.BHISTcmip6.f09_g17.LE2-1231.001
+# .012: RUN_REFCASE=b.e21.BHISTcmip6.f09_g17.LE2-1231.002
+# .013: RUN_REFCASE=b.e21.BHISTcmip6.f09_g17.LE2-1231.003
+###
+# .014: RUN_REFCASE=b.e21.BHISTcmip6.f09_g17.LE2-1251.001
+# .015: RUN_REFCASE=b.e21.BHISTcmip6.f09_g17.LE2-1251.002
+# .016: RUN_REFCASE=b.e21.BHISTcmip6.f09_g17.LE2-1251.003
+###
+# .017: RUN_REFCASE=b.e21.BHISTcmip6.f09_g17.LE2-1281.001
+# .018: RUN_REFCASE=b.e21.BHISTcmip6.f09_g17.LE2-1281.002
+# .019: RUN_REFCASE=b.e21.BHISTcmip6.f09_g17.LE2-1281.003
+###
+# .020: RUN_REFCASE=b.e21.BHISTcmip6.f09_g17.LE2-1301.001
+# .021: RUN_REFCASE=b.e21.BHISTcmip6.f09_g17.LE2-1301.002
+# .022: RUN_REFCASE=b.e21.BHISTcmip6.f09_g17.LE2-1301.003
+
+# now create cases
+
+set smbr =  11
+set embr =  22
+
+@ mb = $smbr
+@ me = $embr
+
+setenv REFDATE  1231
+@ basembr = 1
+@ ctr = 1
+@ casectr = 1
+
+
+#foreach USE_REFDATE  (1231 1251 1281 1301)
+foreach mbr ( `seq $mb  $me` )
+
+#  advance reference case every 4th member
+@ rmndr = $ctr % 3
+
+echo $mbr
+
+if ($mbr < 14) then
+	set USE_REFDATE = 1231
+endif
+if ($mbr >= 14 && $mbr < 17) then
+	set USE_REFDATE = 1251
+endif
+if ($mbr >= 17 && $mbr < 20) then
+	set USE_REFDATE = 1281
+endif
+if ($mbr >= 20 && $mbr < 23) then
+	set USE_REFDATE = 1301
+endif
+
+
+echo "USE_REFDATE " + $USE_REFDATE
+echo "mbr " + $mbr
+echo "casectr " + $casectr
+echo "remainder " + $rmndr
+
+  @ casectr ++
+
+  # advance REFCASE after every 4th ensemble member
+  if ($rmndr == 0) then
+        @ basembr ++
+	@ casectr = 1
+  endif
+  @ ctr ++
+
+
+# ./case.build >& bld.`date +%m%d-%H%M`
+end             # member loop
+
+exit
+
