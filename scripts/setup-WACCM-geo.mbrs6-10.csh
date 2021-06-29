@@ -28,11 +28,11 @@ foreach mbr ( `seq $mb $me` )
 
 if    ($mbr < 10) then
   setenv CASENAME  b.e21.BW.${RESOLN}.${SCENARIO}-${VERSION}-GAUSS-${NAMESIM}.00${mbr}
-  setenv REFCASE   b.e21.BWSSP245cmip6.f09_g17.CMIP6-SSP2-4.5-WACCM.00${casectr}
 else
   setenv CASENAME  b.e21.BW.${RESOLN}.${SCENARIO}-${VERSION}-GAUSS-${NAMESIM}.0${mbr}
-  setenv REFCASE   b.e21.BWSSP245cmip6.f09_g17.CMIP6-SSP2-4.5-WACCM.0${casectr}
 endif
+
+setenv REFCASE   b.e21.BWSSP245cmip6.f09_g17.CMIP6-SSP2-4.5-WACCM.00${casectr}
 
 setenv CASEROOT  /glade/work/geostrat/cases/$CASENAME
 #setenv CASEROOT  /glade/scratch/$USER/waccm-geo/$CASENAME
