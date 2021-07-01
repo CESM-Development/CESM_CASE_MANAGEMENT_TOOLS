@@ -1,7 +1,8 @@
 #!/bin/csh -fx
 ### set env variables
 setenv CESM2_SF_TOOLS_ROOT /glade/work/cesmsf/cesm_tags/CASE_tools/cesm2-sf/
-setenv CESMROOT ~cmip6/cesm_tags/cesm2.1.4-exp03/
+#setenv CESMROOT ~cmip6/cesm_tags/cesm2.1.4-exp03/
+setenv CESMROOT /glade/work/nanr/cesm_tags/cesm2.1.4-exp03/
 
 #module load intel/17.0.1
 #module load python/2.7.16
@@ -44,18 +45,16 @@ foreach mbr ( `seq $mb  $me` )
 
 if    ($mbr < 10) then
 	setenv CASENAME b.e21.${COMPSET}.${RESOLN}.CESM2-SF-${SCENARIO}.00${mbr}
-	setenv REFCASE b.e21.${COMPSET}.${RESOLN}.CESM2-SF-${SCENARIO}.00${mbr}
+	setenv REFCASE b.e21.${COMPSET}.${RESOLN}.CESM2-SF-GHG.00${mbr}
 else if ($mbr >= 10 && $mbr < 100) then
 	setenv CASENAME b.e21.${COMPSET}.${RESOLN}.CESM2-SF-${SCENARIO}.0${mbr}
-	setenv REFCASE b.e21.${COMPSET}.${RESOLN}.CESM2-SF-${SCENARIO}.0${mbr}
+	setenv REFCASE b.e21.${COMPSET}.${RESOLN}.CESM2-SF-GHG.0${mbr}
 else
 	setenv CASENAME b.e21.${COMPSET}.${RESOLN}.CESM2-SF-${SCENARIO}.${mbr}
-	setenv REFCASE b.e21.${COMPSET}.${RESOLN}.CESM2-SF-${SCENARIO}.${mbr}
+	setenv REFCASE b.e21.${COMPSET}.${RESOLN}.CESM2-SF-GHG.${mbr}
 endif
 
-cd $CESMROOT/scripts
- 
-  setenv REFROOT  /glade/scratch/nanr/archive/$REFCASE/rest/
+  setenv REFROOT  /glade/scratch/cesmsf/archive/$REFCASE/rest/
   setenv CASEROOT  $BASEROOT$CASENAME
   cd $CASEROOT
 
@@ -89,14 +88,14 @@ cd $CESMROOT/scripts
   ./xmlchange STOP_OPTION=$STOP_OPTION
   ./xmlchange RESUBMIT=$RESUBMIT
 
-   cp    $REFROOT/$REFDATE-01-01-00000/rpointer* $RUNROOT/$CASENAME/run/
-   ln -s $REFROOT/$REFDATE-01-01-00000/b.e21*    $RUNROOT/$CASENAME/run/
+   cp    $REFROOT/rest/$REFDATE-01-01-00000/rpointer* $RUNROOT/$CASENAME/run/
+   ln -s $REFROOT/rest/$REFDATE-01-01-00000/b.e21*    $RUNROOT/$CASENAME/run/
 
 # ./preview_namelists
 
   if ($mbr == $smbr) then
       ./case.setup --reset
-      $masterroot = /glade/scratch/cesmsf/$CASENAME/bld
+      set masterroot = /glade/scratch/cesmsf/$CASENAME/bld
       qcmd -- ./case.build 
   else
       ./case.setup --reset
