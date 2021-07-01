@@ -2,7 +2,7 @@
 ### set env variables
 module load ncl nco
 
-setenv CESM2_TOOLS_ROOT /glade/work/nanr/cesm_tags/CASE_tools/cesm2-sf/
+setenv CESM2_TOOLS_ROOT /glade/work/cesmsf/cesm_tags/CASE_tools/cesm2-sf/
 setenv ARCHDIR  /glade/scratch/cesmsf/archive/
 setenv CASEROOT  /glade/work/cesmsf/CESM2-SF/
 
@@ -31,7 +31,7 @@ if ( ! -d "postprocess" ) then
 endif
 
 cd postprocess
-pp_config --set TIMESERIES_OUTPUT_ROOTDIR=/glade/scratch/nanr/timeseries/$CASE/
+pp_config --set TIMESERIES_OUTPUT_ROOTDIR=/glade/scratch/cesmsf/timeseries/$CASE/
 #qsub ./timeseries 
 
 if ($mbr < 10) then
