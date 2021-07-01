@@ -10,7 +10,7 @@ seasalt_emis_scale             = 0.0
 
 
 &dyn_se_inparm
- se_mesh_file                = '/global/project/projectdirs/ccsm1/people/nanr/VRM/ne0np4.trbelt.ne30x8/grids/ne0np4.trbelt01.ne30x8_EXODUS.nc'
+ se_mesh_file                = '/glade/scratch/nanr/cori/TRBELT/cesm2.1.4/VRM/ne0np4.trbelt.ne30x8/grids/ne0np4.trbelt01.ne30x8_EXODUS.nc'
  se_hypervis_scaling         =  3.0D0
  se_hypervis_subcycle        =  3
  se_nsplit                   =  6
@@ -51,9 +51,11 @@ seasalt_emis_scale             = 0.0
 ! se_raytau0                    =  0.0
 
 &chem_inparm
-drydep_srf_file = '/global/project/projectdirs/ccsm1/people/nanr/VRM/ne0np4.trbelt.ne30x8/atmsrf/atmsrf_ne0np4.trbelt.ne30x8_210414.nc'
+drydep_srf_file		= '/glade/work/brianpm/VRM/ne0np4.trbelt.ne30x8/atmsrf/atmsrf_ne0np4.trbelt.ne30x8_210414.nc'
 /
 &cam_initfiles_nl
- bnd_topo       = '/global/project/projectdirs/ccsm1/people/nanr/VRM/ne0np4.trbelt.ne30x8/topo/topo_ne0np4.trbelt.ne30x8_blin_210414.nc'
- ncdata         = '/global/project/projectdirs/ccsm1/people/nanr/VRM/ne0np4.trbelt.ne30x8/inic/cami-mam4_0000-01-01_ne0np4.trbelt.ne30x8_L32_c210414.nc'
+  bnd_topo		= '/glade/work/brianpm/VRM/ne0np4.trbelt.ne30x8/topo/topo_ne0np4.trbelt.ne30x8_blin_210414.nc'
+  ncdata		= '/glade/work/brianpm/VRM/ne0np4.trbelt.ne30x8/inic/cami-mam4_0000-01-01_ne0np4.trbelt.ne30x8_L32_c210414.nc'
 /
+
+se_mesh_file		= '/glade/work/brianpm/VRM/ne0np4.trbelt.ne30x8/grids/ne0np4.trbelt01.ne30x8_EXODUS.nc'
