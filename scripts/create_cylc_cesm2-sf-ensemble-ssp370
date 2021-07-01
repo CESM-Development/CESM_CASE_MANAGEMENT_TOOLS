@@ -45,10 +45,12 @@ CLM_RUN = False
 FV2_RUN = False
 
 # Set ensemble start and finish
-ensemble_start = 1
-ensemble_end = 5
+#ensemble_start = 1
+#ensemble_end = 5
 #ensemble_start = 6
 #ensemble_end = 10
+ensemble_start = 11
+ensemble_end = 15
 
 # Add a specific queue to use.  Set to None if you want the default.  Set to 'queue name' if you want a specific queue.
 queue = 'economy'

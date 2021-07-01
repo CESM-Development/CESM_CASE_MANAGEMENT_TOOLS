@@ -1,15 +1,5 @@
 #!/bin/csh
 #
-#SBATCH -n 1
-#SBATCH -t 24:00:00
-#SBATCH -p dav
-#SBATCH -J LAR
-#SBATCH --account=P93300313
-#SBATCH -e LAR.err.%J
-#SBATCH -o LAR.out.%J
-#SBATCH --mail-type=ALL
-#SBATCH --mail-user=nanr@ucar.edu
-#
 set disk = /glade/scratch/cesmsf/archive
 set arcd = /glade/campaign/cesm/collections/CESM2-SF/restarts
 #
@@ -17,7 +7,7 @@ cd ${disk}
 #
 #foreach case ( b.e21.B1850cmip6.f09_g17.CESM2-SF-AAER.00[1-5] )
 #foreach case ( b.e21.B1850cmip6.f09_g17.CESM2-SF-EE.00[1-5] )
-foreach case ( b.e21.B1850cmip6.f09_g17.CESM2-SF-AAER.011 b.e21.B1850cmip6.f09_g17.CESM2-SF-AAER.014 )
+foreach case ( b.e21.B1850cmip6.f09_g17.CESM2-SF-AAER.00[6-9] b.e21.B1850cmip6.f09_g17.CESM2-SF-AAER.010 )
   date
   if ! ( -d ${arcd}/${case} ) then
     mkdir -p ${arcd}/${case}
