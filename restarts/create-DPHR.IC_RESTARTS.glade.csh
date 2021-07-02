@@ -23,6 +23,14 @@ set syr = 1982
 set eyr = 1982
 set syr = 1990
 set eyr = 1990
+set lndcase =  f.e13.FAMIPC5.ne120_ne120_mt12.chey-gen-restarts.1990-05-01.001
+set syr = 1992
+set eyr = 1992
+#set syr = 1994
+#set eyr = 1994
+set syr = 1996
+set eyr = 1996
+set lndcase =  f.e13.FAMIPC5.ne120_ne120_mt12.chey-gen-restarts.${syr}-01-01.001
 
 @ ib = $syr
 @ ie = $eyr
@@ -43,8 +51,6 @@ endif
 
 # atm, lnd initial conditions
 set atmcase =  JRA55_ne120_L30
-set lndcase =  f.e13.FAMIPC5.ne120_ne120_mt12.chey-gen-restarts.001
-set lndcase =  f.e13.FAMIPC5.ne120_ne120_mt12.chey-gen-restarts.1990-05-01.001
 
 # names
 set atmfname = ${atmcase}.cam2.i.${year}-${mon}-01-00000.nc
@@ -79,7 +85,6 @@ ncatted -a OriginalFile,global,a,c,$roffname $icdir/$roffout
 endif
 
 # ocn/ice
-# years used for ICs:   0306 (1958) - 0366 (2018)
 set ocncase = g.e21.GIAF.TL319_t13.5thCyc.ice.001
 set first_rest_year = 1958
 set ocean_base_year = 245

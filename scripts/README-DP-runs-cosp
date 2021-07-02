@@ -1,0 +1,19 @@
+I think we could get away with just including these in the monthly output
+
+INCLUDE (in order of priority):
+
+CLDTOT_CAL
+CLDTOT_ISCCP
+
+CLDHGH_CAL
+CLDLOW_CAL
+CLDMED_CAL
+
+MEANCLDALB_ISCCP
+MEANTAU_ISCCP
+MEANPTOP_ISCCP
+
+To reduce data volume, these can be EXCLUDED:
+	‘CLD_CAL’ (40 x lat x lon)
+	‘FISCCP1_COSP’ (7 x 7 x lat x lon)
+(We did include these for iHESP.)
