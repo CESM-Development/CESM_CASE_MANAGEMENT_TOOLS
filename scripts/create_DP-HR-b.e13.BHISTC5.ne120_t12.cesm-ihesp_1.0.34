@@ -7,7 +7,7 @@ set MACHINE = frontera
 set COMPSET = BHISTC5
 set EXPERIMENT = BDP-HR
 set RESOLN  = ne120_t12
-set TAG     = cesm-ihesp-hires1.0.35
+set TAG     = cesm-ihesp-hires1.0.34
 
 #set RESUBMIT = 1
 #set STOP_OPTION=nmonths

@@ -11,7 +11,7 @@
         mask    mask
   </variableNames>
   <filePath>
-    /work/06091/nanr/frontera/SST-highres
+    /work2/06091/nanr/frontera/SST-highres
   </filePath>
   <fileNames>
      domain.ocn.0.25x0.25_mask.181109.nc
@@ -22,7 +22,7 @@
      SST_cpl t
    </variableNames>
    <filePath>
-     /work/06091/nanr/frontera/SST-highres/noLeapFillScale
+     /work2/06091/nanr/frontera/SST-highres/noLeapFillScale
    </filePath>
    <fileNames>
         sst_HADISST_0.25_MOHC-HADISST-s-19500101-19501231.nc

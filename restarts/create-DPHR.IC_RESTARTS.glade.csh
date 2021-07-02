@@ -5,6 +5,7 @@
 #  That's 7 start dates. After we finish these, we'll decide whether to do 1980 or 1996 as the 8th start date.
 
 set mach = cheyenne
+set mach = frontera
 if ($mach == "cheyenne") then
 	set SCRATCH = /glade/scratch/nanr/
         set atmdir  = /glade/p/cesm/espwg/JRA55_regridded_to_CAM/ne120_L30/
@@ -13,10 +14,14 @@ if ($mach == "cheyenne") then
         #set restdir = /glade/scratch/fredc/archive/f.e13.FAMIPC5.ne120_ne120_mt12.cesm-ihesp-1950-2050.001/rest/1982-01-01-00000/
         #set lndpath = /glade/scratch/jedwards/
         set lndpath = /glade/scratch/nanr/archive/
+	set lndcase =  f.e13.FAMIPC5.ne120_ne120_mt12.chey-gen-restarts.001
+	set lndcase =  f.e13.FAMIPC5.ne120_ne120_mt12.chey-gen-restarts.1990-05-01.001
 
 else
 	set atmdir = /scratch1/06091/nanr/JRA55/
 	set ocnpath = /scratch1/06090/fredc/
+        set lndpath = /scratch1/06091/nanr/archive/
+	set lndcase =  f.e13.FAMIPC5.ne120_ne120_mt12.gen-restarts.001
 endif
 
 set syr = 1982
@@ -31,6 +36,9 @@ set eyr = 1992
 set syr = 1996
 set eyr = 1996
 set lndcase =  f.e13.FAMIPC5.ne120_ne120_mt12.chey-gen-restarts.${syr}-01-01.001
+=======
+set syr = 1998
+set eyr = 1998
 
 @ ib = $syr
 @ ie = $eyr

@@ -1,6 +1,12 @@
-fsurdat = '/glade/p/cesmdata/cseg/inputdata/lnd/clm2/surfdata_map/surfdata_ne30np4_simyr2000_c110801.nc'
 flanduse_timeseries = ''
-finidat = '/glade/p/cesm/cseg/inputdata/ccsm4_init/b.e13.B1950C5.ne30_g16.cesm-ihesp-NCPL-CESM1_MOD-ROF2OCN_RMAP_1950cntl.01/0031-01-01/b.e13.B1950C5.ne30_g16.cesm-ihesp-NCPL-CESM1_MOD-ROF2OCN_RMAP_1950cntl.01.clm2.r.0031-01-01-00000.IP_to_t12.nc'
+
+!! cheyenne
+! fsurdat = '/glade/p/cesmdata/cseg/inputdata/lnd/clm2/surfdata_map/surfdata_ne30np4_simyr2000_c110801.nc'
+! finidat = '/glade/p/cesm/cseg/inputdata/ccsm4_init/b.e13.B1950C5.ne30_g16.cesm-ihesp-NCPL-CESM1_MOD-ROF2OCN_RMAP_1950cntl.01/0031-01-01/b.e13.B1950C5.ne30_g16.cesm-ihesp-NCPL-CESM1_MOD-ROF2OCN_RMAP_1950cntl.01.clm2.r.0031-01-01-00000.IP_to_t12.nc'
+
+!! frontera
+fsurdat = '/work2/02503/edwardsj/CESM/inputdata/lnd/clm2/surfdata_map/surfdata_ne30np4_simyr2000_c110801.nc'
+finidat = '/work2/02503/edwardsj/CESM/inputdata/ccsm4_init/b.e13.B1950C5.ne30_g16.cesm-ihesp-NCPL-CESM1_MOD-ROF2OCN_RMAP_1950cntl.01/0031-01-01/b.e13.B1950C5.ne30_g16.cesm-ihesp-NCPL-CESM1_MOD-ROF2OCN_RMAP_1950cntl.01.clm2.r.0031-01-01-00000.IP_to_t12.nc'
 
 
 ! History output -->
