@@ -11,8 +11,8 @@ module load cesm_postprocessing
 
 # ...
 # case name counter
-set smbr =  12
-set embr =  12
+set smbr =  15
+set embr =  15
 
 @ mb = $smbr
 @ me = $embr
@@ -21,11 +21,13 @@ foreach mbr ( `seq $mb $me` )
 if ($mbr < 10) then
         #set CASE = b.e21.B1850cmip6.f09_g17.CESM2-SF-EE-SSP370.00${mbr}
         #set CASE = b.e21.B1850cmip6.f09_g17.CESM2-SF-GHG.00${mbr}
-        set CASE = b.e21.B1850cmip6.f09_g17.CESM2-SF-AAER.00${mbr}
+        #set CASE = b.e21.B1850cmip6.f09_g17.CESM2-SF-AAER.00${mbr}
+        set CASE = b.e21.B1850cmip6.f09_g17.CESM2-SF-GHG-SSP370.00${mbr}
 else
         #set CASE = b.e21.B1850cmip6.f09_g17.CESM2-SF-EE-SSP370.0${mbr}
         #set CASE = b.e21.B1850cmip6.f09_g17.CESM2-SF-GHG.0${mbr}
-        set CASE = b.e21.B1850cmip6.f09_g17.CESM2-SF-AAER.0${mbr}
+        #set CASE = b.e21.B1850cmip6.f09_g17.CESM2-SF-AAER.0${mbr}
+        set CASE = b.e21.B1850cmip6.f09_g17.CESM2-SF-GHG-SSP370.0${mbr}
 endif
 
 mkdir -p $CASEROOT/$CASE
