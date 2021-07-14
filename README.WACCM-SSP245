@@ -1,0 +1,29 @@
+The 'last' (for now) thing I would love help with for the geoengineering project is a script to run 5 more WACCM SSP245 members with the SAME OUTPUT as the geoengineering runs. So basically the same case set-up as the previous cases you helped me with, but there won't be any injections.
+
+Here is some more info: 5 members of WACCM SSP245 already exist. This is how Mike made the ensemble members:
+
+- Because we only had 3 historical runs with restarts for 2015, to create runs 004 and 005, we mismatched the atmosphere IC file with the restarts used for the other models. The RUN_REFCASE gives the historical case that was used for the ocean, sea ice, and land models, but ncdata in atm_in gives the IC file used for the atmosphere.
+
+SSP2-4.5 run 001 - 003 started from historial run 001 - 003
+
+SSP2-4.5 run 004 started from historical run 001 for the ocean, sea ice, and land models, but from historical run 002 for the atmosphere.
+
+SSP2-4.5 run 005 started from historical run 002 for the ocean, sea ice, and land models, but from historical run 003 for the atmosphere.
+
+Cases are here:
+/glade/work/cmip6/cases/ScenarioMIP_WACCM
+
+b.e21.BWSSP245cmip6.f09_g17.CMIP6-SSP2-4.5-WACCM.001
+
+For members 006 to 010, Mike recommended we do NOT take atmospheres from different years (because ~ 2015 things change a lot). So my thought is that for members 006 to 010, do exactly as was done for members 001 to 005 and add pertlim. What do you think? I'm open to other suggestions.
+
+So, names should be the same:
+b.e21.BWSSP245cmip6.f09_g17.CMIP6-SSP2-4.5-WACCM.006 .....
+
+Account key: NCGD0050
+Regular queue
+Otherwise same everything as in the geoengineering runs (Output!)
+
+Let me know if this is doable and if you have additional questions,
+Thanks!
+Yaga
