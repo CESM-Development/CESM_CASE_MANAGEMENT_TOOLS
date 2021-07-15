@@ -1,0 +1,75 @@
+!!       h0,   h1,    h2,  h3,   h4,   h5
+nhtfrq =  0,  -24,    -6,  -6,   -6,   -3
+mfilt   = 1,  365,   146,  73,  146,  292
+
+
+! monthly (h0)
+fincl1 = 'ANRAIN','ANSNOW','AQRAIN','AQSNOW','AREI','AREL','AWNC','AWNI','CCN3','CLOUD','DCQ','DTCOND','DTV','DTWR_H2O2','DTWR_H2SO4',
+	'DTWR_SO2','EMISCLD','FICE','FREQI','FREQL','FREQR','FREQS','ICIMR','ICWMR','IWC','NUMICE','NUMLIQ','OMEGA','OMEGAT','Q','QRL',
+	'QRS','RELHUM','T','U','UU','V','VD01','VQ','VT','VU','VV','WSUB','Z3','CLDICE','CLDLIQ','CLD_CAL', 'AEROD_v','AODDUST1','AODDUST3',
+	'AODVIS','BURDEN1','BURDEN2','BURDEN3','BURDENBC','BURDENDUST','BURDENPOM','BURDENSEASALT','BURDENSO4','BURDENSOA','CDNUMC','CLDHGH',
+	'CLDLOW','CLDMED','CLDTOT','DMS_SRF','FLDS','FLNS','FLNSC','FLNT','FLNTC','FLUT','FLUTC','FSDS','FSDSC','FSNS','FSNSC','FSNT','FSNTC',
+	'FSNTOA','FSNTOAC','FSUTOA','H2O2_SRF','H2SO4_SRF','ICEFRAC','LANDFRAC','LHFLX','LWCF','OCNFRAC','PBLH','PHIS','PRECC','PRECL','PRECSC',
+	'PRECSL','PS','PSL','QFLX','QREFHT','SHFLX','SNOWHICE','SNOWHLND','SO2_SRF','SOAG_SRF','SOLIN','SWCF','TAUGWX','TAUGWY','TAUX','TAUY',
+	'TGCLDCWP','TGCLDIWP','TGCLDLWP','TMQ','TREFHT','TS','TSMN:M','TSMX:X','U10','WGUSTD','bc_a1_SRF','dst_a1_SRF','dst_a3_SRF','ncl_a1_SRF',
+	'ncl_a2_SRF','ncl_a3_SRF','num_a1_SRF','num_a2_SRF','num_a3_SRF','pom_a1_SRF','so4_a1_SRF','so4_a2_SRF','so4_a3_SRF','soa_a1_SRF','soa_a2_SRF',
+	'TREFHTMN:M','TREFHTMX:X','FLDSC','CMFMC','CMFMCDZM','PCLDTOP','PCLDBOT','FREQZM','MEANCLDALB_ISCCP','CLDTOT_ISCCP','MEANPTOP_ISCCP',
+	'MEANTAU_ISCCP','CLDHGH_CAL','CLDLOW_CAL','CLDMED_CAL','CLDTOT_CAL'
+
+! SL averaged daily (h1)
+fincl2 = 'TS','PRECT','TMQ','IVT','OMEGA850','Z500','RHREFHT','FLUT','U10:X'
+
+! SL instantaneous 6hr (h2)
+fincl3 = 'Z500:I','PSL:I','QREFHT:I','TREFHT:I','U10:I','TS:I','Z250:I','PRECT:I','UBOT:I','VBOT:I','ZBOT:I','IVT:I',
+         'uIVT:I','vIVT:I','TMQ:I','PS:I','T200:I','T500:I','U925:I','U850:I','U500:I','U250:I','U700:I','U600:I','V925:I','V850:I',
+         'V500:I','V250:I','V700:I','V600:I','FLUT:I'
+
+! 3D averaged 6hr (h3)
+fincl4 = 'Q','OMEGA','U','V','T','Z3','RELHUM'
+
+! SL averaged 6hr (h4)
+fincl5 = 'Z500','PSL','QREFHT','TREFHT','U10','TS','U850','V850','Z250','PRECT','UBOT','VBOT','ZBOT','QFLX','TMQ',
+	 'CLDTOT','LHFLX','PS','T200','T500','SHFLX','PRECC','PRECSC','PRECSL','FLDSC','FLDS','FLNS','FSDSC',
+         'SOLLD','SOLSD','FSDS','FSNSC','FSNS','TREFHTMN:M','TREFHTMX:X','TSMN:M','TSMX:X'
+
+
+! exclude these variables (from h0)
+fexcl1 = 'RFL_PARASOL','CFAD_SR532_CAL','MOL532_CAL','MEANTB_ISCCP','MEANTBCLR_ISCCP'
+
+cosp_llidar_sim = .true.
+cosp_lisccp_sim = .true.
+
+
+ext_frc_specifier              = 'SO2         -> //glade/p/cesmdata/cseg/inputdata/atm/cam/chem/trop_mozart_aero/emis/RCP85_mam3_so2_elev_19400115-20601215_c190718.nc',
+         'bc_a1       -> //glade/p/cesmdata/cseg/inputdata/atm/cam/chem/trop_mozart_aero/emis/RCP85_mam3_bc_elev_19400115-20601215_c190718.nc',
+         'num_a1      -> //glade/p/cesmdata/cseg/inputdata/atm/cam/chem/trop_mozart_aero/emis/RCP85_mam3_num_a1_elev_19400115-20601215_c190718.nc',
+         'num_a2      -> //glade/p/cesmdata/cseg/inputdata/atm/cam/chem/trop_mozart_aero/emis/RCP85_mam3_num_a2_elev_19400115-20601215_c190718.nc',
+         'pom_a1      -> //glade/p/cesmdata/cseg/inputdata/atm/cam/chem/trop_mozart_aero/emis/RCP85_mam3_oc_elev_19400115-20601215_c190718.nc',
+         'so4_a1      -> //glade/p/cesmdata/cseg/inputdata/atm/cam/chem/trop_mozart_aero/emis/RCP85_mam3_so4_a1_elev_19400115-20601215_c190718.nc',
+         'so4_a2      -> //glade/p/cesmdata/cseg/inputdata/atm/cam/chem/trop_mozart_aero/emis/RCP85_mam3_so4_a2_elev_19400115-20601215_c190718.nc'
+ ext_frc_type           = 'INTERP_MISSING_MONTHS'
+ srf_emis_specifier             = 'DMS       -> //glade/p/cesmdata/cseg/inputdata/atm/cam/chem/trop_mozart_aero/emis/aerocom_mam3_dms_surf_1849-2100_c140822.nc',
+         'SO2       -> //glade/p/cesmdata/cseg/inputdata/atm/cam/chem/trop_mozart_aero/emis/RCP85_mam3_so2_surf_19400115-20601215_c190718.nc',
+         'SOAG      -> //glade/p/cesmdata/cseg/inputdata/atm/cam/chem/trop_mozart_aero/emis/RCP85_soag_1.5_surf_19400115-20601215_c190718.nc',
+         'num_a1    -> //glade/p/cesmdata/cseg/inputdata/atm/cam/chem/trop_mozart_aero/emis/RCP85_mam3_num_a1_surf_19400115-20601215_c190718.nc',
+         'num_a2    -> //glade/p/cesmdata/cseg/inputdata/atm/cam/chem/trop_mozart_aero/emis/RCP85_mam3_num_a2_surf_19400115-20601215_c190718.nc',
+         'pom_a1    -> //glade/p/cesmdata/cseg/inputdata/atm/cam/chem/trop_mozart_aero/emis/RCP85_mam3_oc_surf_19400115-20601215_c190718.nc',
+         'so4_a1    -> //glade/p/cesmdata/cseg/inputdata/atm/cam/chem/trop_mozart_aero/emis/RCP85_mam3_so4_a1_surf_19400115-20601215_c190718.nc',
+         'so4_a2    -> //glade/p/cesmdata/cseg/inputdata/atm/cam/chem/trop_mozart_aero/emis/RCP85_mam3_so4_a2_surf_19400115-20601215_c190718.nc'
+ srf_emis_type          = 'INTERP_MISSING_MONTHS'
+
+ tracer_cnst_datapath           = '/glade/p/cesmdata/cseg/inputdata/atm/cam/chem/trop_mozart_aero/oxid'
+ tracer_cnst_file               = 'oxid_rcp85_v1_1.9x2.5_L26_19450115-20551215_c190517.nc'
+ tracer_cnst_filelist           = 'oxid_1.9x2.5_L26_clim_list.c090805.txt'
+ tracer_cnst_specifier          = 'O3','OH','NO3','HO2'
+ tracer_cnst_type               = 'INTERP_MISSING_MONTHS'
+
+ bndtvghg               = '/glade/p/cesmdata/cseg/inputdata/atm/cam/ggas/ghg_rcp85_1765-2500_c100203.nc'
+ solar_data_file        = '/glade/p/cesmdata/cseg/inputdata/atm/cam/solar/spectral_irradiance_Lean_1610-2140_ann_c100408.nc'
+
+ prescribed_ozone_datapath      = '/glade/p/cesmdata/cseg/inputdata/atm/cam/ozone'
+ prescribed_ozone_file          = 'ozone_rcp85_v1_1.9x2.5_L66_19400115-20551215_c191111.nc'
+
+ prescribed_volcaero_datapath           = '/glade/p/cesmdata/cseg/inputdata/atm/cam/volc'
+ prescribed_volcaero_file               = 'CCSM4_volcanic_1949115-20600115_prototype1_c191112.nc'
+
