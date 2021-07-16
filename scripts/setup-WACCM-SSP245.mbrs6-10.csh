@@ -35,12 +35,15 @@ if ($mbr == 8)  setenv REFCASE b.e21.BWHIST.f09_g17.CMIP6-historical-WACCM.003
 if ($mbr == 9)  setenv REFCASE b.e21.BWHIST.f09_g17.CMIP6-historical-WACCM.001
 if ($mbr == 10) setenv REFCASE b.e21.BWHIST.f09_g17.CMIP6-historical-WACCM.002
 
-#setenv CASEROOT  /glade/work/geostrat/cases/$CASENAME
-setenv CASEROOT  /glade/scratch/$USER/waccm-geo/$CASENAME
+setenv CASEROOT  /glade/work/geostrat/cases/$CASENAME
+set RUNDIR = /glade/scratch/geostrat/$CASENAME/run/
+
+#setenv CASEROOT  /glade/scratch/$USER/waccm-geo/$CASENAME
+#set RUNDIR = /glade/scratch/$USER/$CASENAME/run/
+
 setenv REFDATE  2015-01-01
 setenv REFROOT  /glade/scratch/nanr/archive/$REFCASE/rest/${REFDATE}-00000/
 setenv STARTDATE  $REFDATE
-set RUNDIR = /glade/scratch/$USER/$CASENAME/run/
 
 $CESMROOT/cime/scripts/create_newcase --compset ${COMPSET} --res f09_g17 --case ${CASEROOT} --project=${PROJECT} --queue=economy
 
@@ -138,7 +141,8 @@ if ( $mbr == 6 ) then
 else
   ./case.setup --reset
   ./xmlchange BUILD_COMPLETE=TRUE
-  ./xmlchange EXEROOT=/glade/scratch/nanr/$mastercase/bld
+  #./xmlchange EXEROOT=/glade/scratch/nanr/$mastercase/bld
+  ./xmlchange EXEROOT=/glade/scratch/geostrat/$mastercase/bld
 endif
 
    @ casectr ++
