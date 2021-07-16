@@ -68,7 +68,7 @@ $CESMROOT/cime/scripts/create_newcase --compset ${COMPSET} --res f09_g17 --case 
 
 
   cp $CESM2_TOOLS_ROOT/SourceMods/src.cam/* $CASEROOT/SourceMods/src.cam/
-  cp $CESM2_TOOLS_ROOT/user_nl_files/user_nl_* $CASEROOT/
+  cp $CESM2_TOOLS_ROOT/user_nl_files/geo/user_nl_* $CASEROOT/
 
   mv  env_batch.xml tmp.batch
   cat tmp.batch | sed 's/-N {{ job_id }}/-N TSMLT.{{ job_id }}/' > env_batch.xml

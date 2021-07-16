@@ -32,7 +32,7 @@ endif
 if ($mbr == 6)  setenv REFCASE b.e21.BWHIST.f09_g17.CMIP6-historical-WACCM.001
 if ($mbr == 7)  setenv REFCASE b.e21.BWHIST.f09_g17.CMIP6-historical-WACCM.002
 if ($mbr == 8)  setenv REFCASE b.e21.BWHIST.f09_g17.CMIP6-historical-WACCM.003
-if ($mbr == 9)  setenv REFCASE b.e21.BWHIST.f09_g17.CMIP6-historical-WACCM.001_v2
+if ($mbr == 9)  setenv REFCASE b.e21.BWHIST.f09_g17.CMIP6-historical-WACCM.001
 if ($mbr == 10) setenv REFCASE b.e21.BWHIST.f09_g17.CMIP6-historical-WACCM.002
 
 #setenv CASEROOT  /glade/work/geostrat/cases/$CASENAME
@@ -70,7 +70,7 @@ $CESMROOT/cime/scripts/create_newcase --compset ${COMPSET} --res f09_g17 --case 
 
 
   cp $CESM2_TOOLS_ROOT/SourceMods/src.cam/* $CASEROOT/SourceMods/src.cam/
-  cp $CESM2_TOOLS_ROOT/user_nl_files/user_nl_* $CASEROOT/
+  cp $CESM2_TOOLS_ROOT/user_nl_files/ssp245/user_nl_* $CASEROOT/
 
 mv  user_nl_cam user_nl_cam.orig
 if ($mbr > 8) then
@@ -93,7 +93,7 @@ endif
 
 
   cat head.tmp user_nl_cam.orig > user_nl_cam
-  rm head.tmp
+  rm  head.tmp
 
   mv  env_batch.xml tmp.batch
   if ($mbr == 6) then
@@ -131,8 +131,15 @@ endif
 
 echo " End restarts copy -----------"
 
-   #./case.setup --reset; ./case.setup
-   ./case.setup --reset; ./case.setup; qcmd -- ./case.build >& bld.`date +%m%d-%H%M`
+if ( $mbr == 6 ) then
+  ./case.setup --reset
+  qcmd -- ./case.build
+  set mastercase = $CASENAME
+else
+  ./case.setup --reset
+  ./xmlchange BUILD_COMPLETE=TRUE
+  ./xmlchange EXEROOT=/glade/scratch/nanr/$mastercase/bld
+endif
 
    @ casectr ++
 

@@ -69,7 +69,7 @@ $CESMROOT/cime/scripts/create_newcase --compset ${COMPSET} --res f09_g17 --case 
 
 
   cp $CESM2_TOOLS_ROOT/SourceMods/src.cam/* $CASEROOT/SourceMods/src.cam/
-  cp $CESM2_TOOLS_ROOT/user_nl_files/user_nl_* $CASEROOT/
+  cp $CESM2_TOOLS_ROOT/user_nl_files/geo/user_nl_* $CASEROOT/
 
 mv  user_nl_cam user_nl_cam.orig
 cat >> head.tmp << EOF
