@@ -42,18 +42,18 @@ cd ~cesmsf/CESM-WF/
 #set embr =  10
 set smbr =  11
 set embr =  15
+set bmbr =  1
 
 
 @ mb = $smbr
 @ me = $embr
 
 # reference name counter
-@ mmm = ($smbr * 2) - 1
-
+@ mmm = ($bmbr * 2) - 1
 
 foreach mbr ( `seq $mb  $me` )
 
-@ USE_REFDATE = 1001 + ( $mmm - 1 ) * 10
+@ USE_REFDATE = 1011 + ( $mmm - 1 ) * 10
 @ mmm+=2
 
 setenv REFDATE  ${USE_REFDATE}
