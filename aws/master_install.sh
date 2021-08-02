@@ -33,6 +33,12 @@ yum -y install intel-oneapi-compiler-fortran-2021.3.0 intel-oneapi-compiler-dpcp
 # We do this in /opt so that compute nodes don't need to have all this stuff installed, making
 # boot time much faster.  The first line adds our location to the standard LD search path.
 echo '/opt/ncar/software/lib' > /etc/ld.so.conf.d/ncar.conf
+
+export LIBRARY_PATH=/opt/ncar/software/lib
+export LD_LIBRARY_PATH=/opt/ncar/software/lib
+export CPATH=/opt/ncar/software/include
+export FPATH=/opt/ncar/software/include
+
 mkdir /tmp/sources
 cd /tmp/sources
 wget -q https://support.hdfgroup.org/ftp/HDF5/releases/hdf5-1.12/hdf5-1.12.0/src/hdf5-1.12.0.tar.gz
