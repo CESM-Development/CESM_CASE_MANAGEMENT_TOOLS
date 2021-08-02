@@ -5,5 +5,5 @@
 ln -s /usr/bin/python3 /usr/bin/python
 
 # Set up our search path
-echo '/opt/ncar/lib' > /etc/ld.so.conf.d/ncar.conf
+echo '/opt/ncar/software/lib' > /etc/ld.so.conf.d/ncar.conf
 
