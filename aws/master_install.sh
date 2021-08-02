@@ -39,6 +39,8 @@ export LD_LIBRARY_PATH=/opt/ncar/software/lib
 export CPATH=/opt/ncar/software/include
 export FPATH=/opt/ncar/software/include
 
+source /opt/intel/oneapi/setvars.sh
+
 mkdir /tmp/sources
 cd /tmp/sources
 wget -q https://support.hdfgroup.org/ftp/HDF5/releases/hdf5-1.12/hdf5-1.12.0/src/hdf5-1.12.0.tar.gz
@@ -64,7 +66,7 @@ cd /tmp/sources
 wget -q https://parallel-netcdf.github.io/Release/pnetcdf-1.12.1.tar.gz
 tar zxf pnetcdf-1.12.1.tar.gz
 cd pnetcdf-1.12.1
-./configure --prefix=/opt/ncar/software
+./configure --prefix=/opt/ncar/software CC=mpicc CXX=mpicxx FC=mpiifort
 make -j 2 install
 ldconfig
 rm -rf /tmp/sources
