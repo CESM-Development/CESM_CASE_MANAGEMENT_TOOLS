@@ -46,20 +46,20 @@ cd /tmp/sources
 wget -q https://support.hdfgroup.org/ftp/HDF5/releases/hdf5-1.12/hdf5-1.12.0/src/hdf5-1.12.0.tar.gz
 tar zxf hdf5-1.12.0.tar.gz
 cd hdf5-1.12.0
-./configure --prefix=/opt/ncar/software
+./configure --prefix=/opt/ncar/software CC=icc CXX=icpc FC=ifort
 make -j 2 install
 cd /tmp/sources
 wget -q ftp://ftp.unidata.ucar.edu/pub/netcdf/netcdf-c-4.7.4.tar.gz
 tar zxf netcdf-c-4.7.4.tar.gz
 cd netcdf-c-4.7.4
-./configure --prefix=/opt/ncar/software
+./configure --prefix=/opt/ncar/software CC=icc CXX=icpc FC=ifort
 make -j 2 install
 ldconfig
 cd /tmp/sources
 wget -q ftp://ftp.unidata.ucar.edu/pub/netcdf/netcdf-fortran-4.5.3.tar.gz
 tar zxf netcdf-fortran-4.5.3.tar.gz
 cd netcdf-fortran-4.5.3
-./configure --prefix=/opt/ncar/software
+./configure --prefix=/opt/ncar/software CC=icc CXX=icpc FC=ifort
 make -j 2 install
 ldconfig
 cd /tmp/sources
