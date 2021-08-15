@@ -1,0 +1,18 @@
+! Users should add all user specific namelist changes below in the form of 
+! namelist_var = new_namelist_value 
+
+!================
+! 1850 GHG
+!================
+&chem_surfvals_nl
+ ch4vmr         =    791.6e-9
+ co2vmr         =    284.7e-6
+ co2vmr         =   1258.5e-6
+ f11vmr         =    12.48e-12
+ f12vmr         =    0.0
+ flbc_list              = ' '
+ n2ovmr         =    275.68e-9
+/
+
+
+ 

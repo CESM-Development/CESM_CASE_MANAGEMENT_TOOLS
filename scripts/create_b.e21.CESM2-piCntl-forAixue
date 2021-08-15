@@ -1,0 +1,44 @@
+#!/bin/csh -f
+### set env variables
+
+#setenv CESMROOT ~cmip6/cesm_tags/release-cesm2.1.1/
+setenv CESMROOT /glade/work/nanr/cesm_tags/cesm2.1.4-rc.07
+setenv CESM_TOOLS /glade/work/nanr/cesm_tags/CASE_tools/cesm2-hosing/
+
+set COMPSET = B1850cmip6
+set MACHINE = cheyenne
+set RESOLN = f09_g17
+set mbr = 1
+set PROJECT = P93300313
+
+setenv CASENAME b.e21.B1850cmip6.f09_g17.HOSING.00${mbr}
+setenv REFCASE  b.e21.B1850.f09_g17.CMIP6-piControl.001
+setenv REFDATE  0501-01-01
+
+setenv CASEROOT /glade/scratch/nanr/$CASENAME
+
+cd $CESMROOT/cime/scripts/
+./create_newcase --case $CASEROOT --res $RESOLN  --compset $COMPSET  --project $PROJECT
+
+cd $CASEROOT
+
+./xmlchange RUN_REFCASE=$REFCASE
+./xmlchange RUN_REFDATE=$REFDATE
+./xmlchange RUN_STARTDATE=1850-01-01
+
+./xmlchange NTASKS_ICE=36
+./xmlchange NTASKS_LND=504
+./xmlchange ROOTPE_ICE=504
+
+./case.setup
+
+cp $CESM_TOOLS/user_nl_namelists/user_nl_clm $CASEROOT/
+cp -pR $CESM_TOOLS/SourceMods/src.pop/* $CASEROOT/SourceMods/src.pop/
+
+
+
+
+./preview_namelists
+
+qcmd -- ./case.build >& bld.`date +%m%d-%H%M`
+
