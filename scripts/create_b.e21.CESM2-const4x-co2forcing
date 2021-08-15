@@ -14,9 +14,11 @@ setenv CASENAME b.e21.${COMPSET}.f09_g17.AMOC-4xco2.00${mbr}
 setenv REFCASE  b.e21.B1PCTcmip6.f09_g17.rampUp.00${mbr}
 setenv REFDATE  0151-01-01
 
-setenv CASEROOT /glade/scratch/nanr/$CASENAME
-#setenv RUNDIR   /glade/scratch/molina/$CASENAME/run
-setenv RUNDIR   /glade/scratch/nanr/$CASENAME/run
+#setenv CASEROOT /glade/scratch/nanr/$CASENAME
+#setenv RUNDIR   /glade/scratch/nanr/$CASENAME/run
+
+setenv CASEROOT /glade/work/molina/cesm2_co2_001/$CASENAME
+setenv RUNDIR   /glade/scratch/molina/$CASENAME/run
 
 cd $CESMROOT/cime/scripts/
 ./create_newcase --case $CASEROOT --res $RESOLN  --compset $COMPSET  --project $PROJECT
