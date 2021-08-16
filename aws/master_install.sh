@@ -1,5 +1,7 @@
 #!/bin/bash
 
+
+
 # Install the yum repo for all the oneAPI packages:
 cat << EOF > /etc/yum.repos.d/oneAPI.repo
 [oneAPI]
@@ -42,35 +44,42 @@ export LD_LIBRARY_PATH=/opt/ncar/software/lib
 export CPATH=/opt/ncar/software/include
 export FPATH=/opt/ncar/software/include
 
-source /opt/intel/oneapi/setvars.sh
+# OK, check if our precompiled stuff is available; if not, we'll build it:
 
-mkdir /tmp/sources
-cd /tmp/sources
-wget -q https://support.hdfgroup.org/ftp/HDF5/releases/hdf5-1.12/hdf5-1.12.0/src/hdf5-1.12.0.tar.gz
-tar zxf hdf5-1.12.0.tar.gz
-cd hdf5-1.12.0
-./configure --prefix=/opt/ncar/software CC=icc CXX=icpc FC=ifort
-make -j 2 install
-cd /tmp/sources
-wget -q ftp://ftp.unidata.ucar.edu/pub/netcdf/netcdf-c-4.7.4.tar.gz
-tar zxf netcdf-c-4.7.4.tar.gz
-cd netcdf-c-4.7.4
-./configure --prefix=/opt/ncar/software CC=icc CXX=icpc FC=ifort
-make -j 2 install
-ldconfig
-cd /tmp/sources
-wget -q ftp://ftp.unidata.ucar.edu/pub/netcdf/netcdf-fortran-4.5.3.tar.gz
-tar zxf netcdf-fortran-4.5.3.tar.gz
-cd netcdf-fortran-4.5.3
-./configure --prefix=/opt/ncar/software CC=icc CXX=icpc FC=ifort
-make -j 2 install
-ldconfig
-cd /tmp/sources
-wget -q https://parallel-netcdf.github.io/Release/pnetcdf-1.12.1.tar.gz
-tar zxf pnetcdf-1.12.1.tar.gz
-cd pnetcdf-1.12.1
-./configure --prefix=/opt/ncar/software CC=mpicc CXX=mpicxx FC=mpiifort
-make -j 2 install
-ldconfig
-rm -rf /tmp/sources
+curl ftp://cesm-inputdata-lowres1.cgd.ucar.edu/cesm/low-res/cloud/ncar_software.tar.gz --output /tmp/ncar_software.tar.gz
+if [ -f /tmp/ncar_software.tar.gz ]; then
+  cd /opt/ncar/ && tar zxvf /tmp/ncar_software.tar.gz
+  rm -f /tmp/ncar_software.tar.gz
+else
+  source /opt/intel/oneapi/setvars.sh
+  mkdir /tmp/sources
+  cd /tmp/sources
+  wget -q https://support.hdfgroup.org/ftp/HDF5/releases/hdf5-1.12/hdf5-1.12.0/src/hdf5-1.12.0.tar.gz
+  tar zxf hdf5-1.12.0.tar.gz
+  cd hdf5-1.12.0
+  ./configure --prefix=/opt/ncar/software CC=icc CXX=icpc FC=ifort
+  make -j 2 install
+  cd /tmp/sources
+  wget -q ftp://ftp.unidata.ucar.edu/pub/netcdf/netcdf-c-4.7.4.tar.gz
+  tar zxf netcdf-c-4.7.4.tar.gz
+  cd netcdf-c-4.7.4
+  ./configure --prefix=/opt/ncar/software CC=icc CXX=icpc FC=ifort
+  make -j 2 install
+  ldconfig
+  cd /tmp/sources
+  wget -q ftp://ftp.unidata.ucar.edu/pub/netcdf/netcdf-fortran-4.5.3.tar.gz
+  tar zxf netcdf-fortran-4.5.3.tar.gz
+  cd netcdf-fortran-4.5.3
+  ./configure --prefix=/opt/ncar/software CC=icc CXX=icpc FC=ifort
+  make -j 2 install
+  ldconfig
+  cd /tmp/sources
+  wget -q https://parallel-netcdf.github.io/Release/pnetcdf-1.12.1.tar.gz
+  tar zxf pnetcdf-1.12.1.tar.gz
+  cd pnetcdf-1.12.1
+  ./configure --prefix=/opt/ncar/software CC=mpicc CXX=mpicxx FC=mpiifort
+  make -j 2 install
+  ldconfig
+  rm -rf /tmp/sources
+fi
 
