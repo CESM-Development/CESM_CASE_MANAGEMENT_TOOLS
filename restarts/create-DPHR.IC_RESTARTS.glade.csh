@@ -21,7 +21,7 @@ else
 	set atmdir = /scratch1/06091/nanr/JRA55/
 	set ocnpath = /scratch1/06090/fredc/
         set lndpath = /scratch1/06091/nanr/archive/
-	set lndcase =  f.e13.FAMIPC5.ne120_ne120_mt12.gen-restarts.001
+	set lndcase =  f.e13.FAMIPC5.ne120_ne120_mt12.rerun-gen-restarts.001
 endif
 
 set syr = 1982
@@ -35,10 +35,14 @@ set eyr = 1992
 #set eyr = 1994
 set syr = 1996
 set eyr = 1996
-set lndcase =  f.e13.FAMIPC5.ne120_ne120_mt12.chey-gen-restarts.${syr}-01-01.001
 =======
+set lndcase =  f.e13.FAMIPC5.ne120_ne120_mt12.chey-gen-restarts.${syr}-01-01.001
 set syr = 1998
 set eyr = 1998
+=======
+set lndcase =  f.e13.FAMIPC5.ne120_ne120_mt12.rerun-gen-restarts.001
+set syr = 2000
+set eyr = 2000
 
 @ ib = $syr
 @ ie = $eyr

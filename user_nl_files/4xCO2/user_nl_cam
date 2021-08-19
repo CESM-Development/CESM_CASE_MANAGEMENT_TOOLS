@@ -1,0 +1,27 @@
+ zmconv_c0_lnd  =  0.0059D0
+ zmconv_c0_ocn  =  0.0450D0
+ cldfrc_rhminl  =  0.8870D0     
+
+ micro_mg_dcs   =  525.D-6
+
+ dust_emis_fact =  0.95D0
+ se_nsplit      =  2
+ rsplit         =  3
+ qsplit         =  1
+ hypervis_subcycle  =  3
+ tstep_type     = 5
+ se_ftype       =  2
+ nu             =  1.0e15
+ nu_div         =  2.5e15
+
+
+!! 4xCO2 forcing
+&chem_surfvals_nl
+ ch4vmr         = 791.6e-9
+ co2vmr         = 1138.8e-6
+ f11vmr         = 12.48e-12
+ f12vmr         = 0.0
+ flbc_list              = ' '
+ n2ovmr         = 275.68e-9
+/
+

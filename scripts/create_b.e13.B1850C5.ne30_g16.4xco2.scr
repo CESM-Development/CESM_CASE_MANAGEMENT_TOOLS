@@ -6,14 +6,15 @@
 set COMPSET = B1850C5
 set RESOLN  = ne30_g16
 set MACHINE = cheyenne
-set TAG     = ihesp35
+set MACHINE = frontera
+set TAG     = cesm-ihesp-hires1.0.35
 #setenv CESMROOT /global/project/projectdirs/ccsm1/people/nanr/cesm_tags/cesm1_3_beta17_${TAG}
 #setenv CESMROOT /glade/work/nanr/cesm_tags/cesm1_3_beta17_${TAG}
 #setenv CESMROOT /glade/work/nanr/cesm_tags/sandbox/cesm1_3_beta17_sehires36
-setenv CESMROOT /gpfs/fs1/work/nanr/cesm_tags/cesm-ihesp-hires1.0.35/
+#setenv CESMROOT /gpfs/fs1/work/nanr/cesm_tags/cesm-ihesp-hires1.0.35/
 
 set mbr = 1
-setenv CASE b.e13.${COMPSET}.${RESOLN}.${TAG}_4xCO2.00${mbr}
+setenv CASE b.e13.${COMPSET}.${RESOLN}.4xCO2.00${mbr}
 
 if ($MACHINE == frontera) then
         set PATH      = $STOCKYARD
@@ -26,11 +27,10 @@ else
         set RUNDIR    = /glade/scratch/nanr/$CASE/run
         setenv CASEROOT /glade/work/nanr/ihesp-HiRes/cases/ne30_g16/$CASE
         set TOOLSROOT = /glade/work/nanr/cesm_tags/CASE_tools/ihesp-tools/
-        set REFROOT   = /glade/scratch/nanr/DP-HR/inputdata/cesm2_init/
+        set REFROOT   = /glade/scratch/nanr/archive/1850C.0250.restart/
 endif
 
-setenv CASEROOT /glade/work/nanr/ihesp-HiRes/cases/ne30_g16/$CASE
-
+setenv CESMROOT ${PATH}/cesm_tags/${TAG}/
 
 #$CESMROOT/scripts/create_newcase -case $CASEROOT -res $RESOLN  -mach $MACHINE -compset $COMPSET -compiler $COMPILER
  $CESMROOT/cime/scripts/create_newcase --case $CASEROOT --res $RESOLN  --mach $MACHINE --compset $COMPSET --run-unsupported
@@ -41,31 +41,30 @@ cd $CASEROOT
 ./xmlchange RUN_TYPE=hybrid
 ./xmlchange RUN_REFCASE=B.E.13.B1850C5.ne30g16.sehires38.003.sunway
 ./xmlchange RUN_REFDATE=0250-01-01
+./xmlchange RUN_STARTDATE=1850-01-01
 ./xmlchange GET_REFCASE=FALSE
 ./xmlchange STOP_OPTION=nyears
-./xmlchange STOP_N=10
-./xmlchange DIN_LOC_ROOT='/glade/p/cesm/cseg/inputdata'
-./xmlchange DIN_LOC_ROOT_CLMFORC='/glade/p/cesm/cseg/inputdata/atm/datm7'
-./xmlchange PIO_NETCDF_FORMAT_LND=64bit_offset
+./xmlchange STOP_N=5
 
- ./xmlchange NTASKS_ATM=2160
- ./xmlchange NTASKS_LND=864
- ./xmlchange NTASKS_ICE=1296
- ./xmlchange ROOTPE_ICE=864
- ./xmlchange NTASKS_OCN=1296
- ./xmlchange ROOTPE_OCN=2160
- ./xmlchange NTASKS_CPL=2160
- ./xmlchange NTASKS_ROF=864
+./xmlchange NTASKS_CPL=-96
+./xmlchange NTASKS_ATM=-96
+./xmlchange NTASKS_ICE=-57
+./xmlchange NTASKS_LND=-39
+./xmlchange NTASKS_ROF=-39
+./xmlchange NTASKS_OCN=768
+./xmlchange ROOTPE_ICE=-39
+./xmlchange ROOTPE_OCN=-96
+./xmlchange --subgroup case.st_archive JOB_QUEUE=small --force
 
- ./case.setup --reset
+ ./case.setup 
 
 
 cp    $REFROOT/* $RUNDIR
+cp    $TOOLSROOT/user_nl_files/4xCO2/user_nl_cam $CASEROOT/
 
 if ($MACHINE == cheyenne) then 
    qcmd -- ./case.build
    ./xmlchange PROJECT=P93300313
 else
-   cp /scratch1/06091/nanr/archive/1850C.0250.restart/* /glade/scratch/nanr/$CASE/run/
    ./case.build
 endif

@@ -1,3 +1,5 @@
+ cam_branch_file                = '/scratch1/06091/nanr/f.e13.FAMIPC5.ne120_ne120_mt12.rerun-gen-restarts.001/run/f.e13.FAMIPC5.ne120_ne120_mt12.cesm-ihesp-hires1.0.32_gen-restarts.0097.cam.r.1986-04-01-00000.nc'
+
 !!       h0,   h1,    h2,  h3,   h4,   h5
 nhtfrq =  0,  -24,    -6,  -6,   -6,   -3
 mfilt   = 1,  365,   146,  73,  146,  292
