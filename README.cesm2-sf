@@ -1,5 +1,0 @@
-/glade/work/nanr/cesm_tags/CASE_tools > git clone https://github.com/CESM-Development/CESM_CASE_MANAGEMENT_TOOLS -b cesm2-le cesm2-sf
-
-git checkout -b cesm2-sf
-
-/glade/p/cesmdata/cseg/inputdata/atm/waccm/lb/LBC_2014-2500_CMIP6_SSP370_0p5degLat_GlobAnnAvg_c190301.nc
