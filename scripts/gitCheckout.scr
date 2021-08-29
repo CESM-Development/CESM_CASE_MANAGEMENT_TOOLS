@@ -6,12 +6,12 @@
 
 set MACHINE = cheyenne
 set MACHINE = frontera
-set TAG     = cesm-ihesp-hires1.0.34
+set TAG     = cesm-ihesp-hires1.0.38
 set GITREPO = https://github.com/ihesp/cesm.git
 
 if ($MACHINE == frontera) then
-	#set PATH    = $STOCKYARD
-	set PATH    = /work2/06091/nanr/
+	set PATH    = $STOCKYARD
+	#set PATH    = /work2/06091/nanr/
 else
         set PATH    = /glade/work/nanr/
 endif

@@ -18,8 +18,8 @@ set STOP_N=62
 set REST_OPTION=nmonths
 set REST_N=12
 
-set syr =  2000
-set eyr =  2000
+set syr =  2002
+set eyr =  2002
 @ yb = $syr
 @ ye = $eyr
 
@@ -111,10 +111,10 @@ if ($MACHINE == cheyenne) then
 endif
 
 ##cp $TOOLSROOT/user_nl_files/DP-HR/user_nl_cam-COSP-ON $CASEROOT/user_nl_cam
-cp $TOOLSROOT/user_nl_files/DP-HR/user_nl_cam $CASEROOT/user_nl_cam
-cp $TOOLSROOT/user_nl_files/DP-HR/user_nl_clm $CASEROOT/user_nl_clm
-cp $TOOLSROOT/user_nl_files/DP-HR/user_nl_cice $CASEROOT/user_nl_cice
-cp $TOOLSROOT/user_nl_files/DP-HR/user_nl_rtm $CASEROOT/user_nl_rtm
+cp $TOOLSROOT/user_nl_files/DP-HR/2000s/user_nl_cam $CASEROOT/user_nl_cam
+cp $TOOLSROOT/user_nl_files/DP-HR/2000s/user_nl_clm $CASEROOT/user_nl_clm
+cp $TOOLSROOT/user_nl_files/DP-HR/2000s/user_nl_cice $CASEROOT/user_nl_cice
+cp $TOOLSROOT/user_nl_files/DP-HR/2000s/user_nl_rtm $CASEROOT/user_nl_rtm
 
 
 cp $TOOLSROOT/SourceMods/src.cice/DP-HR/*  $CASEROOT/SourceMods/src.cice/
