@@ -1,0 +1,89 @@
+!! matching SUNWAY settings for BHIS
+ cldfrc_rhminl          = 0.92
+
+!!       h0,   h1,    h2,   h3,   h4
+nhtfrq =  0,  -24,    -6,   -6,   -3
+mfilt   = 1,  365,   146,  146,  292
+
+
+! monthly (h0)
+fincl1 = 'ANRAIN','ANSNOW','AQRAIN','AQSNOW','AREI','AREL','AWNC','AWNI','CCN3','CLDICE','CLDLIQ','CLOUD','DCQ','DTCOND',
+         'DTV','DTWR_H2O2','DTWR_H2SO4','DTWR_SO2','EMISCLD','FICE','FREQI','FREQL','FREQR','FREQS','ICIMR','ICWMR',
+         'IWC','NUMICE','NUMLIQ','OMEGA','OMEGAT','Q','QRL','QRS','RELHUM','T','U','UU','V','VD01','VQ','VT','VU','VV',
+         'WSUB','Z3','ZMDT','ZMDQ','AEROD_v','AODDUST1','AODDUST3','AODVIS','bc_a1_SRF','BURDEN1','BURDEN2','BURDEN3','BURDENBC',
+         'BURDENDUST','BURDENPOM','BURDENSEASALT','BURDENSO4','BURDENSOA','CDNUMC','CLDHGH','CLDLOW',
+         'CLDMED', 'CLDTOT', 'CMFMC','CMFMCDZM','DMS_SRF',
+         'dst_a1_SRF','dst_a3_SRF','FLDS','FLDSC','FLNS','FLNSC','FLNT','FLNTC','FLUT','FLUTC','FREQZM','FSDS','FSDSC',
+         'FSNS','FSNSC','FSNT','FSNTC','FSNTOA','FSNTOAC','FSUTOA','H2O2_SRF','H2SO4_SRF','ICEFRAC','IVT','LHFLX','LWCF',
+         'ncl_a1_SRF','ncl_a2_SRF','ncl_a3_SRF','num_a1_SRF','num_a2_SRF','num_a3_SRF','OCNFRAC','PBLH','PCLDBOT',
+         'PCLDTOP','PHIS','pom_a1_SRF','PRECC','PRECL','PRECSC','PRECSL','PS','PSL','QFLX','QREFHT','SHFLX','SNOWHICE',
+         'SNOWHLND','SO2_SRF','so4_a1_SRF','so4_a2_SRF','so4_a3_SRF','soa_a1_SRF','soa_a2_SRF','SOAG_SRF','SOLIN',
+         'SWCF','TAUGWX','TAUGWY','TAUX','TAUY','TGCLDCWP','TGCLDIWP','TGCLDLWP','TMQ','TREFHT','TREFHTMN:M','TREFHTMX:X',
+         'TS','TSMN:M','TSMX:X','U10','WGUSTD'
+
+
+! SL averaged daily (h1)
+fincl2 = 'FLUT','IVT','OMEGA850','PRECT','RHREFHT','TMQ','TS','U10:X','Z500','PRECC','TREFHT','TREFHTMN:M','TREFHTMX:X','PRECTMX'
+
+! averaged 6hr (h2)
+fincl3 = 'FLUT:A','OMEGA500:A','PRECC:A','PRECSC:A','PRECSL:A','PRECT:A','U200:A',
+         'IVT:A','uIVT:I','vIVT:I','Z200','Z500','U10','U850','V850','TMQ','PS'
+
+! instantaneous 6hr (h3)
+fincl4 = 'PRECT:I','UBOT:I','VBOT:I','ZBOT:I','PSL:I','Z250:I','Z500:I'
+
+! 3hr (h4)
+fincl5 = 'CLDLOW:A','PRECC:A','PRECT:A ','U925:A','V925:A','Q925:A','T925:A','U500:A','V500:A',
+         'Q500:A','Z500:A','U200:A','V200:A','Q200:A','CIN:A','CAPE:A','TS:I','QBOT:I','PSL:I',
+         'UBOT:I','VBOT:I','TMQ:A','U850:A','V850:A'
+
+
+!! ===================
+! Cosp variables
+!! ===================
+! Cosp h0 variables
+!!'CLDHGH_CAL', 'CLDLOW_CAL', 'CLDMED_CAL', 'CLDTOT_CAL','CLDTOT_ISCCP',
+!!'CLD_CAL','MEANCLDALB_ISCCP','CLDTOT_ISCCP','MEANPTOP_ISCCP', 'MEANTAU_ISCCP','CLDHGH_CAL','CLDLOW_CAL','CLDMED_CAL','CLDTOT_CAL'
+!! exclude these variables (from h0)
+!! fexcl1 = 'RFL_PARASOL','CFAD_SR532_CAL','MOL532_CAL','MEANTB_ISCCP','MEANTBCLR_ISCCP'
+
+!! cosp_llidar_sim = .true.
+!! cosp_lisccp_sim = .true.
+
+!! ==================================
+!! - cross 2005/2006 forcing boundary
+!! ==================================
+
+ ext_frc_specifier              = 'SO2         -> /work2/02503/edwardsj/CESM/inputdata//atm/cam/chem/trop_mozart_aero/emis/RCP85_mam3_so2_elev_19400115-20601215_c190718.nc',
+         'bc_a1       -> /work2/02503/edwardsj/CESM/inputdata//atm/cam/chem/trop_mozart_aero/emis/RCP85_mam3_bc_elev_19400115-20601215_c190718.nc',
+         'num_a1      -> /work2/02503/edwardsj/CESM/inputdata//atm/cam/chem/trop_mozart_aero/emis/RCP85_mam3_num_a1_elev_19400115-20601215_c190718.nc',
+         'num_a2      -> /work2/02503/edwardsj/CESM/inputdata//atm/cam/chem/trop_mozart_aero/emis/RCP85_mam3_num_a2_elev_19400115-20601215_c190718.nc',
+         'pom_a1      -> /work2/02503/edwardsj/CESM/inputdata//atm/cam/chem/trop_mozart_aero/emis/RCP85_mam3_oc_elev_19400115-20601215_c190718.nc',
+         'so4_a1      -> /work2/02503/edwardsj/CESM/inputdata//atm/cam/chem/trop_mozart_aero/emis/RCP85_mam3_so4_a1_elev_19400115-20601215_c190718.nc',
+         'so4_a2      -> /work2/02503/edwardsj/CESM/inputdata//atm/cam/chem/trop_mozart_aero/emis/RCP85_mam3_so4_a2_elev_19400115-20601215_c190718.nc'
+ ext_frc_type           = 'INTERP_MISSING_MONTHS'
+ srf_emis_specifier             = 'DMS       -> /work2/02503/edwardsj/CESM/inputdata//atm/cam/chem/trop_mozart_aero/emis/aerocom_mam3_dms_surf_1849-2100_c140822.nc',
+         'SO2       -> /work2/02503/edwardsj/CESM/inputdata//atm/cam/chem/trop_mozart_aero/emis/RCP85_mam3_so2_surf_19400115-20601215_c190718.nc',
+         'SOAG      -> /work2/02503/edwardsj/CESM/inputdata//atm/cam/chem/trop_mozart_aero/emis/RCP85_soag_1.5_surf_19400115-20601215_c190718.nc',
+         'bc_a1     -> /work2/02503/edwardsj/CESM/inputdata//atm/cam/chem/trop_mozart_aero/emis/RCP85_mam3_bc_surf_19400115-20601215_c190718.nc',
+         'num_a1    -> /work2/02503/edwardsj/CESM/inputdata//atm/cam/chem/trop_mozart_aero/emis/RCP85_mam3_num_a1_surf_19400115-20601215_c190718.nc',
+         'num_a2    -> /work2/02503/edwardsj/CESM/inputdata//atm/cam/chem/trop_mozart_aero/emis/RCP85_mam3_num_a2_surf_19400115-20601215_c190718.nc',
+         'pom_a1    -> /work2/02503/edwardsj/CESM/inputdata//atm/cam/chem/trop_mozart_aero/emis/RCP85_mam3_oc_surf_19400115-20601215_c190718.nc',
+         'so4_a1    -> /work2/02503/edwardsj/CESM/inputdata//atm/cam/chem/trop_mozart_aero/emis/RCP85_mam3_so4_a1_surf_19400115-20601215_c190718.nc',
+         'so4_a2    -> /work2/02503/edwardsj/CESM/inputdata//atm/cam/chem/trop_mozart_aero/emis/RCP85_mam3_so4_a2_surf_19400115-20601215_c190718.nc'
+ srf_emis_type          = 'INTERP_MISSING_MONTHS'
+ tracer_cnst_datapath           = '/work2/02503/edwardsj/CESM/inputdata//atm/cam/chem/trop_mozart_aero/oxid'
+ tracer_cnst_file               = 'oxid_rcp85_v1_1.9x2.5_L26_19450115-20551215_c190517.nc'
+ tracer_cnst_filelist           = 'oxid_1.9x2.5_L26_clim_list.c090805.txt'
+ tracer_cnst_specifier          = 'O3','OH','NO3','HO2'
+ tracer_cnst_type               = 'INTERP_MISSING_MONTHS'
+
+ bndtvghg               = '/work2/02503/edwardsj/CESM/inputdata//atm/cam/ggas/ghg_rcp85_1765-2500_c100203.nc'
+ solar_data_file        = '/work2/02503/edwardsj/CESM/inputdata//atm/cam/solar/spectral_irradiance_Lean_1610-2140_ann_c100408.nc'
+
+ prescribed_ozone_datapath      = '/work2/02503/edwardsj/CESM/inputdata//atm/cam/ozone'
+ prescribed_ozone_file          = 'ozone_rcp85_v1_1.9x2.5_L66_19400115-20551215_c191111.nc'
+
+ prescribed_volcaero_datapath           = '/work2/02503/edwardsj/CESM/inputdata//atm/cam/volc'
+ prescribed_volcaero_file               = 'CCSM4_volcanic_1949115-20600115_prototype1_c191112.nc'
+

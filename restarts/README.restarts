@@ -12,3 +12,27 @@ I will continue processing onto ne120_L30 and put restarts here:
 /glade/p/cesm/espwg/JRA55_regridded_to_CAM/ne120_L30/
 
 Steve
+
+
+!! ====================
+first_rest_year	ocn base year	offset
+1958	245	1713
+269	1982	
+271	1984	
+273	1986	
+275	1988	
+277	1990	
+279	1992	
+281	1994	
+283	1996	
+285	1998	
+287	2000	
+289	2002	
+291	2004	
+293	2006	
+295	2008	
+297	2010	
+299	2012	
+301	2014	
+303	2016	
+305	2018	

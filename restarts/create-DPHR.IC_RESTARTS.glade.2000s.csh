@@ -9,7 +9,8 @@ set mach = cheyenne
 if ($mach == "cheyenne") then
 	set SCRATCH = /glade/scratch/nanr/
         set atmdir  = /glade/p/cesm/espwg/JRA55_regridded_to_CAM/ne120_L30/
-	set ocnpath = /glade/campaign/cesm/development/omwg/projects/ihesp/
+	#set ocnpath = /glade/campaign/cesm/development/omwg/projects/ihesp/
+	set ocnpath = /glade/scratch/nanr/archive/
 	#set ocnpath = /glade/scratch/fredc/archive/g.e21.GIAF.TL319_t13.5thCyc.ice.001/rest/0269-11-01-00000
         #set restdir = /glade/scratch/fredc/archive/f.e13.FAMIPC5.ne120_ne120_mt12.cesm-ihesp-1950-2050.001/rest/1982-01-01-00000/
         #set lndpath = /glade/scratch/jedwards/
@@ -35,13 +36,13 @@ set eyr = 1992
 #set eyr = 1994
 set syr = 1996
 set eyr = 1996
-=======
+#=======
 set lndcase =  f.e13.FAMIPC5.ne120_ne120_mt12.chey-gen-restarts.${syr}-01-01.001
 set syr = 1998
 set eyr = 1998
 set lndcase =  f.e13.FAMIPC5.ne120_ne120_mt12.rerun-gen-restarts.001
-set syr = 2002
-set eyr = 2002
+set syr = 2018
+set eyr = 2018
 
 @ ib = $syr
 @ ie = $eyr
@@ -114,10 +115,10 @@ set icefout = ${case}.cice.r.${year}-${mon}-01-00000.nc
 set lndfout = ${case}.clm2.r.${year}-${mon}-01-00000.nc
 set roffout = ${case}.rtm.r.${year}-${mon}-01-00000.nc
 
-set icefname   = ${ocncase}.cice.r.0${ocnyr}-${mon}-01-00000.nc 
-set poprfname  = ${ocncase}.pop.r.0${ocnyr}-${mon}-01-00000.nc  
-#set icefname   = ${ocncase}.cice4.r.tx01v2.0${ocnyr}-${mon}-01-00000.nc 
-#set poprfname  = ${ocncase}.pop.r.tx01v2.0${ocnyr}-${mon}-01-00000.nc  
+#set icefname   = ${ocncase}.cice.r.0${ocnyr}-${mon}-01-00000.nc 
+#set poprfname  = ${ocncase}.pop.r.0${ocnyr}-${mon}-01-00000.nc  
+set icefname   = ${ocncase}.cice4.r.tx01v2.0${ocnyr}-${mon}-01-00000.nc 
+set poprfname  = ${ocncase}.pop.r.tx01v2.0${ocnyr}-${mon}-01-00000.nc  
 #set icefname   = g.e21.GIAF.TL319_t13.5thCyc.ice.001.cice4.r.tx01v2.0269-11-01-00000.nc
 #set poprfname  = g.e21.GIAF.TL319_t13.5thCyc.ice.001.pop.r.tx01v2.0269-11-01-00000.nc
 set poprofname = ${ocncase}.pop.ro.0${ocnyr}-${mon}-01-00000    
@@ -138,7 +139,7 @@ if ($doThis2 == 1) then
 cp $ocndir/${icefname}    $icdir/${icefout}
 cp $ocndir/${poprfname}   $icdir/${poprfout}
 #cp $ocndir/${poprofname}  $icdir/${poprofout}
-cp $ocndir/${poprhfname}  $icdir/${poprhfout}
+#cp $ocndir/${poprhfname}  $icdir/${poprhfout}
 #cp $ocndir/${popwwfname}  $icdir/${popwwfout}
 
 ncatted -a OriginalFile,global,a,c,$icefname    $icdir/$icefout
