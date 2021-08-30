@@ -37,7 +37,7 @@ yum -y install intel-oneapi-compiler-fortran-2021.3.0 intel-oneapi-compiler-dpcp
 echo '/opt/ncar/software/lib' > /etc/ld.so.conf.d/ncar.conf
 
 # Also add the compilers to the /etc/profile.d/oneapi.sh
-echo 'source /opt/intel/oneapi/setvars.sh' > /etc/profile.d/oneapi.sh
+echo 'source /opt/intel/oneapi/setvars.sh > /dev/null' > /etc/profile.d/oneapi.sh
 
 export LIBRARY_PATH=/opt/ncar/software/lib
 export LD_LIBRARY_PATH=/opt/ncar/software/lib
