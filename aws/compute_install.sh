@@ -11,3 +11,7 @@ echo '/opt/ncar/software/lib' > /etc/ld.so.conf.d/ncar.conf
 
 # Also add the compilers to the /etc/profile.d/oneapi.sh
 echo 'source /opt/intel/oneapi/setvars.sh > /dev/null' > /etc/profile.d/oneapi.sh
+
+cd /tmp
+wget -q https://raw.githubusercontent.com/CESM-Development/CESM_CASE_MANAGEMENT_TOOLS/cesm2-waccm/aws/add_geostrat.sh
+sh add_geostrat.sh

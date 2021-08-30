@@ -83,3 +83,8 @@ else
   rm -rf /tmp/sources
 fi
 
+cd /tmp
+wget -q https://raw.githubusercontent.com/CESM-Development/CESM_CASE_MANAGEMENT_TOOLS/cesm2-waccm/aws/add_geostrat.sh
+sh add_geostrat.sh
+
+
