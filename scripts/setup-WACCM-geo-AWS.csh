@@ -54,7 +54,7 @@ $CESMROOT/cime/scripts/create_newcase --compset ${COMPSET} --res f09_g17 --case 
   ./xmlchange NTASKS_WAV=36
   ./xmlchange ROOTPE_WAV=0
   ./xmlchange NTASKS_ESP=1
-  ./xmlchange NTHRDS=3
+  ./xmlchange NTHRDS=1
 
   ./xmlchange RUN_REFCASE=$REFCASE
   ./xmlchange RUN_REFDATE=$REFDATE
