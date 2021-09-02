@@ -1,0 +1,38 @@
+#! /bin/csh -f
+#SBATCH --job-name=101.lta
+#SBATCH --time=30:00
+#SBATCH --nodes=1
+##SBATCH --ntasks=32
+#SBATCH --cpus-per-task=1
+#SBATCH --exclusive
+###SBATCH --mail-type=END
+###SBATCH --mail-user=xyz@abc.com
+#SBATCH --output=lta%jodid.out
+#SBATCH --error=lta%jodid.err
+#SBATCH -p regular
+cd /global/project/projectdirs/ccsm1/runs/cesm1_1/decadalPrediction/b.e11.BDPNoVLC.f09_g16.1955-11.n21.104
+source ./Tools/ccsm_getenv || exit -1
+
+
+#-----------------------------
+# Concatenate daily cice hist
+#-----------------------------
+echo -n 'Begin concat cice ' ; date
+echo -n 'Module load ncl ' ; date
+module load ncl
+echo -n 'Module load nco ' ; date
+module load nco
+echo ""
+cd $DOUT_S_ROOT/ice/hist
+set time=(3600 "%E %P %Uu %Ss")
+time /global/u2/n/nanr/bin/concat_daily_hist_cice.csh
+unset time
+echo ""
+echo -n 'End concat cice ' ; date
+
+# Turn off regular LT archiver
+# cd $DOUT_S_ROOT
+# /global/project/projectdirs/ccsm1/runs/cesm1_1/decadalPrediction/b.e11.BDPNoVLC.f09_g16.1954-11.001/Tools/lt_archive.sh -m copy_dirs_hsi
+
+exit 0
+

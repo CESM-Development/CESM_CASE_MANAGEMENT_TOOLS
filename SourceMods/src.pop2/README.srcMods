@@ -1,0 +1,53 @@
+cp /glade/p/cgd/oce/people/klindsay/cesm11_cases/GECOIAF/yeager_mods/* .
+
+Related emails:
+
+==============================================================
+From SteveYeager: 27 may 2015 ==================
+==============================================================
+Keith,
+
+Could you please add the following mods to save extra 3D fields?
+
+/glade/p/work/yeager/cesm_runs/cesm1.x_G_cases/g122.compo.7/SourceMods/src.pop2/
+baroclinic.F90
+gx1v6_tavg_contents
+
+mods are relative to /glade/p/cesm/releases/cesm1_2_2
+
+
+
+Nan,
+
+I'll remind you about these requested mods to LENS when you are setting up the predictions runs.
+
+
+Thanks,
+Steve
+==============================================================
+
+From KeithLindsay: 8 jul 2015 ==================
+==============================================================
+Nan,
+
+LE tag compatible versions of these files, that should go in your $CASEROOT/SourceMods/src.pop2,
+are in /glade/p/cgd/oce/people/klindsay/cesm11_cases/GECOIAF/yeager_mods
+
+
+
+==============================================================
+From KeithLindsay:  Jul 15, 2015 ==================
+==============================================================
+
+Nan,
+
+I crossed out 8 ocean monthly fields from the list.
+In order to omit them from the output, place the file
+
+/glade/p/cgd/oce/people/klindsay/cesm11_cases/GECOIAF/g.e11_LENS.GECOIAF.T62_g16.009/SourceMods/src.pop2/for_nanr/ocn.ecosys.tavg.csh
+
+into SourceMods/src.pop2 for your experiments.
+
+This will speed the ocean model up by about 6%.
+
+End ==================================
