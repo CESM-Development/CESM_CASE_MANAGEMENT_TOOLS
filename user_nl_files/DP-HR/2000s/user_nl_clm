@@ -1,5 +1,5 @@
-fsurdat = '/work/02503/edwardsj/CESM/inputdata//lnd/clm2/surfdata_map/surfdata_ne120np4_simyr1850_c130311.nc'
-flanduse_timeseries = '/work/02503/edwardsj/CESM/inputdata//lnd/clm2/surfdata_map/surfdata.pftdyn_ne120np4_rcp8.5_simyr1850-2100_c130311.nc'
+fsurdat = '/work2/02503/edwardsj/CESM/inputdata//lnd/clm2/surfdata_map/surfdata_ne120np4_simyr1850_c130311.nc'
+flanduse_timeseries = '/work2/02503/edwardsj/CESM/inputdata//lnd/clm2/surfdata_map/surfdata.pftdyn_ne120np4_rcp8.5_simyr1850-2100_c130311.nc'
 
 
 ! History output -->
