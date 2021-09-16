@@ -5,7 +5,8 @@ import subprocess
 # /glade/campaign/cesm/development/omwg/projects/ihesp/g.e21.GIAF.TL319_t13.5thCyc.ice.001/rest/
 case = "g.e21.GIAF.TL319_t13.5thCyc.ice.001"
 #years = np.arange(269,295)
-years = np.arange(305,306)
+#years = np.arange(305,306)
+years = np.arange(301,302)
 
 for y in years:
   year = f'{y:04d}'

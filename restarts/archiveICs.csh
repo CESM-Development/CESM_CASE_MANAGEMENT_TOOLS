@@ -4,11 +4,11 @@ module load ncl nco
 
 setenv CESM2_TOOLS_ROOT /glade/work/$USER/cesm_tags/CASE_tools/ihesp-tools/
 setenv ARCHDIR1  /glade/scratch/$USER/DP-HR/inputdata/cesm2_init/
-setenv CAMPAIGN  /glade/campaign/collections/cmip/CMIP6/iHESP/HR-DP/inputdata/cesm2_init/
+setenv CAMPAIGN  /glade/campaign/collections/cmip/CMIP6/iHESP/inputdata/HR-DP/cesm2_init
 
 set syr = 1970
-set syr = 2006
-set eyr = 2006
+set syr = 2014
+set eyr = 2014
 
 @ ib = $syr
 @ ie = $eyr
