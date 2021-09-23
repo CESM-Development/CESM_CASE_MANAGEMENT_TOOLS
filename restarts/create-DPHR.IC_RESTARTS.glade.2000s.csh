@@ -41,8 +41,8 @@ set lndcase =  f.e13.FAMIPC5.ne120_ne120_mt12.chey-gen-restarts.${syr}-01-01.001
 set syr = 1998
 set eyr = 1998
 set lndcase =  f.e13.FAMIPC5.ne120_ne120_mt12.rerun-gen-restarts.001
-set syr = 2014
-set eyr = 2014
+set syr = 2020
+set eyr = 2020
 
 @ ib = $syr
 @ ie = $eyr

@@ -6,9 +6,10 @@ setenv CESM2_TOOLS_ROOT /glade/work/$USER/cesm_tags/CASE_tools/ihesp-tools/
 setenv ARCHDIR1  /glade/scratch/$USER/DP-HR/inputdata/cesm2_init/
 setenv CAMPAIGN  /glade/campaign/collections/cmip/CMIP6/iHESP/inputdata/HR-DP/cesm2_init
 
-set syr = 1970
-set syr = 2014
-set eyr = 2014
+set syr = 2018
+set eyr = 2018
+set syr = 2008
+set eyr = 2008
 
 @ ib = $syr
 @ ie = $eyr
