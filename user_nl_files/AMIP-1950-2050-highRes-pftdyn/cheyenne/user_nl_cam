@@ -13,8 +13,8 @@ fincl1 = 'ANRAIN','ANSNOW','AQRAIN','AQSNOW','AREI','AREL','AWNC','AWNI','CCN3',
 	'PRECSL','PS','PSL','QFLX','QREFHT','SHFLX','SNOWHICE','SNOWHLND','SO2_SRF','SOAG_SRF','SOLIN','SWCF','TAUGWX','TAUGWY','TAUX','TAUY',
 	'TGCLDCWP','TGCLDIWP','TGCLDLWP','TMQ','TREFHT','TS','TSMN:M','TSMX:X','U10','WGUSTD','bc_a1_SRF','dst_a1_SRF','dst_a3_SRF','ncl_a1_SRF',
 	'ncl_a2_SRF','ncl_a3_SRF','num_a1_SRF','num_a2_SRF','num_a3_SRF','pom_a1_SRF','so4_a1_SRF','so4_a2_SRF','so4_a3_SRF','soa_a1_SRF','soa_a2_SRF',
-	'TREFHTMN:M','TREFHTMX:X','FLDSC','CMFMC','CMFMCDZM','PCLDTOP','PCLDBOT','FREQZM','MEANCLDALB_ISCCP','CLDTOT_ISCCP','MEANPTOP_ISCCP',
-	'MEANTAU_ISCCP','CLDHGH_CAL','CLDLOW_CAL','CLDMED_CAL','CLDTOT_CAL'
+	'TREFHTMN:M','TREFHTMX:X','FLDSC','CMFMC','CMFMCDZM','PCLDTOP','PCLDBOT','FREQZM'
+!! ,'MEANCLDALB_ISCCP','CLDTOT_ISCCP','MEANPTOP_ISCCP', 'MEANTAU_ISCCP','CLDHGH_CAL','CLDLOW_CAL','CLDMED_CAL','CLDTOT_CAL'
 
 ! SL averaged daily (h1)
 fincl2 = 'TS','PRECT','TMQ','IVT','OMEGA850','Z500','RHREFHT','FLUT','U10:X'
@@ -34,10 +34,10 @@ fincl5 = 'Z500','PSL','QREFHT','TREFHT','U10','TS','U850','V850','Z250','PRECT',
 
 
 ! exclude these variables (from h0)
-fexcl1 = 'RFL_PARASOL','CFAD_SR532_CAL','MOL532_CAL','MEANTB_ISCCP','MEANTBCLR_ISCCP'
+!!fexcl1 = 'RFL_PARASOL','CFAD_SR532_CAL','MOL532_CAL','MEANTB_ISCCP','MEANTBCLR_ISCCP'
 
-cosp_llidar_sim = .true.
-cosp_lisccp_sim = .true.
+!!cosp_llidar_sim = .true.
+!!cosp_lisccp_sim = .true.
 
 
 ext_frc_specifier              = 'SO2         -> //glade/p/cesmdata/cseg/inputdata/atm/cam/chem/trop_mozart_aero/emis/RCP85_mam3_so2_elev_19400115-20601215_c190718.nc',
