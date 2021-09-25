@@ -1,0 +1,117 @@
+#!/bin/csh -f
+
+set MACHINE = cheyenne
+set MACHINE = cori-knl
+
+set EXPERIMENT = AMOC-2.5Sv_50-70N-hosing
+set RESOLN  = ne120_t12
+set TAG     = capt-cesm1_3_beta17_sehires35
+set TAG     = cesm-ihesp-hires1.0.35
+set COMPSET = BC5
+
+#set RESUBMIT = 1
+#set STOP_OPTION=nmonths
+#set STOP_N=31
+set RESUBMIT = 1
+set STOP_OPTION=nmonths
+set STOP_N=12
+set REST_OPTION=nmonths
+set REST_N=1
+
+set mbr=1
+
+if ($mbr < 10) then
+	setenv CASE b.e13.${COMPSET}.${RESOLN}.${EXPERIMENT}.00${mbr}
+else
+	setenv CASE b.e13.${COMPSET}.${RESOLN}.${EXPERIMENT}.0${mbr}
+endif
+setenv REFCASE hybrid_v5_rel04_BC5_ne120_t12_pop62
+setenv REFDATE 0045-07-01
+setenv STARTDATE 0045-07-01
+
+if ($MACHINE == cori-knl) then
+	set PATH      = /global/project/projectdirs/ccsm1/people/nanr/
+	set RUNDIR    = /global/cscratch1/sd/nanr/$CASE/run
+	set BLDDIR    = /global/cscratch1/sd/nanr/$CASE/bld
+	setenv CASEROOT $PATH/cases/cesm1_3/$CASE
+        set TOOLSROOT = /global/homes/n/nanr/CESM_tools/cesm1-amoc-aixue
+	set REFROOT    = /global/cscratch1/sd/nanr/archive
+else 
+	set PATH      = /glade/work/nanr/
+	set RUNDIR    = /glade/scratch/nanr/$CASE/run
+	set BLDDIR    = /glade/scratch/nanr/$CASE/bld
+	setenv CASEROOT /glade/work/nanr/aixue-HiRes/cases/ne120_t12/$CASE
+        set TOOLSROOT = /glade/work/nanr/cesm_tags/CASE_tools/cesm1-amoc-aixue
+        set REFROOT   = /glade/scratch/nanr/archive/
+endif
+
+setenv CESMROOT ${PATH}/cesm_tags/${TAG}/
+
+
+$CESMROOT/cime/scripts/create_newcase --case $CASEROOT --res $RESOLN  --mach $MACHINE --compset $COMPSET --pecount L --run-unsupported
+
+cd $CASEROOT
+
+set doThis = 1
+if ($doThis == 1) then
+if ($MACHINE == cori-knl) then
+	#./xmlchange NTASKS_CPL=16256
+	#./xmlchange ROOTPE_CPL=1216
+	#./xmlchange NTASKS_ATM=16256
+	#./xmlchange NTASKS_LND=4096
+	#./xmlchange NTASKS_ICE=8192
+	#./xmlchange ROOTPE_ICE=4096
+	#./xmlchange NTASKS_OCN=16256
+	#./xmlchange ROOTPE_OCN=16256
+	#./xmlchange NTASKS_ROF=1280
+	#./xmlchange NTASKS_GLC=64
+	#./xmlchange NTASKS_WAV=64
+	./xmlchange JOB_WALLCLOCK_TIME=24:00:00 --subgroup case.run
+else
+	./xmlchange NTASKS_CPL=7200
+	./xmlchange NTASKS_ATM=7200
+	./xmlchange NTASKS_LND=1200
+	./xmlchange NTASKS_ICE=6000
+	./xmlchange ROOTPE_ICE=1200
+	./xmlchange NTASKS_OCN=2135
+	./xmlchange ROOTPE_OCN=7200
+	./xmlchange NTASKS_ROF=1200
+	./xmlchange NTASKS_GLC=1
+	./xmlchange NTASKS_WAV=1
+endif
+endif
+
+./xmlchange RESUBMIT=$RESUBMIT
+./xmlchange STOP_OPTION=$STOP_OPTION
+./xmlchange STOP_N=$STOP_N
+./xmlchange REST_OPTION=$REST_OPTION
+./xmlchange REST_N=$REST_N
+./xmlchange RUN_TYPE=hybrid
+./xmlchange RUN_REFCASE=${REFCASE}
+./xmlchange RUN_REFDATE=${REFDATE}
+./xmlchange RUN_STARTDATE=${REFDATE}
+./xmlchange GET_REFCASE=FALSE
+./xmlchange ICE_DOMAIN_FILE=domain.ocn.tx0.1v2_090218.nc
+./xmlchange OCN_DOMAIN_FILE=domain.ocn.tx0.1v2_090218.nc
+
+
+if ($MACHINE == cheyenne) then
+        ./xmlchange PROJECT=P93300313
+endif
+
+./case.setup
+
+cp    $TOOLSROOT/user_nl_files/user_nl_cam $CASEROOT/
+cp    $TOOLSROOT/user_nl_files/user_nl_rtm $CASEROOT/
+cp    $TOOLSROOT/user_nl_files/user_nl_clm $CASEROOT/
+cp    $TOOLSROOT/SourceMods/src.pop2/* $CASEROOT/SourceMods/src.pop/
+cp    /global/project/projectdirs/ccsm1/people/nanr/amoc-aixue/hosing_highRes_2.5Sv_50-70N.nc $CASEROOT/SourceMods/src.pop/
+
+echo  $REFROOT/$REFCASE/rest/${REFDATE}-00000/
+
+cp    $REFROOT/$REFCASE/rest/${REFDATE}-00000/rpoint* $RUNDIR
+ln -s $REFROOT/$REFCASE/rest/${REFDATE}-00000/hyb* $RUNDIR
+
+./case.setup --reset; 
+./case.build
+
