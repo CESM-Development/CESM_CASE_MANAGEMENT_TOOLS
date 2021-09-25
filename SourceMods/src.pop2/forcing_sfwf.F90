@@ -266,8 +266,9 @@
    lfw_as_salt_flx        = .false.
    lsend_precip_fact      = .false.
 !Aixue Mod
-   hosing_filename          = '/glade/p/work/ahu/BC5_ne120_t12_pop62_hosing/&
-                                SourceMods/src.pop2/hosing_highRes.nc'
+   !hosing_filename          = '/global/cscratch1/sd/nanr/amoc/hosing_highRes.nc'
+   !hosing_filename          = '/global/project/projectdirs/ccsm1/people/nanr/amoc-aixue/hosing_highRes_0.13Sv.nc'
+   hosing_filename          = '/global/project/projectdirs/ccsm1/people/nanr/amoc-aixue/hosing_highRes_2.5Sv_50-70N.nc'
 !Aixue Mod End
 
    if (my_task == master_task) then
