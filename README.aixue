@@ -19,3 +19,37 @@ If you can not use the files from 0047-11-01 directory, we need to set this run 
 If you have any questions on this model setup, please let me know. Thanks!
 
 Aixue
+
+Email:  April 19th  (AMOC simulations @ NERSC)
+
+Hi Aixue -
+
+I have the AMOC simulation running.
+
+I need to confirm that I am using the correct forcing:  
+
+2. the restart files:
+/glade/campaign/cesm/development/cvcwg/chwg/ahu_hpss/ahu/csm/BC5_ne120_t12_pop62_hosing/rest
+you should use the restart files under 0047-11-01.
+
+I am using these restarts:  0047-11-01
+ 
+If you can use the files from 0047-11-01 directory, we can set the run up as a branch run from BC5_ne120_pop62_hising case. We will use the 
+forcing file hosing_highRes_0.13Sv.nc
+
+Am I correct that I should therefore use this file for 28 years.  None of the other files will be used?
+
+	hosing_highRes.nc
+	hosing_highRes0.0Sv.nc
+	hosing_highRes2.5Sv.nc
+	hosing_highRes_0.13Sv.nc
+	hosing_highRes_originalHosing.nc
+
+This is correct. Thanks for making the simulation running. Aixue
+
+!!! ===============================================================
+
+ASD restarts:  /glade/p/cesm/community/ASD-HIGH-RES-CESM1/hybrid_v5_rel04_BC5_ne120_t12_pop62/rest
+
+
+
