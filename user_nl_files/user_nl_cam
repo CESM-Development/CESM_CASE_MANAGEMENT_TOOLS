@@ -1,6 +1,2 @@
 ! Users should add all user specific namelist changes below in the form of 
 ! namelist_var = new_namelist_value 
-
-!cam_branch_file                = '/global/cscratch1/sd/nanr/b.e13.BC5.ne120_t12.hosting-HR.001/run/BC5_ne120_t12_pop62_hosing.cam.r.0047-11-01-00000.nc'
-ncdata = '/global/cscratch1/sd/nanr/b.e13.BC5.ne120_t12.hosting-HR.001/run/BC5_ne120_t12_pop62_hosing.cam.i.0047-01-01-00000.nc'
- 
