@@ -2,7 +2,7 @@
 
 #yum install -y lapack blas
 
-yum -y install singularity
+#yum -y install singularity
 
 # Set up the 'python' alias to point to Python3 -- this is going away for newer CESM releases, I think, but may
 # be needed for this 2.1.4-rcX version
