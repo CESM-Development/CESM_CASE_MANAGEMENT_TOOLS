@@ -26,8 +26,8 @@ else
 	setenv CASE b.e13.${COMPSET}.${RESOLN}.${EXPERIMENT}.0${mbr}
 endif
 setenv REFCASE hybrid_v5_rel04_BC5_ne120_t12_pop62
-setenv REFDATE 0045-07-01
-setenv STARTDATE 0045-07-01
+setenv REFDATE 0046-01-01
+setenv STARTDATE 0046-01-01
 
 if ($MACHINE == cori-knl) then
 	set PATH      = /global/project/projectdirs/ccsm1/people/nanr/
