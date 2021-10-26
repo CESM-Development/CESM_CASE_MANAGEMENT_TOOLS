@@ -1,5 +1,5 @@
 !ice_ic = 'default'
-ice_ic = 'f.e13.FAMIPC5.ne120_ne120_mt12.cesm-ihesp-1950-2050.001.cice.r.2006-01-01-00000.nc'
+ice_ic = 'B.E.13.B1950C5.ne120_t12.cesm-ihesp-1950cntl.011.cice.r.0055-01-01-00000.nc'
 
 grid_file = "/work/02503/edwardsj/CESM/inputdata//share/domains/domain.ocn.ne120np4_tx0.1v2.191122.nc"
 kmt_file  = "/work/02503/edwardsj/CESM/inputdata//share/domains/domain.ocn.ne120np4_tx0.1v2.191122.nc"
