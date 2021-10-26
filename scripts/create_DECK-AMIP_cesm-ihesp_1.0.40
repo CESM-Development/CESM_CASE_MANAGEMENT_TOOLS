@@ -97,6 +97,9 @@ if ($MACHINE == frontera || $MACHINE == stampede2 ) then
         ./xmlchange SSTICE_GRID_FILENAME=/work2/06091/nanr/frontera/SST-highres/domain.ocn.0.25x0.25_mask.181109.nc   
 	#cp $TOOLSROOT/user_nl_files/DP-HR/user_nl_cam-COSP-ON $CASEROOT/user_nl_cam
 	cp $TOOLSROOT/user_nl_files/AMIP-1950-2050-highRes-DECK-pftdyn/stampede/user_* $CASEROOT/
+        if ( $MACHINE == stampede2 ) then
+		./xmlchange DOUT_S_ROOT=\$CIME_OUTPUT_ROOT/archive/$CASE
+        endif
 endif
 
 if ($MACHINE == cheyenne) then
@@ -104,11 +107,6 @@ if ($MACHINE == cheyenne) then
 	./xmlchange STOP_N=10
         ./xmlchange SSTICE_GRID_FILENAME=/glade/work/nanr/ihesp-HiRes/SST-highres/domain/domain.ocn.0.25x0.25_mask.181109.nc
 	##cp $TOOLSROOT/user_nl_files/DP-HR/user_nl_cam-COSP-ON $CASEROOT/user_nl_cam
-	##cp $TOOLSROOT/user_nl_files/AMIP-1950-2050-highRes-DECK-pftdyn/cheyenne/user_nl_cam $CASEROOT/user_nl_cam
-	##cp $TOOLSROOT/user_nl_files/AMIP-1950-2050-highRes-DECK-pftdyn/cheyenne/user_nl_clm $CASEROOT/user_nl_clm
-	##cp $TOOLSROOT/user_nl_files/AMIP-1950-2050-highRes-DECK-pftdyn/cheyenne/user_nl_cice $CASEROOT/user_nl_cice
-	##cp $TOOLSROOT/user_nl_files/AMIP-1950-2050-highRes-DECK-pftdyn/cheyenne/user_nl_docn $CASEROOT/user_nl_docn
-	##cp $TOOLSROOT/user_nl_files/AMIP-1950-2050-highRes-DECK-pftdyn/cheyenne/user_nl_rtm $CASEROOT/user_nl_rtm
 	cp $TOOLSROOT/user_nl_files/AMIP-1950-2050-highRes-DECK-pftdyn/cheyenne/user_* $CASEROOT/*
 endif
 
