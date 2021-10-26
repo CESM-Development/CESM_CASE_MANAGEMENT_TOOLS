@@ -14,11 +14,10 @@ set TAG     = cesm-ihesp-hires1.0.40
 #set STOP_N=31
 set RESUBMIT = 0
 set STOP_OPTION=nyears
-set STOP_OPTION=ndays
 set STOP_N=5
 
-set smbr =  6
-set embr =  6
+set smbr =  1
+set embr =  1
 
 @ mb = $smbr
 @ me = $embr
@@ -150,17 +149,9 @@ echo "================="
 cp    $REFROOT/$REFCASE/0055-01-01/rpoint* $RUNDIR
 ln -s $REFROOT/$REFCASE/0055-01-01/B.E.* $RUNDIR
 
-#if ($MACHINE == frontera) then
-  #cp /work/02503/edwardsj/CESM/inputdata/ccsm4_init/B.E.13.B1950C5.ne120_t12.cesm-ihesp-1950cntl.011/0055-01-01/rpointer* $RUNDIR
-  #ln -s /work/02503/edwardsj/CESM/inputdata/ccsm4_init/B.E.13.B1950C5.ne120_t12.cesm-ihesp-1950cntl.011/0055-01-01/B.E.* $RUNDIR
-#else
-  #cp /glade/scratch/nanr/archive/B.E.13.B1950C5.ne120_t12.cesm-ihesp-1950cntl.011/0055-01-01/rpointer* $RUNDIR
-  #ln -s /glade/scratch/nanr/archive/B.E.13.B1950C5.ne120_t12.cesm-ihesp-1950cntl.011/0055-01-01/B.E.* $RUNDIR
-#endif
-#
 if ($MACHINE == frontera || $MACHINE == stampede2 ) then
 	./case.setup --reset; ./case.setup
-	#./case.build
+	./case.build
 else
 	./case.setup --reset; ./case.setup
 	qcmd -- ./case.build
