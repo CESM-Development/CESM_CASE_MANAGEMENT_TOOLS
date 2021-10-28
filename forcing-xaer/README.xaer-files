@@ -1,0 +1,13 @@
+1850cycl  'num_a1 ->  /glade/p/cesmdata/cseg/inputdata/atm/cam/chem/emis/CMIP6_emissions_1850_cyclical/emissions-cmip6_num_so4_a1_anthro-ene_vertical_1850cycling_0.9x1.25_c20210227.nc',
+1850cycl    'so4_a1 -> /glade/p/cesmdata/cseg/inputdata/atm/cam/chem/emis/CMIP6_emissions_1850_cyclical/emissions-cmip6_so4_a1_anthro-ene_vertical_1850cycling_0.9x1.25_c20210225.nc
+1850cycl 'bc_a4 -> /glade/p/cesmdata/cseg/inputdata/atm/cam/chem/emis/CMIP6_emissions_1850_cyclical/emissions-cmip6_bc_a4_anthro_surface_1850cycling_0.9x1.25_c20201230.nc',
+1850cycl         'num_a1 -> /glade/p/cesmdata/cseg/inputdata/atm/cam/chem/emis/CMIP6_emissions_1850_cyclical/emissions-cmip6_num_so4_a1_anthro-ag-ship_surface_1850cycling_0.9x1.25_c20201230.nc',
+    1850cycl       'num_a2 -> /glade/p/cesmdata/cseg/inputdata/atm/cam/chem/emis/CMIP6_emissions_1850_cyclical/emissions-cmip6_num_so4_a2_anthro-res_surface_1850cycling_0.9x1.25_c20201230.nc'
+1850cycl      'num_a4 -> /glade/p/cesmdata/cseg/inputdata/atm/cam/chem/emis/CMIP6_emissions_1850_cyclical/emissions-cmip6_num_bc_a4_anthro_surface_1850cycling_0.9x1.25_c20201230.nc',
+1850cycl     'num_a4 -> /glade/p/cesmdata/cseg/inputdata/atm/cam/chem/emis/CMIP6_emissions_1850_cyclical/emissions-cmip6_num_pom_a4_anthro_surface_1850cycling_0.9x1.25_c20201230.nc',
+CYCLICAL       'pom_a4 -> /glade/p/cesmdata/cseg/inputdata/atm/cam/chem/emis/CMIP6_emissions_1850_cyclical/emissions-cmip6_pom_a4_anthro_surface_1850cycling_0.9x1.25_c20201230.nc'
+1850cycl         'SO2    -> /glade/p/cesmdata/cseg/inputdata/atm/cam/chem/emis/CMIP6_emissions_1850_cyclical/emissions-cmip6_SO2_anthro-ag-ship-res_surface_1850cycling_0.9x1.25_c20201230.nc',
+   1850cycl       'SO2    -> /glade/p/cesmdata/cseg/inputdata/atm/cam/chem/emis/CMIP6_emissions_1850_cyclical/emissions-cmip6_SO2_anthro-ene_surface_1850cycling_0.9x1.25_c20201230.nc',
+1850cycl      'so4_a1 -> /glade/p/cesmdata/cseg/inputdata/atm/cam/chem/emis/CMIP6_emissions_1850_cyclical/emissions-cmip6_so4_a1_anthro-ag-ship_surface_1850cycling_0.9x1.25_c20201230.nc',
+        1850cycl   'so4_a2 -> /glade/p/cesmdata/cseg/inputdata/atm/cam/chem/emis/CMIP6_emissions_1850_cyclical/emissions-cmip6_so4_a2_anthro-res_surface_1850cycling_0.9x1.25_c20201230.nc',
+        1850cycl   'SOAG -> /glade/p/cesmdata/cseg/inputdata/atm/cam/chem/emis/CMIP6_emissions_1850_cyclical/emissions-cmip6_SOAGx1.5_anthro_surface_1850cycling_0.9x1.25_c20201230.nc',
