@@ -131,7 +131,7 @@ if (in1_vars(i) .eq. fixit(0) .or. in1_vars(i) .eq. fixit(1)) then
 		ctr = ctr + 12
         end do
         ; nvar(23,:,:) = tmp(12,:,:)
-	fout->$fixit$ = nvar
+	fout->$in1_vars(i)$ = nvar
         delete([/tmp,nvar/])
 else 
 ;;  Use 1849 date/time

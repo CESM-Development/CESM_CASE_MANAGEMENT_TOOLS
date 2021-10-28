@@ -136,7 +136,7 @@ if (in1_vars(i) .eq. fixit(0) ) then
         end do
         ; nvar(23,:,:,:) = tmp(12,:,:,:)
 	printVarSummary(nvar)
-	fout->$fixit(0)$ = nvar
+	fout->$in1_vars(i)$ = nvar
         delete([/tmp,nvar/])
 else 
 	if (in1_vars(i) .eq. fixit(1) ) then
@@ -155,7 +155,7 @@ else
         	; nvar(23,:,:) = tmp(12,:,:)
 		;print("What's the problem here ;; i = " + i +"   " + fixit(i))
 		printVarSummary(nvar)
-		fout->$fixit(1)$ = nvar
+		fout->$in1_vars(i)$ = nvar
         	delete([/tmp,nvar/])
 	else 
 ;;  Use 1849 date/time

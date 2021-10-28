@@ -41,18 +41,17 @@ setenv REFCASE  b.e21.B1850.f09_g17.CMIP6-piControl.001
 #set smbr =  6
 set smbr =  1
 set embr =  10
-set bmbr =  1
 
 
 @ mb = $smbr
 @ me = $embr
 
 # reference name counter
-@ mmm = ($bmbr * 2) - 1
+@ mmm = ($smbr * 2) - 1
 
 foreach mbr ( `seq $mb  $me` )
 
-@ USE_REFDATE = 1011 + ( $mmm - 1 ) * 10
+@ USE_REFDATE = 1001 + ( $mmm - 1 ) * 10
 @ mmm+=2
 
 setenv REFDATE  ${USE_REFDATE}
@@ -93,11 +92,7 @@ endif
   mv SourceMods SourceMods.`date +%m%d-%H%M`
   cp -r $CESM2_SF_TOOLS_ROOT/SourceMods $CASEROOT/
 
-  cp $CESM2_SF_TOOLS_ROOT/user_nl_files/hist-rmdr/user_nl_cam $CASEROOT/
-# cp $CESM2_SF_TOOLS_ROOT/user_nl_files/hist-rem/user_nl_clm $CASEROOT/
-# cp $CESM2_SF_TOOLS_ROOT/user_nl_files/hist-rem/user_nl_cpl $CASEROOT/
-# cp $CESM2_SF_TOOLS_ROOT/user_nl_files/hist-rem/user_nl_cice $CASEROOT/
-# cp $CESM2_SF_TOOLS_ROOT/user_nl_files/hist-rem/user_nl_ww $CASEROOT/
+  cp $CESM2_SF_TOOLS_ROOT/user_nl_files/hist-rmdr/user* $CASEROOT/
 
   ./case.setup
 
