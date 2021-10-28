@@ -104,17 +104,15 @@ t22=3299
 r0=0
 r1=12
 r2=23
-r3=72
-r4=83
 
 ; copy variables
 if (.not.all(ismissing(in1_vars))) then
 do i = 0, dimsizes(in1_vars) - 1
-print("invars = " + in1_vars)
 print("fixing = " + in1_vars(i))
 ;;  Use 1920 data
 if (in1_vars(i) .eq. fixit(0) .or. in1_vars(i) .eq. fixit(1)) then
 	tmp  = in1->$in1_vars(i)$
+	print("reading = " + in1_vars(i))
 	; create variable with 2 years worth of space
 	nvar = tmp(r0:r2,:,:)
 	nvar = 0.
@@ -127,7 +125,13 @@ if (in1_vars(i) .eq. fixit(0) .or. in1_vars(i) .eq. fixit(1)) then
 		ctr = ctr + 12
         end do
         ; nvar(23,:,:) = tmp(12,:,:)
-	fout->$fixit$ = nvar
+	fout->$in1_vars(i)$ = nvar
+        ;if (in1_vars(i) .eq. fixit(0)) then
+	    ;fout->$fixit(0)$ = nvar
+        ;end if
+        ;if (in1_vars(i) .eq. fixit(1)) then
+	    ;fout->$fixit(1)$ = nvar
+        ;end if
         delete([/tmp,nvar/])
 else 
 ;;  Use 1849 date/time
@@ -139,11 +143,11 @@ else
         tvar(0:11)  = tmp(year1:year2)
         ntime = new((/24/),typeof(time))
         ntime(0:11) = time(year1:year2)
-        print(in1_vars(i))
+        ; print(in1_vars(i))
         tvar(12:23)  = tmp(t11:t22)
         ntime(12:23) = time(t11:t22)
-        print(tvar)
-        print("tvar = " + tvar)
+        ; print(tvar)
+        ; print("tvar = " + tvar)
 	ntime!0="time"
 	ntime&time=ntime
 	tvar&time = ntime

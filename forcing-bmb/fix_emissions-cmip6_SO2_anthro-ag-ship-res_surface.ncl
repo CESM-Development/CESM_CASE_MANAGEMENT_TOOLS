@@ -15,7 +15,7 @@ begin
   fixit = (/"emiss_ag_sol_was","emiss_ship","emiss_res_tran"/)
 
   ifile    = "/glade/p/cesmdata/cseg/inputdata/atm/cam/chem/emis/emissions_ssp370/emissions-cmip6-ScenarioMIP_IAMC-AIM-ssp370-1-1_SO2_anthro-ag-ship-res_surface_mol_175001-210101_0.9x1.25_c20200924.nc";
-  foutname = "./emissions_1850_cyclical/emissions-cmip6_SO2_anthro-ag-ship-res_surface_1850cycling_0.9x1.25_c"+dd+".nc"
+  foutname = "./emissions_1850_cyclical/emissions-cmip6_SO2_anthro-ag-ship-res_surface_c1850cycling_0.9x1.25_c"+dd+".nc"
 
 
   system("rm "+foutname)          ; delete file if it already exists
@@ -131,7 +131,16 @@ if (in1_vars(i) .eq. fixit(0) .or. in1_vars(i) .eq. fixit(1) .or. in1_vars(i) .e
 		ctr = ctr + 12
         end do
         ; nvar(23,:,:) = tmp(12,:,:)
-	fout->$fixit$ = nvar
+	fout->$in1_vars(i)$ = nvar
+        ;if (in1_vars(i) .eq. fixit(0)) then
+	   ;fout->$fixit(0)$ = nvar
+        ;end if
+        ;if (in1_vars(i) .eq. fixit(1)) then
+	   ;fout->$fixit(1)$ = nvar
+        ;end if
+        ;if (in1_vars(i) .eq. fixit(2)) then
+	   ;fout->$fixit(2)$ = nvar
+        ;end if
         delete([/tmp,nvar/])
 else 
    if (in1_vars(i) .eq. "date" .or. in1_vars(i) .eq. "time") then
