@@ -1,0 +1,26 @@
+These nml vars apply to the CAM constituents defined in physics/cam/co2_cycle.F90. These are the CO2 constituents added by the BGCWG.
+
+If the string 'P_CO2:CO2' is in rad_climate in rad_cnst_nl, then these constituents are used in CAM's radiation computations.
+However, I'm one of the few people that does runs like that.
+It is more typical to have 'D_CO2:CO2' in rad_climate, in which case CAM's radiation computations use co2vmr, and the values of co2_cycle's constituents do not feed back into the CAM's computations.
+I think 'P' stands for prognostic and 'D' stands for diagnostic.
+
+Note that the notation for rad_climate in CESM2 differs from CESM1. It is now 'A:CO2:CO2' to denote that the constituent named 'CO2' is used by CAM's radiation computations, and 'N:CO2:CO2' to ignore them.
+I think 'A' stands for advected and 'N' stands for non-advected.
+
+
+DECK runs:
+ co2_flag               = .true.
+ co2_readflux_aircraft          = .true.
+ co2_readflux_fuel              = .true.
+ co2flux_fuel_file              = '/glade/p/cesmdata/cseg/inputdata/atm/cam/ggas/emissions-cmip6_CO2_anthro_surface_175001-201512_fv_0.9x1.25_c20181011.nc'
+/
+
+
+!!! It is now 'A:CO2:CO2' to denote that the constituent named 'CO2' is used by CAM's radiation computations, and 'N:CO2:CO2' to ignore them.
+!!! I think 'A' stands for advected and 'N' stands for non-advected.
+ rad_climate            = 'A:Q:H2O', 'N:O2:O2',
+         'N:CO2:CO2', 'N:ozone:O3',
+         'N:N2O:N2O', 'N:CH4:CH4',
+         'N:CFC11:CFC11', 'N:CFC12:CFC12',
+
