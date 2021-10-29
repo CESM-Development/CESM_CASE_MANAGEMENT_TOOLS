@@ -57,32 +57,20 @@ endif
 setenv CESMROOT ${PATH}/cesm_tags/${TAG}/
 
 
-$CESMROOT/cime/scripts/create_newcase --case $CASEROOT --res $RESOLN  --mach $MACHINE --compset $COMPSET --pecount L --run-unsupported
+# $CESMROOT/cime/scripts/create_newcase --case $CASEROOT --res $RESOLN  --mach $MACHINE --compset $COMPSET --pecount L --run-unsupported
+$CESMROOT/cime/scripts/create_newcase --case $CASEROOT --res $RESOLN  --compset $COMPSET --pecount L --run-unsupported
 
 cd $CASEROOT
 
-if ($MACHINE == frontera || $MACHINE == stampede2 ) then
-	./xmlchange NTASKS_CPL=28840
-	./xmlchange NTASKS_ATM=28800
-	./xmlchange NTASKS_LND=896
-	./xmlchange NTASKS_ICE=27944
-	./xmlchange ROOTPE_ICE=896
-	./xmlchange NTASKS_OCN=16295
-	./xmlchange ROOTPE_OCN=28840
-	./xmlchange NTASKS_ROF=896
-	./xmlchange NTASKS_GLC=1
-	./xmlchange NTASKS_WAV=1
-else
-	./xmlchange NTASKS_CPL=7200
-	./xmlchange NTASKS_ATM=7200
-	./xmlchange NTASKS_LND=1200
-	./xmlchange NTASKS_ICE=6000
-	./xmlchange ROOTPE_ICE=1200
-	./xmlchange NTASKS_OCN=2135
-	./xmlchange ROOTPE_OCN=7200
-	./xmlchange NTASKS_ROF=1200
-	./xmlchange NTASKS_GLC=1
-	./xmlchange NTASKS_WAV=1
+if ($MACHINE == frontera ) then
+   ./xmlchange NTASKS=21616
+endif
+if ($MACHINE == stampede2 ) then
+    ./xmlchange NTASKS=-128
+endif
+if ($MACHINE == cheyenne ) then
+  #./xmlchange NTASKS=-7200
+   ./xmlchange NTASKS=14400
 endif
 
 ./xmlchange RESUBMIT=$RESUBMIT
@@ -94,6 +82,7 @@ endif
 ./xmlchange GET_REFCASE=FALSE
 ./xmlchange ICE_DOMAIN_FILE=domain.ocn.ne120np4_tx0.1v2.191122.nc
 ./xmlchange OCN_DOMAIN_FILE=domain.ocn.ne120np4_tx0.1v2.191122.nc
+./xmlchange --append CAM_CONFIG_OPTS=-cosp
 
 ./xmlchange SSTICE_YEAR_ALIGN=1950
 ./xmlchange SSTICE_YEAR_START=1950
@@ -104,14 +93,19 @@ if ($MACHINE == frontera || $MACHINE == stampede2 ) then
 	./xmlchange JOB_WALLCLOCK_TIME=2:00:00 --subgroup case.st_archive
 	./xmlchange JOB_WALLCLOCK_TIME=26:00:00 --subgroup case.run
 	./xmlchange STOP_N=10
-	./xmlchange SSTICE_GRID_FILENAME=/scratch1/06091/nanr/SST-highres/domain.ocn.0.25x0.25_mask.181109.nc
+        ./xmlchange SSTICE_GRID_FILENAME=/work2/06091/nanr/frontera/SST-highres/domain.ocn.0.25x0.25_mask.181109.nc   
+        ./xmlchange SSTICE_GRID_FILENAME=/work2/06091/nanr/frontera/SST-highres/domain.ocn.0.25x0.25_mask.181109.nc   
+	#cp $TOOLSROOT/user_nl_files/DP-HR/user_nl_cam-COSP-ON $CASEROOT/user_nl_cam
+	cp $TOOLSROOT/user_nl_files/AMIP-1950-2050-highRes-DECK-pftdyn/stampede/user_* $CASEROOT/
+        if ( $MACHINE == stampede2 ) then
+		./xmlchange DOUT_S_ROOT=\$CIME_OUTPUT_ROOT/archive/$CASE
+        endif
 endif
 
 if ($MACHINE == cheyenne) then
         ./xmlchange PROJECT=CESM0021
 	./xmlchange STOP_N=10
         ./xmlchange SSTICE_GRID_FILENAME=/glade/work/nanr/ihesp-HiRes/SST-highres/domain/domain.ocn.0.25x0.25_mask.181109.nc
-endif
 
 ##cp $TOOLSROOT/user_nl_files/DP-HR/user_nl_cam-COSP-ON $CASEROOT/user_nl_cam
 cp $TOOLSROOT/user_nl_files/AMIP-1950-2050-highRes-pftdyn/cheyenne/user_nl_cam $CASEROOT/user_nl_cam
@@ -119,6 +113,10 @@ cp $TOOLSROOT/user_nl_files/AMIP-1950-2050-highRes-pftdyn/cheyenne/user_nl_clm $
 cp $TOOLSROOT/user_nl_files/AMIP-1950-2050-highRes-pftdyn/cheyenne/user_nl_cice $CASEROOT/user_nl_cice
 cp $TOOLSROOT/user_nl_files/AMIP-1950-2050-highRes-pftdyn/cheyenne/user_nl_rtm $CASEROOT/user_nl_rtm
 
+=======
+	##cp $TOOLSROOT/user_nl_files/DP-HR/user_nl_cam-COSP-ON $CASEROOT/user_nl_cam
+	cp $TOOLSROOT/user_nl_files/AMIP-1950-2050-highRes-DECK-pftdyn/cheyenne/user_* $CASEROOT/*
+endif
 
 #cp $TOOLSROOT/SourceMods/src.cice/AMIP-1950-2050-highRes-pftdyn/cheyenne/*  $CASEROOT/SourceMods/src.cice/
 #cp $TOOLSROOT/SourceMods/src.pop/AMIP-1950-2050-highRes-pftdyn/cheyenne/*  $CASEROOT/SourceMods/src.pop/
@@ -156,14 +154,6 @@ echo "================="
 cp    $REFROOT/$REFCASE/0055-01-01/rpoint* $RUNDIR
 ln -s $REFROOT/$REFCASE/0055-01-01/B.E.* $RUNDIR
 
-#if ($MACHINE == frontera) then
-  #cp /work/02503/edwardsj/CESM/inputdata/ccsm4_init/B.E.13.B1950C5.ne120_t12.cesm-ihesp-1950cntl.011/0055-01-01/rpointer* $RUNDIR
-  #ln -s /work/02503/edwardsj/CESM/inputdata/ccsm4_init/B.E.13.B1950C5.ne120_t12.cesm-ihesp-1950cntl.011/0055-01-01/B.E.* $RUNDIR
-#else
-  #cp /glade/scratch/nanr/archive/B.E.13.B1950C5.ne120_t12.cesm-ihesp-1950cntl.011/0055-01-01/rpointer* $RUNDIR
-  #ln -s /glade/scratch/nanr/archive/B.E.13.B1950C5.ne120_t12.cesm-ihesp-1950cntl.011/0055-01-01/B.E.* $RUNDIR
-#endif
-#
 if ($MACHINE == frontera || $MACHINE == stampede2 ) then
 	./case.setup --reset; ./case.setup
 	./case.build

@@ -91,6 +91,42 @@
         sst_HADISST_0.25_MOHC-HADISST-s-20130101-20131231.nc
         sst_HADISST_0.25_MOHC-HADISST-s-20140101-20141231.nc
         sst_HADISST_0.25_MOHC-HADISST-s-20150101-20151231.nc
+        sst_input4MIPs_HighResMIP_MOHC-highresSST-future.20160101-20161231.filled.nc
+        sst_input4MIPs_HighResMIP_MOHC-highresSST-future.20170101-20171231.filled.nc
+        sst_input4MIPs_HighResMIP_MOHC-highresSST-future.20180101-20181231.filled.nc
+        sst_input4MIPs_HighResMIP_MOHC-highresSST-future.20190101-20191231.filled.nc
+        sst_input4MIPs_HighResMIP_MOHC-highresSST-future.20200101-20201231.filled.nc
+        sst_input4MIPs_HighResMIP_MOHC-highresSST-future.20210101-20211231.filled.nc
+        sst_input4MIPs_HighResMIP_MOHC-highresSST-future.20220101-20221231.filled.nc
+        sst_input4MIPs_HighResMIP_MOHC-highresSST-future.20230101-20231231.filled.nc
+        sst_input4MIPs_HighResMIP_MOHC-highresSST-future.20240101-20241231.filled.nc
+        sst_input4MIPs_HighResMIP_MOHC-highresSST-future.20250101-20251231.filled.nc
+        sst_input4MIPs_HighResMIP_MOHC-highresSST-future.20260101-20261231.filled.nc
+        sst_input4MIPs_HighResMIP_MOHC-highresSST-future.20270101-20271231.filled.nc
+        sst_input4MIPs_HighResMIP_MOHC-highresSST-future.20280101-20281231.filled.nc
+        sst_input4MIPs_HighResMIP_MOHC-highresSST-future.20290101-20291231.filled.nc
+        sst_input4MIPs_HighResMIP_MOHC-highresSST-future.20300101-20301231.filled.nc
+        sst_input4MIPs_HighResMIP_MOHC-highresSST-future.20310101-20311231.filled.nc
+        sst_input4MIPs_HighResMIP_MOHC-highresSST-future.20320101-20321231.filled.nc
+        sst_input4MIPs_HighResMIP_MOHC-highresSST-future.20330101-20331231.filled.nc
+        sst_input4MIPs_HighResMIP_MOHC-highresSST-future.20340101-20341231.filled.nc
+        sst_input4MIPs_HighResMIP_MOHC-highresSST-future.20350101-20351231.filled.nc
+        sst_input4MIPs_HighResMIP_MOHC-highresSST-future.20360101-20361231.filled.nc
+        sst_input4MIPs_HighResMIP_MOHC-highresSST-future.20370101-20371231.filled.nc
+        sst_input4MIPs_HighResMIP_MOHC-highresSST-future.20380101-20381231.filled.nc
+        sst_input4MIPs_HighResMIP_MOHC-highresSST-future.20390101-20391231.filled.nc
+        sst_input4MIPs_HighResMIP_MOHC-highresSST-future.20400101-20401231.filled.nc
+        sst_input4MIPs_HighResMIP_MOHC-highresSST-future.20410101-20411231.filled.nc
+        sst_input4MIPs_HighResMIP_MOHC-highresSST-future.20420101-20421231.filled.nc
+        sst_input4MIPs_HighResMIP_MOHC-highresSST-future.20430101-20431231.filled.nc
+        sst_input4MIPs_HighResMIP_MOHC-highresSST-future.20440101-20441231.filled.nc
+        sst_input4MIPs_HighResMIP_MOHC-highresSST-future.20450101-20451231.filled.nc
+        sst_input4MIPs_HighResMIP_MOHC-highresSST-future.20460101-20461231.filled.nc
+        sst_input4MIPs_HighResMIP_MOHC-highresSST-future.20470101-20471231.filled.nc
+        sst_input4MIPs_HighResMIP_MOHC-highresSST-future.20480101-20481231.filled.nc
+        sst_input4MIPs_HighResMIP_MOHC-highresSST-future.20490101-20491231.filled.nc
+        sst_input4MIPs_HighResMIP_MOHC-highresSST-future.20500101-20501231.filled.nc
+        
    </fileNames>
    <offset>
       0
