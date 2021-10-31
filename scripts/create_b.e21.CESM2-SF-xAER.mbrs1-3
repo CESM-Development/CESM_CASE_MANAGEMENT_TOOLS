@@ -25,14 +25,11 @@ set STOP_OPTION=nyears
 set PROJECT=CESM0015
 set PROJECT=P93300313
 
-setenv SCENARIO xAER1920
+setenv SCENARIO xAAER1920
 setenv REFDATE  1920-01-01
 setenv BASENAME b.e21.${COMPSET}.${RESOLN}.CESM2-SF-${SCENARIO}
 setenv BASEROOT /glade/work/cesmsf/CESM2-SF/
-setenv BASEROOT /glade/scratch/nanr/
-setenv REFROOT  /glade/scratch/nanr/archive/b.e21.BHISTsmbb.f09_g17.LE2-1231.011/rest
 setenv RUNROOT  /glade/scratch/cesmsf/
-setenv RUNROOT  /glade/scratch/nanr/
 setenv REFCASE  b.e21.BHISTsmbb.f09_g17.LE2-1231.011
 
 #cd ~cesmsf/CESM-WF/
@@ -44,7 +41,6 @@ setenv REFCASE  b.e21.BHISTsmbb.f09_g17.LE2-1231.011
 set smbr =  1
 set embr =  1
 
-
 @ mb = $smbr
 @ me = $embr
 
@@ -53,6 +49,7 @@ set embr =  1
 foreach mbr ( `seq $mb  $me` )
 
 setenv REFDATE  1920
+
 
 if    ($mbr < 10) then
 	setenv CASENAME b.e21.${COMPSET}.${RESOLN}.CESM2-SF-${SCENARIO}.00${mbr}
@@ -63,6 +60,15 @@ else
 endif
 
   setenv CASEROOT  $BASEROOT$CASENAME
+  if ($mbr == 1) then
+  	setenv REFROOT  /glade/scratch/nanr/archive/b.e21.BHISTsmbb.f09_g17.LE2-1231.011/rest
+  endif
+  if ($mbr == 2) then
+  	setenv REFROOT  /glade/scratch/nanr/archive/b.e21.BHISTsmbb.f09_g17.LE2-1251.011/rest
+  endif
+  if ($mbr == 3) then
+  	setenv REFROOT  /glade/scratch/nanr/archive/b.e21.BHISTsmbb.f09_g17.LE2-1281.011/rest
+  endif
   cd $CESMROOT/cime/scripts/
   ./create_newcase --case $CASEROOT --res $RESOLN  --compset $COMPSET --project $PROJECT
  
