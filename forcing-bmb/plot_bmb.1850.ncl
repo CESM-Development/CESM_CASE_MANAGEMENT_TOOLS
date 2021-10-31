@@ -1,4 +1,4 @@
-*************************************************
+;*************************************************
 ; 
 ; 24oct2021
 ; author:  nanr
@@ -17,30 +17,47 @@ begin
 ;************************************************
 
   sname = get_script_name()
-ipath1 = "/glade/p/cesmdata/cseg/inputdata/atm/cam/chem/emis/CMIP6_emissions_1750_2015/"
-ipath2 = "/glade/p/cesmdata/cseg/inputdata/atm/cam/chem/emis/emissions_ssp370/"
+ipath1 = "/glade/p/cesmdata/cseg/inputdata/atm/cam/chem/emis/emissions_ssp370/"
+ipath3 = "/glade/p/cesm/cseg/inputdata/atm/cam/chem/emis/CMIP6_emissions_1850_cyclical/"
 
-ipaths1 = (/ipath2,ipath2/)
+ifiles1 = (/"emissions-cmip6-ScenarioMIP_IAMC-AIM-ssp370-1-1_num_so4_a1_anthro-ag-ship_surface_mol_175001-210101_0.9x1.25_c20200924.nc",\
+            "emissions-cmip6-ScenarioMIP_IAMC-AIM-ssp370-1-1_num_so4_a1_anthro-ag-ship_surface_mol_175001-210101_0.9x1.25_c20200924.nc",\
+            "emissions-cmip6-ScenarioMIP_IAMC-AIM-ssp370-1-1_SO2_anthro-ag-ship-res_surface_mol_175001-210101_0.9x1.25_c20200924.nc",\
+            "emissions-cmip6-ScenarioMIP_IAMC-AIM-ssp370-1-1_SO2_anthro-ag-ship-res_surface_mol_175001-210101_0.9x1.25_c20200924.nc",\
+            "emissions-cmip6-ScenarioMIP_IAMC-AIM-ssp370-1-1_SO2_anthro-ag-ship-res_surface_mol_175001-210101_0.9x1.25_c20200924.nc",\
+            "emissions-cmip6-ScenarioMIP_IAMC-AIM-ssp370-1-1_so4_a1_anthro-ag-ship_surface_mol_175001-210101_0.9x1.25_c20200924.nc",\
+            "emissions-cmip6-ScenarioMIP_IAMC-AIM-ssp370-1-1_so4_a1_anthro-ag-ship_surface_mol_175001-210101_0.9x1.25_c20200924.nc"/)
 
-ifiles1 = (/"emissions-cmip6-ScenarioMIP_IAMC-AIM-ssp370-1-1_SO2_anthro-ag-ship-res_surface_mol_175001-210101_0.9x1.25_c20200924.nc",\
-            "emissions-cmip6-ScenarioMIP_IAMC-AIM-ssp370-1-1_SO2_anthro-ag-ship-res_surface_mol_175001-210101_0.9x1.25_c20200924.nc"/)
+ifiles3 = (/"emissions-cmip6_num_so4_a1_anthro-ag-ship_surface_1850cycling_0.9x1.25_c20201230.nc",\
+            "emissions-cmip6_num_so4_a1_anthro-ag-ship_surface_1850cycling_0.9x1.25_c20201230.nc",\
+            "emissions-cmip6_SO2_anthro-ag-ship-res_surface_1850cycling_0.9x1.25_c20201230.nc",\
+            "emissions-cmip6_SO2_anthro-ag-ship-res_surface_1850cycling_0.9x1.25_c20201230.nc",\
+            "emissions-cmip6_SO2_anthro-ag-ship-res_surface_1850cycling_0.9x1.25_c20201230.nc",\
+            "emissions-cmip6_so4_a1_anthro-ag-ship_surface_1850cycling_0.9x1.25_c20201230.nc",\
+            "emissions-cmip6_so4_a1_anthro-ag-ship_surface_1850cycling_0.9x1.25_c20201230.nc"/)
 
-ifiles3 = (/"emissions-cmip6_SO2_anthro-ag-ship-res_surface_1850cycling_0.9x1.25_c20211028.nc",\
-	    "emissions-cmip6_SO2_anthro-ag-ship-res_surface_c1850cycling_0.9x1.25_c20211028.nc"/)
+ofiles = (/"valid_num_so4_a1_anthro-ag-ship_surface_overwritten_by_emiss_shipping.ps","valid_num_so4_a1_anthro-ag-ship_surface_Shipping.ps",\
+           "valid_emiss_ag_sol_was_Overwritten_by_emiss_res_tran.ps","valid_emiss_ship.ps","valid_emiss_res_tran.ps",\
+           "valid_anthro-ag-ship_emiss_ag_overwritten_by_emiss_shipping.ps","valid_anthro-ag-ship_emiss_shipping.ps"/)
 
-ofiles = (/"valid_SO2_anthro-ag-ship-res-OLD.ps","valid_SO2_anthro-ag-ship-res-NEW.ps"/)
+notes1 = (/"num_so4_a1_anthro","num_so4_a1_anthro",\
+           "SO2_anthro-ag-ship","SO2_anthro-ag-ship","SO2_anthro-ag-ship",\
+           "so4_a1_anthro-ag-ship","so4_a1_anthro-ag-ship"/)
+notes2 = (/"emiss_shipping","MISSING",\
+           "emiss_res_tran","MISSING","MISSING",\
+           "emiss_shipping","MISSING"/)
 
-names   = (/"emiss_ag_sol_was","emiss_ag_sol_was"/)
-; namesold   = (/"emiss_ag_sol_was"/)
-; namesnew   = (/"emiss_ag_sol_was","emiss_res_tran","emiss_ship"/)
+names   = (/"emiss_ag_sol_was","emiss_shipping",\
+            "emiss_ag_sol_was","emiss_ship","emiss_res_tran",\
+            "emiss_ag_sol_was","emiss_shipping"/)
 
 
 
-nfiles = 2
+nfiles = dimsizes(ifiles3)
 do c = 0, nfiles-1
 
-  ifile1 = ipaths1(c) + ifiles1(c)
-  ifile3 = "emissions_1850_cyclical/" + ifiles3(c)
+  ifile1 = ipath1 + ifiles1(c)
+  ifile3 = ipath3 + ifiles3(c)
   ofile  = ofiles(c)
 
   print(ifile1)
@@ -59,8 +76,8 @@ do c = 0, nfiles-1
   wks = gsn_open_wks("ps",ofile)
   fvars = names(c)
   pds =  1200
-  src_pde = (/3299,3299/)
-  pde = src_pde(c)
+  src_pde = 3299
+  pde = src_pde
   nrecs = pde-pds+1
   nyrs = nrecs / 12.
   print("c = " + c + " ... processing file:  " + ifiles3(c))
@@ -70,13 +87,18 @@ do c = 0, nfiles-1
   do v = 0, nvars-1
     usevar = fvars(v)
     print("usevar = " + usevar)
-    if (c .eq. 5 .or. c .eq. 6) then
-    	ivar1   =    src_file1->$usevar$(pds:pde,0,:,:)
-    	ivar3   =    dst_file->$usevar$(0:23,0,:,:)
-    else
+    ;if (c .eq. 5 .or. c .eq. 6) then
+    	;ivar1   =    src_file1->$usevar$(pds:pde,0,:,:)
+    	;ivar3   =    dst_file->$usevar$(0:23,0,:,:)
+    ;else
     	ivar1   =    src_file1->$usevar$(pds:pde,:,:)
-    	ivar3   =    dst_file->$usevar$(0:23,:,:)
-    end if
+        if (usevar .eq. "emiss_shipping" .or. usevar .eq. "emiss_res_tran" .or. usevar .eq. "emiss_ship") then
+		tmpvar  = "emiss_ag_sol_was"
+    		ivar3   =  (dst_file->$tmpvar$(0:23,:,:) * 0.)
+        else
+    		ivar3   =    dst_file->$usevar$(0:23,:,:)
+        end if
+    ;end if
     date    =    src_file1->date(pds:pde)
     lat     =    dst_file->lat
     nlat    =    dimsizes(lat)
@@ -127,7 +149,7 @@ do c = 0, nfiles-1
     res = True
     res@gsnDraw		= False
     res@gsnFrame        = False
-    res@tiMainString    = usevar
+    res@tiMainString    = "File: "+ notes1(c) + "~C~ Variable: "+ usevar + "~C~Actual Values: "+ notes2(c)
     res@xyMarkLineMode = "MarkLines"               ; Markers *and* lines
     res@xyLineThicknesses = (/1.0,2.0/)               ; make 2nd lines thicker
     res@xyMarkers      = (/0,16/)
@@ -173,7 +195,7 @@ end do		; file loop
   ;resP@gsnPanelMainString = names(c)
                                                  ; use this for NCL V6.3.0 and earlier
   resP@lbLabelFontHeightF  = 0.07               ; make labels smaller
-    resP@xyExplicitLegendLabels = (/"CMIP6","1920constant"/)         ; create explicit labels
+    resP@xyExplicitLegendLabels = (/"CMIP6","1850constant"/)         ; create explicit labels
     ; if (c .ne. 2) then
     	; nv = nvars/2 + 1
     	; nv = nvars
