@@ -15,7 +15,7 @@ begin
   fixit = (/"emiss_ag_sol_was","emiss_shipping"/)
 
   ifile    = "/glade/p/cesmdata/cseg/inputdata/atm/cam/chem/emis/emissions_ssp370/emissions-cmip6-ScenarioMIP_IAMC-AIM-ssp370-1-1_num_so4_a1_anthro-ag-ship_surface_mol_175001-210101_0.9x1.25_c20200924.nc";
-  foutname = "./emissions_1850_cyclical/emissions-cmip6_num_so4_a1_anthro-ag-ship_surface_1850cycling_0.9x1.25_c"+dd+".nc"
+  foutname = "./emissions_1850_cyclical/emissions-cmip6_num_so4_a1_anthro-ag-ship_surface_c1850cycling_0.9x1.25_c"+dd+".nc"
 
   system("rm "+foutname)          ; delete file if it already exists
   fout = addfile( foutname ,"c")

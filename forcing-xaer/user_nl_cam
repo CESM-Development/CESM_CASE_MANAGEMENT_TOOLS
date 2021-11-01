@@ -147,11 +147,11 @@ srf_emis_specifier             = 'bc_a4 -> /glade/p/cesmdata/cseg/inputdata/atm/
         'SOAG -> /glade/p/cesmdata/cseg/inputdata/atm/cam/chem/emis/emissions_ssp/emissions-cmip6-SOAGx1.5_biogenic_surface_mol_175001-210101_0.9x1.25_c20190329.nc'
 srf_emis_type          = 'INTERP_MISSING_MONTHS'
 
-&aircraft_emit_nl
- aircraft_datapath              = '/glade/p/cesmdata/cseg/inputdata/atm/cam/ggas'
- aircraft_specifier             = 'ac_CO2 -> emissions-cmip6_CO2_anthro_ac_ssp370_201401-210112_fv_0.9x1.25_c20190207.txt'
- aircraft_type          = 'SERIAL'
-/
+!&aircraft_emit_nl
+ !aircraft_datapath              = '/glade/p/cesmdata/cseg/inputdata/atm/cam/ggas'
+ !aircraft_specifier             = 'ac_CO2 -> emissions-cmip6_CO2_anthro_ac_ssp370_201401-210112_fv_0.9x1.25_c20190207.txt'
+ !aircraft_type          = 'SERIAL'
+!/
 
 &prescribed_ozone_nl
  prescribed_ozone_datapath              = '/glade/p/cesmdata/cseg/inputdata/atm/cam/ozone_strataero'

@@ -132,15 +132,6 @@ if (in1_vars(i) .eq. fixit(0) .or. in1_vars(i) .eq. fixit(1) .or. in1_vars(i) .e
         end do
         ; nvar(23,:,:) = tmp(12,:,:)
 	fout->$in1_vars(i)$ = nvar
-        ;if (in1_vars(i) .eq. fixit(0)) then
-	   ;fout->$fixit(0)$ = nvar
-        ;end if
-        ;if (in1_vars(i) .eq. fixit(1)) then
-	   ;fout->$fixit(1)$ = nvar
-        ;end if
-        ;if (in1_vars(i) .eq. fixit(2)) then
-	   ;fout->$fixit(2)$ = nvar
-        ;end if
         delete([/tmp,nvar/])
 else 
    if (in1_vars(i) .eq. "date" .or. in1_vars(i) .eq. "time") then
