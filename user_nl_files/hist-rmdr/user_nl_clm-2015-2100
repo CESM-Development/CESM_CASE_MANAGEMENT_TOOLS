@@ -35,11 +35,11 @@
  stream_year_last_ndep = 2015
 /
 &popd_streams
- model_year_align_popdens = 1850
+ model_year_align_popdens = 2015
  popdensmapalgo = 'bilinear'
- stream_fldfilename_popdens = '/glade/p/cesmdata/cseg/inputdata/lnd/clm2/firedata/clmforc.Li_2017_HYDEv3.2_CMIP6_hdm_0.5x0.5_AVHRR_simyr1850-2016_c180202.nc'
- stream_year_first_popdens = 1850
- stream_year_last_popdens = 2016
+ stream_fldfilename_popdens = '/glade/p/cesmdata/cseg/inputdata/lnd/clm2/firedata/clmforc.Li_2018_SSP3_CMIP6_hdm_0.5x0.5_AVHRR_simyr1850-2100_c181205.nc'
+ stream_year_first_popdens = 2015
+ stream_year_last_popdens = 2100
 /
 &urbantv_streams
  model_year_align_urbantv = 1850
