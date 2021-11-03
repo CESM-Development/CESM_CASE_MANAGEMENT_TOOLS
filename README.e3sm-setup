@@ -19,3 +19,7 @@ cd /global/homes/s/sglanvil/cases/MCSP_CMT_5_coupled
 ./case.setup
 ./case.build
 ./case.submit
+
+Compsets:
+cd E3SM/cime/scripts/
+./query_config --compsets
