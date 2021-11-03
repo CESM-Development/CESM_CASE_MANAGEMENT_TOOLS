@@ -1,0 +1,140 @@
+Below is a namelist that Nan has put together for the E3SMv1 simulations with additional output - could you please have a look through and make sure that it has all the needed MJO and MJO-QBO interactions output? (In particular, Jack: can you run all your diags from this? & Julie: are all the variables here that you used for the QBO-MJO plots?)
+
+!!                   h0, h1,  h2,  h3,  h4
+
+ nhtfrq =            0, -24, -24,  -6,  -6
+
+
+
+! monthly (h0)
+
+ fincl1 = 'IEFLX:A'
+
+
+
+! daily 2D (h1) - Averaged
+
+ fincl2 = 'FLUT:A','TREFHT:A','TREFHTMN:M','TREFHTMX:X','LHFLX:A', 'SHFLX:A', 'PRECT:A', 'PRECTMX:X','PRECC:A', 
+
+'FLNT:A','FSNS:A','FSNT:A','FLNSC:A', 'FLNS:A','PS:A', 'PSL:A','OLR:A', 'RHREFHT:A',
+
+'UBOT:A', 'VBOT:A', 'U10:A', 'Z200:A', 'Z500:A', 'U200:A', 'V200:A', 'U850:A', 'V850:A' 
+
+
+
+! daily Full-column (h2) - Averaged
+
+ fincl3 = 'U:A', 'V:A', 'OMEGA:A', 'T:A', 'Q:A','Z3:A'
+
+
+
+! 6hrly 2D (h3) 
+
+ fincl4 = 'PSL:I','TREFHT:I', 'FLDS:I', 'FSDS:I', 'PRECT:A', 'PS:I', 'QREFHT:I', 'TS:I',
+
+          'TMQ:I','U10:I','U850:I','V850:I','UBOT:I','VBOT:I','Z200:I','Z500:I',
+
+ 'IVT:I','uIVT:I','vIVT:I'
+
+
+
+MAYBE: if this would be useful to you please let us know as this is very space intensive!
+
+! 6 hrly Full-column (h4)
+
+ fincl5 = 'Q:I', 'T:I', 'U:I', 'V:I', 'Z3:I'
+
+
+Thanks,
+Yaga
+
+
+Chih-Chieh-Jack Chen
+Oct 28, 2021, 3:41 PM (4 days ago)
+to Jadwiga, Julie, Richard, Brian, me
+
+Hi Yaga,
+
+Yes, the MJO diagnostics I have been running require daily FLUT, PRECT, U850, V850, U200, and V200.
+
+They are all in fincl2.
+
+Jack
+
+
+Julie Caron
+Oct 28, 2021, 3:51 PM (4 days ago)
+to Jadwiga, Richard, Brian, Chih-Chieh-Jack, me
+
+yes, this looks like it has the mjo fields i need too ( same list as jack mentioned). i also have some code that grabs U at 50mb for the qbo i believe. but i think yaga can speak to what frequency is needed and if we want to include some standard plots of qbo in general do we have all the upper level winds at the right frequency?
+thanks,
+julie
+
+
+Jadwiga (Yaga) Richter
+Oct 28, 2021, 3:55 PM (4 days ago)
+to Julie, Richard, Brian, Chih-Chieh-Jack, me
+
+Thanks Jack & Julie.
+
+For the QBO we mostly need monthly  mean wind. For the MJO-QBO paper we used daily wind at U(50 hPa) which we could get out of the 3D daily U in h2.
+
+Nan: if we could add daily U(at 50 hPa) without much overhead, that would make things easier for the analysis,
+
+Yaga
+
+
+Richard Neale
+Oct 28, 2021, 3:57 PM (4 days ago)
+to Jadwiga, Julie, Brian, Chih-Chieh-Jack, me
+
+A few of the tendency fields on the h0 files would be useful: ZMDT, ZMDQ, STEND_CLUBB, RVMTEND_CLUBB, MPDT, MPDQ, DCQ and DTCOND.
+
+I know there are already lots of fincls, but 3 hourly PRECT and maybe PRECC are always useful.
+
+Rich
+--
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+ Rich Neale - rneale@ucar.edu - http://www.cgd.ucar.edu/cms/rneale -
+ Section Head - Atmospheric Modeling & Predictability, CGD, NCAR  
+ P.O. Box 3000, Boulder, CO 80307-3000 
+ Tel (303) 497-1380 Fax (303) 497-1324 
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+
+Brian Medeiros
+Oct 28, 2021, 4:05 PM (4 days ago)
+to Jadwiga, Julie, Richard, Chih-Chieh-Jack, me
+
+This looks reasonable for standard MJO diagnostics. 
+
+I was just replying similarly to Rich… the question for the QBO-MJO analysis is what kind of process-level diagnostics will be needed? I’m wondering about heating rates and measures of stability. The tendencies Rich mentioned take care of heating…. stability might be hard. The daily fields might be enough, I guess… though QRS and QRL might be needed too.
+
+.brian
+
+
+Jadwiga (Yaga) Richter
+Oct 28, 2021, 4:07 PM (4 days ago)
+to Brian, Julie, Richard, Chih-Chieh-Jack, me
+
+Daily fields should be enough for the QBO-MJO. If we can add QRS and QRL to the daily's that would be great,
+Yaga
+
+
+Richard Neale
+Oct 28, 2021, 4:10 PM (4 days ago)
+to Brian, Jadwiga, Julie, Chih-Chieh-Jack, me
+
+Good point Brian, we'll need daily convective heating, moistening; copies of my h0 additions. I think daily measures of tropopause height/pressure would be good also if we don't have them.
+Rich
+
+Not sure what you need answers for?
+I say yes to the h0 variables and 3 hourly variables.
+Do you need the actual tropopause variables? How about these 3 daily to capture the tropopause.
+
+tropopause.F90:    call addfld('TROPF_P',         horiz_only,  'A',  'Pa',         'Tropopause Pressure (cold point)',    flag_xyfill=.True.)
+tropopause.F90:    call addfld('TROPF_T',         horiz_only,  'A',  'K',          'Tropopause Temperature (cold point)', flag_xyfill=.True.)
+tropopause.F90:    call addfld('TROPF_Z',         horiz_only,  'A',  'm',          'Tropopause Height (cold point)',      flag_xyfill=.True.)
+
+All good?
+Rich

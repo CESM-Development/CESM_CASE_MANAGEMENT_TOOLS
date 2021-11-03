@@ -1,0 +1,21 @@
+Running E3SM on NERSC Cori
+
+directions: https://e3sm.org/model/running-e3sm/e3sm-quick-start/
+monitoring jobs: https://docs.nersc.gov/jobs/monitoring/
+
+squeue -u sglanvil
+
+get source code
+	mkdir /global/homes/s/sglanvil/sourceCode/
+	git clone -b maint-1.0 --recursive https://github.com/E3SM-Project/E3SM.git
+
+create new case
+cd /global/homes/s/sglanvil/sourceCode/E3SM/cime/scripts
+
+./create_newcase --case MCSP_CMT_5_coupled --compset A_WCYCL20TRS_CMIP6 --res ne30_oECv3_ICG --pecount L --handle-preexisting-dirs u --mach cori-knl --output-root /global/cscratch1/sd/sglanvil/ --script-root /global/homes/s/sglanvil/cases/MCSP_CMT_5_coupled -project mp9
+
+
+cd /global/homes/s/sglanvil/cases/MCSP_CMT_5_coupled
+./case.setup
+./case.build
+./case.submit

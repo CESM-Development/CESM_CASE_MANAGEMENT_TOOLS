@@ -13,20 +13,19 @@ Nan:  needs source code for E3SM
 
 
 Daily Mean 2D:
-UBOT, VBOT, U10, Z200, Z500, PSL (Hui for TCs: daily is what the LE has)
 
-OLR, PS, PSL, PRECT, evaporation/surface latent flux, surface sensible heat flux, surface longwave radiation, surface shortwave radiation, TOA shortwave radiation (Kai)
-FLNT  = OLR 
-LHFLX = latent surface heat flux
-SHFLX = surface sensible heat flux
-FLNS  = net longwave @ the surface
-FSNS  = net shortwave @ the surface
-FSNT  = TOA shortwav
+Done: OLR, PS, PSL, PRECT, evaporation/surface latent flux, surface sensible heat flux, surface longwave radiation, surface shortwave radiation, TOA shortwave radiation (Kai)
+Done: FLNT  = OLR 
+Done: LHFLX = latent surface heat flux
+Done: SHFLX = surface sensible heat flux
+Done: FLNS  = net longwave @ the surface
+Done: FSNS  = net shortwave @ the surface
+Done: FSNT  = TOA shortwav
 
 
-'TREFHT', 'TREFHTMN:M', 'TREFHTMX:X', 'PRECT', ‘PRECTMX’, ‘RHREFHT’ (Mari, Katie, Maria extremes)
+Done:  'TREFHT', 'TREFHTMN:M', 'TREFHTMX:X', 'PRECT', ‘PRECTMX’, ‘RHREFHT’ (Mari, Katie, Maria extremes)
 
-FLUT, PRECT, U200, V200, U850, V850 (MJO diagnostics from MDTF package)
+Done:  FLUT, PRECT, U200, V200, U850, V850 (MJO diagnostics from MDTF package)
 
 
 Daily Mean 3D:
