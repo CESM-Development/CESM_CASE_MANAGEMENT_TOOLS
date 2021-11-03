@@ -7,7 +7,7 @@
 
 ! daily 2D (h1) - Averaged
  fincl2 = 'FLUT:A','TREFHT:A','TREFHTMN:M','TREFHTMX:X','LHFLX:A', 'SHFLX:A', 'PRECT:A', 'PRECTMX:X','PRECC:A', 
-          'FLNT:A','FSNS:A','FSNT:A','FLNSC:A', 'FLNS:A','PS:A', 'PSL:A','OLR:A', 'RHREFHT:A',
+          'FLNT:A','FSNS:A','FSNT:A','FLNSC:A', 'FLNS:A','PS:A', 'PSL:A','FLNT:A', 'RHREFHT:A',
           'UBOT:A','VBOT:A','U10:A', 'Z200:A', 'Z500:A', 'U200:A', 'V200:A', 'U850:A', 'V850:A', 'U050:A',
           'QRS:A', 'QRL:A','TROPF_P:A','TROPF_T:A','TROPF_Z:A',
 !         'UBOT:A',  'VBOT:A',  'U10:A', 'Z200:A', 'Z500:A', 'U200:A', 'V200:A', 'U850:A', 'V850:A' ,
