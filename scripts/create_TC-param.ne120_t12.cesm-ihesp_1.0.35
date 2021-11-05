@@ -6,7 +6,7 @@ set MACHINE = cori-knl
 
 set EXPERIMENT = TC1
 set RESOLN  = ne120_t12
-set TAG     = cesm-ihesp-hires1.0.35
+set TAG     = cesm-ihesp-hires1.0.40
 set COMPSET = B1950C5 
 
 #set RESUBMIT = 1
@@ -98,10 +98,8 @@ endif
 
 ./case.setup
 
-#cp    $TOOLSROOT/user_nl_files/user_nl_cam $CASEROOT/
-#cp    $TOOLSROOT/user_nl_files/user_nl_rtm $CASEROOT/
-#cp    $TOOLSROOT/user_nl_files/user_nl_clm $CASEROOT/
-#cp    $TOOLSROOT/SourceMods/src.pop2/* $CASEROOT/SourceMods/src.pop/
+cp    $TOOLSROOT/user_nl_files/user_nl_cam $CASEROOT/
+cp    $TOOLSROOT/SourceMods/src.cam/* $CASEROOT/SourceMods/src.cam/
 
 echo $REFROOT/$REFCASE/rest/${REFDATE}-00000/
 

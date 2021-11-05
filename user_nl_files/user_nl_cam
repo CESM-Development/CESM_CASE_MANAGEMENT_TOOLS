@@ -1,0 +1,10 @@
+! Users should add all user specific namelist changes below in the form of 
+! namelist_var = new_namelist_value 
+
+
+    mfilt  =  1, 365, 1460
+    nhtfrq =  0, -24,  -6
+
+    fincl2 = 'PRECT:A','PRECC:A','SST:A','LHFLX:A','RELHUM:A'
+    fincl3 = 'U10:I','U:I','V:I','OMEGA','T','RELHUM','PSL:I''PRECT:I','PRECC:I','SST:I','LHFLX:I','SHFLX:I','FLNT:I','FSNT:I','FLNS:I','FSNS:I','TMQ:I'
+
