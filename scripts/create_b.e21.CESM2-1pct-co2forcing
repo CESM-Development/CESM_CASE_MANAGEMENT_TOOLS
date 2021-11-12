@@ -2,7 +2,7 @@
 ### set env variables
 
 setenv CESMROOT /glade/work/nanr/cesm_tags/cesm2.1.4-rc.08
-setenv CESM_TOOLS /glade/work/nanr/cesm_tags/CASE_tools/cesm2-co2-aixue/
+setenv CESM_TOOLS /glade/work/nanr/cesm_tags/CASE_tools/cesm2-AMOC-aixue/
 
 set COMPSET = B1PCTcmip6
 set MACHINE = cheyenne
@@ -34,7 +34,7 @@ cd $CASEROOT
 
 ./case.setup
 
-cp $CESM_TOOLS/user_nl_namelists/user_nl_clm $CASEROOT/
+cp $CESM_TOOLS/user_nl_files/user_nl_clm $CASEROOT/
 
 ./preview_namelists
 

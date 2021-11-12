@@ -55,3 +55,130 @@ combinations of AMOC, PDV, and AMV with CO2 ramping up by 1% per year for 30 yea
 utilizing the preindustrial control runs of CESM2 and E3SM1 (300 simulation years).
 
 If you need more details, please let me know.
+
+
+I'm putting together the thermo-haline AMOC simulations to run on cheyenne, and have some questions.
+
+(1)   AMOC-thermal -
+I'm assuming this is the 1pct CO2 simulation that Maria is running.  Is that correct?
+a) AMOC-thermal (Thermal forcing only): branching from PI control run, 1% CO2 simulation until CO2 quadrupling (150 years), then keep the CO2 at quadrupled level for 300 years to see the quasi-equilibrium response of the AMOC and other modes; after that CO2 will ramp down at 1% per year until CO2 is at PI level (150 years) (600 simulation years).
+
+(2)  I need CESM2 SourceMods and forcing files for this simulation.  I have the CESM1 SourceMods from the high resolutnion cori run, but perhaps you have a CESM2 version ready.  
+
+Freshwater hosing run with freshwater forcing at 0.0015 Sv initially with an annual increment of 0.0015 Sv for 150 years, then keep the forcing constant for 300 years, then the forcing will ramp down to zero at a rate of -0.0015 Sv per year. Previously, when I run this type of run with time evolving freshwater forcing using CESM1 or CCSM4, I have to run this one year a time since I could not find the variable in the model which controls the model time. DO you have any idea on how to make this change easier?
+ 
+b) AMOC-haline (Haline forcing only): branching from PI control, additional freshwater is added into the subpolar North Atlantic between 50 and 70°N at an increment rate of 0.0015 Sv per year for 150 years (maximum of 0.225 Sv), then this haline forcing is kept at 0.225 Sv level for 300 years, afterwards, this forcing ramps down at the same rate to 0 (150 years) (600 simulation years).
+
+
+c) AMOC-thermohaline (combined thermal and haline forcing): combine experiments AMOC
+
+thermal and AMOC haline (600 simulation years).
+
+~Nan Rosenbloom
+nanr@ucar.edu
+ORCID ID =0000-0001-7389-3346
+She/her/hers (Why do I share this info?)
+
+Aixue Hu <ahu@ucar.edu>
+Wed, Jun 2, 9:06 PM
+to me
+
+Hi Nan,
+
+Yes, AMOC_thermal is the one that Maria is currently running.
+
+Yes, I have the source mod for the hosing run which is the same as the high-res version. You can get a copy from my directory:
+
+/glade/p/cgd/ccr/people/ahu/cesm2_amocmip
+
+You can get the source mod from any of the cases under that directory, such as:
+b.e21.B1850cmip6.f09_g17.HOSING.001/SourceMods/src.pop.
+
+Aixue
+--
+Aixue Hu, Ph.D
+Mail:  3090 Center Green Drive, Boulder, CO 80307
+Fedex: NCAR/CGD/CCR, ML 220, 3090 Center Green Drive, Boulder, CO 80307
+Phone: 303-497-1334; Fax: 303-497-1348
+Homepage: http://www.cgd.ucar.edu/ccr/ahu/index.html
+
+Nan Rosenbloom <nanr@ucar.edu>
+Wed, Jun 2, 9:16 PM
+to Aixue
+
+Great, thanks! 
+
+So the code automatically add 0.0015Sv per year, or do you run one year at a time, incrementing the forcing each year?
+
+Nan
+
+
+~Nan Rosenbloom
+nanr@ucar.edu
+ORCID ID =0000-0001-7389-3346
+She/her/hers (Why do I share this info?)
+
+
+Aixue Hu <ahu@ucar.edu>
+Thu, Jun 3, 9:15 PM
+to me
+
+Hi Nan,
+
+No. Right now the code is good for a run with constant additional freshwater forcing since it just reads in one file. Previously, when I needed to run a transient freshwater forcing experiment with the forcing changes once per year, I just ran one year at a time. If you could figure out how to get the CESM time tag, such as day, month and year, we could use that info to change the forcing strength as I did for CCSM3. Such as we change the forcing strength on Jan 1 each year:
+
+F = freshwater
+SY = start year of the run
+CY = current year
+
+so forcing = F*(CY-SY+1) when freshwater forcing increasing (year 1-150),
+     forcing = F*150 for constant forcing part (year 151-450) 
+   and forcing = F*(600 - (CY-SY)) when freshwater forcing decreasing (year 451-600)
+
+Aixue
+
+
+Nan Rosenbloom <nanr@ucar.edu>
+Fri, Jun 4, 9:08 AM
+to Aixue
+
+Hi Aixue -
+
+Is it ok to start the run with constant forcing?  Or do you want to increase it every year?  I know these need to start quickly, so we can't spend a lot of time getting them running, but it would be good to know your thoughts.
+
+Nan
+
+
+~Nan Rosenbloom
+nanr@ucar.edu
+ORCID ID =0000-0001-7389-3346
+She/her/hers (Why do I share this info?)
+
+
+Aixue Hu <ahu@ucar.edu>
+Fri, Jun 4, 9:56 AM
+to me
+
+Hi Nan,
+
+If it is difficult to get the CESM time tag, we can run this run one year a time and change the forcing as:
+year 1:  1x0.0015
+year 2: 2x 0.0015
+year 3: 3x 0.0015
+...
+year 150: 150* 0.0015
+then constant forcing from year 151-450.
+year 151-450: 150*0.0015
+year 451: 149*0.0015
+year 452: 148*0.0015
+...
+year 598: 2*0.0015
+year 599: 1x0.0015
+year 600: 0*0.0015
+
+By doing so, you have to generate a series of forcing files to represent the forcing strength which was what I did before using CCSM4.
+
+Aixue
+
+Thanks!Got it.Perfect.
+

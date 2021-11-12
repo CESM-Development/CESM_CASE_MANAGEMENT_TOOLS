@@ -1,0 +1,19 @@
+&forcing_shf_nml
+!shf_data_inc = 365*24. (every year)
+ shf_data_inc = 8760
+ shf_data_type = 'n-hour'
+ shf_file_fmt = 'nc'
+ shf_filename = '/glade/work/nanr/amoc-hosing/hosing_AMOChaline_50-70N_years1-150.211102.nc'
+ shf_formulation = 'hosing'
+ shf_interp_freq = 'every-timestep'
+ shf_interp_type = 'linear'
+!not needed: luse_cpl_ifrac = .false. ---->  ASK AIXUE
+!not needed: shf_data_renorm(1) = 1.0  (By default set to 1)
+!not needed:  shf_interp_inc = 1.e20
+!not needed:  shf_restore_tau = 2 
+!not needed:  shf_restore_tau = 10 
+!not needed:  shf_restore_tau = 1.5873 
+!not needed:  shf_strong_restore = 0.0
+!not needed:  shf_strong_restore_ms = 92.64
+!not needed:  shf_weak_restore = 0.
+/

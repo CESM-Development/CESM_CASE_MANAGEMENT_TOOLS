@@ -1,4 +1,52 @@
+CESM Source mods:
+/glade/work/nanr/cesm_tags/cesm2.1.4-rc.08/components/pop/bld/namelist_files/namelist_definition_pop.xml
+
+
+	<!-- - - - - - - - - - - - - - - - - - -->
+	<!-- Group: forcing_sfwf_nml         - -->
+	<!-- - - - - - - - - - - - - - - - - - -->
+	
+	<entry
+	id="sfwf_formulation"
+	type="char*256"
+	category="Forcing (Surface Fresh Water Flux)"
+	group="forcing_sfwf_nml"
+	valid_values="restoring,bulk-NCEP,partially-coupled,hosing" >
+
+---------------------------
+SourceMods:  From Fred:
+
+
+------------------------------
+Initial Conditions:  from Aixue
+
 /glade/p/cgd/ccr/people/ahu/cesm2_amocmip
+
+/glade/p/cgd/ccr/people/ahu/cesm1_hosing/hosingAMOCmip0.3Sv.nc
 
 You can get the source mod from any of the cases under that directory, such as:
 b.e21.B1850cmip6.f09_g17.HOSING.001/SourceMods/src.pop.
+
+He would like to add freshwater forcing to the N. Atl at an increasing rate:  such that each year the forcing equals:
+
+year 1:  1x0.0015
+year 2:  2x0.0015
+year 3:  3x0.0015
+
+The best way to do that might be to calculate the forcing based on the day/month/year
+figure out how to get the CESM time tag, such as day, month and year, we could use that info to change the forcing strength as I did for CCSM3. Such as we change the forcing strength on Jan 1 each year:
+
+F = freshwater
+SY = start year of the run
+CY = current year
+
+so forcing = F*(CY-SY+1) when freshwater forcing increasing (year 1-150),
+     forcing = F*150 for constant forcing part (year 151-450)
+   and forcing = F*(600 - (CY-SY)) when freshwater forcing decreasing (year 451-600)
+
+If it is difficult to get the CESM time tag, we can run this run one year a time and change the forcing as:
+year 1:  1x0.0015
+year 2: 2x 0.0015
+year 3: 3x 0.0015
+...
+year 150: 150* 0.0015

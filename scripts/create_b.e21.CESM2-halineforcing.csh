@@ -1,21 +1,21 @@
 #!/bin/csh -f
 ### set env variables
 
-#setenv CESMROOT ~cmip6/cesm_tags/release-cesm2.1.1/
-setenv CESMROOT /glade/work/nanr/cesm_tags/cesm2.1.4-rc.07
+## Tag includes sfwf SourceMods!
+setenv CESMROOT /glade/work/nanr/cesm_tags/cesm2.1.4-rc.08
 setenv CESM_TOOLS /glade/work/nanr/cesm_tags/CASE_tools/cesm2-AMOC-aixue/
 
-set COMPSET = B1850cmip6
+set COMPSET = BHISTcmip6
 set MACHINE = cheyenne
 set RESOLN = f09_g17
 set mbr = 1
 set PROJECT = P93300313
 
-setenv CASENAME b.e21.B1850cmip6.f09_g17.HOSING.00${mbr}
+setenv CASENAME b.e21.${COMPSET}.f09_g17.hosing.00${mbr}
 setenv REFCASE  b.e21.B1850.f09_g17.CMIP6-piControl.001
 setenv REFDATE  0501-01-01
 
-setenv CASEROOT /glade/scratch/nanr/$CASENAME
+setenv CASEROOT /glade/work/nanr/amoc-hosing/cases/$CASENAME
 
 cd $CESMROOT/cime/scripts/
 ./create_newcase --case $CASEROOT --res $RESOLN  --compset $COMPSET  --project $PROJECT
@@ -24,7 +24,10 @@ cd $CASEROOT
 
 ./xmlchange RUN_REFCASE=$REFCASE
 ./xmlchange RUN_REFDATE=$REFDATE
-./xmlchange RUN_STARTDATE=1850-01-01
+./xmlchange STOP_N=3
+./xmlchange STOP_OPTION=nyears
+./xmlchange RESUBMIT=49
+./xmlchange JOB_QUEUE=economy --subgroup case.run
 
 ./xmlchange NTASKS_ICE=36
 ./xmlchange NTASKS_LND=504
@@ -32,11 +35,8 @@ cd $CASEROOT
 
 ./case.setup
 
-cp $CESM_TOOLS/user_nl_files/user_nl_clm $CASEROOT/
-cp -pR $CESM_TOOLS/SourceMods/src.pop/* $CASEROOT/SourceMods/src.pop/
-
-
-
+cp $CESM_TOOLS/user_nl_files/haline/user_nl_pop-SHF $CASEROOT/user_nl_pop
+cp $CESM_TOOLS/SourceMods/src.pop/haline-fred/forcing_sfwf.F90 $CASEROOT/SourceMods/src.pop/
 
 ./preview_namelists
 
