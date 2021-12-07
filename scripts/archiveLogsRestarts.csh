@@ -6,7 +6,7 @@ setenv CESM2_TOOLS_ROOT /glade/work/nanr/cesm_tags/CASE_tools/cesm2-sf/
 setenv ARCHDIR  /glade/scratch/cesmsf/archive/
 setenv CAMPDIR  /glade/campaign/cesm/collections/CESM2-SF/
 setenv LOGSDIR  $CAMPDIR/logs
-#setenv RESTDIR  $CAMPDIR/restarts
+setenv RESTDIR  $CAMPDIR/restarts
 setenv POPDDIR  $CAMPDIR/pop.d_files
 
 set smbr =  11
@@ -17,14 +17,19 @@ set embr =  15
 
 foreach mbr ( `seq $mb $me` )
 if ($mbr < 10) then
-        set CASE = b.e21.B1850cmip6.f09_g17.CESM2-SF-AAER.00${mbr}
+        set CASE = b.e21.B1850cmip6.f09_g17.CESM2-SF-BMB.00${mbr}
+        #set CASE = b.e21.B1850cmip6.f09_g17.CESM2-SF-BMB-SSP370.00${mbr}
 else
-        set CASE = b.e21.B1850cmip6.f09_g17.CESM2-SF-AAER.0${mbr}
+        set CASE = b.e21.B1850cmip6.f09_g17.CESM2-SF-BMB.0${mbr}
+        #set CASE = b.e21.B1850cmip6.f09_g17.CESM2-SF-BMB-SSP370.0${mbr}
 endif
 
 tar -cvf $LOGSDIR/$CASE.logs.tar $ARCHDIR/$CASE/logs
 tar -cvf $POPDDIR/$CASE.pop.dd.tar $ARCHDIR/$CASE/ocn/hist/*.pop.d*
 
+## use this script instead:
+## ./garyRestarts.commandline.csh
+## ./garyRestarts.commandline-ssp370.csh
 set doRestarts = 0
 if ($doRestarts == 1) then
 #set srest = 2018

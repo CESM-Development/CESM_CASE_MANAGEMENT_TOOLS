@@ -11,8 +11,8 @@ module load cesm_postprocessing
 
 # ...
 # case name counter
-set smbr =  14
-set embr =  14
+set smbr =  1
+set embr =  1
 
 @ mb = $smbr
 @ me = $embr
@@ -24,7 +24,9 @@ if ($mbr < 10) then
         #set CASE = b.e21.B1850cmip6.f09_g17.CESM2-SF-AAER.00${mbr}
         #set CASE = b.e21.B1850cmip6.f09_g17.CESM2-SF-GHG-SSP370.00${mbr}
         #set CASE = b.e21.B1850cmip6.f09_g17.CESM2-SF-EE.00${mbr}
-         set CASE = b.e21.B1850cmip6.f09_g17.CESM2-SF-BMB.00${mbr}
+        #set CASE = b.e21.B1850cmip6.f09_g17.CESM2-SF-BMB.00${mbr}
+        #set CASE = b.e21.B1850cmip6.f09_g17.CESM2-SF-BMB-SSP370.00${mbr}
+         set CASE = b.e21.BHISTcmip6.f09_g17.CESM2-SF-xAER.00${mbr}
         #set CASE = b.e21.B1850cmip6.f09_g17.CESM2-SF-EE-SSP370.00${mbr}
         #set CASE = b.e21.B1850cmip6.f09_g17.CESM2-SF-AAER-SSP370.00${mbr}
 else
@@ -33,7 +35,9 @@ else
         #set CASE = b.e21.B1850cmip6.f09_g17.CESM2-SF-AAER.0${mbr}
         #set CASE = b.e21.B1850cmip6.f09_g17.CESM2-SF-GHG-SSP370.0${mbr}
         #set CASE = b.e21.B1850cmip6.f09_g17.CESM2-SF-EE.0${mbr}
-         set CASE = b.e21.B1850cmip6.f09_g17.CESM2-SF-BMB.0${mbr}
+        #set CASE = b.e21.B1850cmip6.f09_g17.CESM2-SF-BMB.0${mbr}
+        #set CASE = b.e21.B1850cmip6.f09_g17.CESM2-SF-BMB-SSP370.0${mbr}
+         set CASE = b.e21.BHISTcmip6.f09_g17.CESM2-SF-xAER.0${mbr}
         #set CASE = b.e21.B1850cmip6.f09_g17.CESM2-SF-EE-SSP370.0${mbr}
         #set CASE = b.e21.B1850cmip6.f09_g17.CESM2-SF-AAER-SSP370.0${mbr}
 endif
@@ -47,7 +51,7 @@ endif
 
 cd postprocess
 
-cp $CESM2_TOOLS_ROOT/scripts/env_timeseries.xml $CASEROOT/$CASE/postprocess
+cp $CESM2_TOOLS_ROOT/pp/env_timeseries.xml $CASEROOT/$CASE/postprocess
 
 #pp_config --set TIMESERIES_OUTPUT_ROOTDIR=/glade/scratch/nanr/timeseries/$CASE/
 pp_config --set TIMESERIES_OUTPUT_ROOTDIR=/glade/collections/cdg/timeseries-cmip6/$CASE
@@ -78,7 +82,7 @@ echo "Made it here"
 # change a few things
 # =========================
 #mv timeseries timeseries-OTB
-cp $CESM2_TOOLS_ROOT/scripts/timeseries $CASEROOT/$CASE/postprocess
+cp $CESM2_TOOLS_ROOT/pp/timeseries $CASEROOT/$CASE/postprocess
 
 #qsub ./timeseries
 

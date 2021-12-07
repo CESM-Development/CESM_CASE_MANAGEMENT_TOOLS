@@ -30,7 +30,6 @@ setenv REFDATE  1920-01-01
 setenv BASENAME b.e21.${COMPSET}.${RESOLN}.CESM2-SF-${SCENARIO}
 setenv BASEROOT /glade/work/cesmsf/CESM2-SF/
 setenv RUNROOT  /glade/scratch/cesmsf/
-setenv REFCASE  b.e21.BHISTsmbb.f09_g17.LE2-1231.011
 
 #cd ~cesmsf/CESM-WF/
 #./create_cylc_cesm2-sf-ensemble --case $BASEROOT$BASENAME --res $RESOLN  --compset $COMPSET --project $PROJECT 
@@ -62,12 +61,15 @@ endif
   setenv CASEROOT  $BASEROOT$CASENAME
   if ($mbr == 1) then
   	setenv REFROOT  /glade/scratch/nanr/archive/b.e21.BHISTsmbb.f09_g17.LE2-1231.011/rest
+        setenv REFCASE  b.e21.BHISTsmbb.f09_g17.LE2-1231.011
   endif
   if ($mbr == 2) then
   	setenv REFROOT  /glade/scratch/nanr/archive/b.e21.BHISTsmbb.f09_g17.LE2-1251.011/rest
+        setenv REFCASE  b.e21.BHISTsmbb.f09_g17.LE2-1251.011
   endif
   if ($mbr == 3) then
   	setenv REFROOT  /glade/scratch/nanr/archive/b.e21.BHISTsmbb.f09_g17.LE2-1281.011/rest
+        setenv REFCASE  b.e21.BHISTsmbb.f09_g17.LE2-1281.011
   endif
   cd $CESMROOT/cime/scripts/
   ./create_newcase --case $CASEROOT --res $RESOLN  --compset $COMPSET --project $PROJECT
