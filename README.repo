@@ -2,4 +2,19 @@ Repo for Gunter Leguy and Mira Berdahl
 
 2deg SSP245 extensions to drive Ice sheet models
 
+PROJECT CODE:  ULNL0002
+
+ 1153 cheyenne2:/glade/work/cmip6/cases/DECK_2deg/b.e21.BHIST.f19_g17.CMIP6-historical-2deg.001 > ./pelayout 
+Comp  NTASKS  NTHRDS  ROOTPE
+CPL :    900/     1;      0
+ATM :    900/     1;      0
+LND :    504/     1;      0
+ICE :    288/     1;    504
+OCN :    751/     1;    900
+ROF :    504/     1;      0
+GLC :      5/     1;   1651
+WAV :    108/     1;    792
+ESP :      1/     1;      0
+
+
 

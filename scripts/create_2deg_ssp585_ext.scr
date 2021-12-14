@@ -3,7 +3,7 @@
 setenv TOOLSROOT /glade/work/nanr/cesm_tags/CASE_tools/cesm2-ssp245ext-2deg/
 setenv CESMROOT /glade/work/nanr/cesm_tags/cesm2.1.4-rc.07
 
-set COMPSET = BSSP245cmip6
+set COMPSET = BSSP585cmip6
 set MACHINE = cheyenne
 set RESOLN = f19_g17
 set RESUBMIT = 7
@@ -12,7 +12,7 @@ set REST_N=5
 set STOP_OPTION=nyears
 set PROJECT=ULNL0002
 
-setenv SSP SSP2-4.5
+setenv SSP SSP5-8.5
 setenv REFDATE  2015-01-01
 setenv BASEROOT /glade/scratch/nanr/
 setenv RUNROOT  /glade/scratch/nanr/
@@ -52,7 +52,6 @@ echo $REFROOT
   ./xmlchange REST_N=$REST_N
   ./xmlchange PROJECT=$PROJECT
 
-
   ./xmlchange NTASKS_CPL=900
   ./xmlchange NTASKS_ATM=900
   ./xmlchange NTASKS_LND=504
@@ -65,6 +64,8 @@ echo $REFROOT
   ./xmlchange ROOTPE_GLC=1651
   ./xmlchange NTASKS_WAV=108
   ./xmlchange ROOTPE_WAV=792
+
+  cp $TOOLSROOT/user_nl_files/ssp585/user_nl_cam $CASEROOT
 
    mkdir -p $RUNROOT/$CASENAME/run/
    cp   $REFROOT/rpointer* $RUNROOT/$CASENAME/run/
