@@ -14,8 +14,10 @@ set PROJECT=ULNL0002
 
 setenv SSP SSP5-8.5
 setenv REFDATE  2015-01-01
-setenv BASEROOT /glade/scratch/nanr/
-setenv RUNROOT  /glade/scratch/nanr/
+setenv BASEROOT /glade/work/$USER/SSPX-2deg
+setenv RUNROOT  /glade/scratch/$USER/
+
+mkdir $BASEROOT
 
 # case name counter
 set smbr =  1
@@ -65,7 +67,7 @@ echo $REFROOT
   ./xmlchange NTASKS_WAV=108
   ./xmlchange ROOTPE_WAV=792
 
-  cp $TOOLSROOT/user_nl_files/ssp585/user_nl_cam $CASEROOT
+   cp $TOOLSROOT/user_nl_files/ssp585/user_nl_* $CASEROOT/
 
    mkdir -p $RUNROOT/$CASENAME/run/
    cp   $REFROOT/rpointer* $RUNROOT/$CASENAME/run/
