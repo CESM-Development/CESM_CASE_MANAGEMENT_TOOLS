@@ -20,10 +20,8 @@
 
 ! daily 2D (h1) - Averaged
  fincl2 = 'FLUT:A','TREFHT:A','TREFHTMN:M','TREFHTMX:X','LHFLX:A', 'SHFLX:A', 'PRECT:A', 'PRECTMX:X','PRECC:A', 
-          'FLNT:A','FSNS:A','FSNT:A','FLNSC:A', 'FLNS:A','PS:A', 'PSL:A','FLNT:A', 'RHREFHT:A',
-          'UBOT:A','VBOT:A','U10:A', 'Z200:A', 'Z500:A', 'U200:A', 'V200:A', 'U850:A', 'V850:A', 'U050:A',
+          'FLNT:A','FSNS:A','FSNT:A','FLNSC:A', 'FLNS:A','PS:A', 'PSL:A','FLNT:A', 'RHREFHT:A', 'U10:A', 
           'QRS:A', 'QRL:A','TROPF_P:A','TROPF_T:A','TROPF_Z:A',
-!         'UBOT:A',  'VBOT:A',  'U10:A', 'Z200:A', 'Z500:A', 'U200:A', 'V200:A', 'U850:A', 'V850:A' ,
 !         'Q1000:A', 'Q850:A', 'Q700:A', 'Q500:A', 'Q200:A', 'Q100:A', 'Q050:A', 'Q010:A', 'QBOT:A',
 !         'U1000:A', 'U850:A', 'U700:A', 'U500:A', 'U200:A', 'U100:A', 'U050:A', 'U010:A', 'UBOT:A',
 !         'V1000:A', 'V850:A', 'V700:A', 'V500:A', 'V200:A', 'V100:A', 'V050:A', 'V010:A', 'VBOT:A',
