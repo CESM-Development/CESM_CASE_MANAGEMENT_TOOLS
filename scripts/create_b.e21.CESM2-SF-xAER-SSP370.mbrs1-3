@@ -16,17 +16,17 @@ setenv CESMROOT /glade/work/nanr/cesm_tags/cesm2.1.4-rc.07
 setenv POSTPROCESS_PATH /glade/u/home/mickelso/CESM_postprocessing_3/
 setenv POSTPROCESS_PATH_GEYSER /glade/u/home/mickelso/CESM_postprocessing_3/
 
-set COMPSET = BHISTcmip6
+set COMPSET = BSSP370cmip6
 set MACHINE = cheyenne
 set RESOLN = f09_g17
-set RESUBMIT = 30
+set RESUBMIT = 11
 set STOP_N=3
 set STOP_OPTION=nyears
 set PROJECT=P93300313
 set PROJECT=CESM0015
 
 setenv SCENARIO xAER
-setenv REFDATE  1920-01-01
+setenv REFDATE  2015-01-01
 setenv BASENAME b.e21.${COMPSET}.${RESOLN}.CESM2-SF-${SCENARIO}
 setenv BASEROOT /glade/work/cesmsf/CESM2-SF/
 setenv RUNROOT  /glade/scratch/cesmsf/
@@ -37,8 +37,8 @@ setenv RUNROOT  /glade/scratch/cesmsf/
 
 
 # case name counter
-set smbr =  2
-set embr =  3
+set smbr =  1
+set embr =  1
 
 @ mb = $smbr
 @ me = $embr
@@ -47,7 +47,7 @@ set embr =  3
 
 foreach mbr ( `seq $mb  $me` )
 
-setenv REFDATE  1920
+setenv REFDATE  2015
 
 
 if    ($mbr < 10) then
@@ -59,18 +59,9 @@ else
 endif
 
   setenv CASEROOT  $BASEROOT$CASENAME
-  if ($mbr == 1) then
-  	setenv REFROOT  /glade/scratch/nanr/archive/b.e21.BHISTsmbb.f09_g17.LE2-1231.011/rest
-        setenv REFCASE  b.e21.BHISTsmbb.f09_g17.LE2-1231.011
-  endif
-  if ($mbr == 2) then
-  	setenv REFROOT  /glade/scratch/nanr/archive/b.e21.BHISTsmbb.f09_g17.LE2-1251.011/rest
-        setenv REFCASE  b.e21.BHISTsmbb.f09_g17.LE2-1251.011
-  endif
-  if ($mbr == 3) then
-  	setenv REFROOT  /glade/scratch/nanr/archive/b.e21.BHISTsmbb.f09_g17.LE2-1281.011/rest
-        setenv REFCASE  b.e21.BHISTsmbb.f09_g17.LE2-1281.011
-  endif
+  setenv REFCASE  b.e21.BHISTcmip6.f09_g17.CESM2-SF-xAER.00${mbr}
+  setenv REFROOT  /glade/scratch/nanr/archive/${REFCASE}/rest
+
   cd $CESMROOT/cime/scripts/
   ./create_newcase --case $CASEROOT --res $RESOLN  --compset $COMPSET --project $PROJECT
  
@@ -78,7 +69,7 @@ endif
 
   ./xmlchange RUN_REFCASE=$REFCASE
   ./xmlchange RUN_REFDATE=$REFDATE-01-01
-  ./xmlchange RUN_STARTDATE=1920-01-01
+  ./xmlchange RUN_STARTDATE=$REFDATE-01-01
   ./xmlchange GET_REFCASE=FALSE
   ./xmlchange PROJECT=CESM0015
 
