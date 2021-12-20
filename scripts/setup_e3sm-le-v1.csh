@@ -77,6 +77,7 @@ endif
 ./xmlchange JOB_WALLCLOCK_TIME=24:00:00
 ./xmlchange STOP_OPTION=nyears
 ./xmlchange STOP_N=3
+./xmlchange DOUT_S=TRUE
 
 
 echo "$RESTDIR/$REFCASE/rest/${REFDATE}-00000/* $RUNDIR/"
