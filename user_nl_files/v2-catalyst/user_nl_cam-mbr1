@@ -1,0 +1,49 @@
+!!                   h0, h1,  h2,  h3,  h4,  h5
+ nhtfrq =            0, -24, -24,  -6,  -6,  -3
+ mfilt  =            1, 365,  73,  73,  20,  73
+
+ !xxxx   nhtfrq =   0,-24,-6
+ !xxxx   mfilt  = 1,30,120,120,240,30
+ !xxxx   avgflag_pertape = 'A','A','I','A','A','A'
+ !xxxx   fincl1 = 'IEFLX'
+ !xxxx   fincl2 = 'FLUT','TREFHTMN','TREFHTMX','LHFLX', 'SHFLX', 'PRECL', 'PRECC', 'FLNSC', 'FLNS'
+
+! monthly (h0)
+ fexcl1 = 'LINOZ_SZA','extinct_lw_bnd7','extinct_lw_inp','extinct_sw_inp','hstobie_linoz','LINOZ_DO3',
+          'LINOZ_DO3_PSC','LINOZ_O3CLIM','LINOZ_O3COL','LINOZ_SSO3','UU','VQ','VU','VV','bc_a1_SRF',
+          'bc_a3_SRF','bc_a4_SRF','chla','dst_a1_SRF','mlip','mom_a1_SRF','mom_a2_SRF','mom_a3_SRF',
+          'mom_a4_SRF','mpoly','mprot','ncl_a1_SRF','ncl_a2_SRF','ncl_a3_SRF','num_a1_SRF','num_a2_SRF',
+          'num_a3_SRF','num_a4_SRF','pom_a1_SRF','pom_a3_SRF','pom_a4_SRF','so4_a1_SRF','so4_a2_SRF','so4_a3_SRF',
+          'soa_a1_SRF','soa_a2_SRF','soa_a3_SRF'
+
+ fincl1 = 'IEFLX:A','ZMDT:A', 'ZMDQ:A', 'STEND_CLUBB:A', 'RVMTEND_CLUBB:A', 'MPDT:A', 'MPDQ:A', 'DCQ:A', 'DTCOND:A'
+
+! daily 2D (h1) - Averaged
+ fincl2 = 'FLUT:A','TREFHT:A','TREFHTMN:M','TREFHTMX:X','LHFLX:A', 'SHFLX:A', 'PRECT:A', 'PRECTMX:X','PRECC:A', 
+          'FLNT:A','FSNS:A','FSNT:A','FLNSC:A', 'FLNS:A','PS:A', 'PSL:A','FLNT:A', 'RHREFHT:A', 'U10:A', 
+          'QRS:A', 'QRL:A','TROPF_P:A','TROPF_T:A','TROPF_Z:A',
+!         'Q1000:A', 'Q850:A', 'Q700:A', 'Q500:A', 'Q200:A', 'Q100:A', 'Q050:A', 'Q010:A', 'QBOT:A',
+!         'U1000:A', 'U850:A', 'U700:A', 'U500:A', 'U200:A', 'U100:A', 'U050:A', 'U010:A', 'UBOT:A',
+!         'V1000:A', 'V850:A', 'V700:A', 'V500:A', 'V200:A', 'V100:A', 'V050:A', 'V010:A', 'VBOT:A',
+!         'T1000:A', 'T850:A', 'T700:A', 'T500:A', 'T200:A', 'T100:A', 'T050:A', 'T010:A', 'TBOT:A', 
+!         'Z1000:A', 'Z850:A', 'Z700:A', 'Z500:A', 'Z200:A', 'Z100:A', 'Z050:A', 'Z010:A', 'U050:A',
+
+
+! daily Full-column (h2) - Averaged (Kai)
+ fincl3 = 'U:A', 'V:A', 'OMEGA:A', 'T:A', 'Q:A','Z3:A'
+
+!xxxx   Sam:  6 hrly instant
+!xxxx   fincl3 = 'PSL','TREFHT', 'FLDS', 'FSDS', 'PRECT', 'PS', 'QREFHT', 'Q', 'PS', 'QREFHT', 'TS', 'T', 'U', 'V', 'Z3'
+! 6hrly 2D (h3) 
+ fincl4 = 'PSL:I','TREFHT:I', 'FLDS:I', 'FSDS:I', 'PRECT:A', 'PS:I', 'QREFHT:I', 'TS:I',
+          'TMQ:I','U10:I','U850:I','V850:I','UBOT:I','VBOT:I','Z200:I','Z500:I',
+          'TTQ:I','TUQ:I','TVQ:I'
+
+! 6 hrly Full-column (h4)
+ fincl5 = 'Q:I', 'T:I', 'U:I', 'V:I', 'Z3:I'
+
+! 3 hrly 2D (h5)
+ fincl6 = 'PRECC:I', 'PRECT:I'
+
+history_aerosol=.false.
+ncdata= '/global/cscratch1/sd/nanr/archive/20180129.DECKv1b_piControl.ne30_oEC.edison/0200-01-01-00000/20180129.DECKv1b_piControl.ne30_oEC.edison.cam.i.0200-01-01-00000.nc'
