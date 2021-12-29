@@ -17,12 +17,15 @@
 ! Set maxpatch_glcmec    with GLC_NEC                            option
 ! Set glc_do_dynglacier  with GLC_TWO_WAY_COUPLING               env variable
 !----------------------------------------------------------------------------------
+
+use_init_interp = .true.
+
 !----------------------------------------------------------------------------------
 ! evolving landuse
 !----------------------------------------------------------------------------------
 !atm_c13_filename = '/glade/p/cesmdata/cseg/inputdata/lnd/clm2/isotopes/atm_delta_C13_CMIP6_1850-2015_yearly_v2.0_c171012.nc'
 !atm_c14_filename = '/glade/p/cesmdata/cseg/inputdata/lnd/clm2/isotopes/atm_delta_C14_CMIP6_3x1_global_1850-2015_yearly_v2.0_c171012.nc'
- fsurdat = '/glade/p/cesmdata/cseg/inputdata/lnd/clm2/surfdata_map/surfdata_0.9x1.25_78pfts_CMIP6_simyr1850_c170824.nc'
+ fsurdat = '/global/project/projectdirs/ccsm1/inputdata/lnd/clm2/surfdata_map/surfdata_0.9x1.25_78pfts_CMIP6_simyr1850_c170824.nc'
  irrigate=.true.
 
 &ndepdyn_nml
@@ -30,20 +33,20 @@
  ndep_taxmode = 'cycle'
  ndep_varlist = 'NDEP_month'
  ndepmapalgo = 'bilinear'
- stream_fldfilename_ndep = '/glade/p/cesmdata/cseg/inputdata/lnd/clm2/ndepdata/fndep_clm_f09_g17.CMIP6-SSP3-7.0-WACCM_1849-2101_monthly_c191007.nc'
+ stream_fldfilename_ndep = '/global/project/projectdirs/ccsm1/inputdata/lnd/clm2/ndepdata/fndep_clm_f09_g17.CMIP6-SSP3-7.0-WACCM_1849-2101_monthly_c191007.nc'
  stream_year_first_ndep = 2015
  stream_year_last_ndep = 2101
 /
 &popd_streams
  model_year_align_popdens = 2015
  popdensmapalgo = 'bilinear'
- stream_fldfilename_popdens = '/glade/p/cesmdata/cseg/inputdata/lnd/clm2/firedata/clmforc.Li_2018_SSP3_CMIP6_hdm_0.5x0.5_AVHRR_simyr1850-2100_c181205.nc'
+ stream_fldfilename_popdens = '/global/project/projectdirs/ccsm1/inputdata/lnd/clm2/firedata/clmforc.Li_2018_SSP3_CMIP6_hdm_0.5x0.5_AVHRR_simyr1850-2100_c181205.nc'
  stream_year_first_popdens = 2015
  stream_year_last_popdens = 2100
 /
 &urbantv_streams
  model_year_align_urbantv = 2015
- stream_fldfilename_urbantv = '/glade/p/cesmdata/cseg/inputdata/lnd/clm2/urbandata/CLM50_tbuildmax_Oleson_2016_0.9x1.25_simyr1849-2106_c160923.nc'
+ stream_fldfilename_urbantv = '/global/project/projectdirs/ccsm1/inputdata/lnd/clm2/urbandata/CLM50_tbuildmax_Oleson_2016_0.9x1.25_simyr1849-2106_c160923.nc'
  stream_year_first_urbantv = 2015
  stream_year_last_urbantv = 2106
  urbantvmapalgo = 'nn'
@@ -51,7 +54,7 @@
 
 &light_streams
  lightngmapalgo = 'bilinear'
- stream_fldfilename_lightng = '/glade/p/cesmdata/cseg/inputdata/atm/datm7/NASA_LIS/clmforc.Li_2012_climo1995-2011.T62.lnfm_Total_c140423.nc'
+ stream_fldfilename_lightng = '/global/project/projectdirs/ccsm1/inputdata/atm/datm7/NASA_LIS/clmforc.Li_2012_climo1995-2011.T62.lnfm_Total_c140423.nc'
  stream_year_first_lightng = 0001
  stream_year_last_lightng = 0001
 /
@@ -60,7 +63,7 @@
  do_harvest = .true.
  do_transient_crops = .true.
  do_transient_pfts = .true.
- flanduse_timeseries = '/glade/p/cesmdata/cseg/inputdata/lnd/clm2/surfdata_map/landuse.timeseries_0.9x1.25_hist_78pfts_CMIP6_simyr1850-2015_c170824.nc'
+ flanduse_timeseries = '/global/project/projectdirs/ccsm1/inputdata/lnd/clm2/surfdata_map/landuse.timeseries_0.9x1.25_hist_78pfts_CMIP6_simyr1850-2015_c170824.nc'
 /
 
 

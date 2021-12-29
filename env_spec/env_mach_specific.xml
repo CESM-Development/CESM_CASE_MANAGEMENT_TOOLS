@@ -1,0 +1,98 @@
+<?xml version="1.0"?>
+<file id="env_mach_specific.xml" version="2.0">
+  <header>
+    These variables control the machine dependent environment including
+    the paths to compilers and libraries external to cime such as netcdf,
+    environment variables for use in the running job should also be set	here.
+    </header>
+  <group id="compliant_values">
+    <entry id="run_exe" value="${EXEROOT}/cesm.exe ">
+      <type>char</type>
+      <desc>executable name</desc>
+    </entry>
+    <entry id="run_misc_suffix" value=" &gt;&gt; cesm.log.$LID 2&gt;&amp;1 ">
+      <type>char</type>
+      <desc>redirect for job output</desc>
+    </entry>
+  </group>
+  <module_system type="module">
+    <init_path lang="perl">/opt/modules/default/init/perl.pm</init_path>
+    <init_path lang="python">/opt/modules/default/init/python.py</init_path>
+    <init_path lang="sh">/opt/modules/default/init/sh</init_path>
+    <init_path lang="csh">/opt/modules/default/init/csh</init_path>
+    <cmd_path lang="perl">/opt/modules/default/bin/modulecmd perl</cmd_path>
+    <cmd_path lang="python">/opt/modules/default/bin/modulecmd python</cmd_path>
+    <cmd_path lang="sh">module</cmd_path>
+    <cmd_path lang="csh">module</cmd_path>
+    <modules>
+      <command name="rm">craype-mic-knl</command>
+      <command name="rm">craype-haswell</command>
+      <command name="rm">PrgEnv-intel</command>
+      <command name="rm">PrgEnv-cray</command>
+      <command name="rm">PrgEnv-gnu</command>
+      <command name="rm">intel</command>
+      <command name="rm">cce</command>
+      <command name="rm">cray-parallel-netcdf</command>
+      <command name="rm">cray-parallel-hdf5</command>
+      <command name="rm">pmi</command>
+      <command name="rm">cray-libsci</command>
+      <command name="rm">cray-mpich2</command>
+      <command name="rm">cray-mpich</command>
+      <command name="rm">cray-netcdf</command>
+      <command name="rm">cray-hdf5</command>
+      <command name="rm">cray-netcdf-hdf5parallel</command>
+    </modules>
+    <modules compiler="intel">
+      <command name="load">PrgEnv-intel</command>
+      <command name="switch">intel intel/19.0.3.199</command>
+      <command name="use">/global/project/projectdirs/ccsm1/modulefiles/cori</command>
+    </modules>
+    <modules compiler="intel" mpilib="!mpi-serial">
+      <command name="load">esmf/7.1.0r-defio-intel18.0.1.163-mpi-O-cori-knl</command>
+    </modules>
+    <modules compiler="intel" mpilib="mpi-serial">
+      <command name="load">esmf/7.1.0r-netcdf-intel18.0.1.163-mpiuni-O-knl</command>
+    </modules>
+    <modules compiler="cray">
+      <command name="load">PrgEnv-cray</command>
+      <command name="switch">cce cce/8.6.5</command>
+    </modules>
+    <modules compiler="gnu">
+      <command name="load">PrgEnv-gnu</command>
+      <command name="switch">gcc gcc/7.3.0</command>
+    </modules>
+    <modules>
+      <command name="load">cray-memkind</command>
+      <command name="swap">craype craype/2.5.18</command>
+      <command name="load">craype-mic-knl</command>
+    </modules>
+    <modules>
+      <command name="switch">cray-libsci/19.06.1</command>
+    </modules>
+    <modules>
+      <command name="load">cray-mpich/7.7.10</command>
+    </modules>
+    <modules mpilib="mpi-serial">
+      <command name="load">cray-hdf5/1.10.5.0</command>
+      <command name="load">cray-netcdf/4.6.3.0</command>
+    </modules>
+    <modules mpilib="!mpi-serial">
+      <command name="load">cray-netcdf-hdf5parallel/4.7.4.0</command>
+      <command name="load">cray-hdf5-parallel/1.12.0.0</command>
+      <command name="load">cray-parallel-netcdf/1.12.1.0</command>
+    </modules>
+  </module_system>
+  <environment_variables>
+    <env name="OMP_STACKSIZE">256M</env>
+    <env name="OMP_PROC_BIND">spread</env>
+    <env name="OMP_PLACES">threads</env>
+  </environment_variables>
+  <mpirun mpilib="default">
+    <executable>srun</executable>
+    <arguments>
+      <arg name="label"> --label</arg>
+      <arg name="num_tasks"> -n {{ total_tasks }}</arg>
+      <arg name="binding"> -c {{ srun_binding }} --cpu_bind=cores</arg>
+    </arguments>
+  </mpirun>
+</file>
