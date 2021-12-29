@@ -11,8 +11,8 @@ module load cesm_postprocessing
 
 # ...
 # case name counter
-set smbr =  1
-set embr =  1
+set smbr =  2
+set embr =  3
 
 @ mb = $smbr
 @ me = $embr
