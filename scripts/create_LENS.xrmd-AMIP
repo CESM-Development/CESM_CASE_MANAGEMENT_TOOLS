@@ -1,0 +1,152 @@
+#!/bin/csh
+set path = ($path ~/bin .)
+set COMPSET    = FAMIPC5CN
+set RESOLN     = f09_f09
+set useCylc    = True
+set USERNAME   = nanr
+
+# Cylc stuff
+
+alias module 'eval `$LMOD_CMD tcsh  \!*`  && eval `$LMOD_SETTARG_CMD -s csh`'
+module purge
+module load ncarenv/1.3
+module load intel/17.0.1
+module load ncarcompilers/0.5.0
+module load cylc/7.8.3
+module load mpt/2.19
+module load python/2.7.16
+module load graphviz/2.40.1
+module load pygtk
+
+set ROOT  = LENS1-SF-AMIP
+set SHORTCASE  = f.e11.${COMPSET}_RCP85.${RESOLN}.xrmd
+setenv SHORTCASEROOT /glade/work/nanr/LENS-SF/$ROOT/cases/
+
+
+
+#setenv PATH /glade/u/home/mickelso/cheyenne_wfs/miniconda2/bin:$PATH    
+#setenv PYTHONPATH /glade/u/home/mickelso/cheyenne_wfs/miniconda2/lib/:/glade/u/home/mickelso/cheyenne_wfs/miniconda2/lib/python2.7/site-packages
+
+setenv CYLCDIR /glade/u/home/nanr/toolsCylc/wf_decadal-ensemble-BlueAction.che/
+
+set smbr =  1
+set embr =  10
+
+@ mb = $smbr
+@ me = $embr
+
+foreach mbr ( `seq $mb $me` )
+
+echo $mbr
+
+if ($mbr < 10) then
+   setenv CASE f.e11.${COMPSET}_RCP85.${RESOLN}.xrmd.00${mbr}
+else
+   setenv CASE f.e11.${COMPSET}_RCP85.${RESOLN}.xrmd.0${mbr}
+endif
+setenv CASEROOT /glade/work/nanr/LENS-SF/$ROOT/$CASE
+setenv CESMROOT /glade/work/nanr/cesm_tags/cesm1_1_2_LENS_n21
+setenv RUNDIR   /glade/scratch/$USERNAME/$CASE/run
+setenv BLDDIR   /glade/scratch/$USERNAME/$CASE/bld
+
+if (! -d $CASEROOT) then
+	cd $CESMROOT/scripts
+	create_newcase -case $CASEROOT -mach cheyenne -compset $COMPSET -res ${RESOLN} 
+	cd $CASEROOT
+
+	./xmlchange -file env_run.xml -id RUN_TYPE -val hybrid
+	./xmlchange -file env_run.xml -id RUN_STARTDATE -val 1920-01-01
+	./xmlchange -file env_run.xml -id RUN_REFCASE   -val b.e11.B20TRC5CNBDRD.f09_g16.001
+	./xmlchange -file env_run.xml -id RUN_REFDATE   -val 1920-01-01
+	./xmlchange -file env_run.xml -id STOP_OPTION -val nyears
+	./xmlchange -file env_run.xml -id STOP_N -val 5
+	./xmlchange -file env_run.xml -id REST_OPTION   -val \$STOP_OPTION
+	./xmlchange -file env_run.xml -id REST_N   -val \$STOP_N
+	./xmlchange -file env_run.xml -id RESUBMIT   -val 21
+	./xmlchange -file env_run.xml -id DOUT_L_MS -val FALSE
+        ./xmlchange -file env_run.xml -id RUNDIR    -val /glade/scratch/$USERNAME/$CASE/run
+        ./xmlchange -file env_build.xml -id EXEROOT -val /glade/scratch/$USERNAME/$CASE/bld
+	./xmlchange -file env_run.xml   -id CAM_NAMELIST_OPTS -val "co2_cycle_rad_passive=.true."
+	./xmlchange -file env_build.xml -id CAM_CONFIG_OPTS -val "-phys cam5 -co2_cycle"
+
+        ./xmlchange -file env_run.xml -id SSTICE_DATA_FILENAME -val '/glade/p/cesm/cvwg/inputdata/sst/sstice_LENS_SF_AERBMB_ts_192001_202912_diddled_filled.nc'
+        ./xmlchange -file env_run.xml -id SSTICE_YEAR_ALIGN -val '1920'
+        ./xmlchange -file env_run.xml -id SSTICE_YEAR_START -val '1920'
+        ./xmlchange -file env_run.xml -id SSTICE_YEAR_END -val '2029'
+
+
+	# use env_mach_pes.xml from Bob Tomas
+	# cp /glade/u/home/nanr/cases/cesm11/LENS-SF-Clara/env_mach_pes.xml $CASEROOT
+	cp /glade/work/nanr/cesm_tags/CASE_tools/cesm1-amip-sf/pes/env_mach_pes.xml $CASEROOT
+
+	# copy namelists
+	cp /glade/work/nanr/cesm_tags/CASE_tools/cesm1-amip-sf/user_nl_files/user_* $CASEROOT
+
+	./cesm_setup
+else	# -----------------------
+
+cd $CASEROOT
+
+
+endif
+
+# ========================
+# change to economy queue; change runtime from 8 to 12 hours.
+# ========================
+cp $CASE.run $CASE.run.`date +%m%d-%H%M`
+mv $CASE.run tmp.run
+cat tmp.run | sed "s/regular/economy/;s/###PBS/#PBS/;s/-A UESM0006/-A P93300313/;s/-N f.e11./-N xrmd.$mbr/;s/-l walltime=01:50/-l walltime=12:00/" > $CASE.run
+rm  tmp.run
+
+# =========================
+# add pertlim perturbation to micro members 2 .. N 
+# =========================
+if ($mbr != 1) then
+cat >> head.${mbr} << EOF
+! micro-member perturbation
+pertlim = ${mbr}.d-14
+
+EOF
+
+mv user_nl_cam tmp.cam
+cat head.${mbr} tmp.cam  > user_nl_cam
+rm tmp.cam head.${mbr}
+
+
+./xmlchange EXEROOT=/glade/scratch/nanr/f.e11.FAMIPC5CN_RCP85.f09_f09.xrmd.001/bld
+./xmlchange BUILD_COMPLETE=TRUE
+
+endif
+
+# =========================
+# END - pertlim 
+# =========================
+
+
+cp /glade/p/cesm/cseg/inputdata/ccsm4_init/b.e11.B20TRC5CNBDRD.f09_g16.001/1920-01-01/* $RUNDIR/
+
+
+
+./preview_namelists
+#$CASE.build >& bld.`date +%m%d-%H%M`
+
+#if ($mbr == $smbr) then
+#cylc stuff
+#setenv POSTPROCESS_PATH /glade/p/cesm/postprocessing_ch
+#setenv PATH /glade/u/apps/contrib/virtualenv/12.0.7:$PATH
+#alias cesm_pp_activate 'source $POSTPROCESS_PATH/cesm-env2/bin/activate.csh'
+#cesm_pp_activate 
+#create_postprocess -case $CASEROOT
+#deactivate
+#endif
+
+# make $CASE.run executable for cylc
+#if ($useCylc == True) then
+#chmod u+x *.run
+#endif
+
+ $CYLCDIR/create_postproc -c ${CESMROOT} -d True -r $CASEROOT -a P93300313 -t cesm1_1_2_LENS_n21
+end             # member loop
+ $CYLCDIR/create_cylc -s f.e11.FAMIPC5CN.f09_f09.$smbr-$embr.suite -a P93300313 -e nanr@ucar.edu --start $smbr --end $embr -d True -r ${SHORTCASEROOT}/$SHORTCASE
+
+exit

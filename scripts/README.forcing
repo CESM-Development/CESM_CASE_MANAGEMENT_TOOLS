@@ -1,0 +1,6 @@
+topaz: /project/cas/islas/CVCWG/CESM1_AMIP_SF/diddled/sstice_LENS_SF_AERBMB_ts_192001_202912_diddled.nc 
+tpoaz: /project/cas/islas/CVCWG/CESM1_AMIP_SF/diddled/sstice_LENS_SF_AERBMB_ts_192001_202912_diddled_filled.nc
+
+
+/glade/p/cgd/cas/asphilli/cam_input_data > ncview sst_ERSSTv4_bc_0.9x1.25_1870_2016_092216.nc
+/glade/p/cesm/cvwg/inputdata/sst/sstice_LENS_SF_AERBMB_ts_192001_202912_diddled.nc

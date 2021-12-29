@@ -1,0 +1,259 @@
+#!/bin/csh
+set path = ($path ~/bin .)
+set COMPSET    = B20TRLENS
+set RESOLN     = f09_g16
+set useCylc    = False
+set USERNAME   = nanr
+
+# Cylc stuff
+
+set smbr =  91
+set embr =  92
+
+@ mb = $smbr
+@ me = $embr
+
+foreach mbr ( `seq $mb $me` )
+
+echo $mbr
+
+if ($mbr < 10) then
+   setenv CASE b.e11.${COMPSET}_RCP85.${RESOLN}.xrmd.00${mbr}
+else
+   setenv CASE b.e11.${COMPSET}_RCP85.${RESOLN}.xrmd.0${mbr}
+endif
+setenv HOMEDIR `pwd`
+setenv MODSDIR $HOMEDIR/mods_$CASE
+setenv CASEROOT /glade/work/nanr/LENS-SF/$CASE
+setenv CESMROOT /glade/p/work/nanr/cesm_tags/cesm1_1_2_LENS_n21
+setenv RUNDIR   /glade/scratch/$USERNAME/$CASE/run
+setenv BLDDIR   /glade/scratch/$USERNAME/$CASE/bld
+
+if (! -d $CASEROOT) then
+	cd $CESMROOT/scripts
+	create_newcase -case $CASEROOT -mach cheyenne -compset $COMPSET -res ${RESOLN} 
+	cd $CASEROOT
+
+	./xmlchange -file env_run.xml -id RUN_TYPE -val hybrid
+	./xmlchange -file env_run.xml -id RUN_STARTDATE -val 1920-01-01
+	./xmlchange -file env_run.xml -id RUN_REFCASE   -val b.e11.B20TRC5CNBDRD.f09_g16.001
+	./xmlchange -file env_run.xml -id RUN_REFDATE   -val 1920-01-01
+	./xmlchange -file env_run.xml -id STOP_OPTION -val nyears
+	./xmlchange -file env_run.xml -id STOP_N -val 10
+	./xmlchange -file env_run.xml -id REST_OPTION   -val \$STOP_OPTION
+	./xmlchange -file env_run.xml -id REST_N   -val \$STOP_N
+	./xmlchange -file env_run.xml -id RESUBMIT   -val 0
+	./xmlchange -file env_run.xml -id DOUT_L_MS -val FALSE
+        ./xmlchange -file env_run.xml -id RUNDIR    -val /glade/scratch/$USERNAME/$CASE/run
+        ./xmlchange -file env_build.xml -id EXEROOT -val /glade/scratch/$USERNAME/$CASE/bld
+
+	# use env_mach_pes.xml from Bob Tomas
+	cp /glade/u/home/nanr/cases/cesm11/LENS-SF-Clara/env_mach_pes.xml $CASEROOT
+
+	./cesm_setup
+else	# -----------------------
+
+cd $CASEROOT
+
+endif
+
+# ========================
+# change to economy queue; change runtime from 8 to 12 hours.
+# ========================
+cp $CASE.run $CASE.run.`date +%m%d-%H%M`
+mv $CASE.run tmp.run
+cat tmp.run | sed "s/regular/economy/;s/###PBS/#PBS/;s/-A/-A P93300624/;s/-N b.e11.B20TRLENS/-N xrmd.$mbr/;s/-l walltime=01:50/-l walltime=12:00/" > $CASE.run
+rm  tmp.run
+
+
+# ========================
+# Remove HF CAM output
+# ========================
+mv user_nl_cam user_nl_cam.`date +%m%d-%H%M`
+cat >> user_nl_cam << EOF
+! Users should add all user specific namelist changes below in the form of 
+! namelist_var = new_namelist_value
+! These are specific changes to CAM for the LENS experiment 
+ pertlim = ${mbr}.d-14
+ inithist='MONTHLY' 
+ cldfrc_rhminl = 0.8925D0
+ nhtfrq=0,-24,-6
+ mfilt=1,365,1460
+ empty_htapes=.true.
+
+!! ==========================================================================
+!! Aerosol- SF transient forcing
+!! ==========================================================================
+
+
+ ext_frc_specifier              = 'SO2         -> /glade/p/cesm/cvwg/inputdata/atm/cam/chem/trop_mozart_aero/emis/xrmd/RCP85_mam3_so2_elev_19100115-21000115_xrmd_c200720.nc',
+  'bc_a1       -> /glade/p/cesm/cvwg/inputdata/atm/cam/chem/trop_mozart_aero/emis/xrmd/RCP85_mam3_bc_elev_19100115-21000115_xrmd_c200720.nc',
+  'num_a1      -> /glade/p/cesm/cvwg/inputdata/atm/cam/chem/trop_mozart_aero/emis/xrmd/RCP85_mam3_num_a1_elev_19100115-21000115_xrmd_c200720.nc',
+  'num_a2      -> /glade/p/cesm/cvwg/inputdata/atm/cam/chem/trop_mozart_aero/emis/RCP85_mam3_num_a2_elev_19100115-21000115_c170901.nc',
+  'pom_a1      -> /glade/p/cesm/cvwg/inputdata/atm/cam/chem/trop_mozart_aero/emis/xrmd/RCP85_mam3_oc_elev_19100115-21000115_xrmd_c200720.nc',
+  'so4_a1      -> /glade/p/cesm/cvwg/inputdata/atm/cam/chem/trop_mozart_aero/emis/xrmd/RCP85_mam3_so4_a1_elev_19100115-21000115_xrmd_c200720.nc',
+  'so4_a2      -> /glade/p/cesm/cvwg/inputdata/atm/cam/chem/trop_mozart_aero/emis/RCP85_mam3_so4_a2_elev_19100115-21000115_c170901.nc'
+ srf_emis_specifier             = 'DMS       -> /glade/p/cesmdata/cseg/inputdata/atm/cam/chem/trop_mozart_aero/emis/aerocom_mam3_dms_surf_1849-2100_c140822.nc',
+  'SO2       -> /glade/p/cesm/cvwg/inputdata/atm/cam/chem/trop_mozart_aero/emis/RCP85_mam3_so2_surf_19100115-21000115_c170901.nc',
+  'SOAG      -> /glade/p/cesm/cvwg/inputdata/atm/cam/chem/trop_mozart_aero/emis/xrmd/RCP85_soag_1.5_surf_19100115-21000115_xrmd_c200720.nc',
+  'bc_a1     -> /glade/p/cesm/cvwg/inputdata/atm/cam/chem/trop_mozart_aero/emis/RCP85_mam3_bc_surf_19100115-21000115_c170901.nc',
+  'num_a1    -> /glade/p/cesm/cvwg/inputdata/atm/cam/chem/trop_mozart_aero/emis/RCP85_mam3_num_a1_surf_19100115-21000115_c170901.nc',
+  'num_a2    -> /glade/p/cesm/cvwg/inputdata/atm/cam/chem/trop_mozart_aero/emis/RCP85_mam3_num_a2_surf_19100115-21000115_c170901.nc',
+  'pom_a1    -> /glade/p/cesm/cvwg/inputdata/atm/cam/chem/trop_mozart_aero/emis/RCP85_mam3_oc_surf_19100115-21000115_c170901.nc',
+  'so4_a1    -> /glade/p/cesm/cvwg/inputdata/atm/cam/chem/trop_mozart_aero/emis/RCP85_mam3_so4_a1_surf_19100115-21000115_c170901.nc',
+  'so4_a2    -> /glade/p/cesm/cvwg/inputdata/atm/cam/chem/trop_mozart_aero/emis/RCP85_mam3_so4_a2_surf_19100115-21000115_c170901.nc',
+
+
+ tracer_cnst_datapath           = '/glade/p/cesm/cvwg/inputdata/atm/cam/chem/trop_mozart_aero/oxid'
+ tracer_cnst_file               = 'oxid_rcp85_v1_1.9x2.5_L26_19150115-21051215_c170901.nc'
+ tracer_cnst_filelist           = 'oxid_1.9x2.5_L26_clim_list.c090805.txt'
+ tracer_cnst_specifier          = 'O3','OH','NO3','HO2'
+ tracer_cnst_type               = 'INTERP_MISSING_MONTHS'
+
+!! ==========================================================================
+!! END Aerosol
+!! ==========================================================================
+
+
+ prescribed_ozone_datapath      = '/glade/p/cesm/cvwg/inputdata/atm/cam/ozone'
+ prescribed_ozone_file          = 'ozone_rcp85_v1_1.9x2.5_L66_19150115-20991215_c170901.nc'
+ prescribed_ozone_name          = 'O3'
+ prescribed_ozone_type          = 'INTERP_MISSING_MONTHS'
+
+ prescribed_volcaero_datapath           = '/glade/p/cesm/cvwg/inputdata/atm/cam/volc'
+ prescribed_volcaero_file               = 'CCSM4_volcanic_19150115-21001215_prototype1_c170902.nc'
+
+ bndtvghg               = '/glade/p/cesmdata/cseg/inputdata/atm/cam/ggas/ghg_rcp85_1765-2500_c100203.nc'
+ co2vmr                 = 284.7e-6
+ flbc_list              = ' '
+ scenario_ghg           = 'RAMPED'
+ co2flux_fuel_file      = '/glade/p/cesm/cvwg/inputdata/atm/cam/ggas/co2flux_fossil_RCP85_monthly_0.9x1.25_19100115-21001215_c170920.nc'
+ solar_data_file        = '/glade/p/cesmdata/cseg/inputdata/atm/cam/solar/spectral_irradiance_Lean_1610-2140_ann_c100408.nc'
+
+ fincl1='ABSORB:A','ANRAIN:A','ANSNOW:A','AODDUST1:A','AODDUST2:A','AODDUST3:A',
+  'AODVIS:A','AQRAIN:A','AQSNOW:A','AREI:A','AREL:A','AWNC:A','AWNI:A','CDNUMC:A',
+  'CLDHGH:A','CLDICE:A','CLDLIQ:A','CLDLOW:A','CLDMED:A','CLDTOT:A','CLOUD:A',
+  'DCQ:A','DTCOND:A','DTV:A','FICE:A','FLDS:A','FLNS:A','FLNSC:A','FLNT:A',
+  'FLNTC:A','FLUT:A','FLUTC:A','FREQI:A','FREQL:A','FREQR:A','FREQS:A','FSDS:A',
+  'FSDSC:A','FSNS:A','FSNSC:A','FSNT:A','FSNTC:A','FSNTOA:A','FSNTOAC:A',
+  'ICEFRAC:A','ICIMR:A','ICWMR:A','IWC:A','LANDFRAC:A','LHFLX:A','LWCF:A',
+  'NUMICE:A','NUMLIQ:A','OCNFRAC:A','OMEGA:A','OMEGAT:A','PBLH:A','PRECC:A',
+  'PRECL:A','PRECSC:A','PRECSL:A','PS:A','PSL:A','Q:A','QFLX:A','QRL:A','QRS:A',
+  'RELHUM:A','SHFLX:A','SNOWHICE:A','SNOWHLND:A','SOLIN:A','SRFRAD:A','SWCF:A',
+  'T:A','TAUX:A','TAUY:A','TGCLDIWP:A','TGCLDLWP:A','TMQ:A','TREFHT:A','TS:A',
+  'U:A','U10:A','UU:A','V:A','VD01:A','VQ:A','VT:A','VU:A','VV:A','WSUB:A','Z3:A',
+  'CCN3:A','UQ:A','WGUSTD:X','WSPDSRFMX:A','TSMX:X','TSMN:M','TREFHTMX:X','TREFHTMN:M',
+  'bc_a1_SRF:A','dst_a1_SRF:A','dst_a3_SRF:A','pom_a1_SRF:A','so4_a1_SRF:A',
+  'so4_a2_SRF:A','so4_a3_SRF:A','soa_a1_SRF:A','soa_a2_SRF:A','BURDENSO4:A',
+  'BURDENBC:A','BURDENPOM:A','BURDENSOA:A','BURDENDUST:A','BURDENSEASALT:A',
+  'AODABS:A','EXTINCT:A','PHIS:A','TROP_P:A','TROP_T:A','TOT_CLD_VISTAU:A',
+  'ICLDIWP:A','ICLDTWP:A','CO2:A','CO2_LND:A','CO2_OCN:A','SFCO2:A','SFCO2_LND:A',
+  'SFCO2_OCN:A','TMCO2:A','TMCO2_LND:A','TMCO2_OCN:A','CO2_FFF:A', 'SFCO2_FFF:A', 'TMCO2_FFF:A'
+ fincl2='PSL:A','TS:A','TREFHT:A','TREFHTMN:M','TREFHTMX:X','PRECT:A','PRECL:A',
+  'PRECSL:A','PRECSC:A','PRECTMX:A','TMQ:A','Z500:A','T500:A','Q500:A','U500:A',
+  'V500:A','WSPDSRFAV:A','U200:A','V200:A','T200:A','Q200:A','U850:A','V850:A',
+  'T850:A','Q850:A','UBOT:A','VBOT:A','QBOT:A','Z050:A','T010:A','U010:A',
+  'FSNTOA:A','FLUT:A','LHFLX:A','SHFLX:A','FSNS:A','FLNS:A','FSNSC:A','FLNSC:A',
+  'TAUX:A','TAUY:A','ICEFRAC:A','bc_a1_SRF:X','dst_a1_SRF:X','dst_a3_SRF:X','pom_a1_SRF:X',
+  'so4_a1_SRF:X','so4_a2_SRF:X','so4_a3_SRF:X','soa_a1_SRF:X','soa_a2_SRF:X'
+
+!Wait for specified periods for 3hrly output.
+!fincl3='T:I','Q:I','U:I','V:I','Z3:I','PSL:I','TREFHT:I','QREFHT:I','TS:I','PS:I',
+!'TROP_P:I','TROP_T:I','FSNS:A','FLNS:A','FSDS:A','FLDS:A','TOT_CLD_VISTAU:A',
+!'CLOUD:A','CLDTOT:A','CLDLOW:A','CLDMED:A','CLDHGH:A','TGCLDLWP:A','TGCLDIWP:A',
+!'PRECT:A'
+
+
+EOF
+
+# ========================
+# remove pertlim from first member
+# ========================
+  if ($mbr == 1) then
+      mv user_nl_cam tmp.cam
+      cat tmp.cam | sed 's/pertlim/\! pertlim/;' > user_nl_cam
+  endif
+  rm tmp.cam
+
+
+# ========================
+# CLM
+# ========================
+mv user_nl_clm user_nl_clm.`date +%m%d-%H%M`
+cat >> user_nl_clm << EOF
+
+ stream_fldfilename_ndep = '/glade/p/cesmdata/cseg/inputdata/lnd/clm2/ndepdata/fndep_clm_rcp8.5_simyr1849-2106_1.9x2.5_c100428.nc'
+ stream_year_first_ndep = 1850
+ stream_year_last_ndep = 2100
+
+EOF
+
+# ========================
+# POP2
+# ========================
+mv user_nl_pop2 user_nl_pop2.`date +%m%d-%H%M`
+cat >> user_nl_pop2 << EOF
+ ndep_shr_stream_file = '/glade/p/cesmdata/cseg/inputdata/ocn/pop/gx1v6/forcing/ndep_ocn_1850-2100_rcp85_gx1v6_c150818.nc'
+ ndep_shr_stream_year_align = 1849
+ ndep_shr_stream_year_first = 1849
+ ndep_shr_stream_year_last = 2100
+
+ pcfc_file = '/glade/p/cesmdata/cseg/inputdata/ocn/pop/res_indpt/forcing/pcfc1112_1931-2100_atm_c140912.nc'
+
+EOF
+
+
+# ========================
+# remove daily cice output
+# ========================
+mv user_nl_cice user_nl_cice.`date +%m%d-%H%M`
+cat >> user_nl_cice << EOF
+
+EOF
+
+# ========================
+# remove daily rtm output
+# ========================
+mv user_nl_rtm user_nl_rtm.`date +%m%d-%H%M`
+cat >> user_nl_rtm << EOF
+!----------------------------------------------------------------------------------
+! Users should add all user specific namelist changes below in the form of 
+! namelist_var = new_namelist_value 
+! NOTE: namelist variable rtm_tstep CAN ONLY be changed by modifying the value
+!       of the xml variable ROF_NCPL in env_run.xml
+! NOTE: if the xml variable ROF GRID in env_build.xml is set to 'null', then
+!        the RTM build-namelist will set do_rtm to .false. - and will ignore 
+!        any change below
+!----------------------------------------------------------------------------------
+! UNCOMMENT FOR 20TH CENTURY HIGH FREQ OUTPUT PERIODS
+! ADDED FOR LENS EXPERIMENT
+! rtmhist_nhtfrq=0,-24
+! rtmhist_mfilt=1,365
+! rtmhist_fincl2='QCHANR:A','VOLR:A'
+
+
+EOF
+
+
+
+./preview_namelists
+$CASE.build >& bld.`date +%m%d-%H%M`
+
+if ($mbr == $smbr) then
+#cylc stuff
+#setenv POSTPROCESS_PATH /glade/p/cesm/postprocessing_ch
+#setenv PATH /glade/u/apps/contrib/virtualenv/12.0.7:$PATH
+#alias cesm_pp_activate 'source $POSTPROCESS_PATH/cesm-env2/bin/activate.csh'
+#cesm_pp_activate 
+#create_postprocess -case $CASEROOT
+#deactivate
+endif
+
+# make $CASE.run executable for cylc
+if ($useCylc == True) then
+chmod u+x *.run
+endif
+
+end	# mbr loop
+
+exit

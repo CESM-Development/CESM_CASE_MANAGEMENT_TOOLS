@@ -1,0 +1,32 @@
+      <dataSource>
+         GENERIC
+      </dataSource>
+      <domainInfo>
+         <variableNames>
+            time    time
+            xc      lon
+            yc      lat
+            area    area
+            mask    mask
+         </variableNames>
+         <filePath>
+            /glade/p/cesmdata/cseg/inputdata/atm/cam/ocnfrac
+         </filePath>
+         <fileNames>
+            domain.camocn.0.9x1.25_gx1v6_090403.nc
+         </fileNames>
+      </domainInfo>
+      <fieldInfo>
+         <variableNames>
+            SST_cpl    t
+         </variableNames>
+         <filePath>
+            /glade/p/cesm/cvwg/inputdata/sst/
+         </filePath>
+         <fileNames>
+sstice_LENS_SF_AERBMB_ts_192001_202912_diddled_filled.nc
+         </fileNames>
+         <offset>
+            0
+         </offset>
+      </fieldInfo>

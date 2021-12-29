@@ -1,0 +1,120 @@
+! Users should add all user specific namelist changes below in the form of 
+! namelist_var = new_namelist_value 
+
+ inithist='MONTHLY' 
+ cldfrc_rhminl = 0.8925D0
+ nhtfrq=0,-24,-6
+ mfilt=1,365,1460
+ empty_htapes=.true.
+
+!! ==========================================================================
+!! remainder:  forcing = xrmd + xaer + xghg + xbmb
+!! ==========================================================================
+
+
+ ext_frc_specifier              = 'SO2         -> /glade/p/cesm/cvwg/inputdata/atm/cam/chem/trop_mozart_aero/emis/xrmd/RCP85_mam3_so2_elev_19100115-21000115_xrmd_c200720.nc',
+  'bc_a1       -> /glade/p/cesm/cvwg/inputdata/atm/cam/chem/trop_mozart_aero/emis/RCP85_mam3_bc_elev_19100115-21000115_c170901.nc',
+  'num_a1      -> /glade/p/cesm/cvwg/inputdata/atm/cam/chem/trop_mozart_aero/emis/xrmd/RCP85_mam3_num_a1_elev_19100115-21000115_xrmd_c200720.nc',
+  'num_a2      -> /glade/p/cesm/cvwg/inputdata/atm/cam/chem/trop_mozart_aero/emis/xrmd/RCP85_mam3_num_a2_elev_19100115-21000115_xrmd_c200720.nc',
+  'pom_a1      -> /glade/p/cesm/cvwg/inputdata/atm/cam/chem/trop_mozart_aero/emis/RCP85_mam3_oc_elev_19100115-21000115_c170901.nc',
+  'so4_a1      -> /glade/p/cesm/cvwg/inputdata/atm/cam/chem/trop_mozart_aero/emis/xrmd/RCP85_mam3_so4_a1_elev_19100115-21000115_xrmd_c200720.nc',
+  'so4_a2      -> /glade/p/cesm/cvwg/inputdata/atm/cam/chem/trop_mozart_aero/emis/xrmd/RCP85_mam3_so4_a2_elev_19100115-21000115_xrmd_c200720.nc'
+ ext_frc_type           = 'INTERP_MISSING_MONTHS'
+
+ srf_emis_specifier             = 'DMS       -> /glade/p/cesm/cvwg/inputdata/atm/cam/chem/trop_mozart_aero/emis/xrmd/aerocom_mam3_dms_surf_1910-2100_c200818.nc',
+  'SO2       -> /glade/p/cesm/cvwg/inputdata/atm/cam/chem/trop_mozart_aero/emis/RCP85_mam3_so2_surf_19100115-21000115_c170901.nc',
+  'SOAG      -> /glade/p/cesm/cvwg/inputdata/atm/cam/chem/trop_mozart_aero/emis/RCP85_soag_1.5_surf_19100115-21000115_c170901.nc',
+  'bc_a1     -> /glade/p/cesm/cvwg/inputdata/atm/cam/chem/trop_mozart_aero/emis/RCP85_mam3_bc_surf_19100115-21000115_c170901.nc',
+  'num_a1    -> /glade/p/cesm/cvwg/inputdata/atm/cam/chem/trop_mozart_aero/emis/RCP85_mam3_num_a1_surf_19100115-21000115_c170901.nc',
+  'num_a2    -> /glade/p/cesm/cvwg/inputdata/atm/cam/chem/trop_mozart_aero/emis/RCP85_mam3_num_a2_surf_19100115-21000115_c170901.nc',
+  'pom_a1    -> /glade/p/cesm/cvwg/inputdata/atm/cam/chem/trop_mozart_aero/emis/RCP85_mam3_oc_surf_19100115-21000115_c170901.nc',
+  'so4_a1    -> /glade/p/cesm/cvwg/inputdata/atm/cam/chem/trop_mozart_aero/emis/RCP85_mam3_so4_a1_surf_19100115-21000115_c170901.nc',
+  'so4_a2    -> /glade/p/cesm/cvwg/inputdata/atm/cam/chem/trop_mozart_aero/emis/RCP85_mam3_so4_a2_surf_19100115-21000115_c170901.nc'
+srf_emis_type          = 'INTERP_MISSING_MONTHS'
+
+!! ==========================================================================
+!! END Aerosol
+!! ==========================================================================
+
+!! ==========================================================================
+!! co2flux - evolves, but doesn't affect run
+!!         - use stitched forcing files to cross 2005/2006 boundary in forcing files
+!! ==========================================================================
+co2flux_fuel_file  = '/glade/p/cesm/cvwg/inputdata/atm/cam/ggas/co2flux_fossil_RCP85_monthly_0.9x1.25_19100115-21001215_c170920.nc'
+
+!! ==========================================================================
+!! SOLAR - 1920 constant
+!! ==========================================================================
+
+&solar_inparm
+ solar_const            = -9999.
+ solar_data_file                = '/glade/p/cesmdata/cseg/inputdata/atm/cam/solar/SOLAR_SPECTRAL_Lean_1610-2008_annual_c090324.nc'
+ solar_data_type                = 'FIXED'
+ solar_data_ymd         = 19200101
+ solar_htng_spctrl_scl          = .true.
+/
+
+!! ==========================================================================
+!! GHG - 1920 constant
+!! ==========================================================================
+ co2vmr         = 303.025e-6
+ ch4vmr         = 977.75e-9
+ n2ovmr         = 282.925e-9
+ f11vmr         = 38.4327e-12
+ f12vmr         = 0.0
+ scenario_ghg = 'FIXED'
+ bndtvghg               = '/glade/p/cesmdata/cseg/inputdata/atm/cam/ggas/ghg_rcp85_1765-2500_c100203.nc'
+
+!! ==========================================================================
+!! oxid + ozone + volc == 1920 constant
+!! ==========================================================================
+
+ tracer_cnst_datapath           = '/glade/p/cesm/cvwg/inputdata/atm/cam/chem/trop_mozart_aero/oxid'
+ tracer_cnst_file               = 'oxid_1.9x2.5_L26_1920_c091123_170829.nc'
+ tracer_cnst_type               = 'CYCLICAL'
+ tracer_cnst_cycle_yr           =  1920
+
+ prescribed_ozone_datapath      = '/glade/p/cesm/cvwg/inputdata/atm/cam/ozone'
+ prescribed_ozone_file          = 'ozone_1.9x2.5_L66_c130613.19200115-19201215_c180129.nc'
+ prescribed_ozone_name          = 'O3'
+ prescribed_ozone_type          = 'CYCLICAL'
+ prescribed_ozone_cycle_yr      = 1920
+
+ prescribed_volcaero_datapath   = '/glade/p/cesm/cvwg/inputdata/atm/cam/volc'
+ prescribed_volcaero_file       = 'CCSM4_volcanic_1920-2009_prototype1_c180130.nc'
+
+!! ==========================================================================
+!! Output
+!! ==========================================================================
+ fincl1='ABSORB:A','ANRAIN:A','ANSNOW:A','AODDUST1:A','AODDUST2:A','AODDUST3:A',
+  'AODVIS:A','AQRAIN:A','AQSNOW:A','AREI:A','AREL:A','AWNC:A','AWNI:A','CDNUMC:A',
+  'CLDHGH:A','CLDICE:A','CLDLIQ:A','CLDLOW:A','CLDMED:A','CLDTOT:A','CLOUD:A',
+  'DCQ:A','DTCOND:A','DTV:A','FICE:A','FLDS:A','FLNS:A','FLNSC:A','FLNT:A',
+  'FLNTC:A','FLUT:A','FLUTC:A','FREQI:A','FREQL:A','FREQR:A','FREQS:A','FSDS:A',
+  'FSDSC:A','FSNS:A','FSNSC:A','FSNT:A','FSNTC:A','FSNTOA:A','FSNTOAC:A',
+  'ICEFRAC:A','ICIMR:A','ICWMR:A','IWC:A','LANDFRAC:A','LHFLX:A','LWCF:A',
+  'NUMICE:A','NUMLIQ:A','OCNFRAC:A','OMEGA:A','OMEGAT:A','PBLH:A','PRECC:A',
+  'PRECL:A','PRECSC:A','PRECSL:A','PS:A','PSL:A','Q:A','QFLX:A','QRL:A','QRS:A',
+  'RELHUM:A','SHFLX:A','SNOWHICE:A','SNOWHLND:A','SOLIN:A','SRFRAD:A','SWCF:A',
+  'T:A','TAUX:A','TAUY:A','TGCLDIWP:A','TGCLDLWP:A','TMQ:A','TREFHT:A','TS:A',
+  'U:A','U10:A','UU:A','V:A','VD01:A','VQ:A','VT:A','VU:A','VV:A','WSUB:A','Z3:A',
+  'CCN3:A','UQ:A','WGUSTD:X','WSPDSRFMX:A','TSMX:X','TSMN:M','TREFHTMX:X','TREFHTMN:M',
+  'bc_a1_SRF:A','dst_a1_SRF:A','dst_a3_SRF:A','pom_a1_SRF:A','so4_a1_SRF:A',
+  'so4_a2_SRF:A','so4_a3_SRF:A','soa_a1_SRF:A','soa_a2_SRF:A','BURDENSO4:A',
+  'BURDENBC:A','BURDENPOM:A','BURDENSOA:A','BURDENDUST:A','BURDENSEASALT:A',
+  'AODABS:A','EXTINCT:A','PHIS:A','TROP_P:A','TROP_T:A','TOT_CLD_VISTAU:A',
+  'ICLDIWP:A','ICLDTWP:A','CO2:A','CO2_LND:A','CO2_OCN:A','SFCO2:A','SFCO2_LND:A',
+  'SFCO2_OCN:A','TMCO2:A','TMCO2_LND:A','TMCO2_OCN:A','CO2_FFF:A', 'SFCO2_FFF:A', 'TMCO2_FFF:A'
+ fincl2='PSL:A','TS:A','TREFHT:A','TREFHTMN:M','TREFHTMX:X','PRECT:A','PRECL:A',
+  'PRECSL:A','PRECSC:A','PRECTMX:A','TMQ:A','Z500:A','T500:A','Q500:A','U500:A',
+  'V500:A','WSPDSRFAV:A','U200:A','V200:A','T200:A','Q200:A','U850:A','V850:A',
+  'T850:A','Q850:A','UBOT:A','VBOT:A','QBOT:A','Z050:A','T010:A','U010:A',
+  'FSNTOA:A','FLUT:A','LHFLX:A','SHFLX:A','FSNS:A','FLNS:A','FSNSC:A','FLNSC:A',
+  'TAUX:A','TAUY:A','ICEFRAC:A','bc_a1_SRF:X','dst_a1_SRF:X','dst_a3_SRF:X','pom_a1_SRF:X',
+  'so4_a1_SRF:X','so4_a2_SRF:X','so4_a3_SRF:X','soa_a1_SRF:X','soa_a2_SRF:X'
+
+!Wait for specified periods for 3hrly output.
+!fincl3='T:I','Q:I','U:I','V:I','Z3:I','PSL:I','TREFHT:I','QREFHT:I','TS:I','PS:I',
+! 'TROP_P:I','TROP_T:I','FSNS:A','FLNS:A','FSDS:A','FLDS:A','TOT_CLD_VISTAU:A',
+! 'CLOUD:A','CLDTOT:A','CLDLOW:A','CLDMED:A','CLDHGH:A','TGCLDLWP:A','TGCLDIWP:A',
+! 'PRECT:A'

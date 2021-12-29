@@ -1,0 +1,7 @@
+cp ~/cases/cesm11/LENS-SF-Clara/env_mach_pes.xml .
+
+  Overall Metrics: 
+    Model Cost:            1831.84   pe-hrs/simulated_year 
+    Model Throughput:        22.64   simulated_years/day 
+
+

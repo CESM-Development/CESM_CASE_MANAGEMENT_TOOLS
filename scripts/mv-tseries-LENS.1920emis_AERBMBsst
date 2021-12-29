@@ -1,0 +1,64 @@
+#!/bin/csh
+set path = ($path ~/bin .)
+set COMPSET    = FAMIPC5CN
+set RESOLN     = f09_f09
+set useCylc    = True
+set USERNAME   = nanr
+
+# Cylc stuff
+
+alias module 'eval `$LMOD_CMD tcsh  \!*`  && eval `$LMOD_SETTARG_CMD -s csh`'
+module purge
+module load ncarenv/1.3
+module load intel/17.0.1
+module load ncarcompilers/0.5.0
+module load cylc/7.8.3
+module load mpt/2.19
+module load python/2.7.16
+module load graphviz/2.40.1
+module load pygtk
+
+set ROOT  = AMIP-SF
+set SHORTCASE  = f.e11.${COMPSET}_RCP85.${RESOLN}.1920emis_AERBMBsst
+setenv SHORTCASEROOT /glade/work/nanr/LENS-SF/$ROOT/cases/
+
+
+
+#setenv PATH /glade/u/home/mickelso/cheyenne_wfs/miniconda2/bin:$PATH    
+#setenv PYTHONPATH /glade/u/home/mickelso/cheyenne_wfs/miniconda2/lib/:/glade/u/home/mickelso/cheyenne_wfs/miniconda2/lib/python2.7/site-packages
+
+setenv CYLCDIR /glade/u/home/nanr/toolsCylc/wf_decadal-ensemble-BlueAction.che/
+
+set smbr =  3
+set embr =  10
+
+@ mb = $smbr
+@ me = $embr
+
+foreach mbr ( `seq $mb $me` )
+
+echo $mbr
+
+if ($mbr < 10) then
+   setenv CASE f.e11.${COMPSET}_RCP85.${RESOLN}.1920emis_AERBMBsst.00${mbr}
+else
+   setenv CASE f.e11.${COMPSET}_RCP85.${RESOLN}.1920emis_AERBMBsst.0${mbr}
+endif
+
+setenv TSERIES /gpfs/fs1/collections/cdg/timeseries-cmip6
+setenv ARCHIVE /glade/scratch/nanr/archive
+
+cd $TSERIES
+
+mkdir $CASE/atm
+mkdir $CASE/lnd
+mkdir $CASE/ice
+
+mv $ARCHIVE/$CASE/atm/proc $CASE/atm
+mv $ARCHIVE/$CASE/lnd/proc $CASE/lnd
+mv $ARCHIVE/$CASE/ice/proc $CASE/ice
+
+end
+
+
+exit

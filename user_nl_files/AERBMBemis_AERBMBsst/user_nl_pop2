@@ -1,0 +1,7 @@
+&passive_tracers_on_nml
+ cfc_on = .false.
+ ecosys_on = .false.
+ iage_on = .true.
+ moby_on = .false.
+/
+

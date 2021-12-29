@@ -1,0 +1,7 @@
+&ndepdyn_nml
+ ndepmapalgo = 'bilinear'
+ stream_fldfilename_ndep = '/glade/p/cesmdata/cseg/inputdata/lnd/clm2/ndepdata/fndep_clm_hist_simyr1849-2006_1.9x2.5_c100428.nc'
+ stream_year_first_ndep = 1920
+ stream_year_last_ndep = 1920
+/
+

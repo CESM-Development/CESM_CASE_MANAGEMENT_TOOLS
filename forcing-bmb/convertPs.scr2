@@ -1,7 +1,0 @@
-convert -trim +repage -background white -flatten valid_anthro-ag-ship_emiss_ag_overwritten_by_emiss_shipping.ps valid_anthro-ag-ship_emiss_ag_overwritten_by_emiss_shipping.gif
-convert -trim +repage -background white -flatten valid_anthro-ag-ship_emiss_shipping.ps valid_anthro-ag-ship_emiss_shipping.gif
-convert -trim +repage -background white -flatten valid_emiss_ag_sol_was_Overwritten_by_emiss_res_tran.ps valid_emiss_ag_sol_was_Overwritten_by_emiss_res_tran.gif
-convert -trim +repage -background white -flatten valid_emiss_res_tran.ps valid_emiss_res_tran.gif
-convert -trim +repage -background white -flatten valid_emiss_ship.ps valid_emiss_ship.gif
-convert -trim +repage -background white -flatten valid_num_so4_a1_anthro-ag-ship_surface_overwritten_by_emiss_shipping.ps valid_num_so4_a1_anthro-ag-ship_surface_overwritten_by_emiss_shipping.gif
-convert -trim +repage -background white -flatten valid_num_so4_a1_anthro-ag-ship_surface_Shipping.ps valid_num_so4_a1_anthro-ag-ship_surface_Shipping.gif
