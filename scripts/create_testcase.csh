@@ -1,6 +1,6 @@
 #!/bin/csh -fx
 ### set env variables
-setenv TOOLS_ROOT /glade/work/$USER/cesm_tags/CASE_tools/cesm2-tutorial/
+setenv TOOLS_ROOT /glade/work/$USER/CESM_tools/cesm2-tutorial/
 setenv CESMROOT /glade/work/nanr/cesm_tags/cesm2.1.4-rc.07
 
 set COMPSET = BHISTcmip6
