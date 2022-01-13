@@ -1,0 +1,6 @@
+Check out the CESM_tools I've created: 
+mkdir /glade/work/tking/CESM_tools
+cd /glade/work/tking/CESM_tools
+git clone https://github.com/CESM-Development/CESM_CASE_MANAGEMENT_TOOLS -b cesm2-tutorial cesm2-tutorial
+cd cesm2-tutorial
+git checkout -b cesm2-tutorial
