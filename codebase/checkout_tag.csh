@@ -1,6 +1,6 @@
 #!/bin/csh -f
 ### set the path where you want your CESMROOT to reside
-set PATH    = /glade/work/$USER/cesm_tags-test
+set PATH    = /glade/work/$USER/cesm_tags
 set TAG     = cesm2.1.4-rc.08
 
 # Create the path if it doesn't exist
