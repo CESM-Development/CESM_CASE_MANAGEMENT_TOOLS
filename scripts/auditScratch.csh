@@ -4,23 +4,29 @@ module load ncl nco
 
 setenv CESM2_TOOLS_ROOT /glade/work/nanr/cesm_tags/CASE_tools/cesm2-smyle/
 setenv ARCHDIR  /glade/scratch/cesmsf/archive/
+setenv ARCHDIR  /glade/collections/cdg/timeseries-cmip6
 
 # ...
-foreach exper ( EE EE-SSP370 GHG GHG-SSP370 AAER AAER-SSP370 BMB BMB-SSP370 )
+#foreach exper ( EE EE-SSP370 GHG GHG-SSP370 AAER AAER-SSP370 BMB BMB-SSP370 )
+foreach exper ( xAER )
 
 
 # case name counter
 set smbr =  1
-set embr =  10
+set embr =  3
 
 @ mb = $smbr
 @ me = $embr
 
 foreach mbr ( `seq $mb $me` )
 if ($mbr < 10) then
-        set CASE = b.e21.B1850cmip6.f09_g17.CESM2-SF-${exper}.00${mbr}
+        #set CASE = b.e21.B1850cmip6.f09_g17.CESM2-SF-${exper}.00${mbr}
+        set CASE = b.e21.BHISTcmip6.f09_g17.CESM2-SF-${exper}.00${mbr}
+        #set CASE = b.e21.BSSP370cmip6.f09_g17.CESM2-SF-${exper}.00${mbr}
 else
-        set CASE = b.e21.B1850cmip6.f09_g17.CESM2-SF-${exper}.0${mbr}
+        #set CASE = b.e21.B1850cmip6.f09_g17.CESM2-SF-${exper}.0${mbr}
+        set CASE = b.e21.BHISTcmip6.f09_g17.CESM2-SF-${exper}.0${mbr}
+        #set CASE = b.e21.BSSP370cmip6.f09_g17.CESM2-SF-${exper}.0${mbr}
 endif
 
 

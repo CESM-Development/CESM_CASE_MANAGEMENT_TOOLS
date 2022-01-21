@@ -1,4 +1,3 @@
-!----------------------------------------------------------------------------------
 ! Users should add all user specific namelist changes below in the form of 
 ! namelist_var = new_namelist_value 
 !
@@ -22,7 +21,7 @@
 !----------------------------------------------------------------------------------
 !atm_c13_filename = '/glade/p/cesmdata/cseg/inputdata/lnd/clm2/isotopes/atm_delta_C13_CMIP6_1850-2015_yearly_v2.0_c171012.nc'
 !atm_c14_filename = '/glade/p/cesmdata/cseg/inputdata/lnd/clm2/isotopes/atm_delta_C14_CMIP6_3x1_global_1850-2015_yearly_v2.0_c171012.nc'
- fsurdat = '/glade/p/cesmdata/cseg/inputdata/lnd/clm2/surfdata_map/surfdata_0.9x1.25_78pfts_CMIP6_simyr1850_c170824.nc'
+ fsurdat = '/glade/p/cesmdata/cseg/inputdata/lnd/clm2/surfdata_map/release-clm5.0.18/surfdata_0.9x1.25_hist_78pfts_CMIP6_simyr1850_c190214.nc'
  irrigate=.true.
 
 &ndepdyn_nml
@@ -60,7 +59,7 @@
  do_harvest = .true.
  do_transient_crops = .true.
  do_transient_pfts = .true.
- flanduse_timeseries = '/glade/p/cesmdata/cseg/inputdata/lnd/clm2/surfdata_map/landuse.timeseries_0.9x1.25_hist_78pfts_CMIP6_simyr1850-2015_c170824.nc'
+ flanduse_timeseries = '/glade/p/cesmdata/cseg/inputdata/lnd/clm2/surfdata_map/release-clm5.0.18/landuse.timeseries_0.9x1.25_SSP3-7.0_78pfts_CMIP6_simyr1850-2100_c190214.nc'
 /
 
 

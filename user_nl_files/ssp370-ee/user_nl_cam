@@ -198,10 +198,14 @@ srf_emis_type          = 'INTERP_MISSING_MONTHS'
  prescribed_strataero_use_chemtrop              =  .true.                                                                       
 /
 
+! evolving solar
 &solar_data_opts
- solar_htng_spctrl_scl          = .true.
- solar_irrad_data_file          = '/glade/p/cesmdata/cseg/inputdata/atm/cam/solar/SolarForcingCMIP6_18491230-22991231_c171031.nc'
+ solar_data_type       = 'SERIAL'
+ solar_data_ymd        =  -99999999
+ solar_htng_spctrl_scl = .true.
+ solar_irrad_data_file = '/glade/p/cesmdata/cseg/inputdata/atm/cam/solar/SolarForcingCMIP6_18491230-22991231_c171031.nc'
 /
+
 
 history_dust                   = .true. 
 do_circulation_diags           = .true. 
