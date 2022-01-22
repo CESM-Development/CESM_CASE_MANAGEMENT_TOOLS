@@ -22,7 +22,7 @@ set RESOLN = f09_g17
 set RESUBMIT = 11
 set STOP_N=3
 set STOP_OPTION=nyears
-set PROJECT=NCGD0044
+set PROJECT=CESM0015
 
 setenv REFHIST  EE
 setenv SCENARIO EE-SSP370
@@ -31,14 +31,12 @@ setenv BASENAME b.e21.${COMPSET}.${RESOLN}.CESM2-SF-${SCENARIO}
 setenv BASEROOT /glade/work/cesmsf/CESM2-SF/
 setenv RUNROOT  /glade/scratch/cesmsf/
 
-cd ~cesmsf/CESM-WF/
-./create_cylc_cesm2-sf-ensemble-ssp370 --case $BASEROOT$BASENAME --res $RESOLN  --compset $COMPSET --project $PROJECT 
+#cd ~cesmsf/CESM-WF/
+#./create_cylc_cesm2-sf-ensemble-ssp370 --case $BASEROOT$BASENAME --res $RESOLN  --compset $COMPSET --project $PROJECT 
 
 
 # case name counter
-#set smbr =  1
-#set embr =  5
-set smbr =  6
+set smbr =  1
 set embr =  10
 
 
@@ -49,11 +47,11 @@ set embr =  10
 foreach mbr ( `seq $mb  $me` )
 
 if    ($mbr < 10) then
-	setenv CASENAME b.e21.${COMPSET}.${RESOLN}.CESM2-SF-${SCENARIO}.00${mbr}
-	setenv REFCASE  b.e21.B1850cmip6.f09_g17.CESM2-SF-${REFHIST}.00${mbr}
+	setenv CASENAME b.e21.${COMPSET}.${RESOLN}.CESM2-SF-${SCENARIO}.10${mbr}
+	setenv REFCASE  b.e21.B1850cmip6.f09_g17.CESM2-SF-${REFHIST}.10${mbr}
 else if ($mbr >= 10 && $mbr < 100) then
-	setenv CASENAME b.e21.${COMPSET}.${RESOLN}.CESM2-SF-${SCENARIO}.0${mbr}
-	setenv REFCASE  b.e21.B1850cmip6.f09_g17.CESM2-SF-${REFHIST}.0${mbr}
+	setenv CASENAME b.e21.${COMPSET}.${RESOLN}.CESM2-SF-${SCENARIO}.1${mbr}
+	setenv REFCASE  b.e21.B1850cmip6.f09_g17.CESM2-SF-${REFHIST}.1${mbr}
 else
 	setenv CASENAME b.e21.${COMPSET}.${RESOLN}.CESM2-SF-${SCENARIO}.${mbr}
 	setenv REFCASE  b.e21.B1850cmip6.f09_g17.CESM2-SF-${REFHIST}.${mbr}
@@ -61,6 +59,9 @@ endif
  
   setenv CASEROOT  $BASEROOT$CASENAME
   setenv REFROOT  /glade/scratch/cesmsf/archive/${REFCASE}/rest/
+  cd $CESMROOT/cime/scripts/
+  ./create_newcase --case $CASEROOT --res $RESOLN  --compset $COMPSET --project $PROJECT
+
   cd $CASEROOT
 
   ./xmlchange RUN_REFCASE=$REFCASE
