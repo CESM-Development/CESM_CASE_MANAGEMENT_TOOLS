@@ -1,0 +1,4 @@
+	float CAPE(time, lat, lon) ;
+	float DSTSFMBL(time, lat, lon) ;
+	float WSPDSRFAV(time, lat, lon) ;
+	float WSPDSRFMX(time, lat, lon) ;

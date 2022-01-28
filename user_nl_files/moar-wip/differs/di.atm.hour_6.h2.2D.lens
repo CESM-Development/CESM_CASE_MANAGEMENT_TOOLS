@@ -1,0 +1,3 @@
+	float FLUT(time, lat, lon) ;
+	float OMEGA500(time, lat, lon) ;
+	float U200(time, lat, lon) ;

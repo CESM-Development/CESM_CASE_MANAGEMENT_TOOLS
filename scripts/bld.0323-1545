@@ -1,0 +1,10 @@
+Submitting command to PBS using account NCGD0044:
+    ./case.build
+
+Waiting for job 7113984.chadmin1.ib0.cheyenne.ucar.edu to start ... 
+
+
+qsub: wait for job 7113984.chadmin1.ib0.cheyenne.ucar.edu interrupted by signal 2
+qcmd job terminated 7113984.chadmin1.ib0.cheyenne.ucar.edu
+Connection refused
+qsub: cannot connect to server chadmin2.ib0.cheyenne.ucar.edu (errno=111)

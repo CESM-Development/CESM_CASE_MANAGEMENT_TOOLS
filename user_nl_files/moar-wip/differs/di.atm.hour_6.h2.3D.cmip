@@ -1,0 +1,5 @@
+	float OMEGA(time, lev, lat, lon) ;
+	float Q(time, lev, lat, lon) ;
+	float T(time, lev, lat, lon) ;
+	float U(time, lev, lat, lon) ;
+	float V(time, lev, lat, lon) ;

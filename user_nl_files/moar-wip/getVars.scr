@@ -1,0 +1,1 @@
+ls -1 /glade/campaign/collections/cmip/CMIP6/timeseries-cmip6/b.e21.BSSP126cmip6.f09_g17.CMIP6-SSP1-2.6.102/atm/proc/tseries/month_1 | cut -d"." -f10

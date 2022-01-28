@@ -1,0 +1,17 @@
+I calculated the climos for 1990-2000, but let me know if you'd like me to change that. (Btw, did you want climos .nc files OR the diag figures, or both?)
+
+/glade/scratch/sglanvil/postprocess-climos/b.e21.BHIST.f09_g17.CMIP6-historical.rufmod/
+/glade/scratch/sglanvil/postprocess-climos/b.e21.BHISTcmip6.f09_g17.LE2-1001.001
+
+
+
+If interested, here's what the script looks like:
+/glade/work/sglanvil/CCR/amwg_diag/forChristine.sh
+
+PS We posted the diags for the control case:
+b.e21.BHISTcmip6.f09_g17.LE2-1001.001
+https://project.cgd.ucar.edu/projects/CESM2-LE/
+username: cesm2le
+password: CoronaBeer  
+
+Let me know if you need anything else.
