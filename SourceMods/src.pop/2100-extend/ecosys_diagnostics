@@ -75,13 +75,13 @@ KPP_SRC_ALK_ALT_CO2 : never_average
 #
 # Diagnostics for tracer DIC
 #
-DIC : medium_average, never_average
+DIC : medium_average, midhigh_average
 STF_DIC : never_average
 J_DIC : medium_average
-Jint_100m_DIC : medium_average, never_average
+Jint_100m_DIC : medium_average, midhigh_average
 Jint_DIC : never_average
 DIC_zint_100m : never_average
-tend_zint_100m_DIC : medium_average, never_average
+tend_zint_100m_DIC : medium_average, midhigh_average
 DIC_RIV_FLUX : medium_average
 FvPER_DIC : medium_average
 FvICE_DIC : medium_average
@@ -355,7 +355,7 @@ J_PO4 : medium_average
 Jint_100m_PO4 : medium_average, never_average
 Jint_PO4 : never_average
 PO4_zint_100m : never_average
-tend_zint_100m_PO4 : medium_average, never_average
+tend_zint_100m_PO4 : medium_average, midhigh_average
 PO4_RIV_FLUX : medium_average
 UE_PO4 : medium_average
 VN_PO4 : medium_average
