@@ -1,13 +1,13 @@
 #!/bin/csh -fx
 ### set env variables
 
-set MACHINE = aleph
 set MACHINE = cheyenne
+set MACHINE = aleph
 #if ($USER==jedwards)
 #set test=test
-set test=nml
+set test=
 #else
-set test=nml5
+set test=
 #endif
 
 if ($MACHINE == cheyenne) then
@@ -26,6 +26,8 @@ else
 	#source $POSTPROCESS_PATH/cesm-env2/bin/activate
   	setenv ARCHDIR /mnt/lustre/share/CESM/archive/
   	setenv SCRATCH /mnt/lustre/share/CESM/output/
+  	setenv RESTDIR /proj/CESM2/archive/
+  	setenv RUNROOT $SCRATCH
 endif
 
 
@@ -39,13 +41,10 @@ set STOP_OPTION=nyears
 set STARTDATE=2101-01-01
 
 # Do not change; smbr/embr identify the RUN_REFCASES.
-##set smbr =  2
-##set embr =  20
-set smbr =  18
-set embr =  18
+set smbr =  2
+set embr =  20
 
 set mmm  = 0
-set mmm  = 8
 
 @ mb = $smbr
 @ me = $embr
@@ -69,8 +68,8 @@ endif
 
 echo $CASENAME
 
-#setenv CASEROOT $MYROOT/${test}/$CASENAME
-setenv CASEROOT $MYROOT/$CASENAME
+setenv CASEROOT $MYROOT/${test}/$CASENAME
+#setenv CASEROOT $MYROOT/$CASENAME
 
 echo $CASEROOT
 if ( $mbr == $smbr || $mmm == 10) then
@@ -92,20 +91,18 @@ if ( $mbr == $smbr || $mmm == 10) then
   ./xmlchange STOP_N=$STOP_N
   ./xmlchange STOP_OPTION=$STOP_OPTION
   ./xmlchange RESUBMIT=$RESUBMIT
- #./xmlchange DOUT_S_ROOT=/mnt/lustre/share/CESM/archive/$CASENAME
   ./xmlchange DOUT_S_ROOT=$ARCHDIR/$CASENAME
   ./xmlchange GET_REFCASE=FALSE
 
 # turn on cosp
   ./xmlchange --append CAM_CONFIG_OPTS=-cosp
 
-if ($MACHINE == cheyenne) then
-  ./xmlchange NTASKS_ICE=36
-  ./xmlchange NTASKS_LND=504
-  ./xmlchange ROOTPE_ICE=504
+   if ($MACHINE == cheyenne) then
+     ./xmlchange NTASKS_ICE=36
+     ./xmlchange NTASKS_LND=504
+     ./xmlchange ROOTPE_ICE=504
 
-endif
-
+   endif
 
 
   ./case.setup
@@ -134,11 +131,10 @@ else
   ./case.setup --reset; ./case.setup; ./xmlchange BUILD_COMPLETE=TRUE
 endif
 
-  if ($MACHINE == cheyenne) then
-  	echo $RESTDIR/$REFCASE/rest/2101-01-01-00000/rpointer* $RUNROOT/$CASENAME/run/
-  	cp $RESTDIR/$REFCASE/rest/2101-01-01-00000/rpointer* $RUNROOT/$CASENAME/run/
-  	ln -s $RESTDIR/$REFCASE/rest/2101-01-01-00000/b.* $RUNROOT/$CASENAME/run/
-  endif
+  echo $RESTDIR/$REFCASE/rest/2101-01-01-00000/rpointer* $RUNROOT/$CASENAME/run/
+  cp $RESTDIR/$REFCASE/rest/2101-01-01-00000/rpointer* $RUNROOT/$CASENAME/run/
+  chmod u+w $RUNROOT/$CASENAME/run/rpointer*
+  ln -s $RESTDIR/$REFCASE/rest/2101-01-01-00000/b.* $RUNROOT/$CASENAME/run/
 
 exit
 
