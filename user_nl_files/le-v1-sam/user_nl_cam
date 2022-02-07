@@ -1,13 +1,25 @@
 ! Users should add all user specific namelist changes below in the form of 
 ! namelist_var = new_namelist_value 
  
- nhtfrq =   0,-24,-6
- mfilt  = 1,30,120,120,240,30
- avgflag_pertape = 'A','A','I','A','A','A'
- fexcl1 = 'LINOZ_SZA','extinct_lw_bnd7','extinct_lw_inp','extinct_sw_inp','hstobie_linoz','LINOZ_DO3','LINOZ_DO3_PSC','LINOZ_O3CLIM','LINOZ_O3COL','LINOZ_SSO3','UU','VQ','VU','VV','bc_a1_SRF','bc_a3_SRF','bc_a4_SRF','chla','dst_a1_SRF','mlip','mom_a1_SRF','mom_a2_SRF','mom_a3_SRF','mom_a4_SRF','mpoly','mprot','ncl_a1_SRF','ncl_a2_SRF','ncl_a3_SRF','num_a1_SRF','num_a2_SRF','num_a3_SRF','num_a4_SRF','pom_a1_SRF','pom_a3_SRF','pom_a4_SRF','so4_a1_SRF','so4_a2_SRF','so4_a3_SRF','soa_a1_SRF','soa_a2_SRF','soa_a3_SRF'
- fincl1 = 'IEFLX'
- fincl2 = 'FLUT','TREFHTMN','TREFHTMX','LHFLX', 'SHFLX', 'PRECL', 'PRECC', 'FLNSC', 'FLNS'
- fincl3 = 'PSL','TREFHT', 'FLDS', 'FSDS', 'PRECT', 'PS', 'QREFHT', 'Q', 'PS', 'QREFHT', 'TS', 'T', 'U', 'V', 'Z3'
+ nhtfrq          =   0, -24,  -6
+ mfilt           =   1,  30, 120, 120, 240, 30
+ avgflag_pertape = 'A', 'A', 'I', 'A', 'A', 'A'
+
+ fexcl1 = 'LINOZ_SZA','extinct_lw_bnd7','extinct_lw_inp','extinct_sw_inp','hstobie_linoz',
+          'LINOZ_DO3','LINOZ_DO3_PSC','LINOZ_O3CLIM','LINOZ_O3COL','LINOZ_SSO3','UU','VQ',
+          'VU','VV','bc_a1_SRF','bc_a3_SRF','bc_a4_SRF','chla','dst_a1_SRF','mlip','mom_a1_SRF',
+          'mom_a2_SRF','mom_a3_SRF','mom_a4_SRF','mpoly','mprot','ncl_a1_SRF','ncl_a2_SRF',
+          'ncl_a3_SRF','num_a1_SRF','num_a2_SRF','num_a3_SRF','num_a4_SRF','pom_a1_SRF',
+          'pom_a3_SRF','pom_a4_SRF','so4_a1_SRF','so4_a2_SRF','so4_a3_SRF','soa_a1_SRF','soa_a2_SRF','soa_a3_SRF'
+
+! monthly (averaged)
+  fincl1 = 'IEFLX'
+
+! daily (averaged)
+  fincl2 = 'FLUT','TREFHTMN:N','TREFHTMX:X','LHFLX', 'SHFLX', 'PRECL', 'PRECC', 'FLNSC', 'FLNS'
+
+! 6 hrly (instantaneous)
+  fincl3 = 'PSL','TREFHT', 'FLDS', 'FSDS', 'PRECT', 'PS', 'QREFHT', 'Q', 'PS', 'QREFHT', 'TS', 'T', 'U', 'V', 'Z3'
 
  history_aerosol=.false.
  ncdata= '/compyfs/vanr302/E3SM_simulations/init/20180129.DECKv1b_piControl.ne30_oEC.edison/0200-01-01-00000/20180129.DECKv1b_piControl.ne30_oEC.edison.cam.i.0200-01-01-00000.nc'
