@@ -37,7 +37,7 @@
 ! 6hrly 2D (h3) 
  fincl4 = 'PSL:I','TREFHT:I', 'FLDS:I', 'FSDS:I', 'PRECT:A', 'PS:I', 'QREFHT:I', 'TS:I',
           'TMQ:I','U10:I','U850:I','V850:I','UBOT:I','VBOT:I','Z200:I','Z500:I',
-          'IVT:I','uIVT:I','vIVT:I'
+          'TTQ:I','TUQ:I','TVQ:I'
 
 ! 6 hrly Full-column (h4)
  fincl5 = 'Q:I', 'T:I', 'U:I', 'V:I', 'Z3:I'
