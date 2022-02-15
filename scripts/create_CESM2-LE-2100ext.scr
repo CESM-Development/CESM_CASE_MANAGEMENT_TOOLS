@@ -3,6 +3,8 @@
 
 set MACHINE = cheyenne
 set MACHINE = aleph
+set ALEPHTEST = False
+
 #if ($USER==jedwards)
 #set test=test
 set test=
@@ -11,7 +13,7 @@ set test=
 #endif
 
 if ($MACHINE == cheyenne) then
-	setenv CESMROOT /glade/work/nanr/cesm_tags/cesm2.1.4-rc.08
+	setenv CESMROOT /glade/work/nanr/cesm_tags/cesm2.1.4-rc.10
 	setenv CESM2_LE_TOOLS_ROOT /glade/work/nanr/cesm_tags/CASE_tools/cesm2-le/
 	setenv MYROOT /glade/work/nanr/CESM2-LE/2100-ext/
   	setenv ARCHDIR /glade/scratch/nanr/archive/
@@ -19,7 +21,7 @@ if ($MACHINE == cheyenne) then
   	setenv RESTDIR /glade/scratch/nanr/archive/
   	setenv RUNROOT /glade/scratch/nanr/
 else
-	setenv CESMROOT /mnt/lustre/share/CESM/cesm2.1.4-rc.08
+	setenv CESMROOT /mnt/lustre/share/CESM/cesm2.1.4-rc.10
 	setenv CESM2_LE_TOOLS_ROOT $HOME/CESM_CASE_MANAGEMENT_TOOLS
 	setenv MYROOT /mnt/lustre/share/CESM
 	setenv POSTPROCESS_PATH /home/jedwards/workflow/CESM_postprocessing
@@ -45,6 +47,13 @@ set smbr =  2
 set embr =  20
 
 set mmm  = 0
+
+if ($ALEPHTEST == True) then
+  set test=n10
+  set smbr =  18
+  set embr =  18
+  set mmm  = 8
+endif
 
 @ mb = $smbr
 @ me = $embr
@@ -135,8 +144,6 @@ endif
   cp $RESTDIR/$REFCASE/rest/2101-01-01-00000/rpointer* $RUNROOT/$CASENAME/run/
   chmod u+w $RUNROOT/$CASENAME/run/rpointer*
   ln -s $RESTDIR/$REFCASE/rest/2101-01-01-00000/b.* $RUNROOT/$CASENAME/run/
-
-exit
 
 end             # member loop
 
