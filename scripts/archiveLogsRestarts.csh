@@ -9,18 +9,22 @@ setenv LOGSDIR  $CAMPDIR/logs
 setenv RESTDIR  $CAMPDIR/restarts
 setenv POPDDIR  $CAMPDIR/pop.d_files
 
-set smbr =  11
-set embr =  15
+set smbr =  1
+set embr =  10
 
 @ mb = $smbr
 @ me = $embr
 
 foreach mbr ( `seq $mb $me` )
 if ($mbr < 10) then
-        set CASE = b.e21.B1850cmip6.f09_g17.CESM2-SF-BMB.00${mbr}
+        #set CASE = b.e21.B1850cmip6.f09_g17.CESM2-SF-EE.10${mbr}
+        set CASE = b.e21.B1850cmip6.f09_g17.CESM2-SF-EE-SSP370.10${mbr}
+        #set CASE = b.e21.B1850cmip6.f09_g17.CESM2-SF-BMB.00${mbr}
         #set CASE = b.e21.B1850cmip6.f09_g17.CESM2-SF-BMB-SSP370.00${mbr}
 else
-        set CASE = b.e21.B1850cmip6.f09_g17.CESM2-SF-BMB.0${mbr}
+        #set CASE = b.e21.B1850cmip6.f09_g17.CESM2-SF-EE.1${mbr}
+        set CASE = b.e21.B1850cmip6.f09_g17.CESM2-SF-EE-SSP370.1${mbr}
+        #set CASE = b.e21.B1850cmip6.f09_g17.CESM2-SF-BMB.0${mbr}
         #set CASE = b.e21.B1850cmip6.f09_g17.CESM2-SF-BMB-SSP370.0${mbr}
 endif
 

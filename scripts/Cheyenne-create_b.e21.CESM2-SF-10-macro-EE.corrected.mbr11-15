@@ -1,0 +1,131 @@
+#!/bin/csh -fx
+### set env variables
+
+set COMPSET = B1850cmip6
+set MACHINE = cheyenne
+set RESOLN = f09_g17
+set RESUBMIT = 54
+set STOP_N=3
+set STOP_OPTION=nyears
+set PROJECT=CESM0015
+
+setenv SCENARIO EE
+setenv REFDATE  1850-01-01
+setenv BASENAME b.e21.${COMPSET}.${RESOLN}.CESM2-SF-${SCENARIO}
+setenv REFCASE  b.e21.B1850.f09_g17.CMIP6-piControl.001
+
+# case name counter
+#set embr =  1
+#set smbr =  6
+set smbr =  11
+set embr =  15
+set bmbr =  1
+
+
+@ mb = $smbr
+@ me = $embr
+
+# reference name counter
+@ mmm = ($bmbr * 2) - 1
+
+foreach mbr ( `seq $mb  $me` )
+
+@ USE_REFDATE = 1011 + ( $mmm - 1 ) * 10
+@ mmm+=2
+
+setenv REFDATE  ${USE_REFDATE}
+
+if    ($mbr < 10) then
+	setenv CASENAME b.e21.${COMPSET}.${RESOLN}.CESM2-SF-${SCENARIO}.10${mbr}
+else if ($mbr >= 10 && $mbr < 100) then
+	setenv CASENAME b.e21.${COMPSET}.${RESOLN}.CESM2-SF-${SCENARIO}.1${mbr}
+else
+	setenv CASENAME b.e21.${COMPSET}.${RESOLN}.CESM2-SF-${SCENARIO}.${mbr}
+endif
+if ($MACHINE == cori-knl) then
+        set PATH      = /global/project/projectdirs/ccsm1/people/nanr/
+        setenv BASEROOT $PATH/cases/cesm21/CESM2-SF/
+        setenv REFROOT  $SCRATCH/archive/b.e21.B1850.f09_g17.CMIP6-piControl.001/rest/
+        setenv RUNROOT  $SCRATCH/$CASENAME
+        set RUNDIR    = $SCRATCH/$CASENAME/run
+        set BLDDIR    = $SCRATCH/$CASENAME/bld
+        setenv CASEROOT $PATH/cases/cesm21/CESM2-SF/$CASENAME
+        set CESM2_SF_TOOLS_ROOT = /global/u2/n/nanr/CESM_tools/cesm2-sf/
+        set REFROOT   = /global/cscratch1/sd/nanr/archive
+        setenv CESMROOT $PATH/cesm_tags/cesm2.1.4-rc.07
+else 
+        setenv BASEROOT /glade/work/cesmsf/CESM2-SF/
+        setenv REFROOT  /glade/scratch/nanr/archive/b.e21.B1850.f09_g17.CMIP6-piControl.001/rest/
+        setenv RUNROOT  /glade/scratch/cesmsf/
+        set PATH      = /glade/work/cesmsf/
+        set RUNDIR    = /glade/scratch/cesmsf/$CASENAME/run
+        set BLDDIR    = /glade/scratch/cesmsf/$CASENAME/bld
+        setenv CASEROOT /glade/work/cesmsf/CESM2-SF/$CASENAME
+        set TOOLSROOT = /glade/work/nanr/cesm_tags/CASE_tools/cesm2-sf
+        set REFROOT   = /glade/scratch/cesmsf/archive/
+        setenv CESM2_SF_TOOLS_ROOT /glade/work/cesmsf/cesm_tags/CASE_tools/cesm2-sf/
+        setenv CESMROOT /glade/work/nanr/cesm_tags/cesm2.1.4-rc.07
+endif
+
+## Uncomment for testing (when not creating a cylc suite)
+# cd $CESMROOT/cime/scripts
+# ./create_newcase --case $BASEROOT$CASENAME --res $RESOLN  --compset $COMPSET --project $PROJECT 
+ 
+  setenv CASEROOT  $BASEROOT$CASENAME
+echo $CASEROOT
+  cd $CESMROOT/cime/scripts/
+  #./create_newcase --case $CASEROOT --res $RESOLN  --compset $COMPSET --project $PROJECT
+   ./create_newcase --case $CASEROOT --res $RESOLN  --mach $MACHINE --compset $COMPSET --pecount L --run-unsupported
+
+  cd $CASEROOT
+
+  ./xmlchange RUN_REFCASE=$REFCASE
+  ./xmlchange RUN_REFDATE=$REFDATE-01-01
+  ./xmlchange RUN_STARTDATE=1850-01-01
+  ./xmlchange GET_REFCASE=FALSE
+  ./xmlchange PROJECT=CESM0015
+
+  ./xmlchange NTASKS_ICE=36
+  ./xmlchange NTASKS_LND=504
+  ./xmlchange ROOTPE_ICE=504
+
+
+  mv user_nl_cam user_nl_cam.`date +%m%d-%H%M`
+  mv user_nl_clm user_nl_clm.`date +%m%d-%H%M`
+  mv user_nl_cpl user_nl_cpl.`date +%m%d-%H%M`
+  mv user_nl_cice user_nl_cice.`date +%m%d-%H%M`
+  mv SourceMods SourceMods.`date +%m%d-%H%M`
+  cp -r $CESM2_SF_TOOLS_ROOT/SourceMods $CASEROOT/
+
+  cp $CESM2_SF_TOOLS_ROOT/user_nl_files/hist-ee/user_nl_cam $CASEROOT/
+  cp $CESM2_SF_TOOLS_ROOT/user_nl_files/hist-ee/user_nl_cice $CASEROOT/
+  cp $CESM2_SF_TOOLS_ROOT/user_nl_files/hist-ee/user_nl_ww $CASEROOT/
+  cp $CESM2_SF_TOOLS_ROOT/user_nl_files/hist-ee/user_nl_cpl $CASEROOT/
+  cp $CESM2_SF_TOOLS_ROOT/user_nl_files/hist-ee/user_nl_mosart $CASEROOT/
+  cp $CESM2_SF_TOOLS_ROOT/user_nl_files/hist-ee/user_nl_clm-1850-2014 $CASEROOT/user_nl_clm
+  cp $CESM2_SF_TOOLS_ROOT/env_spec/env_* $CASEROOT/
+
+  ./case.setup
+
+  ./xmlchange STOP_N=$STOP_N
+  ./xmlchange STOP_OPTION=$STOP_OPTION
+  ./xmlchange RESUBMIT=$RESUBMIT
+
+   cp    $REFROOT/$REFDATE-01-01-00000/rpointer* $RUNROOT/$CASENAME/run/
+   ln -s $REFROOT/$REFDATE-01-01-00000/b.e21*    $RUNROOT/$CASENAME/run/
+
+   if (${mbr} == $smbr) then
+      ./case.setup --reset
+      ./case.build
+      set masterroot = $CASENAME
+   else
+      ./case.setup --reset
+      ./case.build
+      # ./xmlchange EXEROOT=/glade/scratch/cesmsf/$masterroot/bld/
+      # ./xmlchange BUILD_COMPLETE=TRUE
+   endif
+
+end             # member loop
+
+exit
+
