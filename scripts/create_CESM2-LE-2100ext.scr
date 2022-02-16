@@ -37,8 +37,8 @@ set COMPSET = BSSP370smbbext
 set REFCOMPSET = BSSP370smbb
 set EXPERIMENT = 2100ext
 set RESOLN = f09_g17
-set RESUBMIT = 16
-set STOP_N=5
+set RESUBMIT = 399
+set STOP_N=10
 set STOP_OPTION=nyears
 set STARTDATE=2101-01-01
 
@@ -102,7 +102,6 @@ if ( $mbr == $smbr || $mmm == 10) then
   ./xmlchange RESUBMIT=$RESUBMIT
   ./xmlchange DOUT_S_ROOT=$ARCHDIR/$CASENAME
   ./xmlchange GET_REFCASE=FALSE
-
 # turn on cosp
   ./xmlchange --append CAM_CONFIG_OPTS=-cosp
 
@@ -134,8 +133,9 @@ else
   endif
   #rm -fr postprocess
   #$POSTPROCESS_PATH/cesm-env2/bin/create_postprocess --caseroot $CASEROOT 
-  ./xmlchange RUN_REFDATE=${STARTDATE}
-  ./xmlchange RESUBMIT=$RESUBMIT
+  ./xmlchange RUN_REFCASE=$REFCASE
+# ./xmlchange RUN_REFDATE=${STARTDATE}
+# ./xmlchange RESUBMIT=$RESUBMIT
   ./preview_namelists
   ./case.setup --reset; ./case.setup; ./xmlchange BUILD_COMPLETE=TRUE
 endif
