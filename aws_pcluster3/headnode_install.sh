@@ -12,6 +12,9 @@ fi
 
 ln -s /usr/bin/python3 /usr/bin/python
 
+#echo '@cesm         hard    stack           -1' >> /etc/security/limits.conf
+#echo '@cesm         soft    stack           -1' >> /etc/security/limits.conf
+
 # Set up our search path
 echo '/opt/ncar/software/lib' > /etc/ld.so.conf.d/ncar.conf
 
