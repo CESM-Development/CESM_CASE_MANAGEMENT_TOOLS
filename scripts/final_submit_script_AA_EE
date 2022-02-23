@@ -1,0 +1,109 @@
+#!/bin/csh -fx
+### set env variables
+
+set COMPSET = B1850cmip6
+set MACHINE = frontera
+set MACHINE = cheyenne
+set RESOLN = f09_g17
+
+set RESUBMIT = 0
+set STOP_N=2
+set STOP_OPTION=nmonths
+#set RESUBMIT = 54
+#set STOP_N=3
+#set STOP_OPTION=nyears
+
+setenv SCENARIO AA_EE
+setenv BASENAME b.e21.${COMPSET}.${RESOLN}.CESM2-SF-${SCENARIO}
+setenv REFCASE  b.e21.B1850.f09_g17.CMIP6-piControl.001
+
+if ($MACHINE == frontera) then
+        set RUNROOT  = $SCRATCH/$CASE/
+        set BASEROOT  = $STOCKYARD/frontera/cases/CESM2-SF/
+        set TOOLSROOT = $HOME/CESM_tools/cesm2-sf-AA_EE/
+        set REFROOT   = /scratch1/06091/nanr/archive/b.e21.B1850.f09_g17.CMIP6-piControl.001/rest/
+        setenv CESMROOT $STOCKYARD/cesm_tags/cesm2.1.4-rc.07
+else 
+	#set BASEROOT /glade/work/debdas/CESM2-SF/
+	#set RUNROOT  /glade/scratch/debdas/
+        #set TOOLSROOT = /glade/u/home/debdas/UT_CESM_WORK/
+	set BASEROOT  = /glade/work/nanr/CESM2-SF/
+	set RUNROOT   = /glade/scratch/nanr/
+        set TOOLSROOT = /glade/work/nanr/cesm_tags/CASE_tools/cesm2-sf-AA_EE/
+        set REFROOT   = /glade/scratch/nanr/archive/b.e21.B1850.f09_g17.CMIP6-piControl.001/rest/
+        setenv CESMROOT /glade/work/nanr/cesm_tags/cesm2.1.4-rc.07
+	set PROJECT=UGMU0031
+	set PROJECT=CESM0015
+endif
+
+ #case name counter
+set smbr =  1
+set embr =  1
+#set smbr =  6
+#set embr =  10
+
+@ mb = $smbr
+@ me = $embr
+
+# reference name counter
+@ mmm = ($smbr * 2) - 1
+
+@ mbr = $mb 
+#foreach mbr ( `seq $mb  $me` )
+
+@ USE_REFDATE = 1001 + ( $mmm - 1 ) * 10
+@ mmm+=2
+
+setenv REFDATE  ${USE_REFDATE}
+
+if    ($mbr < 10) then
+	setenv CASENAME b.e21.${COMPSET}.${RESOLN}.CESM2-SF-${SCENARIO}.00${mbr}
+else if ($mbr >= 10 && $mbr < 100) then
+	setenv CASENAME b.e21.${COMPSET}.${RESOLN}.CESM2-SF-${SCENARIO}.0${mbr}
+else
+	setenv CASENAME b.e21.${COMPSET}.${RESOLN}.CESM2-SF-${SCENARIO}.${mbr}
+endif
+
+  setenv CASEROOT  $BASEROOT$CASENAME
+
+  cd $CESMROOT/cime/scripts/
+  ./create_newcase --case $CASEROOT --res $RESOLN  --compset $COMPSET --project $PROJECT  
+  cd $CASEROOT
+
+  ./xmlchange RUN_REFCASE=$REFCASE
+  ./xmlchange RUN_REFDATE=$REFDATE-01-01
+  ./xmlchange RUN_STARTDATE=1850-01-01
+  ./xmlchange GET_REFCASE=FALSE
+  ./xmlchange PROJECT=$PROJECT
+  ./xmlchange NTASKS_ICE=36
+  ./xmlchange NTASKS_LND=504
+  ./xmlchange ROOTPE_ICE=504
+
+  mv user_nl_cam user_nl_cam.`date +%m%d-%H%M`
+  mv user_nl_clm user_nl_clm.`date +%m%d-%H%M`
+  mv user_nl_cpl user_nl_cpl.`date +%m%d-%H%M`
+  mv user_nl_cice user_nl_cice.`date +%m%d-%H%M`
+  mv SourceMods SourceMods.`date +%m%d-%H%M`
+  cp -r $TOOLSROOT/SourceMods $CASEROOT/
+
+  cp $TOOLSROOT/user_nl_files/hist_AA_EE/* $CASEROOT/
+  cp $TOOLSROOT/user_nl_files/hist_AA_EE/user_nl_cam_AA_EE $CASEROOT/user_nl_cam
+
+  ./case.setup
+
+  ./xmlchange STOP_N=$STOP_N
+  ./xmlchange STOP_OPTION=$STOP_OPTION
+  ./xmlchange RESUBMIT=$RESUBMIT
+
+   cp    $REFROOT/$REFDATE-01-01-00000/rpointer* $RUNROOT/$CASENAME/run/
+   ln -s $REFROOT/$REFDATE-01-01-00000/b.e21*    $RUNROOT/$CASENAME/run/
+
+# ./preview_namelists
+
+# ./case.build >& bld.`date +%m%d-%H%M`
+#end             # member loop
+
+
+
+exit
+
