@@ -2,8 +2,8 @@
 ### set env variables
 
 set COMPSET = B1850cmip6
-set MACHINE = frontera
 set MACHINE = cheyenne
+set MACHINE = frontera
 set RESOLN = f09_g17
 
 set RESUBMIT = 0
@@ -18,7 +18,7 @@ setenv BASENAME b.e21.${COMPSET}.${RESOLN}.CESM2-SF-${SCENARIO}
 setenv REFCASE  b.e21.B1850.f09_g17.CMIP6-piControl.001
 
 if ($MACHINE == frontera) then
-        set RUNROOT  = $SCRATCH/$CASE/
+        set RUNROOT  = $SCRATCH/
         set BASEROOT  = $STOCKYARD/frontera/cases/CESM2-SF/
         set TOOLSROOT = $HOME/CESM_tools/cesm2-sf-AA_EE/
         set REFROOT   = /scratch1/06091/nanr/archive/b.e21.B1850.f09_g17.CMIP6-piControl.001/rest/
@@ -67,17 +67,32 @@ endif
   setenv CASEROOT  $BASEROOT$CASENAME
 
   cd $CESMROOT/cime/scripts/
-  ./create_newcase --case $CASEROOT --res $RESOLN  --compset $COMPSET --project $PROJECT  
+  #./create_newcase --case $CASEROOT --res $RESOLN  --compset $COMPSET --project $PROJECT  
+  ./create_newcase --case $CASEROOT --res $RESOLN  --compset $COMPSET 
   cd $CASEROOT
 
   ./xmlchange RUN_REFCASE=$REFCASE
   ./xmlchange RUN_REFDATE=$REFDATE-01-01
   ./xmlchange RUN_STARTDATE=1850-01-01
   ./xmlchange GET_REFCASE=FALSE
+
+if ($MACHINE == cheyenne) then
   ./xmlchange PROJECT=$PROJECT
   ./xmlchange NTASKS_ICE=36
   ./xmlchange NTASKS_LND=504
   ./xmlchange ROOTPE_ICE=504
+else
+  ./xmlchange NTASKS_CPL=1232
+  ./xmlchange NTASKS_ATM=1232
+  ./xmlchange NTASKS_LND=616
+  ./xmlchange NTASKS_ICE=616
+  ./xmlchange NTASKS_OCN=112
+  ./xmlchange NTASKS_ROF=616
+  ./xmlchange NTASKS_GLC=56
+  ./xmlchange NTASKS_WAV=56
+  ./xmlchange ROOTPE_ICE=616
+  ./xmlchange ROOTPE_OCN=1232
+endif
 
   mv user_nl_cam user_nl_cam.`date +%m%d-%H%M`
   mv user_nl_clm user_nl_clm.`date +%m%d-%H%M`
