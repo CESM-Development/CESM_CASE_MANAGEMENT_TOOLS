@@ -102,6 +102,7 @@ endif
   cp -r $TOOLSROOT/SourceMods $CASEROOT/
 
   cp $TOOLSROOT/user_nl_files/hist_AA_EE/* $CASEROOT/
+  cp $TOOLSROOT/user_nl_files/hist_AA_EE/user_nl_clm-1850-2014 $CASEROOT/user_nl_clm
   cp $TOOLSROOT/user_nl_files/hist_AA_EE/user_nl_cam_AA_EE $CASEROOT/user_nl_cam
 
   ./case.setup
