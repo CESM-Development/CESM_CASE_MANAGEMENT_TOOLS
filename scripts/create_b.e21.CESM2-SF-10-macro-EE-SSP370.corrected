@@ -68,7 +68,6 @@ endif
   ./xmlchange RUN_REFDATE=$REFDATE-01-01
   ./xmlchange RUN_STARTDATE=2015-01-01
   ./xmlchange GET_REFCASE=FALSE
-  ./xmlchange PROJECT=NCGD0044
 
   ./xmlchange NTASKS_ICE=36
   ./xmlchange NTASKS_LND=504

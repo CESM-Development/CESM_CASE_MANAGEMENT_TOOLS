@@ -21,7 +21,7 @@ set RESOLN = f09_g17
 set RESUBMIT = 54
 set STOP_N=3
 set STOP_OPTION=nyears
-set PROJECT=NCGD0044
+set PROJECT=P93300313
 
 setenv SCENARIO AAER
 setenv REFDATE  1850-01-01
@@ -50,7 +50,7 @@ set bmbr =  1
 
 foreach mbr ( `seq $mb  $me` )
 
-@ USE_REFDATE = 1011 + ( $mmm - 1 ) * 10
+@ USE_REFDATE = 1111 + ( $mmm - 1 ) * 10
 @ mmm+=2
 
 setenv REFDATE  ${USE_REFDATE}
@@ -72,7 +72,7 @@ endif
   ./xmlchange RUN_REFDATE=$REFDATE-01-01
   ./xmlchange RUN_STARTDATE=1850-01-01
   ./xmlchange GET_REFCASE=FALSE
-  ./xmlchange PROJECT=NCGD0044
+  ./xmlchange PROJECT=P93300313
 
   ./xmlchange NTASKS_ICE=36
   ./xmlchange NTASKS_LND=504
