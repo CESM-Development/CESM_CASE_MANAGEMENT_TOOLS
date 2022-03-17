@@ -113,8 +113,8 @@ if ( $mbr == $smbr || $mmm == 10) then
    endif
 
 
-  ./case.setup
-  ./preview_namelists
+  #./case.setup
+  #./preview_namelists
   #qcmd -- ./case.build >& bld.`date +%m%d-%H%M`
   #$POSTPROCESS_PATH/cesm-env2/bin/create_postprocess --caseroot $CASEROOT 
 
@@ -134,9 +134,9 @@ else
   #rm -fr postprocess
   #$POSTPROCESS_PATH/cesm-env2/bin/create_postprocess --caseroot $CASEROOT 
   ./xmlchange RUN_REFCASE=$REFCASE
-# ./xmlchange RUN_REFDATE=${STARTDATE}
+  ./xmlchange RUN_REFDATE=${STARTDATE}
 # ./xmlchange RESUBMIT=$RESUBMIT
-  ./preview_namelists
+# ./preview_namelists
   ./case.setup --reset; ./case.setup; ./xmlchange BUILD_COMPLETE=TRUE
 endif
 
