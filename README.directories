@@ -1,0 +1,17 @@
+For SSP585, the case directory is: 
+/glade/work/mberdahl/cesmcases/SSPRuns/SSP585-2deg/b.e21.BSSP585cmip6.f19_g17.CMIP6-SSP5-8.5.001
+
+And the archive directory:
+/glade/scratch/mberdahl/archive/b.e21.BSSP585cmip6.f19_g17.CMIP6-SSP5-8.5.001
+
+Gunter Leguy11:13 AM
+for SSP245:
+Gunter Leguy11:15 AM
+case directory:
+/glade/work/gunterl/cesmcases/SSPruns/b.e21.BSSP245cmip6.f19_g17.CMIP6-SSP2-4.5.001
+
+archive:
+/glade/scratch/gunterl/archive/b.e21.BSSP245cmip6.f19_g17.CMIP6-SSP2-4.5.001
+
+timeseries:
+/glade/scratch/gunterl/timeseries/b.e21.BSSP245cmip6.f19_g17.CMIP6-SSP2-4.5.001

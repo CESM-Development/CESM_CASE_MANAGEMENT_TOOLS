@@ -1,0 +1,144 @@
+####!/bin/tcsh -ef  -- Copy line by line.
+
+#Following:  # https://github.com/NCAR/CESM_postprocessing/wiki/cheyenne-and-DAV-quick-start-guide
+# cheyenne6: 
+
+mkdir /glade/work/nanr/cesm-postprocess
+set CASE = b.e21.B1850cmip6.f09_g17.CESM2-SF-BMB-SSP370.014
+set CNTL = b.e21.B1850cmip6.f09_g17.CESM2-SF-BMB-SSP370.015
+
+
+setenv POSTPROCESS_PATH /glade/p/cesm/postprocessing
+cesm_pp_activate
+
+### CESM Postprocessing 
+setenv POSTPROCESS_PATH /glade/p/cesm/postprocessing
+alias cesm_pp_activate 'source $POSTPROCESS_PATH/cesm-env2/bin/activate.csh'
+
+
+## Without DAV
+create_postprocess --caseroot /glade/work/$USER/cesm-postprocess/$CASE
+
+# Set the location of the model data:
+#./pp_config --set DOUT_S_ROOT=<full path of model run archive path to be analyzed>
+# (Example: ./pp_config --set DOUT_S_ROOT=/glade/scratch/<logname>/archive/b.day2.1)
+# Tell the diagnostics what kind of grids to expect. Our tutorial simulations use 1.9x2.5_gx1v7:
+
+
+cd /glade/work/$USER/cesm-postprocess/$CASE
+./pp_config --set DOUT_S_ROOT=/glade/collections/cdg/timeseries-cmip6/$CASE
+#./pp_config --set /glade/campaign/collections/cmip/CMIP6/CESM2-LE/archive/$CASE
+#./pp_config --set DOUT_S_ROOT=/glade/campaign/cesm/collections/CESM2-SF/timeseries/$CASE
+#./pp_config --set PROC_PATH=/glade/scratch/nanr/cesm-postprocess/$CASE
+./pp_config --set ATMDIAG_test_path_history='$DOUT_S_ROOT'
+./pp_config --set ATMDIAG_cntl_path_history=/gpfs/fs1/collections/cdg/timeseries-cmip6/$CNTL
+./pp_config --set ATMDIAG_cntl_casename=$CNTL
+
+./pp_config --set ATM_GRID=f09
+./pp_config --set LND_GRID=f09
+./pp_config --set ICE_GRID=gx1v7
+./pp_config --set OCN_GRID=gx1v7
+./pp_config --set ICE_NX=320
+./pp_config --set ICE_NY=384
+
+#./pp_config --set ATMDIAG_netcdf_format=netcdfLarge
+
+#./pp_config --set ATMDIAG_OUTPUT_ROOT_PATH=/glade/scratch/nanr/diagnostics-output/atm
+./pp_config --set ATMDIAG_OUTPUT_ROOT_PATH=/gpfs/fs1/p/cesm/cvwg/nanr/proc/CESM2-LE/amwg/
+./pp_config --set ATMDIAG_test_first_yr=2035
+./pp_config --set ATMDIAG_test_nyrs=15
+./pp_config --set ATMDIAG_cntl_first_yr=2035
+./pp_config --set ATMDIAG_cntl_nyrs=15
+./pp_config --set ATMDIAG_TEST_TIMESERIES=True
+./pp_config --set ATMDIAG_CNTL_TIMESERIES=True
+./pp_config --set ATMDIAG_test_path_history_subdir=/proc/tseries/month_1/
+./pp_config --set STANDALONE=True
+
+
+./pp_config --set ATMDIAG_test_compute_zonalAvg=False
+./pp_config --set ATMDIAG_cntl_compute_zonalAvg=False
+./pp_config --set ATMDIAG_cntl_casename=b.e13.B1950C5.f09_g16.1950cntl.001
+./pp_config --set ATMDIAG_test_compute_climo=True
+./pp_config --set ATMDIAG_cntl_compute_climo=False
+./pp_config --set ATMDIAG_test_regrid=False
+./pp_config --set ATMDIAG_cntl_regrid=False
+
+set OUT_PATH=/gpfs/fs1/p/cesm/cvwg/nanr/proc/CESM2-LE/omwg/
+./pp_config --set OCNDIAG_YEAR0=2040
+./pp_config --set OCNDIAG_YEAR1=2050
+./pp_config --set OCNDIAG_TSERIES_YEAR0=2015
+./pp_config --set OCNDIAG_TSERIES_YEAR1=2050
+./pp_config --set OCNDIAG_MODELCASE_SUBDIR=/proc/tseries/month_1/
+./pp_config --set OCNDIAG_MODELCASE_INPUT_TSERIES=TRUE
+./pp_config --set OCNDIAG_TAVGDIR=$OUT_PATH/$CASE/ocn/proc/climo.$OCNDIAG_YEAR0.$OCNDIAG_YEAR1
+./pp_config --set OCNDIAG_WORKDIR=$OUT_PATH/$CASE/ocn/proc/diag_work.$OCNDIAG_YEAR0.$OCNDIAG_YEAR1
+
+
+
+cd /glade/work/nanr/cesm-postprocess/$CASE
+#./pp_config --set LNDDIAG_netcdf_format=netcdfLarge
+./pp_config --set ATMDIAG_test_path_history=/glade/scratch/fredc/CESM_postprocessing/B.E.13.B1850C5.ne120_t12.sehires38.003
+./pp_config --set LNDDIAG_OUTPUT_ROOT_PATH=/gpfs/fs1/p/cesm/cvwg/nanr/proc/TAMU/amwg
+./pp_config --set LNDDIAG_MODEL_VS_OBS=True
+./pp_config --set LNDDIAG_MODEL_VS_MODEL=False
+
+./pp_config --set LNDDIAG_caseid_1=B.E.13.B1850C5.ne120_t12.sehires38.003.sunway_02
+./pp_config --set LNDDIAG_SOURCE_1=/glade/scratch/fredc/CESM_postprocessing/B.E.13.B1850C5.ne120_t12.sehires38.003
+./pp_config --set LNDDIAG_rtm_modelstream_1=rtm.h0
+./pp_config --set LNDDIAG_OUTPUT_ROOT_PATH=/glade/p/cesm/cvwg/nanr/proc/TAMU/lnd/
+./pp_config --set LNDDIAG_COMPUTE_CLIMO_CASE1=True
+./pp_config --set LNDDIAG_trends_lnd_1=True
+./pp_config --set LNDDIAG_climo_lnd_1=True
+# Description:  (set7) Set to True for case1 if Mosart was used or False if RTM was used in the simulation
+./pp_config --set LNDDIAG_rmodel_1=False
+./pp_config --set LNDDIAG_clim_first_yr_1=120
+./pp_config --set LNDDIAG_clim_num_yrs_1=5
+./pp_config --set LNDDIAG_trends_first_yr_1=120
+./pp_config --set LNDDIAG_trends_num_yrs_1=5
+./pp_config --set LNDDIAG_regrid_1=True
+./pp_config --set LNDDIAG_old_res_1=SE_NE120
+./pp_config --set LNDDIAG_new_res_1=FV_768x1152
+./pp_config --set LNDDIAG_wgt_dir_1="/glade/p/cesm/lmwg/diag/lnd_diag_data/regriddingFiles/ne120/"
+
+
+### ---  didn't do a second case
+
+# Description:  (set7) Set to True for case1 if Mosart was used or False if RTM was used in the simulation
+./pp_config --set LNDDIAG_rmodel_1=False
+./pp_config --set LNDDIAG_caseid_2=B.E.13B1850C5.ne120_t12.03.sehires31
+./pp_config --set LNDDIAG_SOURCE_2=/glade/scratch/altuntas/from_stampede/archive/B.E.13B1850C5.ne120_t12.03.sehires31
+./pp_config --set LNDDIAG_COMPUTE_CLIMO_CASE2=True
+./pp_config --set LNDDIAG_trends_lnd_2=True
+./pp_config --set LNDDIAG_climo_lnd_2=True
+./pp_config --set LNDDIAG_regrid_2=True
+# Description:  (set7) Set to True for case1 if Mosart was used or False if RTM was used in the simulation
+./pp_config --set LNDDIAG_rmodel_2=False
+./pp_config --set LNDDIAG_clim_first_yr_2=10
+./pp_config --set LNDDIAG_clim_num_yrs_2=5
+./pp_config --set LNDDIAG_trends_first_yr_2=1
+./pp_config --set LNDDIAG_trends_num_yrs_2=14
+./pp_config --set LNDDIAG_regrid_2=True
+./pp_config --set LNDDIAG_old_res_2=SE_NE120
+./pp_config --set LNDDIAG_new_res_2=FV_768x1152
+#./pp_config --set LNDDIAG_wgt_dir_2=$LNDDIAG_DIAGOBSROOT/regriddingFiles/ne120/
+
+
+####  SINGLE CASE to test 5 yr - possibl memory problem with 14 yrs?------------------------------
+./pp_config --set LNDDIAG_caseid_1=B.E.13B1850C5.ne120_t12.03.sehires31
+./pp_config --set LNDDIAG_clim_first_yr_1=10
+./pp_config --set LNDDIAG_clim_num_yrs_1=5
+./pp_config --set LNDDIAG_trends_first_yr_1=10
+./pp_config --set LNDDIAG_trends_num_yrs_1=5
+./pp_config --set LNDDIAG_regrid_1=True
+./pp_config --set LNDDIAG_old_res_1=SE_NE120
+./pp_config --set LNDDIAG_new_res_1=FV_768x1152
+./pp_config --set LNDDIAG_climo_atm_1=False
+./pp_config --set LNDDIAG_rmodel_1=False
+./pp_config --set LNDDIAG_rtm_1=False
+./pp_config --set LNDDIAG_trends_rtm_1=False
+./pp_config --set LNDDIAG_climo_rtm_1=False
+
+
+#### END  single case
+
+

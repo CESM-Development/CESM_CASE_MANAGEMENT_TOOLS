@@ -1,0 +1,10 @@
+I think the problem is caused by the following input file which has a hidden input method in the global attributes.
+The file:
+   /glade/p/cesmdata/cseg/inputdata/atm/cam/chem/emis/elev/H2OemissionCH4oxidationx2_3D_L70_2100climo_CMIP6ensAvg_SSP2-4.5_c20220223.nc
+
+See global attribute:
+                :input_method = "INTERP_MISSING_MONTHS" ;
+
+Can you copy the file somewhere and remove this attribute in the copy.  Give that a try.
+
+ncatted -a input_method,global,d,, H2OemissionCH4oxidationx2_3D_L70_2100climo_CMIP6ensAvg_SSP2-4.5_c20220223.nc H2OemissionCH4oxidationx2_3D_L70_2100climo_CMIP6ensAvg_SSP2-4.5_c20220223nr.nc

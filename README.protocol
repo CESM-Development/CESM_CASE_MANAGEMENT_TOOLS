@@ -1,0 +1,20 @@
+https://gmd.copernicus.org/articles/13/3571/2020/
+
+Run cesm2-FV2 
+	ssp245:  2015-2100  (Gunter.  running last year (2100))
+	ssp585:  2015-2100  (Mira.  running last year (2100))
+
+Run 30 years cycling over year 2100
+	ssp245:  2100-2130  
+	ssp585:  2015-2100 
+
+ToDo:
+Branch and setup cycling namelists (Nan.  WIP)
+
+
+Branch from the 30 spinup runs:
+	ssp245:  2100-2300
+	ssp585:  2100-2300
+
+
+
