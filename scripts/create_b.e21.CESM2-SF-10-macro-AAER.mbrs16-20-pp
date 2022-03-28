@@ -50,7 +50,7 @@ set bmbr =  1
 
 foreach mbr ( `seq $mb  $me` )
 
-@ USE_REFDATE = 1011 + ( $mmm - 1 ) * 10
+@ USE_REFDATE = 1111 + ( $mmm - 1 ) * 10
 @ mmm+=2
 
 setenv REFDATE  ${USE_REFDATE}

@@ -8,9 +8,9 @@ cd ${disk}
 #foreach case ( b.e21.B1850cmip6.f09_g17.CESM2-SF-EE.00[1-5] )
 #foreach case ( b.e21.B1850cmip6.f09_g17.CESM2-SF-BMB-SSP370.00[1-9] b.e21.B1850cmip6.f09_g17.CESM2-SF-BMB-SSP370.010 )
 #foreach case ( b.e21.B1850cmip6.f09_g17.CESM2-SF-GHG-SSP370.00[1-9] b.e21.B1850cmip6.f09_g17.CESM2-SF-GHG-SSP370.010 )
-#foreach case ( b.e21.B1850cmip6.f09_g17.CESM2-SF-EE-SSP370.00[1-9] b.e21.B1850cmip6.f09_g17.CESM2-SF-EE-SSP370.010 )
+foreach case ( b.e21.B1850cmip6.f09_g17.CESM2-SF-EE-SSP370.10[1-9] b.e21.B1850cmip6.f09_g17.CESM2-SF-EE-SSP370.110 )
 #foreach case ( b.e21.B1850cmip6.f09_g17.CESM2-SF-AAER-SSP370.01[1-5] )
-foreach case ( b.e21.B1850cmip6.f09_g17.CESM2-SF-BMB-SSP370.01[1-5] )
+#foreach case ( b.e21.B1850cmip6.f09_g17.CESM2-SF-BMB-SSP370.01[1-5] )
   date
   if ! ( -d ${arcd}/${case} ) then
     mkdir -p ${arcd}/${case}

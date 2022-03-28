@@ -36,8 +36,8 @@ setenv RUNROOT  /glade/scratch/cesmsf/
 
 
 # case name counter
-set smbr =  1
-set embr =  10
+set smbr =  11
+set embr =  15
 
 
 @ mb = $smbr
