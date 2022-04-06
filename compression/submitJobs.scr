@@ -1,0 +1,1 @@
+sbatch tseries2.slurm ; sbatch tseries3.slurm ;  sbatch tseries.slurm ; sbatch compress_lnd.slurm ; sbatch compress_rof.slurm ; sbatch compress_rest.slurm; sbatch compress_rest1.slurm 
