@@ -6,7 +6,8 @@
 
 set MACHINE = cheyenne
 set MACHINE = frontera
-set TAG     = cesm-ihesp-hires1.0.38
+set MACHINE = stampede2
+set TAG     = cesm-ihesp-hires1.0.40
 set GITREPO = https://github.com/ihesp/cesm.git
 
 if ($MACHINE == frontera) then

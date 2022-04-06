@@ -106,14 +106,6 @@ if ($MACHINE == cheyenne) then
         ./xmlchange PROJECT=CESM0021
 	./xmlchange STOP_N=10
         ./xmlchange SSTICE_GRID_FILENAME=/glade/work/nanr/ihesp-HiRes/SST-highres/domain/domain.ocn.0.25x0.25_mask.181109.nc
-
-##cp $TOOLSROOT/user_nl_files/DP-HR/user_nl_cam-COSP-ON $CASEROOT/user_nl_cam
-cp $TOOLSROOT/user_nl_files/AMIP-1950-2050-highRes-pftdyn/cheyenne/user_nl_cam $CASEROOT/user_nl_cam
-cp $TOOLSROOT/user_nl_files/AMIP-1950-2050-highRes-pftdyn/cheyenne/user_nl_clm $CASEROOT/user_nl_clm
-cp $TOOLSROOT/user_nl_files/AMIP-1950-2050-highRes-pftdyn/cheyenne/user_nl_cice $CASEROOT/user_nl_cice
-cp $TOOLSROOT/user_nl_files/AMIP-1950-2050-highRes-pftdyn/cheyenne/user_nl_rtm $CASEROOT/user_nl_rtm
-
-=======
 	##cp $TOOLSROOT/user_nl_files/DP-HR/user_nl_cam-COSP-ON $CASEROOT/user_nl_cam
 	cp $TOOLSROOT/user_nl_files/AMIP-1950-2050-highRes-DECK-pftdyn/cheyenne/user_* $CASEROOT/*
 endif

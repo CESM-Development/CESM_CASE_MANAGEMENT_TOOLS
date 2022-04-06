@@ -13,6 +13,8 @@ set TAG     = cesm-ihesp-hires1.0.40
 set RESUBMIT = 0
 set STOP_OPTION=nyears
 set STOP_N=5
+set REST_OPTION=nmonths
+set REST_N=6
 
 set smbr =  1
 set embr =  1
