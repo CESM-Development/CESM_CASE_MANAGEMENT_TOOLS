@@ -1,7 +1,5 @@
 #!/bin/csh -f
 
-set MACHINE = frontera
-set MACHINE = cheyenne
 set MACHINE = stampede2
 
 set COMPSET = FAMIPC5
@@ -15,6 +13,8 @@ set TAG     = cesm-ihesp-hires1.0.40
 set RESUBMIT = 0
 set STOP_OPTION=nyears
 set STOP_N=5
+set REST_OPTION=nmonths
+set REST_N=6
 
 set smbr =  1
 set embr =  1
@@ -29,7 +29,7 @@ if ($mbr < 10) then
 else
 	setenv CASE f.e13.${COMPSET}.${RESOLN}.DECK_1950TR.0${mbr}
 endif
-setenv REFCASE B.E.13.B1950C5.ne120_t12.cesm-ihesp-1950cntl.011
+setenv REFCASE ${CASE}
 
 if ($MACHINE == frontera) then
 	set PATH      = $STOCKYARD
@@ -44,7 +44,7 @@ else if ($MACHINE == stampede2) then
 	set BLDDIR    = $SCRATCH/$CASE/bld
 	set CASEROOT  = $STOCKYARD/stampede2/cases/cesm13/$CASE
         set TOOLSROOT = $HOME/CESM_tools/ihesp-tools/
-        set REFROOT   = /work2/02503/edwardsj/CESM/inputdata/ccsm4_init/
+        set REFROOT   = /scratch/06091/nanr/archive/
 else if ($MACHINE == cheyenne ) then
 	set PATH      = /glade/work/nanr/
 	set RUNDIR    = /glade/scratch/nanr/$CASE/run
@@ -78,7 +78,7 @@ endif
 ./xmlchange RUN_TYPE=hybrid
 ./xmlchange RUN_STARTDATE=1950-01-01
 ./xmlchange RUN_REFCASE=${REFCASE}
-./xmlchange RUN_REFDATE=0055-01-01
+./xmlchange RUN_REFDATE=1970-01-01
 ./xmlchange GET_REFCASE=FALSE
 ./xmlchange ICE_DOMAIN_FILE=domain.ocn.ne120np4_tx0.1v2.191122.nc
 ./xmlchange OCN_DOMAIN_FILE=domain.ocn.ne120np4_tx0.1v2.191122.nc
@@ -87,6 +87,7 @@ endif
 ./xmlchange SSTICE_YEAR_ALIGN=1950
 ./xmlchange SSTICE_YEAR_START=1950
 ./xmlchange SSTICE_YEAR_END=2050
+./xmlchange CONTINUE_RUN=TRUE
 
 
 if ($MACHINE == frontera || $MACHINE == stampede2 ) then
@@ -110,31 +111,10 @@ if ($MACHINE == cheyenne) then
 	cp $TOOLSROOT/user_nl_files/AMIP-1950-2050-highRes-DECK-pftdyn/cheyenne/user_* $CASEROOT/*
 endif
 
+
 #cp $TOOLSROOT/SourceMods/src.cice/AMIP-1950-2050-highRes-pftdyn/cheyenne/*  $CASEROOT/SourceMods/src.cice/
 #cp $TOOLSROOT/SourceMods/src.pop/AMIP-1950-2050-highRes-pftdyn/cheyenne/*  $CASEROOT/SourceMods/src.pop/
 cp $TOOLSROOT/SourceMods/src.cam/*F90  $CASEROOT/SourceMods/src.cam/
-
-# =========================
-# add pertlim perturbation to micro members 2 .. N 
-# =========================
-if ($mbr != 1) then
-
-cat >> head.${mbr} << EOF
-
-! add micro-member perturbation
-pertlim = ${mbr}.d-14
-
-EOF
-
-mv user_nl_cam tmp.cam
-cat head.${mbr} tmp.cam  > user_nl_cam
-rm tmp.cam head.${mbr}
-
-endif
-# =========================
-# END - pertlim 
-# =========================
-#
 
 
 echo "================="
@@ -143,14 +123,14 @@ echo "================="
 
 ./case.setup
 
-cp    $REFROOT/$REFCASE/0055-01-01/rpoint* $RUNDIR
-ln -s $REFROOT/$REFCASE/0055-01-01/B.E.* $RUNDIR
+cp    $REFROOT/$REFCASE/$REFDATE-01-01-00000/rpoint* $RUNDIR
+ln -s $REFROOT/$REFCASE/$REFDATE-01-01-00000/$REFCASE* $RUNDIR
 
 if ($MACHINE == frontera || $MACHINE == stampede2 ) then
-	./case.setup --reset; ./case.setup
+	./case.setup --reset; 
 	./case.build
 else
-	./case.setup --reset; ./case.setup
+	./case.setup --reset; 
 	qcmd -- ./case.build
 endif
 
