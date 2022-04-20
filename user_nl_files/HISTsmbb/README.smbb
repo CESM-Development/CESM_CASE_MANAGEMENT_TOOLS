@@ -1,0 +1,11 @@
+-rw-r--r-- 1 nanr ccsm1 656158916 Apr  7 12:23 emissions-cmip6-ScenarioMIP_IAMC-AIM-ssp370-1-1_smoothed_num_so4_a1_bb_surface_mol_175001-210101_ne30_c20201016.nc
+-rw-r--r-- 1 nanr ccsm1   9725840 Apr  7 12:23 emissions-cmip6_smoothed_pom_a4_anthro_surface_1920cycling_ne30_c20211028.nc
+-rw-r--r-- 1 nanr ccsm1   9726016 Apr  7 12:23 emissions-cmip6_smoothed_num_pom_a4_anthro_surface_1920cycling_ne30_c20211028.nc
+-rw-r--r-- 1 nanr ccsm1 656158760 Apr  7 12:23 emissions-cmip6-ScenarioMIP_IAMC-AIM-ssp370-1-1_smoothed_pom_a4_bb_surface_mol_175001-210101_ne30_c20201016.nc
+-rw-r--r-- 1 nanr ccsm1 656158880 Apr  7 12:23 emissions-cmip6-ScenarioMIP_IAMC-AIM-ssp370-1-1_smoothed_num_bc_a4_bb_surface_mol_175001-210101_ne30_c20201016.nc
+-rw-r--r-- 1 nanr ccsm1 656158716 Apr  7 12:23 emissions-cmip6-ScenarioMIP_IAMC-AIM-ssp370-1-1_smoothed_so4_a1_bb_surface_mol_175001-210101_ne30_c20201016.nc
+-rw-r--r-- 1 nanr ccsm1 656158712 Apr  7 12:23 emissions-cmip6-ScenarioMIP_IAMC-AIM-ssp370-1-1_smoothed_SOAGx1.5_bb_surface_mol_175001-210101_ne30_c20201016.nc
+-rw-r--r-- 1 nanr ccsm1 656158668 Apr  7 12:23 emissions-cmip6-ScenarioMIP_IAMC-AIM-ssp370-1-1_smoothed_SO2_bb_surface_mol_175001-210101_ne30_c20201016.nc
+-rw-r--r-- 1 nanr ccsm1 656158748 Apr  7 12:23 emissions-cmip6-ScenarioMIP_IAMC-AIM-ssp370-1-1_smoothed_DMS_bb_surface_mol_175001-210101_ne30_c20201016.nc
+-rw-r--r-- 1 nanr ccsm1 656158896 Apr  7 12:23 emissions-cmip6-ScenarioMIP_IAMC-AIM-ssp370-1-1_smoothed_num_pom_a4_bb_surface_mol_175001-210101_ne30_c20201016.nc
+

@@ -1,0 +1,14 @@
+salloc --nodes 1 --qos interactive --time 00:30:00 --constraint knl
+
+
+sprio -j <jobID>
+
+
+sbatch v2.LR.LE_bundle.sh 
+
+
+NEED format for --last-date
+cd <simulations_dir>/<case_name>/case_scripts
+./case.st_archive --last-date 0051-01-01 --force-move --no-incomplete-logs 
+cd <e3sm_simulations_dir>/<case_name>/archive
+ls

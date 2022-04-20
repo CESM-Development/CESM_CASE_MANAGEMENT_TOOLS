@@ -16,37 +16,42 @@ main() {
 
 # Machine and project
 readonly MACHINE=cori-knl
-readonly PROJECT="e3sm"
+readonly PROJECT="mp9"
 
 # Simulation
-readonly COMPSET="WCYCL20TR" # 20th century transient
+readonly COMPSET="WCYCLSSP370" # 20th century transient
 readonly RESOLUTION="ne30pg2_EC30to60E2r2"
-readonly CASE_NAME="v2.LR.historical_0101-test"
+readonly CASE_NAME="v2.LR.SSP370_0111"
 readonly CASE_GROUP="v2.LR"
 
 # Code and compilation
-readonly CHECKOUT="20211216"
-readonly BRANCH="d02413bdabd06a5b85d090cf125fa21787cd41dd" # master as of 2021-12-16
+readonly CHECKOUT="20220412"
+readonly BRANCH="maint-2.0" # master as of 2021-12-21
 readonly CHERRY=(  )
 readonly DEBUG_COMPILE=false
 
 # Run options
 readonly MODEL_START_TYPE="hybrid"  # 'initial', 'continue', 'branch', 'hybrid'
-readonly START_DATE="1850-01-01"
+readonly START_DATE="2015-01-01"
 
 # Additional options for 'branch' and 'hybrid'
 readonly GET_REFCASE=TRUE
-readonly RUN_REFDIR="/global/cscratch1/sd/golaz/E3SMv2/v2.LR.historical_0101-test/init"
-readonly RUN_REFCASE="v2.LR.piControl"
-readonly RUN_REFDATE="0101-01-01"   # same as MODEL_START_DATE for 'branch', can be different for 'hybrid'
+readonly RUN_REFDIR="/global/cscratch1/sd/nanr/archive/v2.LR.historical_0111/archive/rest/2015-01-01-00000"
+readonly RUN_REFCASE="v2.LR.historical_0111"
+readonly RUN_REFDATE="2015-01-01"   # same as MODEL_START_DATE for 'branch', can be different for 'hybrid'
 
 # Set paths
-readonly CODE_ROOT="${HOME}/E3SMv2/code/${CHECKOUT}"
-readonly CASE_ROOT="/global/cscratch1/sd/${USER}/E3SMv2/${CASE_NAME}"
+#readonly CODE_ROOT="${HOME}/E3SMv2/code/${CHECKOUT}"
+#readonly CASE_ROOT="/global/cscratch1/sd/${USER}/E3SMv2/${CASE_NAME}"
+readonly MY_PATH="/global/project/projectdirs/ccsm1/people/nanr"
+readonly CODE_ROOT="${MY_PATH}/e3sm_tags/E3SMv2/E3SM/"
+readonly CASE_ROOT="${MY_PATH}/cases/e3smv2/${CASE_NAME}"
 
 # Sub-directories
-readonly CASE_BUILD_DIR=${CASE_ROOT}/build
-readonly CASE_ARCHIVE_DIR=${CASE_ROOT}/archive
+#readonly CASE_BUILD_DIR=${CASE_ROOT}/build
+#readonly CASE_ARCHIVE_DIR=${CASE_ROOT}/archive
+readonly CASE_BUILD_DIR=$SCRATCH/$CASE_NAME/bld
+readonly CASE_ARCHIVE_DIR=$SCRATCH/archive/$CASE_NAME/
 
 # Define type of run
 #  short tests: 'XS_2x5_ndays', 'XS_1x10_ndays', 'S_1x10_ndays', 
@@ -55,9 +60,9 @@ readonly CASE_ARCHIVE_DIR=${CASE_ROOT}/archive
 #readonly run='S_1x10_ndays'
 #readonly run='S_1x1_nmonths'
 #readonly run='M_1x1_nmonths'
-readonly run='L_1x1_nmonths'
+#readonly run='L_1x1_nmonths'
 #readonly run='XL_1x1_nmonths'
-#readonly run='production'
+readonly run='production'
 if [ "${run}" != "production" ]; then
 
   # Short test simulations
@@ -73,6 +78,7 @@ if [ "${run}" != "production" ]; then
   readonly WALLTIME="0:30:00"
   readonly STOP_OPTION=${units}
   readonly STOP_N=${length}
+  readonly STOP_DATE="-999"    # -999 or specify stop date as yyyyddmm without leading zeros
   readonly REST_OPTION=${STOP_OPTION}
   readonly REST_N=${STOP_N}
   readonly RESUBMIT=${resubmit}
@@ -81,21 +87,26 @@ if [ "${run}" != "production" ]; then
 else
 
   # Production simulation
-  readonly CASE_SCRIPTS_DIR=${CASE_ROOT}/case_scripts
-  readonly CASE_RUN_DIR=${CASE_ROOT}/run
-  readonly PELAYOUT="M80"
-  readonly WALLTIME="30:00:00"
+  #readonly CASE_SCRIPTS_DIR=${CASE_ROOT}/case_scripts
+  #readonly CASE_RUN_DIR=${CASE_ROOT}/run
+  # nanr changes
+  readonly CASE_SCRIPTS_DIR=${CASE_ROOT}/
+  readonly CASE_RUN_DIR=${SCRATCH}/${CASE_NAME}/run
+  # end nanr
+  readonly PELAYOUT="L"
+  readonly WALLTIME="24:00:00"
   readonly STOP_OPTION="nyears"
-  readonly STOP_N="30" # How often to stop the model, should be a multiple of REST_N
+  readonly STOP_N="5" # How often to stop the model, should be a multiple of REST_N
+  readonly STOP_DATE="21010101"    # -999 or specify stop date as yyyyddmm without leading zeros
   readonly REST_OPTION="nyears"
-  readonly REST_N="5" # How often to write a restart file
-  readonly RESUBMIT="4" # Submissions after initial one
-  readonly DO_SHORT_TERM_ARCHIVING=false
+  readonly REST_N="1" # How often to write a restart file
+  readonly RESUBMIT="0" # Submissions after initial one
+  readonly DO_SHORT_TERM_ARCHIVING=true
 fi
 
 # Coupler history 
 readonly HIST_OPTION="nyears"
-readonly HIST_N="5"
+readonly HIST_N="1"
 
 # Leave empty (unless you understand what it does)
 readonly OLD_EXECUTABLE=""
@@ -104,7 +115,7 @@ readonly OLD_EXECUTABLE=""
 do_fetch_code=false
 do_create_newcase=true
 do_case_setup=true
-do_case_build=false
+do_case_build=true
 do_case_submit=false
 
 # --- Now, do the work ---
@@ -151,7 +162,7 @@ cat << EOF >> user_nl_eam
  avgflag_pertape = 'A','A','I','A','A','A','I'
  fexcl1 = 'CFAD_SR532_CAL', 'LINOZ_DO3', 'LINOZ_DO3_PSC', 'LINOZ_O3CLIM', 'LINOZ_O3COL', 'LINOZ_SSO3', 'hstobie_linoz'
  ! monthly (h0) A
- fincl1 = 'extinct_sw_inp','extinct_lw_bnd7','extinct_lw_inp','CLD_CAL', 'TREFMNAV', 'TREFMXAV','IEFLX','ZMDT','ZMDQ','STEND_CLUBB', 'RVMTEND_CLUBB', 'MPDT', 'MPDQ', 'DCQ', 'DTCOND'
+ fincl1 = 'extinct_sw_inp','extinct_lw_bnd7','extinct_lw_inp','CLD_CAL', 'TREFMNAV', 'TREFMXAV','IEFLX','ZMDT','ZMDQ','TTEND_CLUBB', 'RVMTEND_CLUBB', 'MPDT', 'MPDQ', 'DCQ', 'DTCOND'
  ! daily (h1) A
  fincl2 = 'FLUT','PRECT','U200','V200','U850','V850','Z500','OMEGA500','UBOT','VBOT','TREFHT','TREFHTMN:M','TREFHTMX:X','QREFHT','TS','PS','TMQ','TUQ','TVQ','TOZ', 'FLDS','FLNS','FSDS', 'FSNS', 'SHFLX', 'LHFLX', 'TGCLDCWP', 'TGCLDIWP', 'TGCLDLWP', 'CLDTOT', 'T250', 'T200', 'T150', 'T100', 'T050', 'T025', 'T010', 'T005', 'T002', 'T001', 'TTOP', 'U250', 'U150', 'U100', 'U050', 'U025', 'U010', 'U005', 'U002', 'U001', 'UTOP', 'FSNT', 'FLNT','PRECC','PRECTMX:X','PSL','RHREFHT', 'U10', 'Z200', 'QRS', 'QRL', 'Q1000', 'Q850', 'Q700', 'Q500', 'Q200', 'Q100', 'Q050', 'Q010', 'QBOT:A', 'U1000', 'U700', 'U500', 'U200', 'V1000', 'V700', 'V500', 'V100', 'V050', 'V010', 'VBOT', 'T1000', 'T850', 'T700','T500','T010','TBOT','Z1000', 'Z850', 'Z700', 'Z500', 'Z200', 'Z100', 'Z050', 'Z010','TROPF_P','TROPF_T','TROPF_Z'
  ! 6hourly (h2) I
@@ -165,9 +176,6 @@ cat << EOF >> user_nl_eam
  ! monthly (h6) I
  fincl7 = 'O3', 'PS', 'TROP_P'
 
-! Additional retuning
- clubb_tk1 = 268.15D0
- gw_convect_hcf = 10.0
 EOF
 
 cat << EOF >> user_nl_elm
@@ -293,6 +301,7 @@ case_setup() {
     pushd ${CASE_SCRIPTS_DIR}
 
     # Setup some CIME directories
+    ./xmlchange CIME_OUTPUT_ROOT=${CASE_RUN_DIR}
     ./xmlchange EXEROOT=${CASE_BUILD_DIR}
     ./xmlchange RUNDIR=${CASE_RUN_DIR}
 
@@ -364,11 +373,12 @@ case_build() {
         # Run CIME case.build
         ./case.build
 
-        # Some user_nl settings won't be updated to *_in files under the run directory
-        # Call preview_namelists to make sure *_in and user_nl files are consistent.
-        ./preview_namelists
-
     fi
+
+    # Some user_nl settings won't be updated to *_in files under the run directory
+    # Call preview_namelists to make sure *_in and user_nl files are consistent.
+    echo $'\n----- Preview namelists -----\n'
+    ./preview_namelists
 
     popd
 }
@@ -384,6 +394,9 @@ runtime_options() {
 
     # Segment length
     ./xmlchange STOP_OPTION=${STOP_OPTION,,},STOP_N=${STOP_N}
+
+    # End date
+    ./xmlchange STOP_DATE=${STOP_DATE}
 
     # Restart frequency
     ./xmlchange REST_OPTION=${REST_OPTION,,},REST_N=${REST_N}
@@ -412,14 +425,13 @@ runtime_options() {
     elif [ "${MODEL_START_TYPE,,}" == "branch" ] || [ "${MODEL_START_TYPE,,}" == "hybrid" ]; then
         ./xmlchange RUN_TYPE=${MODEL_START_TYPE,,}
         ./xmlchange GET_REFCASE=${GET_REFCASE}
-	./xmlchange RUN_REFDIR=${RUN_REFDIR}
+        ./xmlchange RUN_REFDIR=${RUN_REFDIR}
         ./xmlchange RUN_REFCASE=${RUN_REFCASE}
         ./xmlchange RUN_REFDATE=${RUN_REFDATE}
         echo 'Warning: $MODEL_START_TYPE = '${MODEL_START_TYPE} 
-	echo '$RUN_REFDIR = '${RUN_REFDIR}
-	echo '$RUN_REFCASE = '${RUN_REFCASE}
-	echo '$RUN_REFDATE = '${START_DATE}
- 
+        echo '$RUN_REFDIR = '${RUN_REFDIR}
+        echo '$RUN_REFCASE = '${RUN_REFCASE}
+        echo '$RUN_REFDATE = '${START_DATE}
     else
         echo 'ERROR: $MODEL_START_TYPE = '${MODEL_START_TYPE}' is unrecognized. Exiting.'
         exit 380
