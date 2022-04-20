@@ -18,8 +18,8 @@ set STOP_N=62
 set REST_OPTION=nmonths
 set REST_N=12
 
-set syr =  2012
-set eyr =  2012
+set syr =  2002
+set eyr =  2002
 @ yb = $syr
 @ ye = $eyr
 
@@ -29,8 +29,9 @@ set eyr =  2012
 #set embr =  5
 #set smbr =  6
 #set embr =  10
-set smbr =  6
-set embr =  6
+#set smbr =  2
+set smbr =  7
+set embr =  7
 
 @ mb = $smbr
 @ me = $embr

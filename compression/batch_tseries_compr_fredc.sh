@@ -1,4 +1,4 @@
-start_yr=2012
+start_yr=2002
 ensemble=007
 #SRC_PREFIX=/scratch1/06091/nanr/archive/
 SRC_PREFIX=/scratch1/06091/nanr/archive/
