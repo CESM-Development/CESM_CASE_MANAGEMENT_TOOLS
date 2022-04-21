@@ -1,0 +1,107 @@
+#!/bin/csh -f
+
+set PATH    = $STOCKYARD
+
+set rcp = 45
+if ( $rcp == 85 ) then 
+	set COMPSET = BRCP85C5)
+endif
+if ( $rcp == 60 ) then 
+	set COMPSET = BRCP60C5
+endif 
+if ( $rcp == 45 ) then 
+	set COMPSET = BRCP45C5 
+endif
+if ( $rcp == 26 ) then 
+	set COMPSET = BRCP26C5) 
+endif
+
+set RESOLN  = ne120_t12
+set MACHINE = frontera
+set TAG     = cesm-ihesp-hires1.0.42
+
+set mbr = 2
+setenv CASE b.e13.${COMPSET}.${RESOLN}.${TAG}.00${mbr}
+setenv REFCASE b.e13.BHISTC5.ne120_t12.cesm-ihesp-hires1.0.30-1920-2100.00${mbr}
+
+
+if ($MACHINE == frontera) then
+        set PATH      = $STOCKYARD
+        set RUNDIR    = $SCRATCH/$CASE/run
+        set BLDDIR    = $SCRATCH/$CASE/bld
+        set CASEROOT  = $STOCKYARD/frontera/cases/cesm13/$CASE
+        set TOOLSROOT = $HOME/CESM_tools/ihesp-tools/
+        set REFROOT   = $SCRATCH/archive/$REFCASE/rest/2006-01-01-00000
+        setenv CESMROOT ${STOCKYARD}/cesm_tags/${TAG}/
+else 
+        set PATH      = /glade/work/nanr/
+        set RUNDIR    = /glade/scratch/nanr/$CASE/run
+        set BLDDIR    = /glade/scratch/nanr/$CASE/bld
+        set CASEROOT  = /glade/work/nanr/ihesp-HiRes/cases/ne120_t12/$CASE
+        set TOOLSROOT = /glade/work/nanr/cesm_tags/CASE_tools/ihesp-tools/
+        set REFROOT   = /glade/scratch/nanr/archive/$REFCASE/rest/2006-01-01-00000
+        setenv CESMROOT /glade/work/nanr/cesm_tags/${TAG}/
+endif
+
+
+# ===========================================================
+# NOTE: # This is what Hong did because she did not have access to a BRCP85C5 compset
+# ===========================================================
+# ===========================================================
+# use compset:  BRCP85C5CN  but turn off CN
+# ===========================================================
+# 2)  modify env_build.xml:    ./xmlchange CLM_CONFIG_OPTS="-phys clm4_0"
+# 3)  Check for the change in env_build.xml
+# 		OLD:  "CLM_CONFIG_OPTS"   value="-phys clm4_0 -bgc cn" 
+# 	        NEW:  "CLM_CONFIG_OPTS"   value="-phys clm4_0" 
+# 4)  $CASE.clean_build
+# 5)  $CASE.build
+# 1850-2005:  BHISTC5
+# 2006-2100:  BRCP85C5CN  (turn off cn in the land model).
+# ===========================================================
+# ===========================================================
+
+echo $RUNDIR
+
+$CESMROOT/cime/scripts/create_newcase --case $CASEROOT --res $RESOLN  --mach $MACHINE --compset $COMPSET --pecount L --run-unsupported
+
+cd $CASEROOT
+#./case.setup
+
+./xmlchange NTASKS_CPL=28840
+./xmlchange NTASKS_ATM=28800
+./xmlchange NTASKS_LND=896
+./xmlchange NTASKS_ICE=27944
+./xmlchange ROOTPE_ICE=896
+./xmlchange NTASKS_OCN=16295
+./xmlchange ROOTPE_OCN=28840
+./xmlchange NTASKS_ROF=896
+./xmlchange NTASKS_GLC=1
+./xmlchange NTASKS_WAV=1
+
+./xmlchange RUN_REFCASE=$REFCASE
+./xmlchange RUN_REFDATE=2006-01-01
+./xmlchange RUN_STARTDATE=2006-01-01
+./xmlchange RUN_TYPE=hybrid
+./xmlchange GET_REFCASE=TRUE
+./xmlchange RUN_REFDIR=ccsm4_init
+./xmlchange STOP_OPTION=nyears
+./xmlchange STOP_N=4
+./xmlchange RESUBMIT=4
+./xmlchange DOUT_S_SAVE_INTERIM_RESTART_FILES=TRUE
+./xmlchange REST_N=1
+./xmlchange REST_OPTION=nyears
+
+./xmlchange --append CAM_CONFIG_OPTS=-cosp
+#./xmlchange CLM_CONFIG_OPTS="-phys clm4_0"
+
+cp $TOOLSROOT/user_nl_files/BRCPXX/* $CASEROOT/
+cp $TOOLSROOT/SourceMods/src.pop/*  $CASEROOT/SourceMods/src.pop/
+
+
+./case.setup --reset
+
+cp $REFROOT/rpoint*  $RUNDIR/
+ln -s $REFROOT/$REFCASE*  $RUNDIR/
+
+#./case.build
