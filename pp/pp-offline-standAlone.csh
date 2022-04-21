@@ -11,8 +11,8 @@ module load cesm_postprocessing
 
 # ...
 # case name counter
-set smbr =  12
-set embr =  12
+set smbr =  16
+set embr =  20
 
 @ mb = $smbr
 @ me = $embr
@@ -21,9 +21,9 @@ foreach mbr ( `seq $mb $me` )
 if ($mbr < 10) then
         #set CASE = b.e21.B1850cmip6.f09_g17.CESM2-SF-EE-SSP370.00${mbr}
         #set CASE = b.e21.B1850cmip6.f09_g17.CESM2-SF-GHG.00${mbr}
-        #set CASE = b.e21.B1850cmip6.f09_g17.CESM2-SF-AAER.00${mbr}
+        set CASE = b.e21.B1850cmip6.f09_g17.CESM2-SF-AAER.00${mbr}
         #set CASE = b.e21.B1850cmip6.f09_g17.CESM2-SF-GHG-SSP370.00${mbr}
-        set CASE = b.e21.B1850cmip6.f09_g17.CESM2-SF-EE.10${mbr}
+        #set CASE = b.e21.B1850cmip6.f09_g17.CESM2-SF-EE-SSP370.10${mbr}
         #set CASE = b.e21.B1850cmip6.f09_g17.CESM2-SF-BMB.00${mbr}
         #set CASE = b.e21.B1850cmip6.f09_g17.CESM2-SF-BMB-SSP370.00${mbr}
         #set CASE = b.e21.BHISTcmip6.f09_g17.CESM2-SF-xAER.00${mbr}
@@ -33,9 +33,10 @@ if ($mbr < 10) then
 else
         #set CASE = b.e21.B1850cmip6.f09_g17.CESM2-SF-EE-SSP370.1${mbr}
         #set CASE = b.e21.B1850cmip6.f09_g17.CESM2-SF-GHG.0${mbr}
-        #set CASE = b.e21.B1850cmip6.f09_g17.CESM2-SF-AAER.0${mbr}
+        set CASE = b.e21.B1850cmip6.f09_g17.CESM2-SF-AAER.0${mbr}
         #set CASE = b.e21.B1850cmip6.f09_g17.CESM2-SF-GHG-SSP370.0${mbr}
-        set CASE = b.e21.B1850cmip6.f09_g17.CESM2-SF-EE.1${mbr}
+        #set CASE = b.e21.B1850cmip6.f09_g17.CESM2-SF-EE.1${mbr}
+        #set CASE = b.e21.B1850cmip6.f09_g17.CESM2-SF-EE-SSP370.1${mbr}
         #set CASE = b.e21.B1850cmip6.f09_g17.CESM2-SF-BMB.0${mbr}
         #set CASE = b.e21.B1850cmip6.f09_g17.CESM2-SF-BMB-SSP370.0${mbr}
         #set CASE = b.e21.BHISTcmip6.f09_g17.CESM2-SF-xAER.0${mbr}
