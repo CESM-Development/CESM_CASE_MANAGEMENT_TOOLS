@@ -3,7 +3,7 @@
 setenv TOOLSROOT /glade/work/nanr/cesm_tags/CASE_tools/cesm2-2100ext-2deg/
 setenv CESMROOT /glade/work/nanr/cesm_tags/cesm2.1.4-rc.07
 
-set COMPSET = BSSP245cmip6
+set COMPSET = BSSP585cmip6
 set MACHINE = cheyenne
 set RESOLN = f19_g17
 set RESUBMIT = 7
@@ -12,11 +12,11 @@ set REST_N=5
 set STOP_OPTION=nyears
 set PROJECT=ULNL0002
 
-setenv SSP ssp245
+setenv SSP ssp585
 setenv REFDATE  2101-01-01
 setenv BASEROOT /glade/work/$USER/SSPX-2deg/
 setenv RUNROOT  /glade/scratch/$USER/
-setenv REFCASE  b.e21.BSSP245cmip6.f19_g17.CMIP6-SSP2-4.5.001
+setenv REFCASE  b.e21.BSSP585cmip6.f19_g17.CMIP6-SSP5-8.5.001
 
 mkdir $BASEROOT
 
@@ -34,7 +34,7 @@ if    ($mbr < 10) then
 else if ($mbr >= 10 )
 	setenv CASENAME b.e21.${COMPSET}.${RESOLN}.CMIP6-2100cycle.0${mbr}
 endif
-#setenv REFROOT  /glade/scratch/gunterl/archive/$REFCASE/2101-01-01-00000/
+#setenv REFROOT  /glade/scratch/mberdahl/archive/$REFCASE/2101-01-01-00000/
 setenv REFROOT  /glade/p/cesm/cseg/inputdata/cesm2_init/$REFCASE/2101-01-01-00000/
 echo $REFROOT
 
@@ -67,7 +67,7 @@ echo $REFROOT
   ./xmlchange NTASKS_WAV=108
   ./xmlchange ROOTPE_WAV=792
 
-   cp $TOOLSROOT/user_nl_files/ssp245-cycle2100/user_nl_* $CASEROOT/
+   cp $TOOLSROOT/user_nl_files/ssp585-cycle2100/user_nl_* $CASEROOT/
 
    mkdir -p $RUNROOT/$CASENAME/run/
    cp   $REFROOT/rpointer* $RUNROOT/$CASENAME/run/

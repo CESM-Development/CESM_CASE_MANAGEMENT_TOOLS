@@ -70,7 +70,9 @@ do_circulation_diags           = .true.
 
 
  ext_frc_cycle_yr       = 2100
- ext_frc_specifier      = 'H2O    -> /glade/p/cesmdata/cseg/inputdata/atm/cam/chem/emis/elev/H2OemissionCH4oxidationx2_3D_L70_2100climo_CMIP6ensAvg_SSP2-4.5_c20220223.nc',
+!!!  missing Methods in global attributes
+!!!  ext_frc_specifier      = 'H2O    -> /glade/p/cesmdata/cseg/inputdata/atm/cam/chem/emis/elev/H2OemissionCH4oxidationx2_3D_L70_2100climo_CMIP6ensAvg_SSP2-4.5_c20220223.nc',
+ ext_frc_specifier      = 'H2O    -> /glade/p/cesmdata/cseg/inputdata/atm/cam/chem/emis/elev/H2OemissionCH4oxidationx2_3D_L70_2100climo_CMIP6ensAvg_SSP2-4.5_c20220223nr.nc',
          'num_a1 -> /glade/p/cesmdata/cseg/inputdata/atm/cam/chem/emis/emissions_ssp245/emissions-cmip6-ScenarioMIP_IAMC-MESSAGE-GLOBIOM-ssp245-1-1_num_so4_a1_anthro-ene_vertical_mol_175001-210101_0.9x1.25_c20190222.nc',
          'num_a1 -> /glade/p/cesmdata/cseg/inputdata/atm/cam/chem/emis/CMIP6_emissions_1750_2015/emissions-cmip6_num_a1_so4_contvolcano_vertical_850-5000_0.9x1.25_c20200320.nc',
          'num_a2 -> /glade/p/cesmdata/cseg/inputdata/atm/cam/chem/emis/CMIP6_emissions_1750_2015/emissions-cmip6_num_a2_so4_contvolcano_vertical_850-5000_0.9x1.25_c20200320.nc',
@@ -117,25 +119,11 @@ do_circulation_diags           = .true.
  xs_long_file           = '/glade/p/cesmdata/cseg/inputdata/atm/waccm/phot/temp_prs_GT200nm_JPL10_c140624.nc'
 /
 
-!!&chem_surfvals_nl
-!!flbc_file              = '/glade/p/cesmdata/cseg/inputdata/atm/waccm/lb/LBC_2014-2500_CMIP6_SSP245_0p5degLat_GlobAnnAvg_c190301.nc'
-!!flbc_list              = 'CO2','CH4','N2O','CFC11eq','CFC12'
-!!flbc_cycle_yr          = 2100
-!!flbc_type              = 'CYCLICAL'
-!!scenario_ghg           = 'CHEM_LBC_FILE'
-!!/
-
-!f11vmr         =    12.48e-12  
-!CFC11eq_LBC    =    7.401376e-10
-!CF2CL2_LBC = 2.14804e-10
-
 &chem_surfvals_nl
- ch4vmr         =    1.68316e-06
- co2vmr         =    0.000602782
- f11vmr         =    7.401376e-10
- f12vmr         =    0.0        
- flbc_list              = ' '
- n2ovmr         =    3.772637e-07
+  flbc_file              = '/glade/work/nanr/SSPX-2deg/LBC_2014-2500_CMIP6_SSP245_0p5degLat_GlobAnnAvg_2100values.20220223.nc'
+  flbc_list              = 'CO2','CH4','N2O','CFC11eq','CFC12'
+  flbc_type              = 'SERIAL'
+  scenario_ghg           = 'CHEM_LBC_FILE'
 /
 
 
@@ -155,10 +143,33 @@ do_circulation_diags           = .true.
  prescribed_strataero_use_chemtrop      =  .true.                                                                       
 /
 
+!&solar_data_opts
+ !solar_data_type                = 'FIXED'
+ !solar_data_ymd                 =  21000101                                                
+ !solar_htng_spctrl_scl          = .true.
+ !solar_irrad_data_file          = '/glade/p/cesmdata/cseg/inputdata/atm/cam/solar/SolarForcingCMIP6_18491230-22991231_c171031.nc'
+!/
+
 &solar_data_opts
- solar_data_type                = 'FIXED'
- solar_data_ymd                 =  21000101                                                
+ solar_data_type                = 'SERIAL'
+ solar_data_ymd         = -99999999
  solar_htng_spctrl_scl          = .true.
- solar_irrad_data_file          = '/glade/p/cesmdata/cseg/inputdata/atm/cam/solar/SolarForcingCMIP6_18491230-22991231_c171031.nc'
+ solar_irrad_data_file          = '/glade/p/cesmdata/cseg/inputdata/atm/cam/solar/SolarForcingCMIP6-3.2_18491231-26490629_sumEPP_c20220114.nc'
 /
+
+&co2_cycle_nl
+ co2_flag               = .true.
+ co2_readflux_aircraft          = .true.
+ co2_readflux_fuel              = .true.
+ co2flux_fuel_file              = '/glade/p/cesmdata/cseg/inputdata/atm/cam/ggas/emissions-cmip6_CO2_anthro_surface_ScenarioMIP_IAMC-AIM-ssp245ext_209901-250112_fv_1.9x2.5_c20220308.nc'
+/
+
+&aircraft_emit_nl
+ aircraft_datapath              = '/glade/p/cesmdata/cseg/inputdata/atm/cam/ggas'
+ aircraft_specifier             = 'ac_CO2 -> emissions-cmip6_CO2_anthro_ac_ScenarioMIP_IAMC-AIM-ssp245ext_209901-250112_fv_1.9x2.5_c20220308.txt'
+!aircraft_datapath              = '/glade/scratch/nanr/SSPX-2deg/'
+!aircraft_specifier             = 'ac_CO2 -> emissions-cmip6_CO2_anthro_ac_ScenarioMIP_IAMC-MESSAGE-GLOBIOM-ssp245_2100ext_209901-250112_fv_0.9x1.25_cdf5.20220305.txt'
+ aircraft_type          = 'SERIAL'
+/
+
 
