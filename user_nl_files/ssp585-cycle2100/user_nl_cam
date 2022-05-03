@@ -141,10 +141,26 @@ do_circulation_diags           = .true.
  prescribed_strataero_use_chemtrop      =  .true.                                                                       
 /
 
+
 &solar_data_opts
- solar_data_type                = 'FIXED'
- solar_data_ymd                 =  21000101                                                
+ solar_data_type                = 'SERIAL'
+ solar_data_ymd         = -99999999
  solar_htng_spctrl_scl          = .true.
- solar_irrad_data_file          = '/glade/p/cesmdata/cseg/inputdata/atm/cam/solar/SolarForcingCMIP6_18491230-22991231_c171031.nc'
+ solar_irrad_data_file          = '/glade/p/cesmdata/cseg/inputdata/atm/cam/solar/SolarForcingCMIP6-3.2_18491231-26490629_sumEPP_c20220114.nc'
 /
 
+!!  NOTE: Have to include the aircraft_co2_file path because the ssp585_cam.xml usecase has a typo 
+!!  in it with an incomplete path.  Model will not run without this line in the github version of cesm2.1.4-rc.XX
+&aircraft_emit_nl
+ aircraft_co2_file              = '/glade/p/cesmdata/cseg/inputdata/atm/cam/ggas/emissions-cmip6_CO2_anthro_ac_ScenarioMIP_IAMC-REMIND-MAGPIE-ssp585ext_209901-230012_fv_1.9x2.5_c20211109.nc'
+ aircraft_datapath              = '/glade/p/cesmdata/cseg/inputdata/atm/cam/ggas'
+ aircraft_specifier             = 'ac_CO2 -> emissions-cmip6_CO2_anthro_ac_ScenarioMIP_IAMC-REMIND-MAGPIE-ssp585ext_209901-230012_fv_1.9x2.5_c20211109.txt'
+ aircraft_type          = 'SERIAL'
+/
+
+&co2_cycle_nl
+ co2_flag               = .true.
+ co2_readflux_aircraft          = .true.
+ co2_readflux_fuel              = .true.
+ co2flux_fuel_file              = '/glade/p/cesmdata/cseg/inputdata/atm/cam/ggas/emissions-cmip6_CO2_anthro_surface_ScenarioMIP_IAMC-REMIND-MAGPIE-ssp585ext_209901-230012_fv_1.9x2.5_c20200830.nc'
+/

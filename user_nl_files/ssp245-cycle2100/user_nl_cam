@@ -143,12 +143,6 @@ do_circulation_diags           = .true.
  prescribed_strataero_use_chemtrop      =  .true.                                                                       
 /
 
-!&solar_data_opts
- !solar_data_type                = 'FIXED'
- !solar_data_ymd                 =  21000101                                                
- !solar_htng_spctrl_scl          = .true.
- !solar_irrad_data_file          = '/glade/p/cesmdata/cseg/inputdata/atm/cam/solar/SolarForcingCMIP6_18491230-22991231_c171031.nc'
-!/
 
 &solar_data_opts
  solar_data_type                = 'SERIAL'
@@ -167,8 +161,6 @@ do_circulation_diags           = .true.
 &aircraft_emit_nl
  aircraft_datapath              = '/glade/p/cesmdata/cseg/inputdata/atm/cam/ggas'
  aircraft_specifier             = 'ac_CO2 -> emissions-cmip6_CO2_anthro_ac_ScenarioMIP_IAMC-AIM-ssp245ext_209901-250112_fv_1.9x2.5_c20220308.txt'
-!aircraft_datapath              = '/glade/scratch/nanr/SSPX-2deg/'
-!aircraft_specifier             = 'ac_CO2 -> emissions-cmip6_CO2_anthro_ac_ScenarioMIP_IAMC-MESSAGE-GLOBIOM-ssp245_2100ext_209901-250112_fv_0.9x1.25_cdf5.20220305.txt'
  aircraft_type          = 'SERIAL'
 /
 

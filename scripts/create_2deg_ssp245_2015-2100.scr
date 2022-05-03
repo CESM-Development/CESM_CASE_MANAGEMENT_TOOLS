@@ -53,8 +53,7 @@ echo $REFROOT
   ./xmlchange STOP_N=$STOP_N
   ./xmlchange REST_N=$REST_N
   ./xmlchange PROJECT=$PROJECT
-
-
+  ./xmlchange OCN_TRACER_MODULES="iage ecosys"
 
   ./xmlchange NTASKS_CPL=900
   ./xmlchange NTASKS_ATM=900
