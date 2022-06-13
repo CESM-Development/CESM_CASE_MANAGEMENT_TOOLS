@@ -1,0 +1,36 @@
+#!/bin/csh -fx
+### set env variables
+setenv CESM2_LE_TOOLS_ROOT /glade/work/nanr/cesm_tags/CASE_tools/cesm2-covid/
+setenv CESMROOT /glade/work/nanr/cesm_tags/release-cesm2.1.2/
+
+
+set COMPSET = BSSP245cmip6
+set SIMULAT = COVID-cvd-aufire
+set RESOLN = f09_g17
+
+setenv BASEROOT /glade/work/nanr/ENSO-BB/
+
+set smbr =  4
+set embr =  20
+
+@ mb = $smbr
+@ me = $embr
+
+foreach mbr ( `seq $mb  $me` )
+
+if    ($mbr < 10) then
+	setenv CASENAME b.e21.BHISTsmbb.f09_g17.LE2-1251.016-ENSO-BB-el5BBcmp.00${mbr}
+else if ($mbr >= 10 && $mbr < 100) then
+	setenv CASENAME b.e21.BHISTsmbb.f09_g17.LE2-1251.016-ENSO-BB-el5BBcmp.0${mbr}
+endif
+
+  setenv CASEROOT  $BASEROOT$CASENAME
+  cd $CASEROOT
+
+  ./xmlchange STOP_N=1
+  ./case.submit
+
+end
+
+exit
+

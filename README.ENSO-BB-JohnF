@@ -1,0 +1,36 @@
+I’m currently putting together a study to look at the effects of BB emissions on ENSO. To do this I’ll need a set of emissions that “typical” of a strong El Niño and a set that are typical of a strong La Niña - perhaps a 3 yr record where yrs 2/3 are roughly climatological. 
+
+Does a best approach for doing this come to mind? For example I’m thinking of merely averaging together the observed 1997/98 and 2015/16 years for El Niño, and 1998/1999 and 2010/11 years for La Niña?
+
+Interested in being involved in the work?
+
+---------------------------
+
+AGU OS 2022
+
+The influence of recent major wildfires on ENSO
+
+J. Fasullo, N. Rosenbloom, and R. Buchholz
+
+Major wildfire seasons in recent years include the exceptional fire outbreaks in Eurasia and North America in 2017 and 2018, and in the Amazon and Australia from 2019 through 2020. These events are known to inject considerable biomass and particulate organic matter into the atmosphere, absorbing solar radiation, reflecting it to space, and altering the optical properties of clouds on regional scales. But are these effects strong enough to influence the occurrence of the El Niño / Southern Oscillation (ENSO)?
+
+In this work, simulation ensembles using the Community Earth System Model Version 2 (CESM2) are produced to estimate the impact of recent wildfires on the evolution of ENSO. It is found that recent fires altered the inter-hemispheric radiative imbalance, thereby displacing the ITCZ into the opposing hemisphere. While a distinct set of mechanisms characterizes the cooling response to wildfires, the associated ITCZ shift is consistent with that seen following major volcanic eruptions in that it shifts away from the cooled hemisphere in order to enhance cross equatorial transports of dry static energy and reduce inter-hemispheric thermal contrasts. In turn, the ITCZ shift increases the probability of El Niño for northern hemisphere fires and La Niña for southern hemisphere fires. The role of tropical fires in ENSO is also explored.--------------------
+
+Hi John,
+
+The ENSO climatology of monthly fire emissions have been created and are here:
+"El Niño" - /glade/work/buchholz/emis/gfed_climatology/elnino
+"La Niña" - /glade/work/buchholz/emis/gfed_climatology/lanina
+
+To summarize, the averages are of:
+El Niño  Yr0: 1997, 2009, 2015
+              Yr1: 1998, 2010, 2016
+              Yr2: 1999, 2011, 2017
+La Niña Yr0: 1998, 2007, 2010
+              Yr1: 1999, 2008, 2011
+              Yr2: 2000, 2009, 2012
+
+I have arbitrarily created both files starting at 2000. The emissions look different to the 2000-2018 climatology, e.g.
+
+
+Let me know if you have any questions or find any issues with the files.

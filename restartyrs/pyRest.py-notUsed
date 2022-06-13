@@ -1,0 +1,8 @@
+#!/bin/csh -fx
+
+
+a = ["b.e21.BHISTsmbb.f09_g17.LE2-1251.020",  "b.e21.BHISTsmbb.f09_g17.LE2-1231.012", "b.e21.BHISTsmbb.f09_g17.LE2-1231.020"]
+b = [2000, 2010, 2010]
+
+for i in range(len(a)):
+    print ("here I am " + a[i] +"=="+ b[i])

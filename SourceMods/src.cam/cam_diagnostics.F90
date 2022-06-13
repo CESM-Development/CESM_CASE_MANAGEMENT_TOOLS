@@ -61,7 +61,9 @@ character(len=8) :: diag_cnst_conv_tend = 'q_only' ! output constituent tendenci
                                                    ! 'none', 'q_only' or 'all'
 
 integer, parameter :: surf_100000 = 1
+integer, parameter :: surf_095000 = 2
 integer, parameter :: surf_092500 = 2
+integer, parameter :: surf_090000 = 2
 integer, parameter :: surf_085000 = 3
 integer, parameter :: surf_070000 = 4
 integer, parameter :: nsurf = 4
@@ -248,7 +250,9 @@ contains
     call addfld ('PSL',        horiz_only,  'A', 'Pa','Sea level pressure')
 
     call addfld ('T1000',      horiz_only,  'A', 'K','Temperature at 1000 mbar pressure surface')
+    call addfld ('T950',       horiz_only,  'A', 'K','Temperature at  950 mbar pressure surface')
     call addfld ('T925',       horiz_only,  'A', 'K','Temperature at  925 mbar pressure surface')
+    call addfld ('T900',       horiz_only,  'A', 'K','Temperature at  900 mbar pressure surface')
     call addfld ('T850',       horiz_only,  'A', 'K','Temperature at  850 mbar pressure surface')
     call addfld ('T700',       horiz_only,  'A', 'K','Temperature at  700 mbar pressure surface')
     call addfld ('T500',       horiz_only,  'A', 'K','Temperature at  500 mbar pressure surface')
@@ -271,6 +275,8 @@ contains
     call addfld ('TT',         (/ 'lev' /), 'A', 'K2','Eddy temperature variance' )
 
     call addfld ('U1000',      horiz_only,  'A', 'm/s','Zonal wind at 1000 mbar pressure surface')
+    call addfld ('U950',       horiz_only,  'A', 'm/s','Zonal wind at  950 mbar pressure surface')
+    call addfld ('U900',       horiz_only,  'A', 'm/s','Zonal wind at  900 mbar pressure surface')
     call addfld ('U850',       horiz_only,  'A', 'm/s','Zonal wind at  850 mbar pressure surface')
     call addfld ('U700',       horiz_only,  'A', 'm/s','Zonal wind at  700 mbar pressure surface')
     call addfld ('U500',       horiz_only,  'A', 'm/s','Zonal wind at  500 mbar pressure surface')
@@ -281,6 +287,8 @@ contains
     call addfld ('U050',       horiz_only,  'A', 'm/s','Zonal wind at   50 mbar pressure surface')
     call addfld ('U010',       horiz_only,  'A', 'm/s','Zonal wind at   10 mbar pressure surface')
     call addfld ('V1000',      horiz_only,  'A', 'm/s','Meridional wind at 1000 mbar pressure surface')
+    call addfld ('V950',       horiz_only,  'A', 'm/s','Meridional wind at  950 mbar pressure surface')
+    call addfld ('V900',       horiz_only,  'A', 'm/s','Meridional wind at  900 mbar pressure surface')
     call addfld ('V850',       horiz_only,  'A', 'm/s','Meridional wind at  850 mbar pressure surface')
     call addfld ('V700',       horiz_only,  'A', 'm/s','Meridional wind at  700 mbar pressure surface')
     call addfld ('V500',       horiz_only,  'A', 'm/s','Meridional wind at  500 mbar pressure surface')
@@ -292,6 +300,8 @@ contains
     call addfld ('V010',       horiz_only,  'A', 'm/s','Meridional wind at   10 mbar pressure surface')
 
     call register_vector_field('U1000', 'V1000')
+    call register_vector_field('U950', 'V950')
+    call register_vector_field('U900', 'V900')
     call register_vector_field('U850', 'V850')
     call register_vector_field('U700', 'V700')
     call register_vector_field('U500', 'V500')
@@ -480,7 +490,9 @@ contains
     call addfld ('THE9251000', horiz_only,  'A', 'K','ThetaE difference 925 mb - 1000 mb')
 
     call addfld ('Q1000',      horiz_only,  'A', 'kg/kg','Specific Humidity at 1000 mbar pressure surface')
+    call addfld ('Q950',       horiz_only,  'A', 'kg/kg','Specific Humidity at 950 mbar pressure surface')
     call addfld ('Q925',       horiz_only,  'A', 'kg/kg','Specific Humidity at 925 mbar pressure surface')
+    call addfld ('Q900',       horiz_only,  'A', 'kg/kg','Specific Humidity at 900 mbar pressure surface')
     call addfld ('Q850',       horiz_only,  'A', 'kg/kg','Specific Humidity at 850 mbar pressure surface')
     call addfld ('Q700',       horiz_only,  'A', 'kg/kg','Specific Humidity at 700 mbar pressure surface')
     call addfld ('Q500',       horiz_only,  'A', 'kg/kg','Specific Humidity at 500 mbar pressure surface')
@@ -1187,6 +1199,14 @@ contains
       call vertinterp(ncol, pcols, pver, state%pmid, 100000._r8, state%u, p_surf)
       call outfld('U1000    ', p_surf, pcols, lchnk )
     end if
+    if (hist_fld_active('U950')) then
+      call vertinterp(ncol, pcols, pver, state%pmid, 95000._r8, state%u, p_surf)
+      call outfld('U950    ', p_surf, pcols, lchnk )
+    end if
+    if (hist_fld_active('U900')) then
+      call vertinterp(ncol, pcols, pver, state%pmid, 90000._r8, state%u, p_surf)
+      call outfld('U900    ', p_surf, pcols, lchnk )
+    end if
     if (hist_fld_active('U850')) then
       call vertinterp(ncol, pcols, pver, state%pmid, 85000._r8, state%u, p_surf)
       call outfld('U850    ', p_surf, pcols, lchnk )
@@ -1226,6 +1246,14 @@ contains
     if (hist_fld_active('V1000')) then
       call vertinterp(ncol, pcols, pver, state%pmid, 100000._r8, state%v, p_surf)
       call outfld('V1000    ', p_surf, pcols, lchnk )
+    end if
+    if (hist_fld_active('V950')) then
+      call vertinterp(ncol, pcols, pver, state%pmid, 95000._r8, state%v, p_surf)
+      call outfld('V950    ', p_surf, pcols, lchnk )
+    end if
+    if (hist_fld_active('V900')) then
+      call vertinterp(ncol, pcols, pver, state%pmid, 90000._r8, state%v, p_surf)
+      call outfld('V900    ', p_surf, pcols, lchnk )
     end if
     if (hist_fld_active('V850')) then
       call vertinterp(ncol, pcols, pver, state%pmid, 85000._r8, state%v, p_surf)
@@ -1286,10 +1314,18 @@ contains
       call vertinterp(ncol, pcols, pver, state%pmid, 100000._r8, state%t, p_surf_t(:,surf_100000))
     end if
 
+    if ( hist_fld_active('T950'))      then
+      call vertinterp(ncol, pcols, pver, state%pmid, 95000._r8, state%t, p_surf_t(:,surf_095000))
+    end if
+
     if ( hist_fld_active('T925')       .or. &
          hist_fld_active('T9251000')   .or. &
          hist_fld_active('TH9251000')) then
       call vertinterp(ncol, pcols, pver, state%pmid, 92500._r8, state%t, p_surf_t(:,surf_092500))
+    end if
+
+    if ( hist_fld_active('T900'))      then
+      call vertinterp(ncol, pcols, pver, state%pmid, 90000._r8, state%t, p_surf_t(:,surf_090000))
     end if
 
 !!! at 1000 mb and 925 mb
@@ -1297,8 +1333,16 @@ contains
       call outfld('T1000    ', p_surf_t(:,surf_100000), pcols, lchnk )
     end if
 
+    if (hist_fld_active('T950')) then
+      call outfld('T950    ', p_surf_t(:,surf_095000), pcols, lchnk )
+    end if
+
     if (hist_fld_active('T925')) then
       call outfld('T925    ', p_surf_t(:,surf_092500), pcols, lchnk )
+    end if
+
+    if (hist_fld_active('T900')) then
+      call outfld('T900    ', p_surf_t(:,surf_090000), pcols, lchnk )
     end if
 
     if (hist_fld_active('T9251000')) then
@@ -1614,8 +1658,16 @@ contains
       call outfld('Q1000    ', p_surf_q1, pcols, lchnk )
     end if
 
+    if (hist_fld_active('Q950')) then
+      call outfld('Q950    ', p_surf_q2, pcols, lchnk )
+    end if
+
     if (hist_fld_active('Q925')) then
       call outfld('Q925    ', p_surf_q2, pcols, lchnk )
+    end if
+
+    if (hist_fld_active('Q900')) then
+      call outfld('Q900    ', p_surf_q2, pcols, lchnk )
     end if
 
     if (hist_fld_active('THE9251000')) then
