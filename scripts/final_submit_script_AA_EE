@@ -72,7 +72,7 @@ endif
   ./xmlchange RUN_REFCASE=$REFCASE
   ./xmlchange RUN_REFDATE=$REFDATE-01-01
   ./xmlchange RUN_STARTDATE=1850-01-01
-  ./xmlchange GET_REFCASE=FALSE
+  ./xmlchange GET_REFCASE=TRUE
 
 if ($MACHINE == cheyenne) then
   ./xmlchange PROJECT=$PROJECT
@@ -100,6 +100,7 @@ endif
   cp -r $TOOLSROOT/SourceMods $CASEROOT/
 
   cp $TOOLSROOT/user_nl_files/hist_AA_EE/* $CASEROOT/
+  cp $TOOLSROOT/user_nl_files/hist_AA_EE/user_nl_clm-1850-2014 $CASEROOT/user_nl_clm
   cp $TOOLSROOT/user_nl_files/hist_AA_EE/user_nl_cam_AA_EE $CASEROOT/user_nl_cam
 
   ./case.setup
