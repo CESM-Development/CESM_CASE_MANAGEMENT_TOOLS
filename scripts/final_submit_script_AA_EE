@@ -37,10 +37,8 @@ else
 endif
 
  #case name counter
-set smbr =  1
-set embr =  1
-#set smbr =  6
-#set embr =  10
+set smbr =  2
+set embr =  5
 
 @ mb = $smbr
 @ me = $embr
@@ -49,7 +47,7 @@ set embr =  1
 @ mmm = ($smbr * 2) - 1
 
 @ mbr = $mb 
-#foreach mbr ( `seq $mb  $me` )
+foreach mbr ( `seq $mb  $me` )
 
 @ USE_REFDATE = 1001 + ( $mmm - 1 ) * 10
 @ mmm+=2
@@ -115,8 +113,8 @@ endif
 
 # ./preview_namelists
 
-# ./case.build >& bld.`date +%m%d-%H%M`
-#end             # member loop
+ ./case.build >& bld.`date +%m%d-%H%M`
+end             # member loop
 
 
 
