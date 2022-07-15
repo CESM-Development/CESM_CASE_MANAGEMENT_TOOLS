@@ -92,7 +92,7 @@ cd $CASEROOT
 ./xmlchange REST_N=1
 ./xmlchange REST_OPTION=nyears
 
-./xmlchange --append CAM_CONFIG_OPTS=-cosp
+#./xmlchange --append CAM_CONFIG_OPTS=-cosp
 #./xmlchange CLM_CONFIG_OPTS="-phys clm4_0"
 
 cp $TOOLSROOT/user_nl_files/BRCPXX/* $CASEROOT/
