@@ -1,0 +1,16 @@
+# ===========================================================
+# NOTE: # This is what Hong did because she did not have access to a BRCP85C5 compset
+# ===========================================================
+# ===========================================================
+# use compset:  BRCP85C5CN  but turn off CN
+# ===========================================================
+# 2)  modify env_build.xml:    ./xmlchange CLM_CONFIG_OPTS="-phys clm4_0"
+# 3)  Check for the change in env_build.xml
+#               OLD:  "CLM_CONFIG_OPTS"   value="-phys clm4_0 -bgc cn" 
+#               NEW:  "CLM_CONFIG_OPTS"   value="-phys clm4_0" 
+# 4)  $CASE.clean_build
+# 5)  $CASE.build
+# 1850-2005:  BHISTC5
+# 2006-2100:  BRCP85C5CN  (turn off cn in the land model).
+# ===========================================================
+# ===========================================================
