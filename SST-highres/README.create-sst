@@ -1,0 +1,21 @@
+Step 1:  createSST-4-hiresAMIP.ncl
+Create SST files by combining tos and siconc files, removing extra leap years.
+
+Step 2:  Fred's python script corrects gap in time, left in leap years
+
+	The files with cleanly removed leap day are here:
+	/glade/scratch/fredc/SST-highres
+
+	The python script I used here 
+	/glade/u/home/fredc/For_Nan/remove_leap_day_HighResMIP_inputs.py
+
+Step 3:   fill background values
+	fill-SST.ncl
+
+
+    print((/"Filling in missing values in SST and SEAICE..."/))
+    poisson_grid_fill(SST, True, 1, 500, 0.01, 0.6, 0)
+    poisson_grid_fill(SEAICE, True, 1, 500, 0.01, 0.6, 0)
+
+/glade/u/home/nanr/cases/cesm11/pacemaker-Polar/mkConsistentSST_ice > less step1_create_timeseries.nr.ncl
+

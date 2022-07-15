@@ -1,0 +1,64 @@
+      <dataSource>
+         GENERIC
+      </dataSource>
+      <domainInfo>
+         <variableNames>
+            time    time
+            lon      lon
+            lat      lat
+            area    area
+            mask    mask
+         </variableNames>
+         <filePath>
+            /glade/p/work/dbailey/ds277.7/avhrr-amsr
+         </filePath>
+         <fileNames>
+            avhrr-only-v2.19810901_cat_19811231_filled_c130826.nc
+         </fileNames>
+      </domainInfo>
+      <fieldInfo>
+         <variableNames>
+            ice_cov ice_cov
+         </variableNames>
+         <filePath>
+            /glade/p/work/dbailey/ds277.7/avhrr-amsr
+         </filePath>
+         <fileNames>
+            avhrr-only-v2.19810901_cat_19811231_filled_c130826.nc
+            avhrr-only-v2.19820101_cat_19821231_filled_c130826.nc
+            avhrr-only-v2.19830101_cat_19831231_filled_c130826.nc
+            avhrr-only-v2.19840101_cat_19841231_filled_c130826.nc
+            avhrr-only-v2.19850101_cat_19851231_filled_c130829.nc
+            avhrr-only-v2.19860101_cat_19861231_filled_c130829.nc
+            avhrr-only-v2.19870101_cat_19871231_filled_c130829.nc
+            avhrr-only-v2.19880101_cat_19881231_filled_c130829.nc
+            avhrr-only-v2.19890101_cat_19891231_filled_c130829.nc
+            avhrr-only-v2.19900101_cat_19901231_filled_c130829.nc
+            avhrr-only-v2.19910101_cat_19911231_filled_c130829.nc
+            avhrr-only-v2.19920101_cat_19921231_filled_c130829.nc
+            avhrr-only-v2.19930101_cat_19931231_filled_c130829.nc
+            avhrr-only-v2.19940101_cat_19941231_filled_c130829.nc
+            avhrr-only-v2.19950101_cat_19951231_filled_c130829.nc
+            avhrr-only-v2.19960101_cat_19961231_filled_c130829.nc
+            avhrr-only-v2.19970101_cat_19971231_filled_c130829.nc
+            avhrr-only-v2.19980101_cat_19981231_filled_c130829.nc
+            avhrr-only-v2.19990101_cat_19991231_filled_c130829.nc
+            avhrr-only-v2.20000101_cat_20001231_filled_c130829.nc
+            avhrr-only-v2.20010101_cat_20011231_filled_c130829.nc
+            avhrr-only-v2.20020101_cat_20021231_filled_c130829.nc
+            avhrr-only-v2.20030101_cat_20031231_filled_c130829.nc
+            avhrr-only-v2.20040101_cat_20041231_filled_c130829.nc
+            avhrr-only-v2.20050101_cat_20051231_filled_c130829.nc
+            avhrr-only-v2.20060101_cat_20061231_filled_c130829.nc
+            avhrr-only-v2.20070101_cat_20071231_filled_c130829.nc
+            avhrr-only-v2.20080101_cat_20081231_filled_c130829.nc
+            avhrr-only-v2.20090101_cat_20091231_filled_c130829.nc
+            avhrr-only-v2.20100101_cat_20101231_filled_c130829.nc
+            avhrr-only-v2.20110101_cat_20111231_filled_c130829.nc
+            avhrr-only-v2.20120101_cat_20121231_filled_c130829.nc
+            avhrr-only-v2.20130101_cat_20130731_filled_c130829.nc
+         </fileNames>
+         <offset>
+            0
+         </offset>
+      </fieldInfo>
