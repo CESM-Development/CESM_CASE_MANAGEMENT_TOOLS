@@ -1,0 +1,24 @@
+name: dycorediag
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.6
+  - esmpy
+  - xesmf
+  - pandas
+  - xarray
+  - ipykernel
+  - scipy
+  - cftime
+  - dask
+  - matplotlib
+  - bottleneck
+  - netcdf4
+  - xrft
+  - pyshp
+  - geopandas
+  - pooch
+  - regionmask
+  - statsmodels
+  - dask-jobqueue

@@ -1,0 +1,33 @@
+Malcolm also e-mailed me and told me that the SST and sea-ice forcing data is available from input4MIPs https://esgf-node.llnl.gov/search/input4mips/ (search for HighResMIP and take the highresSST-present datasets).
+
+/glade/scratch/nanr/SST-highres/future > bash wget-20200106092410.sh -H
+Running wget-20200106092410.sh version: 1.3.2
+Use wget-20200106092410.sh -h for help.
+
+Script created for 36 file(s)
+(The count won't match if you manually edit this file!)
+
+
+
+Retrieving Federation Certificates...--2020-01-06 10:30:33--  https://github.com/ESGF/esgf-dist/raw/master/installer/certs/esg-truststore.ts
+Resolving github.com... 192.30.253.113
+Connecting to github.com|192.30.253.113|:443... connected.
+HTTP request sent, awaiting response... 302 Found
+Location: https://raw.githubusercontent.com/ESGF/esgf-dist/master/installer/certs/esg-truststore.ts [following]
+--2020-01-06 10:30:34--  https://raw.githubusercontent.com/ESGF/esgf-dist/master/installer/certs/esg-truststore.ts
+Resolving raw.githubusercontent.com... 151.101.0.133, 151.101.64.133, 151.101.128.133, ...
+Connecting to raw.githubusercontent.com|151.101.0.133|:443... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 60700 (59K) [video/mp2t]
+Saving to: ‘/glade/u/home/nanr/.esg/esg-truststore.ts’
+
+/glade/u/home/nanr/.esg/esg-truststore.ts      100%[==================================================================================================>]  59.28K  --.-KB/s    in 0.005s
+
+2020-01-06 10:30:34 (11.0 MB/s) - ‘/glade/u/home/nanr/.esg/esg-truststore.ts’ saved [60700/60700]
+
+done!
+Enter your openid : https://esgf-node.llnl.gov/esgf-idp/openid/nanrosenbloom
+Enter password : Zefat.222000
+
+
+conda activate dycorediag
