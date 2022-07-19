@@ -69,7 +69,7 @@ fincl2 = 'ACTNL:A', 'ACTREL:A', 'BURDENBCdn:A', 'BURDENDUSTdn:A', 'BURDENPOMdn:A
 do_circulation_diags           = .true.
 
 
- ext_frc_cycle_yr       = 2100
+ ext_frc_cycle_yr               = 2100
  ext_frc_specifier              = 'H2O ->  /glade/p/cesmdata/cseg/inputdata/atm/cam/chem/emis/elev/H2OemissionCH4oxidationx2_3D_L70_2100clim_CMIP6-SSP5-8.5_c20220317.nc',
          'num_a1 -> /glade/p/cesmdata/cseg/inputdata/atm/cam/chem/emis/emissions_ssp585/emissions-cmip6-ScenarioMIP_IAMC-REMIND-MAGPIE-ssp585-1-1_num_so4_a1_anthro-ene_vertical_mol_175001-210101_0.9x1.25_c20190224.nc',
          'num_a1 -> /glade/p/cesmdata/cseg/inputdata/atm/cam/chem/emis/CMIP6_emissions_1750_2015/emissions-cmip6_num_a1_so4_contvolcano_vertical_850-5000_0.9x1.25_c20200320.nc',
@@ -79,7 +79,6 @@ do_circulation_diags           = .true.
          'so4_a1 -> /glade/p/cesmdata/cseg/inputdata/atm/cam/chem/emis/CMIP6_emissions_1750_2015/emissions-cmip6_so4_a1_contvolcano_vertical_850-5000_0.9x1.25_c20200320.nc',
          'so4_a2 -> /glade/p/cesmdata/cseg/inputdata/atm/cam/chem/emis/CMIP6_emissions_1750_2015/emissions-cmip6_so4_a2_contvolcano_vertical_850-5000_0.9x1.25_c20200320.nc'
  ext_frc_type           = 'CYCLICAL'
-
 
  srf_emis_cycle_yr              = 2100
  srf_emis_specifier             = 'bc_a4    -> /glade/p/cesmdata/cseg/inputdata/atm/cam/chem/emis/emissions_ssp585/emissions-cmip6-ScenarioMIP_IAMC-REMIND-MAGPIE-ssp585-1-1_bc_a4_anthro_surface_mol_175001-210101_0.9x1.25_c20190224.nc',
@@ -116,15 +115,6 @@ do_circulation_diags           = .true.
  xs_long_file           = '/glade/p/cesmdata/cseg/inputdata/atm/waccm/phot/temp_prs_GT200nm_JPL10_c140624.nc'
 /
 
-
-&chem_surfvals_nl
- flbc_file              = '/glade/work/nanr/SSPX-2deg/LBC_2014-2500_CMIP6_SSP585_0p5degLat_GlobAnnAvg_2100values.20220430.nc'
- flbc_list              = 'CO2','CH4','N2O','CFC11eq','CFC12'
- flbc_type              = 'SERIAL'
- scenario_ghg           = 'CHEM_LBC_FILE'
-/
-
-
 &prescribed_ozone_nl
  prescribed_ozone_cycle_yr      = 2100
  prescribed_ozone_datapath      = '/glade/p/cesmdata/cseg/inputdata/atm/cam/ozone_strataero'
@@ -142,12 +132,7 @@ do_circulation_diags           = .true.
 /
 
 
-&solar_data_opts
- solar_data_type                = 'FIXED'
- solar_data_ymd         =    21000101  
- solar_htng_spctrl_scl          = .true.
  solar_irrad_data_file          = '/glade/p/cesmdata/cseg/inputdata/atm/cam/solar/SolarForcingCMIP6-3.2_18491231-26490629_sumEPP_c20220114.nc'
-/
 
 !!  NOTE: Have to include the aircraft_co2_file path because the ssp585_cam.xml usecase has a typo 
 !!  in it with an incomplete path.  Model will not run without this line in the github version of cesm2.1.4-rc.XX

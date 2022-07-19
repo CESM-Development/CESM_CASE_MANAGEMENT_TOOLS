@@ -1,0 +1,83 @@
+#!/bin/csh -fx
+### set env variables
+setenv TOOLSROOT /glade/work/nanr/cesm_tags/CASE_tools/cesm2-2100ext-2deg/
+setenv CESMROOT /glade/work/nanr/cesm_tags/cesm2.1.4-rc.07
+
+set COMPSET = BSSP585cmip6
+set MACHINE = cheyenne
+set RESOLN = f19_g17
+set RESUBMIT = 7
+set STOP_N=10
+set REST_N=5
+set STOP_OPTION=nyears
+set PROJECT=ULNL0002
+
+setenv SSP ssp585
+setenv REFDATE  2101-01-01
+setenv BASEROOT /glade/work/$USER/SSPX-2deg/
+setenv RUNROOT  /glade/scratch/$USER/
+setenv REFCASE  b.e21.BSSP585cmip6.f19_g17.CMIP6-SSP5-8.5.001
+
+mkdir $BASEROOT
+
+# case name counter
+set smbr =  1
+set embr =  1
+
+@ mb = $smbr
+@ me = $embr
+
+foreach mbr ( `seq $mb  $me` )
+
+if    ($mbr < 10) then
+	setenv CASENAME b.e21.${COMPSET}.${RESOLN}.CMIP6-2100-2300.00${mbr}
+else if ($mbr >= 10 )
+	setenv CASENAME b.e21.${COMPSET}.${RESOLN}.CMIP6-2100-2300.0${mbr}
+endif
+#setenv REFROOT  /glade/scratch/mberdahl/archive/$REFCASE/2101-01-01-00000/
+setenv REFROOT  /glade/p/cesm/cseg/inputdata/cesm2_init/$REFCASE/2101-01-01-00000/
+echo $REFROOT
+
+  setenv CASEROOT  $BASEROOT$CASENAME
+  cd $CESMROOT/cime/scripts/
+  ./create_newcase --case $CASEROOT --res $RESOLN  --compset $COMPSET --project $PROJECT --run-unsupported
+
+  cd $CASEROOT
+
+  ./xmlchange RUN_REFCASE=$REFCASE
+  ./xmlchange RUN_REFDATE=$REFDATE
+  ./xmlchange RUN_STARTDATE=$REFDATE
+  ./xmlchange RUN_TYPE=hybrid
+  ./xmlchange GET_REFCASE=FALSE
+  ./xmlchange STOP_OPTION=$STOP_OPTION
+  ./xmlchange STOP_N=$STOP_N
+  ./xmlchange REST_N=$REST_N
+  ./xmlchange PROJECT=$PROJECT
+  ./xmlchange OCN_TRACER_MODULES="iage ecosys"
+
+  ./xmlchange NTASKS_CPL=900
+  ./xmlchange NTASKS_ATM=900
+  ./xmlchange NTASKS_LND=504
+  ./xmlchange NTASKS_ICE=288
+  ./xmlchange ROOTPE_ICE=504
+  ./xmlchange NTASKS_OCN=751
+  ./xmlchange ROOTPE_OCN=900
+  ./xmlchange NTASKS_ROF=504
+  ./xmlchange NTASKS_GLC=5
+  ./xmlchange ROOTPE_GLC=1651
+  ./xmlchange NTASKS_WAV=108
+  ./xmlchange ROOTPE_WAV=792
+
+   cp $TOOLSROOT/user_nl_files/ssp585-2100-2300/user_nl_* $CASEROOT/
+
+   mkdir -p $RUNROOT/$CASENAME/run/
+   cp   $REFROOT/rpointer* $RUNROOT/$CASENAME/run/
+   ln -s $REFROOT/b.e21*   $RUNROOT/$CASENAME/run/
+   ./case.setup 
+
+   qcmd -- ./case.build
+
+end             # member loop
+
+exit
+
