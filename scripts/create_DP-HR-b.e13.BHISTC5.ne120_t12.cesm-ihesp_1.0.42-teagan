@@ -6,7 +6,7 @@ set MACHINE = frontera
 set COMPSET = BHISTC5
 set EXPERIMENT = BDP-HR
 set RESOLN  = ne120_t12
-set TAG     = cesm-ihesp-hires1.0.38
+set TAG     = cesm-ihesp-hires1.0.42
 
 #set RESUBMIT = 1
 #set STOP_OPTION=nmonths
@@ -152,10 +152,10 @@ ln -s $REFROOT/$REFCASE/${year}-11-01/b.* $RUNDIR
 
 if ($mbr == $smbr) then
 	set masterroot = $BLDDIR
-	./case.setup --reset; ./case.setup
+	./case.setup --reset
 	./case.build
 else
-	./case.setup --reset; ./case.setup
+	./case.setup --reset
 	./xmlchange EXEROOT=$masterroot
 	./xmlchange BUILD_COMPLETE=TRUE
 endif
