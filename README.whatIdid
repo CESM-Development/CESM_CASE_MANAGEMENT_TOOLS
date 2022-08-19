@@ -1,0 +1,13 @@
+ 1071	10:34	git add scripts/create_b.e13.B1920TRC5.ne120_t12.cesm-ihesp_1.0.30
+  1072	10:34	git add scripts/create_f.e13.FAMIPC5.ne30_ne30_mt12.ihesp24_1950-2050.001
+  1073	10:34	git add user_nl_files/AMIP-1950-2050-highRes/
+  1074	10:34	git add user_nl_files/AMIP-1950-2050-lowRes
+  1075	10:34	git add user_nl_files/HR-1950cntl
+  1076	10:34	git add user_nl_files/README-user_nl_cam-RCP85-2100
+  1077	10:34	git add SourceMods/src.clm/ne30_ne30_mt12-ONLY
+  1078	10:35	git add SourceMods/src.cam/cam_diagnostics.F90
+  1079	10:35	git add scripts/create_b.e13.B1950TRC5.ne30_g16.ihesp24_1950-2050.01
+  1080	10:35	git commit -m "bringing repo up to date"
+  1081	10:35	git push origin
+  1083	10:36	git push --set-upstream origin ihesp-tools
+
