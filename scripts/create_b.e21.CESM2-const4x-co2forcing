@@ -2,7 +2,7 @@
 ### set env variables
 
 setenv CESMROOT /glade/work/nanr/cesm_tags/cesm2.1.4-rc.08
-setenv CESM_TOOLS /glade/work/nanr/cesm_tags/CASE_tools/cesm2-AMOC-aixue/
+setenv CESM_TOOLS /glade/work/nanr/cesm_tags/CASE_tools/aixue/cesm2-thermal-haline/
 
 set COMPSET = B1850cmip6
 set MACHINE = cheyenne

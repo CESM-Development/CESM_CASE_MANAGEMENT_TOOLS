@@ -1,0 +1,15 @@
+Hey Fred.  I'm looking for the hosing file you created for your test simulation:  hosing_AMOChaline_50-70N_years1850-1999.211113.nc
+You can find it here /glade/work/fredc/data/hosing/hosing_AMOChaline_50-70N_years1850-1999.211113.nc
+
+/glade/work/fredc/cesm_case/cesm2.1.4/b.e21.BHISTcmip6.f09_g17.hosing.001
+
+
+Hey Fred.  do you think that if I want to run this simulation from RUN_STARTYEAR=0001, that I should set "days since ..." to 000?
+(does that make sense?)
+or will it key off the ocean IC from the 1850 compset?
+
+I am not sure I understand. Do you want to set it to run from 0001? Why? Isn’t it easier to use actual calendar year for the forcings etc…?
+
+Hi Fred - I think this run will be a piControl + hosing in the N. Atlantic. So the calendar years might be confusing.
+
+OK. Usually I like to maintain the year from the ICs when possible. It makes it easier to compare the runs later since the date are consistent.

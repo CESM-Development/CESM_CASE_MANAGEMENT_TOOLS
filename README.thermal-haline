@@ -10,6 +10,8 @@ b.e21.B1850cmip6.f09_g17.HOSING.001/SourceMods/src.pop.
 
 Proposed hosing run (AMOC_haline), and the combination of hoing and co2 run (AMOC_thermohaline)? So we can use more CVCWG allocation.
 
+
+E3SM:  (Sept 21, 2021 to Luke): We also will run a 1%CO2 run for 150 year, then we keep the forcing at 4xCO2 level for 300 years, afterward, we ramp down CO2 at 1% per year to PI level.
 =======================
 !! April 5th email from Aixue:
 =======================

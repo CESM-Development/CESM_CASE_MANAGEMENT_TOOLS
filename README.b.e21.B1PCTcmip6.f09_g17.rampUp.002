@@ -1,0 +1,6 @@
+Background:  
+This case was renamed because the hosing namelist wasn't applied and ONLY the 1PCT forcing was applied.  
+Aixue and I decided to rename it as a second 1PCT forced file.
+
+OLD:  b.e21.B1850cmip6.f09_g17.thermalHaline.001 
+NEW:  b.e21.B1PCTcmip6.f09_g17.rampUp.002

@@ -1,6 +1,8 @@
  sfwf_data_type = 'shr_stream'
  sfwf_formulation = 'hosing'
- sfwf_hosing_shr_stream_year_first = 1850
+ sfwf_hosing_shr_stream_year_first = 1999
  sfwf_hosing_shr_stream_year_last = 1999
  sfwf_hosing_shr_stream_year_align = 1
  sfwf_hosing_shr_stream_file = 'hosing_AMOChaline_50-70N_years1850-1999.211113.nc'
+
+dt_count=48

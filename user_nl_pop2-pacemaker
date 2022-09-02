@@ -1,0 +1,25 @@
+&passive_tracers_on_nml
+ cfc_on = .false.
+ ecosys_on = .false.
+ iage_on = .true.
+ moby_on = .false.
+/
+
+&forcing_shf_nml
+ luse_cpl_ifrac = .false.
+ shf_data_inc = 730.
+ shf_data_renorm(1) = 1.0
+ shf_data_type = 'n-hour'
+ shf_file_fmt = 'nc'
+ shf_filename = '/glade/p/work/nanr/pacemaker_restore/input/restore/IndianOcean/ModifiedSST_ERSST_gx1v6.nc'
+ shf_formulation = 'alyssa_restoring'
+ shf_interp_freq = 'every-timestep'
+ shf_interp_inc = 1.e20
+ shf_interp_type = 'linear'
+ shf_restore_tau = 2
+!shf_restore_tau = 10
+!shf_restore_tau = 1.5873
+ shf_strong_restore = 0.0
+ shf_strong_restore_ms = 92.64
+ shf_weak_restore = 0.
+/

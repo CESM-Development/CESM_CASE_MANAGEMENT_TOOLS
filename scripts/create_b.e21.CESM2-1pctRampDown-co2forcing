@@ -4,17 +4,21 @@
 setenv CESMROOT /glade/work/nanr/cesm_tags/cesm2.1.4-rc.08
 setenv CESM_TOOLS /glade/work/nanr/cesm_tags/CASE_tools/aixue/cesm2-thermal-haline/
 
-set COMPSET = B1PCTcmip6
+set COMPSET = B1850cmip6
 set MACHINE = cheyenne
 set RESOLN = f09_g17
 set mbr = 1
 set PROJECT = P93300313
 
-setenv CASENAME b.e21.${COMPSET}.f09_g17.rampUp.00${mbr}
-setenv REFCASE  b.e21.B1850.f09_g17.CMIP6-piControl.001
-setenv REFDATE  0501-01-01
+setenv CASENAME b.e21.${COMPSET}.f09_g17.1PCT-rampDown.00${mbr}
+setenv REFCASE  b.e21.${COMPSET}.f09_g17.AMOC-4xco2.001
+setenv REFDATE  0451-01-01
 
-setenv CASEROOT /glade/scratch/nanr/$CASENAME
+setenv CASEROOT /glade/scratch/$USER/$CASENAME
+setenv RUNROOT  /glade/scratch/$USER/$CASENAME/run/
+setenv REFROOT  /glade/scratch/molina/archive/$REFCASE/rest/$REFDATE-00000/
+
+echo $REFROOT
 
 cd $CESMROOT/cime/scripts/
 ./create_newcase --case $CASEROOT --res $RESOLN  --compset $COMPSET  --project $PROJECT
@@ -27,6 +31,7 @@ cd $CASEROOT
 ./xmlchange STOP_OPTION=nyears
 ./xmlchange RESUBMIT=49
 ./xmlchange JOB_QUEUE=economy --subgroup case.run
+./xmlchange GET_REFCASE=FALSE
 
 ./xmlchange NTASKS_ICE=36
 ./xmlchange NTASKS_LND=504
@@ -34,9 +39,18 @@ cd $CASEROOT
 
 ./case.setup
 
-cp $CESM_TOOLS/user_nl_files/user_nl_clm $CASEROOT/
+if (! -d $RUNROOT) then
+   mkdir -p $RUNROOT
+endif
+
+echo $REFROOT/
+echo $RUNROOT/
+cp $REFROOT/rpoint* $RUNROOT/
+ln -s $REFROOT/b.* $RUNROOT/
+
+cp $CESM_TOOLS/user_nl_files/1pctRampDown/user_nl* $CASEROOT/
 
 ./preview_namelists
 
-qcmd -- ./case.build >& bld.`date +%m%d-%H%M`
+#qcmd -- ./case.build >& bld.`date +%m%d-%H%M`
 
