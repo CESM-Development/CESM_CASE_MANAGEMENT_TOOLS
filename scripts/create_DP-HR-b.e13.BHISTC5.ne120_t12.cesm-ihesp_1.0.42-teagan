@@ -23,9 +23,9 @@ set eyr =  2018
 @ ye = $eyr
 
 set smbr =  1
-set embr =  5
+#set embr =  5
 #set smbr =  6
-#set embr =  10
+set embr =  10
 
 @ mb = $smbr
 @ me = $embr
@@ -126,7 +126,7 @@ if ($mbr != 1) then
 cat >> head.${mbr} << EOF
 
 ! add micro-member perturbation
-pertlim = 1${mbr}.d-14
+pertlim = ${mbr}.d-14
 
 EOF
 
