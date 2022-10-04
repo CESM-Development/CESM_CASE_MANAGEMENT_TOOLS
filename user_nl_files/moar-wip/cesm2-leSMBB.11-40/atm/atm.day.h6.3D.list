@@ -1,7 +1,0 @@
-	double THzm(time, ilev, lat, zlon) ;
-	double UVzm(time, ilev, lat, zlon) ;
-	double UWzm(time, ilev, lat, zlon) ;
-	double Uzm(time, ilev, lat, zlon) ;
-	double VTHzm(time, ilev, lat, zlon) ;
-	double Vzm(time, ilev, lat, zlon) ;
-	double Wzm(time, ilev, lat, zlon) ;

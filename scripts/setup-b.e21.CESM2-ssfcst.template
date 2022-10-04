@@ -1,0 +1,97 @@
+#!/bin/csh -fx
+### set env variables
+setenv CESM2_TOOLS_ROOT /glade/work/nanr/cesm_tags/CASE_tools/cesm2-ssfcst-nudging/
+setenv CESMROOT /glade/u/home/ssfcst/cesm2_1/
+
+set COMPSET = BHISTcmip6
+set MACHINE = cheyenne
+set RESOLN = f09_g17
+set RESUBMIT = 0
+set STOP_N=24
+set STOP_OPTION=nmonths
+set PROJECT=P93300313
+
+setenv BASEROOT /glade/work/$USER/CESM2-ssfcst-nudging/
+
+set syr = 1980
+set eyr = 1980
+
+@ ib = $syr
+@ ie = $eyr
+
+
+# case name counter
+set smbr =  1
+set embr =  3
+
+@ mb = $smbr
+@ me = $embr
+
+foreach mbr ( `seq $mb $me` )
+
+set REFCASE  = b.e21.BHISTcmip6.f09_g17.LE2-1231.00${mbr}
+set REFROOT  = /glade/scratch/nanr/archive/${REFCASE}/rest/${syr}-01-01-00000/
+
+# Use restarts created from case 001 for all ensemble members;  pertlim will differentiate runs.
+if ($mbr < 10) then
+        set CASE = b.e21.BHISTcmip6.f09_g17.LE2-1231-ssfcst.00${mbr}
+else
+        set CASE = b.e21.BHISTcmip6.f09_g17.LE2-1231-ssfcst.0${mbr}
+endif
+
+cd $CESMROOT/cime/scripts
+./create_newcase --case $BASEROOT$CASE --res $RESOLN  --compset $COMPSET 
+
+echo 'Year   = ' $syr
+echo 'Member = ' $mbr
+echo 'Case   = ' $CASE
+
+
+  setenv RUNDIR   /glade/scratch/$USER/$CASE/run
+  setenv CASEROOT  $BASEROOT$CASE
+  cd $CASEROOT
+
+  ./xmlchange RUN_REFCASE=$REFCASE
+  ./xmlchange RUN_REFDATE=${syr}-01-01
+  ./xmlchange RUN_STARTDATE=${syr}-01-01
+  ./xmlchange GET_REFCASE=FALSE
+  ./xmlchange PROJECT=P06010014
+
+  mv user_nl_cam user_nl_cam.`date +%m%d-%H%M`
+
+  cp $CESM2_TOOLS_ROOT/user_nl_files/ssfcst-nudging/user_nl_cam $CASEROOT/
+  cp $CESM2_TOOLS_ROOT/SourceMods/src.cam/* $CASEROOT/SourceMods/src.cam/
+
+  ./xmlchange STOP_N=$STOP_N
+  ./xmlchange STOP_OPTION=$STOP_OPTION
+  ./xmlchange RESUBMIT=$RESUBMIT
+
+echo " Copy Restarts -------------"
+if (! -d $RUNDIR) then
+        echo 'mkdir ' $RUNDIR
+        mkdir -p $RUNDIR
+endif
+
+   cp    ${REFROOT}/rpointer* $RUNDIR/
+   ln -s ${REFROOT}/b.e21*    $RUNDIR/
+
+  ./case.setup
+
+echo " End restarts copy -----------"
+
+#echo $RUNDIR
+
+./preview_namelists
+
+if (${mbr} == $smbr) then
+ 	qcmd -- ./case.build >& bld.`date +%m%d-%H%M`
+	set masterroot = /glade/scratch/$USER/$CASE/bld/
+else
+	./xmlchange EXEROOT=$masterroot
+	./xmlchange BUILD_COMPLETE=TRUE
+endif
+
+end
+
+exit
+
