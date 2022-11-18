@@ -8,15 +8,12 @@ set COMPSET = FAMIPC5
 set RESOLN  = ne120_ne120_mt12
 set MACHINE = cheyenne
 set MACHINE = frontera
-set TAG     = cesm-ihesp-hires1.0.42
+set TAG     = cesm-ihesp-hires1.0.44
 set GITREPO = https://github.com/ihesp/cesm.git
-set STARTDATE=1992-01-01
-set STARTDATE=1994-01-01
-set STARTDATE=1996-01-01
-set STARTDATE=1970-01-01
+set STARTDATE=1980-01-01
 
 set mbr = 1
-setenv CASE f.e13.${COMPSET}.${RESOLN}.${TAG}_gen-restarts.00${mbr}
+setenv CASE f.e13.${COMPSET}.${RESOLN}.front_gen-restarts.00${mbr}
 #setenv CASE f.e13.${COMPSET}.${RESOLN}.chey-gen-restarts.$STARTDATE.00${mbr}
 
 if ($MACHINE == frontera) then
@@ -26,7 +23,7 @@ if ($MACHINE == frontera) then
         #set IHESPTOOLS = /home1/06091/nanr/CESM_tools/ihesp-tools/
 	#setenv CROOT $WORK/cases/cesm13/$CASE
         set IHESPTOOLS = $WORK/CESM_tools/ihesp-tools/
-        setenv CROOT = /work/06091/nanr/frontera/cases/cesm13/
+        setenv CROOT /work/06091/nanr/frontera/cases/cesm13/
 else
         set PATH    = /glade/work/kanr/
         set RUNDIR  = /glade/scratch/nanr/$CASE/run
@@ -49,15 +46,15 @@ cd $CASEROOT
 
 ### modify case parameters
 ./xmlchange RUN_TYPE=hybrid
-./xmlchange STOP_OPTION=nyears
 ./xmlchange RUN_STARTDATE=$STARTDATE
-./xmlchange RUN_REFCASE=f.e13.FAMIPC5.ne120_ne120_mt12.cesm-ihesp-1950-2050.001
+#./xmlchange RUN_REFCASE=f.e13.FAMIPC5.ne120_ne120_mt12.cesm-ihesp-1950-2050.001
+./xmlchange RUN_REFCASE=f.e13.FAMIPC5.ne120_ne120_mt12.DECK_1950TR.002
 ./xmlchange RUN_REFDATE=$STARTDATE
-./xmlchange STOP_N=10
+./xmlchange STOP_N=12
 ./xmlchange STOP_OPTION=nmonths
-./xmlchange GET_REFCASE=TRUE
-./xmlchange PROJECT=CESM0019
-./xmlchange JOB_QUEUE=economy --subgroup case.run
+./xmlchange GET_REFCASE=FALSE
+#./xmlchange PROJECT=CESM0019
+#./xmlchange JOB_QUEUE=economy --subgroup case.run
 #./xmlchange DIN_LOC_ROOT='/glade/p/cesm/cseg/inputdata'
 #./xmlchange DIN_LOC_ROOT_CLMFORC='/glade/p/cesm/cseg/inputdata/atm/datm7'
 
@@ -97,16 +94,14 @@ endif
 
  if (${MACHINE} == frontera) then
  	./xmlchange SSTICE_GRID_FILENAME=/work/06091/nanr/frontera/SST-highres/domain.ocn.0.25x0.25_mask.181109.nc
-	cp /work/02503/edwardsj/CESM/inputdata/cesm2_init/f.e13.FAMIPC5.ne120_ne120_mt12.cesm-ihesp-1950-2050.001/1982-01-01/rpoint* $RUNDIR
-	ln -s /work/02503/edwardsj/CESM/inputdata/cesm2_init/f.e13.FAMIPC5.ne120_ne120_mt12.cesm-ihesp-1950-2050.001/1982-01-01/f.e13.F* $RUNDIR
+	cp /scratch1/04609/zhangqy/f.e13.FAMIPC5.ne120_ne120_mt12.DECK_1950TR.002/1980-01-01-00000/rpoint* $RUNDIR
+	ln -s /scratch1/04609/zhangqy/f.e13.FAMIPC5.ne120_ne120_mt12.DECK_1950TR.002/1980-01-01-00000/f.e13* $RUNDIR
 	cp $IHESPTOOLS/user_nl_files/gen-InitRestarts-AMIP-1950-2019/frontera/* $CASEROOT/
  else
-	./xmlchange SSTICE_GRID_FILENAME=/glade/p/cesm/cseg/inputdata/atm/cam/ocnfrac/domain.ocn.0.25x0.25_mask.181109.nc
+	#./xmlchange SSTICE_GRID_FILENAME=/glade/p/cesm/cseg/inputdata/atm/cam/ocnfrac/domain.ocn.0.25x0.25_mask.181109.nc
 	#cp /glade/scratch/fredc/archive/f.e13.FAMIPC5.ne120_ne120_mt12.cesm-ihesp-1950-2050.001/rest/1982-01-01-00000/rpoint* $RUNDIR
 	#ln -s /glade/scratch/fredc/archive/f.e13.FAMIPC5.ne120_ne120_mt12.cesm-ihesp-1950-2050.001/rest/1982-01-01-00000/f.e13.F* $RUNDIR
-	cp /glade/scratch/fredc/archive/f.e13.FAMIPC5.ne120_ne120_mt12.cesm-ihesp-1950-2050.001/rest/$STARTDATE-00000/rpoint* $RUNDIR
-	ln -s /glade/scratch/fredc/archive/f.e13.FAMIPC5.ne120_ne120_mt12.cesm-ihesp-1950-2050.001/rest/$STARTDATE-00000/f.e13.F* $RUNDIR
-	cp $IHESPTOOLS/user_nl_files/gen-InitRestarts-AMIP-1950-2019/cheyenne/* $CASEROOT/
+	#cp $IHESPTOOLS/user_nl_files/gen-InitRestarts-AMIP-1950-2019/cheyenne/* $CASEROOT/
  endif
 
 ./case.setup

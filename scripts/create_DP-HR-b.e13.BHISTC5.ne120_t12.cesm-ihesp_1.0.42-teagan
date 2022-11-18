@@ -17,15 +17,17 @@ set STOP_N=62
 set REST_OPTION=nmonths
 set REST_N=12
 
-set syr =  2018
-set eyr =  2018
+#set syr =  2018
+#set eyr =  2018
+set syr =  2020
+set eyr =  2020
 @ yb = $syr
 @ ye = $eyr
 
 set smbr =  1
 #set embr =  5
 #set smbr =  6
-set embr =  10
+set embr =  3
 
 @ mb = $smbr
 @ me = $embr
