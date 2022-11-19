@@ -1,8 +1,8 @@
 ice_ic = 'default'
 !ice_ic = 'B.E.13.B1950C5.ne120_t12.cesm-ihesp-1950cntl.011.cice.r.0055-01-01-00000.nc'
 
-grid_file = "/work/02503/edwardsj/CESM/inputdata//share/domains/domain.ocn.ne120np4_tx0.1v2.191122.nc"
-kmt_file  = "/work/02503/edwardsj/CESM/inputdata//share/domains/domain.ocn.ne120np4_tx0.1v2.191122.nc"
+grid_file = "/work/02503/edwardsj/CESM/inputdata//share/domains/domain.ocn.ne30np4_mt12.200214.nc"
+kmt_file  = "/work/02503/edwardsj/CESM/inputdata//share/domains/domain.ocn.ne30np4_mt12.200214.nc"
 
 stream_fldfilename = 
         "/work2/06091/nanr/frontera/SST-highres/noLeapFillScale/sst_HADISST_0.25_MOHC-HADISST-s-19500101-19501231.nc",
