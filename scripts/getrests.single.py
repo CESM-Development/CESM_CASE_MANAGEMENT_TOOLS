@@ -3,7 +3,7 @@ import glob
 import os
 import shutil
 srcpath="/proj/CESM2/archive/"
-testcase="b.e21.BHISTsmbb.f09_g17.LE2-1011.001/"
+testcase="b.e21.BSSP370smbb.f09_g17.LE2-1071.004/"
 destpath="/proj/jedwards/restarts/"
 dryrun = False
 
@@ -25,8 +25,8 @@ for restyr in glob.iglob(srcpath+testcase+"/rest/*"):
                     print("ERROR: {} - {}.".format(e.filename, e.strerror))    
         else:
             newdir = restyr.replace(srcpath,destpath)
-            print("create dir {}".format(newdir))
-            if not dryrun:
+            if not dryrun and not os.path.isdir(newdir):
+                print("create dir {}".format(newdir))
                 os.makedirs(newdir)
             for _file in glob.iglob(restyr+"/*"):
                 if ".h" not in _file:
