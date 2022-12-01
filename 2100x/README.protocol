@@ -1,0 +1,153 @@
+KeithR:    Dec 16, 2021
+After reading Matt Long’s JAMES (2021) paper on MARBL I believe that there are two types of biogeochemical flux quantities that we should be concerned with for the extension:
+
+(a) surface deposition fluxes: 
+        (i) nitrogen deposition:  is this a prognostic field coming from the atmosphere? Or is it prescribed?
+        (ii) iron deposition is calculated from the combined dust deposition and black carbon deposition fields,
+                        with both of these (dust + black carbon) presumably being prognostic?
+
+(b) riverine fluxes:
+                N, P, Si, Fe, DIC, ALK, DOM
+        presumably these are fixed and we don’t need to alter them for the extension runs?
+        unless there is also a DIC_ALT field for anthropogenic carbon perturbations?
+
+To follow up on Sun-Seon’s question in her email with the SSP5-8.5 run described by Koven (2021), presumably we can see there what they did for these fields?
+
+=========================
+KeithLindsay:  Dec 17, 2021
+
+N dep to the ocean usually comes from a file constructed from output from a WACCM run that has N chemistry in the atmosphere. My understanding from Nan is that for ssp370ext, you are holding land N dep fixed at 2100 levels. I'll prepare an ocean dataset that does the same thing.
+Iron dep to the ocean is fully prognostic. It is derived from aerosol and black carbon dep to the ocean. So no datasets are needed for ssp370ext.
+Riverine BGC fluxes are held at 2000 values in 21st century scenario runs. I'll provide pop namelist changes to extend this to 2500.
+
+I chatted w/ Nan about (diagnostic) CO2 emission datasets. Based on the specified CO2 concentration, it looks reasonable to linearly 
+ramp emissions from 2100 levels to 0 in 2250. This is similar to what is done for other ssp extensions 
+described in the ScenarioMIP paper (ref below). The script to create these datasets just finished as I was composing this email. 
+I'll point Nan to the created datasets.
+
+I forgot to include the ScenarioMIP ref. Here it is
+
+O'Neill, B. C., Tebaldi, C., van Vuuren, D. P., Eyring, V., Friedlingstein, P., Hurtt, G., Knutti, R., Kriegler, E., Lamarque, J.-F., Lowe, J., Meehl, G. A., Moss, R., Riahi, K., and Sanderson, B. M.: The Scenario Model Intercomparison Project (ScenarioMIP) for CMIP6, Geosci. Model Dev., 9, 3461–3482, https://doi.org/10.5194/gmd-9-3461-2016, 2016.
+
+The extension details are provided on p. 3747.
+
+===================
+KeithRodgers
+
+Just reading through the emails exchanged over the last 48 hours in a bit more detail and wanted to comment on two points - 
+(1) We’re using the Meinshausen (2020) [PDF attached] as our guideline for extensions, as it goes one step beyond the O’Neill (2016) study
+(2) In Sun-Seon’s email she had asked about the aircraft_specifier field (under aircraft_emit_nl), and asked if it should be zeroed by 2250. Does that make sense to you?
+
+====================
+KeithLindsay
+
+Thanks for the Meinshausen paper. That's a helpful reference to have.
+Based on a quick skim of the paper, yes, it makes sense to ramp down the CO2 emissions referred to by the aircraft_specifier field to 0 by 2250.
+I'll point Nan to the datasets that I've created that do that (and also ramp down the surface CO2 emissions).
+====================
+KeithRodgers
+
+Thanks again! - similar to the aircraft_specifier field (under aircraft_emit_nl) form my previous email yesterday, there is also  under co2_cycle_nl a file designated as co2flux_fuel_file, presumably that should also be zeroed by 2250?
+====================
+KeithLindsay
+
+Yes, that's right. That’s the surface CO2 emissions that I was referring to.
+
+====================
+KeithRodgers
+
+One other thing I should ask you about the CESM2/MARBL output - I’d like to look at the “preformed” versus “regenerated” nutrients and compare these with observational constraints, as I don’t think this was done in the Long et al (2021; JAMES) paper that was just published.
+
+Should it be possible (at least for the upper ocean) to calculate preformed phosphate by assuming a constant O2:PO4 ratio?  Do they covary with a constant ratio, and if so, do you remember off the top of your head what it is?  And if not, is there a rule of thumb that would be “reasonable” in doing such calculations?
+
+
+====================
+KeithLindsay
+
+I don’t have the O2:P ratio at my fingertips, but here is some text from a stalled paper that’s relevant:
+
+When the biogeochemical model was initially coupled to the simulated ocean circulation of CESM2 
+(Danabasoglu_etal_JAMES_2020,Bryan_etal_JAMES_2020) excessively large subsurface oxygen minimum 
+zones (OMZs) developed in the Pacific Ocean. The entire North Pacific deeper than 1000 m was heading towards 
+anoxia, which was leading to excessive denitrification and a subsequent loss of nitrate. The problem has been 
+attributed to weak formation of Antarctic Bottom Water, which is evidenced by simulated natural radiocarbon 
+age in the deep North Pacific being twice that of observations. In order to avoid an unacceptable distribution of 
+oxygen, and the subsequent unrealistic loss of nitrate, we artificially downscale oxygen consumption in the deep 
+Pacific. We implement this by multiplying oxygen consumption by a scale factor that is 0.3 in the deep Pacific. The 
+scale factor is 1.0 outside of the Pacific, and within the Pacific it ramps to 1.0 over $20^\circ$S - $40^\circ$S and 
+also over 1500 m - 750 m. Note that this downscaling of oxygen consumption breaks stoichiometric relationships between 
+oxygen and other biogeochemical tracers, invalidating assumptions commonly made in the analysis of biogeochemical 
+simulations (e.g., computing preformed nutrients). In order to avoid confusion from potential users of CESM2 CMIP6 output, 
+we have opted to withhold publication of oxygen related fields from CESM2 CMIP6 experiments to the ESGF.
+
+I was not able to make progress on the datasets for ssp370ext while I was on vacation. Now that I'm back, I've generated the datasets.
+
+ocean ndep:
+The dataset is on cheyenne at
+/glade/p/cesmdata/cseg/inputdata/ocn/pop/gx1v6/forcing/ndep_ocn_ssp370ext_w_nhx_emis_gx1v6_c211227.nc
+The corresponding entries for user_nl_pop are
+ndep_shr_stream_year_align = 2100
+ndep_shr_stream_year_first = 2100
+ndep_shr_stream_year_last = 2500
+ndep_shr_stream_file = <full path of ndep file>
+
+atm CO2 emissions (for diagnostic tracers)
+The needed files are on cheyenne in the directory
+/glade/p/cesmdata/cseg/inputdata/atm/cam/ggas
+The files are
+emissions-cmip6_CO2_anthro_surface_ScenarioMIP_IAMC-AIM-ssp370ext_209901-250112_fv_0.9x1.25_c20211217.nc
+emissions-cmip6_CO2_anthro_ac_ScenarioMIP_IAMC-AIM-ssp370ext_209901-250112_fv_0.9x1.25_c20211217.nc
+emissions-cmip6_CO2_anthro_ac_ScenarioMIP_IAMC-AIM-ssp370ext_209901-250112_fv_0.9x1.25_c20211217.txt
+The corresponding entries for user_nl_cam are
+co2flux_fuel_file = <full path of 1st file above>
+aircraft_datapath = <directory where above anthro_ac files are located>
+aircraft_specifier = 'ac_CO2 -> emissions-cmip6_CO2_anthro_ac_ScenarioMIP_IAMC-AIM-ssp370ext_209901-250112_fv_0.9x1.25_c20211217.nc'
+
+I don't have permission to add the files above to the inputdata repo, and the person that usually does it for me is on vacation.
+So if you want to proceed with the runs sooner rather than later, they will need to be transferred to Korea manually.
+
+
+=====================
+Nanr:
+ndep_shr_stream_file = '/mnt/lustre/share/CESM/cesm_input/ocn/pop/gx1v6/forcing/ndep_ocn_ssp370ext_w_nhx_emis_gx1v6_c211227.nc’
+ ndep_shr_stream_scale_factor = 7.1429e+06
+ ndep_shr_stream_year_align = 2014 =>2100
+ ndep_shr_stream_year_first = 2014 =>2100
+ ndep_shr_stream_year_last = 2101 =>2500
+
+
+====================
+ErikKluzek
+
+You should be able to have everything point to year 2100 and be fixed at that year. So the surface 
+dataset would use the landuse.timeseries file and be fixed at 2100 conditions because the year 
+would be beyond 2100. Other files such as ndep, urban, pop-dens would just cycle over year 2100.
+
+I know we did something different for the extension to year 2300, but if everything is really fixed at 
+2100 conditions I'm not sure there's any reason to do that. But, maybe the extension there had changes beyond year 2100?
+
+OK, I created the file for you. It's here on glade and also in svn...
+/glade/p/cesmdata/cseg/inputdata/lnd/clm2/surfdata_map/release-clm5.0.34/surfdata_0.9x1.25_SSP3-7.0_78pfts_CMIP6_simyr2100_c211227.nc
+There was a glitch that I ran into when I created it, so I'm glad I used our checklist to make sure it looked right.
+
+
+
+
+====================
+PeterLawrence:
+
+If you run the SSP370 simulation with fixed 2100 surface data only you will not have any wood harvest prescribed. If instead you continue running with the SSP370 landuse timeseries file running past the end of the 2100 year then it should prescribe the 2100 year wood harvest constantly (Erik can you confirm). This will not be as nuanced as the other extensions but should still work.
+
+It is also important to remember we had an issue with the SSP370 waccm first ensemble run as it was pointing to old surface data sets that had the wrong data in them. So you can not use the case:
+/glade/work/cmip6/cases/ScenarioMIP_WACCM/b.e21.BWSSP370cmip6.f09_g17.CMIP6-SSP3-7.0-WACCM.001
+
+Which uses the preliminary error filled file:
+/glade/p/cesmdata/cseg/inputdata/lnd/clm2/surfdata_map/landuse.timeseries_0.9x1.25_SSP3-7.0_78pfts_CMIP6_simyr1850-2100_c181220.nc
+
+You can use the cases:
+/glade/work/cmip6/cases/ScenarioMIP_WACCM/b.e21.BWSSP370cmip6.f09_g17.CMIP6-SSP3-7.0-WACCM.002
+/glade/work/cmip6/cases/ScenarioMIP_WACCM/b.e21.BWSSP370cmip6.f09_g17.CMIP6-SSP3-7.0-WACCM.003
+
+With CMIP6 CESM SSP file:
+/glade/p/cesmdata/cseg/inputdata/lnd/clm2/surfdata_map/release-clm5.0.18/landuse.timeseries_0.9x1.25_SSP3-7.0_78pfts_CMIP6_simyr1850-2100_c190214.nc
+

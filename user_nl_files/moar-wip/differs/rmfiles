@@ -1,0 +1,15 @@
+rm xfr/do.atm.lens.month_1.h0.1D.txt
+rm xfr/do.atm.lens.hour_3.h3.3D.txt
+rm xfr/do.atm.lens.hour_6.h2.3D.txt
+rm xfr/do.atm.cmip.month_1.h0.1D.txt
+rm xfr/do.atm.cmip.hour_6.h2.1D.txt
+rm xfr/do.atm.cmip.hour_1.h4.3D.txt
+rm xfr/do.atm.lens.hour_3.h3.1D.txt
+rm xfr/do.atm.lens.hour_6.h2.1D.txt
+rm xfr/do.atm.lens.hour_1.h4.3D.txt
+rm xfr/do.atm.lens.hour_1.h4.2D.txt
+rm xfr/do.atm.cmip.hour_3.h3.1D.txt
+rm xfr/do.atm.lens.hour_1.h4.1D.txt
+rm xfr/do.atm.cmip.hour_3.h3.3D.txt
+rm xfr/do.atm.cmip.month_1.h0.3D.txt
+rm xfr/do.atm.cmip.hour_1.h4.1D.txt

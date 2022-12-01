@@ -1,0 +1,3 @@
+rm ./mout.atm.day.h1.3D.txt
+rm ./mout.atm.hour_3.h3.3D.txt
+rm ./mout.atm.hour_6.h2.3D.txt

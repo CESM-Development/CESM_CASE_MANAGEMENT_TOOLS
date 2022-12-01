@@ -1,0 +1,8 @@
+mv out.atm.day.h1.1D.list mout.atm.day.h1.1D.list
+mv out.atm.day.h1.2D.list mout.atm.day.h1.2D.list
+mv out.atm.day.h1.3D.list mout.atm.day.h1.3D.list
+mv out.atm.day.h6.1D.list mout.atm.day.h6.1D.list
+mv out.atm.day.h6.2D.list mout.atm.day.h6.2D.list
+mv out.atm.mon.h0.1D.list mout.atm.mon.h0.1D.list
+mv out.atm.mon.h0.2D.list mout.atm.mon.h0.2D.list
+mv out.atm.mon.h0.3D.list mout.atm.mon.h0.3D.list

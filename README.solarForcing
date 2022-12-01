@@ -1,0 +1,26 @@
+MikeMills:
+Dear Katja and Berndt (cc Nan and Dan),
+
+I hope that you are well!
+
+There is interest at NCAR in running CESM2 SSP extensions beyond year 2300, out to 2500. Your 2017 paper discusses your approach to extending the solar forcing from 2015 to 2300. I wonder if you have given any thought to further extensions?
+
+If not, I think we are likely to examine the TSI for a convenient place to join the beginning of your future solar projection to the endpoint. Does that sound reasonable to you?
+
+Thanks for your help.
+
+Matthes, K., Funke, B., Andersson, M. E., Barnard, L., Beer, J., Charbonneau, P., et al. (2017). Solar forcing for CMIP6 (v3.2). Geoscientific Model Development, 10(6), 2247–2302. http://doi.org/10.5194/gmd-10-2247-2017
+
+
+Dear Mike,
+
+unfortunately, we haven’t prepared an extended solar forcing data set out to 2500. However, I would expect a similar cycle progression for 2300-2500 as for 2100-2300 if our approach was applied to the extended period. This is because the AR and AF methods have already lost any “skill” around 2100 and converge toward a climatological mean while some (dampened) centennial oscillations from the HM model remain. 
+
+Therefore, a cyclic repetition of a sequence out of the 2100-2300 period for extending until 2500, as you suggested, sounds very reasonable. Since the CMIP6 records ends during cycle 50 (build from historical cycle 18) a repetition of the sequence starting in cycle 34 (also build from historical cycle 18) would make sense, e.g., February 2125 - December 2299.  
+
+I don’t think that a rescaling of SSI, TSI, Kp and electron/proton ionization rates would be required in this case since the solar activity level in cycle 34 and 50 is pretty similar. However, it might be convenient to allow for a smooth (blended) transition of GCR rates in order to avoid a jump (note that GCR rates are annually smoothed).
+
+Let me know if you have further questions.
+
+All the best and Happy New Year,
+Bernd.

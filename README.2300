@@ -1,0 +1,17 @@
+
+O'Neill paper:   https://gmd.copernicus.org/articles/9/3461/2016/gmd-9-3461-2016.pdf
+
+Mathehausen paper:  https://gmd.copernicus.org/articles/13/3571/2020/
+
+Mike Mills:
+Solar Forcing:  https://www.dropbox.com/s/gmmtpov5628f2fe/016B2F62-4612-4D88-8E84-71C006054373.pdf?dl=0o
+Solar: my recollection is that the solar forcing for 2015-2300 was defined by repeating previous solar cycles in a somewhat arbitrary order. I am not finding that definition at the moment. I just glanced through section 3 of the paper below, which presumably describes what we used and the reasoning behind it. We might have to think about what we want to do to extend this to 2500. Whatever we do will be wrong, obviously; the goal is to come up with something reasonable.
+
+Matthes, K. et al. (2017), Solar forcing for CMIP6 (v3.2), Geosci Model Dev, 10(6), 2247–2302, doi:10.5194/gmd-10-2247-2017.
+https://www.dropbox.com/s/gmmtpov5628f2fe/016B2F62-4612-4D88-8E84-71C006054373.pdf?dl=0
+
+Ozone: Multiple ensemble members would be good, if they are available. Which SSP are you doing? For SSP3-7.0, we only have 2 runs out to 2100, and the first one has the wrong land use file. Run 3 has gone to 2055 at this point. Regardless of the number of ensemble members, it's probably best to average the last 10 years. Any more than that might bias it a bit if it is trending.
+
+
+Matthes, K. et al. (2017), Solar forcing for CMIP6 (v3.2), Geosci Model Dev, 10(6), 2247–2302, doi:10.5194/gmd-10-2247-2017.
+https://www.dropbox.com/s/gmmtpov5628f2fe/016B2F62-4612-4D88-8E84-71C006054373.pdf?dl=0
