@@ -1,0 +1,36 @@
+! Users should add all user specific namelist changes below in the form of 
+! namelist_var = new_namelist_value 
+ bubble_mediated_transfer = .FALSE.
+ ocean_salinity_file = '/glade/work/siyuan/SSS_recooked_0-360.nc'
+ csw_specifier = 'DMS -> /glade/work/siyuan/Csw_DMS_Lana2011_f09f09_1750_2100_20200717a.nc'
+ csw_time_type = 'SERIAL'
+
+!clubb_gamma_coef               =  0.30
+clubb_gamma_coef               =  0.320
+dust_emis_fact         = 0.65D0
+
+fire_emis_factors_file = '/glade/work/emmons/fire_inputs/fire_emission_factors_78PFTs_c20210803.nc'
+fire_emis_specifier = 'bc_a4 = BC', 'pom_a4 = OC', 'num_a4 = num_a4_bc + num_a4_pom', 'SO2 = SO2', 'DMS = DMS', 'SOAG = 0.45*BIGALK + 0.35*BIGENE + 1.725*TOLUENE + 1.4625*BENZENE + 1.9875*XYLENE + 0.34*ISOP + 4.25*C10H16'
+fire_emis_elevated = .false.
+
+
+ srf_emis_specifier             = 'bc_a4 -> /glade/p/cesmdata/cseg/inputdata/atm/cam/chem/emis/CMIP6_emissions_1750_2015/emissions-cmip6_bc_a4_anthro_surface_1750-2015_0.9x1.25_c20170608.nc',
+         'num_a1 -> /glade/p/cesmdata/cseg/inputdata/atm/cam/chem/emis/CMIP6_emissions_1750_2015/emissions-cmip6_num_so4_a1_anthro-ag-ship_surface_1750-2015_0.9x1.25_c20170616.nc',
+         'num_a2 -> /glade/p/cesmdata/cseg/inputdata/atm/cam/chem/emis/CMIP6_emissions_1750_2015/emissions-cmip6_num_so4_a2_anthro-res_surface_1750-2015_0.9x1.25_c20170616.nc',
+         'num_a4 -> /glade/p/cesmdata/cseg/inputdata/atm/cam/chem/emis/CMIP6_emissions_1750_2015/emissions-cmip6_num_bc_a4_anthro_surface_1750-2015_0.9x1.25_c20170608.nc',
+         'num_a4 -> /glade/p/cesmdata/cseg/inputdata/atm/cam/chem/emis/CMIP6_emissions_1750_2015/emissions-cmip6_num_pom_a4_anthro_surface_1750-2015_0.9x1.25_c20170608.nc',
+         'pom_a4 -> /glade/p/cesmdata/cseg/inputdata/atm/cam/chem/emis/CMIP6_emissions_1750_2015/emissions-cmip6_pom_a4_anthro_surface_1750-2015_0.9x1.25_c20170608.nc',
+         'SO2 -> /glade/p/cesmdata/cseg/inputdata/atm/cam/chem/emis/CMIP6_emissions_1750_2015/emissions-cmip6_SO2_anthro-ag-ship-res_surface_1750-2015_0.9x1.25_c20170616.nc',
+         'SO2 -> /glade/p/cesmdata/cseg/inputdata/atm/cam/chem/emis/CMIP6_emissions_1750_2015/emissions-cmip6_SO2_anthro-ene_surface_1750-2015_0.9x1.25_c20170616.nc',
+         'so4_a1 -> /glade/p/cesmdata/cseg/inputdata/atm/cam/chem/emis/CMIP6_emissions_1750_2015/emissions-cmip6_so4_a1_anthro-ag-ship_surface_1750-2015_0.9x1.25_c20170616.nc',
+         'so4_a2 -> /glade/p/cesmdata/cseg/inputdata/atm/cam/chem/emis/CMIP6_emissions_1750_2015/emissions-cmip6_so4_a2_anthro-res_surface_1750-2015_0.9x1.25_c20170616.nc',
+         'SOAG -> /glade/p/cesmdata/cseg/inputdata/atm/cam/chem/emis/CMIP6_emissions_1750_2015/emissions-cmip6_SOAGx1.5_anthro_surface_1750-2015_0.9x1.25_c20170608.nc',
+         'SOAG -> /glade/p/cesmdata/cseg/inputdata/atm/cam/chem/emis/CMIP6_emissions_1750_2015/emissions-cmip6_SOAGx1.5_biogenic_surface_1750-2015_0.9x1.25_c20170322.nc'
+ 
+convproc_do_aer=.true.
+convproc_do_evaprain_atonce=.true.
+convproc_pom_spechygro=0.2D0
+convproc_wup_max=4.0D0
+
+fincl1 = 'FireSF_SO2','FireSF_bc_a4','FireSF_pom_a4','FireSF_DMS','FireSF_SOAG','TMbc_a1','TMbc_a4','TMpom_a1','TMpom_a4','TMncl_a1','TMncl_a2','TMncl_a3',
+         'TMso4_a1','TMso4_a2','TMso4_a3','TMsoa_a1','TMsoa_a2','TMdst_a1','TMdst_a2','TMdst_a3','BURDENBC','BURDENDUST','BURDENSOA','BURDENSO4','BURDENPOM','BURDENSEASALT'

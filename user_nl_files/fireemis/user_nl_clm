@@ -1,0 +1,50 @@
+!----------------------------------------------------------------------------------
+! Users should add all user specific namelist changes below in the form of 
+! namelist_var = new_namelist_value 
+!
+! EXCEPTIONS: 
+! Set use_cndv           by the compset you use and the CLM_BLDNML_OPTS -dynamic_vegetation setting
+! Set use_vichydro       by the compset you use and the CLM_BLDNML_OPTS -vichydro           setting
+! Set use_cn             by the compset you use and CLM_BLDNML_OPTS -bgc  setting
+! Set use_crop           by the compset you use and CLM_BLDNML_OPTS -crop setting
+! Set spinup_state       by the CLM_BLDNML_OPTS -bgc_spinup      setting
+! Set co2_ppmv           with CCSM_CO2_PPMV                      option
+! Set fatmlndfrc         with LND_DOMAIN_PATH/LND_DOMAIN_FILE    options
+! Set finidat            with RUN_REFCASE/RUN_REFDATE/RUN_REFTOD options for hybrid or branch cases
+!                        (includes $inst_string for multi-ensemble cases)
+!                        or with CLM_FORCE_COLDSTART to do a cold start
+!                        or set it with an explicit filename here.
+! Set maxpatch_glcmec    with GLC_NEC                            option
+! Set glc_do_dynglacier  with GLC_TWO_WAY_COUPLING               env variable
+!----------------------------------------------------------------------------------
+&ndepdyn_nml
+ model_year_align_ndep = 1850
+ ndep_taxmode = 'extend'
+ ndep_varlist = 'NDEP_month'
+ ndepmapalgo = 'bilinear'
+ stream_fldfilename_ndep = '$DIN_LOC_ROOT/lnd/clm2/ndepdata/fndep_clm_hist_b.e21.BWHIST.f09_g17.CMIP6-historical-WACCM.ensmean_1849-2015_monthly_0.9x1.25_c180926.nc'
+ stream_year_first_ndep = 1850
+ stream_year_last_ndep = 2015
+/
+
+&popd_streams
+ model_year_align_popdens = 1850
+ popdensmapalgo = 'bilinear'
+ stream_fldfilename_popdens = '$DIN_LOC_ROOT/lnd/clm2/firedata/clmforc.Li_2017_HYDEv3.2_CMIP6_hdm_0.5x0.5_AVHRR_simyr1850-2016_c180202.nc'
+ stream_year_first_popdens = 1850
+ stream_year_last_popdens = 2016
+/
+
+&urbantv_streams
+ model_year_align_urbantv = 1850
+ stream_fldfilename_urbantv = '$DIN_LOC_ROOT/lnd/clm2/urbandata/CLM50_tbuildmax_Oleson_2016_0.9x1.25_simyr1849-2106_c160923.nc'
+ stream_year_first_urbantv = 1850
+ stream_year_last_urbantv = 2106
+ urbantvmapalgo = 'nn'
+/
+
+use_init_interp = .true.
+flanduse_timeseries = '$DIN_LOC_ROOT/lnd/clm2/surfdata_map/release-clm5.0.24/landuse.timeseries_0.9x1.25_hist_78pfts_TRENDY_simyr1700-2018_c190814.nc'
+fsurdat = '$DIN_LOC_ROOT/lnd/clm2/surfdata_map/release-clm5.0.24/surfdata_0.9x1.25_hist_78pfts_TRENDY_simyr1700_c190814.nc'
+reseed_dead_plants = .false.
+
