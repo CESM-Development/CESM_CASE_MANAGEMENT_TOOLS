@@ -4,9 +4,9 @@
 #PBS -q regular
 #PBS -l select=32:ncpus=4:mpiprocs=4
 #PBS -l walltime=12:00:00
-#PBS -A P04010022
+#PBS -A P93300313
 
-CASE=b.e21.BHISTsmbb.f09_g17.LE2-1251.020-ENSO-BB-la1cntl.002
+CASE=f.e21.FHIST_BGC.f09_f09_mg17.L83_cam6.001
 
 source /etc/profile.d/modules.sh
 

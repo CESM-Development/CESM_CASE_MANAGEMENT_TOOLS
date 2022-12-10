@@ -204,7 +204,7 @@ contains
     real(r8) :: sabg_col(bounds%begc:bounds%endc)                          ! absorbed ground solar for column (W/m^2)
     real(r8) :: sabg_lyr_col(bounds%begc:bounds%endc,-nlevsno+1:1)         ! absorbed ground solar in layer for column (W/m^2)
     real(r8) :: sabg_nir                                                   ! NIR that is absorbed (W/m^2)
-!    integer  :: jconvect(bounds%begc:bounds%endc)                          ! Lowest level where convection occurs
+    integer  :: jconvect(bounds%begc:bounds%endc)                          ! Lowest level where convection occurs
     integer  :: jconvectbot(bounds%begc:bounds%endc)                       ! Hightest level where bottom-originating convection occurs
     logical  :: bottomconvect(bounds%begc:bounds%endc)                     ! Convection originating in bottom layer of lake triggers special convection loop
     real(r8) :: fangkm                                                     ! (m^2/s) extra diffusivity based on Fang & Stefan 1996, citing Ellis, 1991
@@ -260,11 +260,8 @@ contains
          eflx_sh_grnd    =>   energyflux_inst%eflx_sh_grnd_patch   , & ! Output: [real(r8) (:)   ]  sensible heat flux from ground (W/m**2) [+ to atm]
          eflx_sh_tot     =>   energyflux_inst%eflx_sh_tot_patch    , & ! Output: [real(r8) (:)   ]  total sensible heat flux (W/m**2) [+ to atm]
          eflx_gnet       =>   energyflux_inst%eflx_gnet_patch      , & ! Output: [real(r8) ( :)  ]  net heat flux into ground (W/m**2) at the surface interface
-         errsoi          =>   energyflux_inst%errsoi_col           , & ! Output: [real(r8) (:)   ]  soil/lake energy conservation error (W/m**2)
-         jconvect        =>   lakestate_inst%jconvect_col            & ! Output: (real(r8) (:)   ]  lowest lake level where convection occurs (-)
+         errsoi          =>   energyflux_inst%errsoi_col             & ! Output: [real(r8) (:)   ]  soil/lake energy conservation error (W/m**2)
          )
-!         errsoi          =>   energyflux_inst%errsoi_col             & ! Output: [real(r8) (:)   ]  soil/lake energy conservation error (W/m**2)
-!         )
 
     ! 1!) Initialization
     ! Determine step size
@@ -295,7 +292,7 @@ contains
        esum1(c) = 0._r8
        esum2(c) = 0._r8
        if (use_lch4) then
-          jconvect(c) = 0._r8
+          jconvect(c) = 0
           jconvectbot(c) = nlevlak+1
           lakeresist(c) = 0._r8
        end if
@@ -782,8 +779,7 @@ contains
                 iceav(c) = iceav(c) + lake_icefrac(c,i)*dz_lake(c,i)
                 nav(c) = nav(c) + dz_lake(c,i)
                 if (use_lch4) then
-!                   jconvect(c) = j+1
-                   jconvect(c) = real(j+1, r8)
+                   jconvect(c) = j+1
                 end if
              end if
           end do
@@ -955,8 +951,7 @@ contains
           do fc = 1, num_lakec
              c = filter_lakec(fc)
 
-!             if (j > jconvect(c) .and. j < jconvectbot(c)) then  ! Assume resistance is zero for levels that convect
-            if (j > nint(jconvect(c)) .and. j < jconvectbot(c)) then  ! Assume resistance is zero for levels that convect
+             if (j > jconvect(c) .and. j < jconvectbot(c)) then  ! Assume resistance is zero for levels that convect
                 lakeresist(c) = lakeresist(c) + dz(c,j)/kme(c,j) ! dz/eddy or molecular diffusivity
              end if
 

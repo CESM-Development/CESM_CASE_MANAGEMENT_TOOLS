@@ -11,19 +11,19 @@ module load cesm_postprocessing
 
 # ...
 # case name counter
-set smbr =  1
-set embr =  1
+set smbr =  2
+set embr =  2
 
 @ mb = $smbr
 @ me = $embr
 
 foreach mbr ( `seq $mb $me` )
 if ($mbr < 10) then
-        set CASE = f.e21.FHIST_BGC.f09_f09_mg17.L83_cam6.00${mbr}
-        #set CASE = f.e21.FHIST_BGC.f09_f09_mg17.L83_cam6_SSP370.00${mbr}
+        #set CASE = f.e21.FHIST_BGC.f09_f09_mg17.L83_cam6.00${mbr}
+        set CASE = f.e21.FHIST_BGC.f09_f09_mg17.L83_cam6_SSP370.00${mbr}
 else
-        set CASE = f.e21.FHIST_BGC.f09_f09_mg17.L83_cam6.0${mbr}
-        #set CASE = f.e21.FHIST_BGC.f09_f09_mg17.L83_cam6_SSP370.0${mbr}
+        #set CASE = f.e21.FHIST_BGC.f09_f09_mg17.L83_cam6.0${mbr}
+        set CASE = f.e21.FHIST_BGC.f09_f09_mg17.L83_cam6_SSP370.0${mbr}
 endif
 
 mkdir -p $CASEROOT/$CASE
@@ -41,19 +41,11 @@ pp_config --set CASE=$CASE
 pp_config --set DOUT_S_ROOT=$DOUT_S_ROOT/hist/$CASE
 pp_config --set ATM_GRID=0.9x1.25
 pp_config --set LND_GRID=0.9x1.25
-pp_config --set ICE_GRID=gx1v7
-pp_config --set OCN_GRID=gx1v7
-pp_config --set ICE_NX=320
-pp_config --set ICE_NY=384
+pp_config --set ICE_GRID=0.9x1.25
+pp_config --set OCN_GRID=0.9x1.25
+pp_config --set ICE_NX=288
+pp_config --set ICE_NY=192
 
-
-if ($mbr < 10) then
-   set usembr = "00"${mbr}
-else
-   set usembr = "0"${mbr}
-endif
-
-echo $usembr
 
 echo "Made it here"
 
@@ -61,7 +53,8 @@ echo "Made it here"
 # change a few things
 # =========================
 mv timeseries timeseries-OTB
-cp $CESM2_TOOLS_ROOT/pp/timeseries $CASEROOT/$CASE/postprocess
+cp $CESM2_TOOLS_ROOT/pp/timeseries $CASEROOT/$CASE/postprocess/
+cp $CESM2_TOOLS_ROOT/pp/env_timeseries.xml $CASEROOT/$CASE/postprocess/
 
 end             # member loop
 

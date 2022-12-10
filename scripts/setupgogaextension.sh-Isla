@@ -1,0 +1,62 @@
+#!/bin/bash
+#------------------------------------------------------------
+#- Setting up GOGA extensions from 2015 to 2019 -------------
+#- Isla Simpson, Oct 23rd 2020 ------------------------------
+#------------------------------------------------------------
+COMPSET=FHIST_BGC # note switching out SSP370 forcings with namelist
+GRID=f09_f09_mg17
+CESMROOT="/glade/work/islas/release-cesm2.1.2/" #Adam used release-cesm2.1.2 for first part
+PROJECT=P93300313
+INITDIR="/glade/scratch/islas/inputdata/GOGA/"
+INITBASENAME="f.e21.FHIST_BGC.f09_f09.historical.ersstv5.goga.ens"
+curdir=$(pwd)
+
+SSTFILE="/glade/p/cgd/cas/asphilli/cam_input_data/sst_ERSSTv5_bc_0.9x1.25_1870_2020_c200625.nc"
+#SSTGRID=$DIN_LOC_ROOT"/share/domains/domain.ocn.fv0.9x1.25_gx1v7.151020.nc"
+
+STARTMEM=1
+ENDMEM=10
+
+CASEROOTBASE="/glade/work/islas/release-cesm2.1.2/runs/GOGAext/"
+BASENAME="f.e21.FSSP370_BGC.f09_f09.ssp370.ersstv5.goga."$memstr
+SCRATCHBASE="/glade/scratch/islas/"
+
+for imem in `seq $STARTMEM $ENDMEM` ; do
+  memstr=`printf %02d $imem`
+  caseroot=$CASEROOTBASE$BASENAME$memstr
+  initfiles=$INITDIR'ens'$memstr'/2015-01-01-00000/'
+  initcase=$INITBASENAME$memstr
+  echo $caseroot
+
+  cd $CESMROOT/cime/scripts
+  ./create_newcase --case $caseroot --compset $COMPSET --res $GRID --mach cheyenne --run-unsupported
+  cd $caseroot
+  ./case.setup
+  ./xmlchange RUN_TYPE=hybrid
+  ./xmlchange GET_REFCASE=True
+  ./xmlchange RUN_STARTDATE="2015-01-01"
+  ./xmlchange STOP_OPTION="nyears"
+  ./xmlchange STOP_N=5
+  ./xmlchange RUN_REFDIR=$initfiles
+  ./xmlchange RUN_REFCASE=$initcase
+  ./xmlchange RUN_REFDATE="2015-01-01"
+  ./xmlchange SSTICE_YEAR_ALIGN='1870'
+  ./xmlchange SSTICE_YEAR_START='1870'
+  ./xmlchange SSTICE_YEAR_END='2020'
+  ./xmlchange SSTICE_DATA_FILENAME=$SSTFILE
+
+  ./xmlchange NTASKS_CPL=360
+  ./xmlchange NTASKS_ATM=360
+  ./xmlchange NTASKS_LND=360
+  ./xmlchange NTASKS_ICE=360
+  ./xmlchange NTASKS_OCN=360
+  ./xmlchange NTASKS_ROF=360
+  ./xmlchange NTASKS_GLC=360
+  ./xmlchange NTASKS_WAV=360 
+
+  cp $curdir/namelists/* .
+
+  qcmd -- ./case.build
+
+
+done

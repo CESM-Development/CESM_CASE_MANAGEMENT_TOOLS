@@ -13,7 +13,6 @@ module LakeStateType
   use abortUtils   , only : endrun
   use LandunitType , only : lun                
   use ColumnType   , only : col                
-  use clm_varctl   , only : use_lch4
   !
   implicit none
   save
@@ -37,7 +36,7 @@ module LakeStateType
      real(r8), pointer :: lake_icethick_col (:)   ! col ice thickness (m) (integrated if lakepuddling)
      real(r8), pointer :: lakeresist_col    (:)   ! col [s/m] (Needed for calc. of grnd_ch4_cond)
      real(r8), pointer :: ram1_lake_patch   (:)   ! patch aerodynamical resistance (s/m)
-     real(r8), pointer :: jconvect_col      (:)   ! Lowest level where convection occurs
+
    contains
 
      procedure, public  :: Init         
@@ -103,7 +102,6 @@ contains
     allocate(this%ks_col             (begc:endc))           ; this%ks_col             (:)   = nan
     allocate(this%ws_col             (begc:endc))           ; this%ws_col             (:)   = nan
     allocate(this%betaprime_col      (begc:endc))           ; this%betaprime_col      (:)   = nan
-    allocate(this%jconvect_col       (begc:endc))           ; this%jconvect_col       (:)   = nan
 
   end subroutine InitAllocate
 
@@ -157,13 +155,6 @@ contains
     call hist_addfld1d (fname='UST_LAKE', units='m/s', &
          avgflag='A', long_name='friction velocity (lakes only)', &
          ptr_col=this%ust_lake_col, set_nolake=spval, default='inactive')
-
-    if (use_lch4) then
-       this%jconvect_col(begc:endc) = spval
-       call hist_addfld1d (fname='JCONVECT', units='unitless', &
-            avgflag='A', long_name='lowest lake level where convection occurs', &
-            ptr_col=this%jconvect_col, set_nolake=spval)
-    end if
 
   end subroutine InitHistory
 

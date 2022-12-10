@@ -1,0 +1,13 @@
+# Isla's run:
+/glade/work/islas/release-cesm2.1.2/runs/GOGAext/
+
+# Goga SST for AMIP
+cp /glade/u/home/islas/CVCWG/GOGATOGA_extension/setupgogaextension.sh .
+
+
+# L83 SourceMods and Settings
+cp /glade/u/home/islas/CVCWG/L83_coupled_cam6/sourcemods/cesm2.1.4-rc.08/src.cam/* .
+cp /glade/u/home/islas/CVCWG/L83_coupled_cam6/sourcemods/cesm2.1.4-rc.08/src.clm/* .
+cp /glade/u/home/islas/CVCWG/L83_coupled_cam6/runscript_B1850_L83.sh .
+cp /glade/u/home/islas/CVCWG/L83_coupled_cam6/namelists/* .
+

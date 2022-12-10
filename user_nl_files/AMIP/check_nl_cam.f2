@@ -1,0 +1,5 @@
+fincl2          = 'U','V','T','OMEGA','PS','Z500','Z3','PRECT','U200','V200','UTGWORO','UTGWSPEC','BUTGWSPEC',
+'BTAUE', 'BTAUW', 'BTAUN','BTAUS','TAUE','TAUW','TAUN','TAUS','PRECC','PRECL','PRECT', TAUBLJX, ‘TAUBLJY’, 
+'U850','V850','FLUT', 'TAUGWX','TAUGWY','Q','ZMDT','CMFDT','DTCOND','PTTEND','QRS','QRL','ozone',
+'MSKtem', 'PS', 'PSL', 'VTHzm', 'UVzm', 'UWzm', 'Uzm', 'Vzm', 'TH2d','W2d', 'PHIS'
+
