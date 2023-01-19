@@ -3,6 +3,7 @@
 set PATH    = $STOCKYARD
 
 set rcp = 45
+set rcp = 60
 if ( $rcp == 85 ) then 
 	set COMPSET = BRCP85C5)
 endif
@@ -97,6 +98,18 @@ cd $CASEROOT
 
 cp $TOOLSROOT/user_nl_files/BRCPXX/* $CASEROOT/
 cp $TOOLSROOT/SourceMods/src.pop/*  $CASEROOT/SourceMods/src.pop/
+if ( $rcp == 85 ) then 
+   cp $TOOLSROOT/user_nl_files/BRCPXX/user_nl_cam-RCP85 $CASEROOT/user_nl_cam
+endif
+if ( $rcp == 60 ) then 
+   cp $TOOLSROOT/user_nl_files/BRCPXX/user_nl_cam-RCP60 $CASEROOT/user_nl_cam
+endif 
+if ( $rcp == 45 ) then 
+   cp $TOOLSROOT/user_nl_files/BRCPXX/user_nl_cam-RCP45 $CASEROOT/user_nl_cam
+endif
+if ( $rcp == 26 ) then 
+   cp $TOOLSROOT/user_nl_files/BRCPXX/user_nl_cam-RCP26 $CASEROOT/user_nl_cam
+endif
 
 
 ./case.setup --reset

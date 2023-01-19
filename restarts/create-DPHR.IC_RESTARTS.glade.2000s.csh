@@ -9,15 +9,18 @@ set mach = cheyenne
 if ($mach == "cheyenne") then
 	set SCRATCH = /glade/scratch/nanr/
         set atmdir  = /glade/p/cesm/espwg/JRA55_regridded_to_CAM/ne120_L30/
-	#set ocnpath = /glade/campaign/cesm/development/omwg/projects/ihesp/
-	set ocnpath = /glade/scratch/nanr/archive/
+        #set atmdir  = /glade/scratch/nanr/analyses_output_ne120/
+	#set ocnpath = /glade/campaign/collections/cmip/CMIP6/iHESP/FOSI/HR/
+	#  need to regrid ocean:  tx1v3 to tx1v2
 	#set ocnpath = /glade/scratch/fredc/archive/g.e21.GIAF.TL319_t13.5thCyc.ice.001/rest/0269-11-01-00000
+	#set ocnpath = /glade/scratch/fredc/archive/
         #set restdir = /glade/scratch/fredc/archive/f.e13.FAMIPC5.ne120_ne120_mt12.cesm-ihesp-1950-2050.001/rest/1982-01-01-00000/
         #set lndpath = /glade/scratch/jedwards/
         set lndpath = /glade/scratch/nanr/archive/
 	#set lndcase =  f.e13.FAMIPC5.ne120_ne120_mt12.chey-gen-restarts.001
 	#set lndcase =  f.e13.FAMIPC5.ne120_ne120_mt12.chey-gen-restarts.1990-05-01.001
-	set lndcase =  f.e13.FAMIPC5.ne120_ne120_mt12.rerun-gen-restarts.001
+	#set lndcase =  f.e13.FAMIPC5.ne120_ne120_mt12.rerun-gen-restarts.001
+	set lndcase =  f.e13.FAMIPC5.ne120_ne120_mt12.stamp-gen-restarts.1970s.001
 else
 	set atmdir = /scratch1/06091/nanr/JRA55/
 	set ocnpath = /scratch1/06090/fredc/
@@ -41,8 +44,29 @@ set lndcase =  f.e13.FAMIPC5.ne120_ne120_mt12.chey-gen-restarts.${syr}-01-01.001
 set syr = 1998
 set eyr = 1998
 set lndcase =  f.e13.FAMIPC5.ne120_ne120_mt12.rerun-gen-restarts.001
-set syr = 2020
-set eyr = 2020
+set syr = 2021
+set eyr = 2021
+# Nan added Caspian
+#set ocnpath = /glade/scratch/nanr/archive/
+#set atmdir  = /glade/scratch/nanr/analyses_output_ne120/
+#set syr = 2022
+3set eyr = 2022
+# Fred already added Caspian Sea and converted to CICE4
+#set ocnpath = /glade/scratch/fredc/archive/
+#set lndcase =  f.e13.FAMIPC5.ne120_ne120_mt12.front_gen-restarts.001
+#set syr = 1980
+#set eyr = 1980
+# Nan added Caspian
+set ocnpath = /glade/scratch/nanr/archive/
+set lndcase =  f.e13.FAMIPC5.ne120_ne120_mt12.stamp-gen-restarts.1970s.001
+set syr = 1976
+set eyr = 1976
+set syr = 1974
+set eyr = 1974
+set syr = 1972
+set eyr = 1972
+set syr = 1970
+set eyr = 1970
 
 @ ib = $syr
 @ ie = $eyr
@@ -114,6 +138,8 @@ set ocndir = ${ocnpath}/g.e21.GIAF.TL319_t13.5thCyc.ice.001/rest/0${ocnyr}-${mon
 set icefout = ${case}.cice.r.${year}-${mon}-01-00000.nc
 set lndfout = ${case}.clm2.r.${year}-${mon}-01-00000.nc
 set roffout = ${case}.rtm.r.${year}-${mon}-01-00000.nc
+
+echo $ocnyr
 
 #set icefname   = ${ocncase}.cice.r.0${ocnyr}-${mon}-01-00000.nc 
 #set poprfname  = ${ocncase}.pop.r.0${ocnyr}-${mon}-01-00000.nc  

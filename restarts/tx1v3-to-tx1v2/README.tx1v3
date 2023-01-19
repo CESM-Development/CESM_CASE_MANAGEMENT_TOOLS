@@ -2,6 +2,8 @@ cp /glade/u/home/fredc/iHESP/HR-DP/* .
 
 Run on Casper.
 
+qsubcasper -I -X -q casper -A P93300313 -l walltime=06:00:00 -l select=1:ncpus=1:mpiprocs=1:mem=60GB
+
 https://www2.cisl.ucar.edu/resources/python-%E2%80%93-ncar-package-library
 module load python/3.7.9
 module load ncarenv

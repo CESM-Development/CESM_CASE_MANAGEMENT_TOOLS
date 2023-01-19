@@ -3,10 +3,18 @@ import subprocess
 
 
 # /glade/campaign/cesm/development/omwg/projects/ihesp/g.e21.GIAF.TL319_t13.5thCyc.ice.001/rest/
+# /glade/campaign/collections/cmip/CMIP6/iHESP/FOSI/HR/g.e21.GIAF.TL319_t13.5thCyc.ice.001/rest
+
 case = "g.e21.GIAF.TL319_t13.5thCyc.ice.001"
 #years = np.arange(269,295)
 #years = np.arange(305,306)
-years = np.arange(301,302)
+#years = np.arange(301,302)
+#years = np.arange(267,268)
+#years = np.arange(265,266)
+#years = np.arange(263,264)
+#years = np.arange(261,262)
+#years = np.arange(259,260)
+years = np.arange(257,258)
 
 for y in years:
   year = f'{y:04d}'
