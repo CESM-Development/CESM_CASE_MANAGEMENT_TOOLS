@@ -1,0 +1,110 @@
+#!/bin/csh -f
+### set env variables
+
+
+## We need to create
+set COMPSET = B1950TRC5
+set COMPSET = B1950C5
+set RESOLN  = ne120_t12
+set MACHINE = cheyenne
+set TAG     = cesm-ihesp-hires1.0.24
+setenv CESMROOT  /glade/work/nanr/cesm_tags/${TAG}
+
+
+set mbr = 28
+setenv CASE b.e13.${COMPSET}.${RESOLN}.${TAG}.0${mbr}
+setenv CASEROOT /glade/work/nanr/ihesp-HiRes/cases/ne120_t12/$CASE
+
+
+#$CESMROOT/scripts/create_newcase -case $CASEROOT -res $RESOLN  -mach $MACHINE -compset $COMPSET -compiler $COMPILER
+$CESMROOT/cime/scripts/create_newcase --case $CASEROOT --res $RESOLN  --mach $MACHINE --compset $COMPSET --user-mods-dir 1950cntl
+
+cd $CASEROOT
+
+### modify case parameters
+# ./xmlchange RUN_REFCASE=B.E.13.B1850C5.ne120_t12.sehires38.003
+# ./xmlchange RUN_REFDATE=0021-01-01
+./xmlchange RUN_TYPE=startup
+./xmlchange STOP_OPTION=ndays
+./xmlchange STOP_N=5
+./xmlchange DIN_LOC_ROOT='/glade/p/cesm/cseg/inputdata'
+./xmlchange DIN_LOC_ROOT_CLMFORC='/glade/p/cesm/cseg/inputdata/atm/datm7'
+
+# ./xmlchange NTASKS_ATM=7200
+# ./xmlchange NTASKS_LND=1200
+# ./xmlchange NTASKS_ICE=6000
+# ./xmlchange NTASKS_OCN=2135
+# ./xmlchange NTASKS_CPL=7200
+# ./xmlchange NTASKS_ROF=1200
+# ./xmlchange ROOTPE_OCN=7200
+# ./xmlchange ROOTPE_ICE=1200
+
+
+#./xmlchange -file env_run.xml   -id CPL_SEQ_OPTION  -val RASM_OPTION1
+./xmlchange RUNDIR='/glade/scratch/nanr/$CASE/run'
+./xmlchange EXEROOT='/glade/scratch/nanr/$CASE/bld'
+
+./case.setup
+
+cp /glade/work/nanr/cesm_tags/CASE_tools/ihesp-tools/SourceMods/src.pop/* $CASEROOT/SourceMods/src.pop/
+
+#mv user_nl_cam user_nl_cam.`date +%m%d-%H%M`
+#cat > user_nl_cam<<EOF
+
+#ext_frc_cycle_yr               = 1950
+#ext_frc_specifier              = 'SO2         -> /glade/work/nanr/cases/cmip6/ihesp-HiRes/inputdata/atm/cam/chem/trop_mozart_aero/emis/RCP85_mam3_so2_elev_19500115-20601215_c190517.nc',
+#        'bc_a1       -> /glade/work/nanr/cases/cmip6/ihesp-HiRes/inputdata/atm/cam/chem/trop_mozart_aero/emis/RCP85_mam3_bc_elev_1950_c190517.nc',
+#        'num_a1      -> /glade/work/nanr/cases/cmip6/ihesp-HiRes//inputdata/atm/cam/chem/trop_mozart_aero/emis/RCP85_mam3_num_a1_elev_1950_c190517.nc',
+#        'num_a2      -> /glade/work/nanr/cases/cmip6/ihesp-HiRes/inputdata/atm/cam/chem/trop_mozart_aero/emis/RCP85_mam3_num_a2_elev_1950_c190517.nc',
+#        'pom_a1      -> /glade/work/nanr/cases/cmip6/ihesp-HiRes/inputdata/atm/cam/chem/trop_mozart_aero/emis/RCP85_mam3_oc_elev_1950_c190517.nc',
+#        'so4_a1      -> /glade/work/nanr/cases/cmip6/ihesp-HiRes/inputdata/atm/cam/chem/trop_mozart_aero/emis/RCP85_mam3_so4_a1_elev_1950_c190517.nc',
+#        'so4_a2      -> /glade/work/nanr/cases/cmip6/ihesp-HiRes/inputdata/atm/cam/chem/trop_mozart_aero/emis/RCP85_mam3_so4_a2_elev_1950_c190517.nc'
+#ext_frc_type           = 'CYCLICAL'
+#fstrat_list            = ' '
+#rsf_file               = '/glade/p/cesm/cseg/inputdata/atm/waccm/phot/RSF_GT200nm_v3.0_c080416.nc'
+#season_wes_file                = '/glade/p/cesm/cseg/inputdata/atm/cam/chem/trop_mozart/dvel/season_wes.nc'
+#srf_emis_cycle_yr              = 1950
+#srf_emis_specifier             = 'DMS       -> /glade/work/nanr/cmip6/ihesp-HiRes/inputdata/atm/cam/chem/trop_mozart_aero/emis/aerocom_mam3_dms_surf_1950_c090804_c190620.nc',
+#        'SO2       -> /glade/work/nanr/cases/cmip6/ihesp-HiRes/inputdata/atm/cam/chem/trop_mozart_aero/emis/RCP85_mam3_so2_surf_1950_c190517.nc',
+#        'SOAG      -> /glade/work/nanr/cases/cmip6/ihesp-HiRes/inputdata/atm/cam/chem/trop_mozart_aero/emis/RCP85_soag_1.5_surf_1950_c190517.nc',
+#        'bc_a1     -> /glade/work/nanr/cases/cmip6/ihesp-HiRes/inputdata/atm/cam/chem/trop_mozart_aero/emis/RCP85_mam3_bc_surf_1950_c190517.nc',
+#        'num_a1    -> /glade/work/nanr/cases/cmip6/ihesp-HiRes/inputdata/atm/cam/chem/trop_mozart_aero/emis/RCP85_mam3_num_a1_surf_1950_c190517.nc',
+#        'num_a2    -> /glade/work/nanr/cases/cmip6/ihesp-HiRes/inputdata/atm/cam/chem/trop_mozart_aero/emis/RCP85_mam3_num_a2_surf_1950_c190517.nc',
+#        'pom_a1    -> /glade/work/nanr/cases/cmip6/ihesp-HiRes/inputdata/atm/cam/chem/trop_mozart_aero/emis/RCP85_mam3_oc_surf_1950_c190517.nc'
+#        'so4_a1    -> /glade/work/nanr/cases/cmip6/ihesp-HiRes/inputdata/atm/cam/chem/trop_mozart_aero/emis/RCP85_mam3_so4_a1_surf_1950_c190517.nc',
+#        'so4_a2    -> /glade/work/nanr/cases/cmip6/ihesp-HiRes/inputdata/atm/cam/chem/trop_mozart_aero/emis/RCP85_mam3_so4_a2_surf_1950_c190517.nc', 
+#srf_emis_type          = 'CYCLICAL'
+#tracer_cnst_cycle_yr           = 1945
+#tracer_cnst_datapath           = '/glade/work/nanr/cases/cmip6/ihesp-HiRes/inputdata/atm/cam/chem/trop_mozart_aero/oxid'
+#tracer_cnst_file               = 'oxid_rcp85_v1_1.9x2.5_L26_1950_c190517.nc'
+#tracer_cnst_filelist           = 'oxid_1.9x2.5_L26_clim_list.c090805.txt'
+#tracer_cnst_specifier          = 'O3','OH','NO3','HO2'
+#tracer_cnst_type               = 'CYCLICAL'
+#xactive_prates         = .false.
+#xs_long_file           = '/glade/p/cesm/cseg/inputdata/atm/waccm/phot/temp_prs_GT200nm_JPL10_c140624.nc'
+#/
+#&chem_surfvals_nl
+ #ch4vmr         = 1147.25e-9
+ #co2vmr         = 310.75e-6
+ #f11vmr         = 57.28e-12
+ #f12vmr         = 5.0045
+ #flbc_list      = ' '
+ #n2ovmr         = 289.0e-9
+#
+#/
+
+
+#EOF
+
+#mv user_nl_clm user_nl_clm.`date +%m%d-%H%M`
+#cat > user_nl_clm<<EOF
+#fsurdat = '/glade/p/cesm/cseg/inputdata/lnd/clm2/surfdata_map/surfdata_ne120np4_simyr2000_c130313.nc'
+#EOF
+
+#mv user_nl_pop user_nl_pop.`date +%m%d-%H%M`
+#cat > user_nl_pop<<EOF
+ #init_ts_file = '/glade/scratch/nanr/regrid/forEN4/TEMP-SALT_1950-1954_jan-avg_EN411.g10.tx0.1v2.c190514.nc'
+ #init_ts_file_fmt = 'nc'
+#EOF
+
+#qcmd -- ./$CASE.build

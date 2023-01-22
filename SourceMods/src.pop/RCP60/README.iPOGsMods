@@ -1,0 +1,11 @@
+
+cp /glade/work/fredc/cesm_sourcemods/iPOGS_cesm13/src.pop/* .
+
+You can find the SourceMods here
+/glade/work/fredc/cesm_sourcemods/iPOGS_cesm13/src.pop/
+We want to add the following streams for POP to the one used previously (in tx0.1v2_tavg_contents). 
+1  RHO
+1  TEND_TEMP
+1  TEND_SALT
+1  TEND_RHO
+1  TEND_PBO

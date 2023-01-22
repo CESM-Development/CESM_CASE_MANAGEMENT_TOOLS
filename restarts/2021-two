@@ -1,0 +1,264 @@
+
+
+
+
+
+
+set mach = frontera
+set mach = frontera
+set mach = cheyenne
+set mach = cheyenne
+if ( $mach == "cheyenne" ) then
+if ( cheyenne == cheyenne ) then
+set SCRATCH = /glade/scratch/nanr/
+set SCRATCH = /glade/scratch/nanr/
+set atmdir = /glade/p/cesm/espwg/JRA55_regridded_to_CAM/ne120_L30/
+set atmdir = /glade/p/cesm/espwg/JRA55_regridded_to_CAM/ne120_L30/
+
+
+
+set ocnpath = /glade/scratch/fredc/archive/
+set ocnpath = /glade/scratch/fredc/archive/
+
+
+set lndpath = /glade/scratch/nanr/archive/
+set lndpath = /glade/scratch/nanr/archive/
+
+
+set lndcase = f.e13.FAMIPC5.ne120_ne120_mt12.rerun-gen-restarts.001
+set lndcase = f.e13.FAMIPC5.ne120_ne120_mt12.rerun-gen-restarts.001
+else
+else
+
+set syr = 1982
+set syr = 1982
+set eyr = 1982
+set eyr = 1982
+set syr = 1990
+set syr = 1990
+set eyr = 1990
+set eyr = 1990
+set lndcase = f.e13.FAMIPC5.ne120_ne120_mt12.chey-gen-restarts.1990-05-01.001
+set lndcase = f.e13.FAMIPC5.ne120_ne120_mt12.chey-gen-restarts.1990-05-01.001
+set syr = 1992
+set syr = 1992
+set eyr = 1992
+set eyr = 1992
+
+
+set syr = 1996
+set syr = 1996
+set eyr = 1996
+set eyr = 1996
+
+set lndcase = f.e13.FAMIPC5.ne120_ne120_mt12.chey-gen-restarts.${syr}-01-01.001
+set lndcase = f.e13.FAMIPC5.ne120_ne120_mt12.chey-gen-restarts.1996-01-01.001
+set syr = 1998
+set syr = 1998
+set eyr = 1998
+set eyr = 1998
+set lndcase = f.e13.FAMIPC5.ne120_ne120_mt12.rerun-gen-restarts.001
+set lndcase = f.e13.FAMIPC5.ne120_ne120_mt12.rerun-gen-restarts.001
+set syr = 2021
+set syr = 2021
+set eyr = 2021
+set eyr = 2021
+
+@ ib = $syr
+@ ib = 2021
+@ ie = $eyr
+@ ie = 2021
+
+foreach year ( `seq $ib 2 $ie` )
+foreach year ( `seq $ib 2 $ie` )
+seq 2021 2 2021
+
+foreach mon ( 11 )
+foreach mon ( 11 )
+
+set case = b.e13.DP-HR_IC.ne120_t12.${year}-${mon}.01
+set case = b.e13.DP-HR_IC.ne120_t12.2021-11.01
+set Picdir = ${SCRATCH}/DP-HR/inputdata/cesm2_init/{$case}/
+set Picdir = /glade/scratch/nanr//DP-HR/inputdata/cesm2_init/{b.e13.DP-HR_IC.ne120_t12.2021-11.01}/
+set icdir = ${SCRATCH}/DP-HR/inputdata/cesm2_init/{$case}/${year}-${mon}-01
+set icdir = /glade/scratch/nanr//DP-HR/inputdata/cesm2_init/{b.e13.DP-HR_IC.ne120_t12.2021-11.01}/2021-11-01
+if ( ! -d ${Picdir} ) then
+if ( ! -d /glade/scratch/nanr//DP-HR/inputdata/cesm2_init/b.e13.DP-HR_IC.ne120_t12.2021-11.01/ ) then
+if ( ! -d ${icdir} ) then
+if ( ! -d /glade/scratch/nanr//DP-HR/inputdata/cesm2_init/b.e13.DP-HR_IC.ne120_t12.2021-11.01/2021-11-01 ) then
+
+
+set atmcase = JRA55_ne120_L30
+set atmcase = JRA55_ne120_L30
+
+
+set atmfname = ${atmcase}.cam2.i.${year}-${mon}-01-00000.nc
+set atmfname = JRA55_ne120_L30.cam2.i.2021-11-01-00000.nc
+set lndfname = ${lndcase}.clm2.r.${year}-${mon}-01-00000.nc
+set lndfname = f.e13.FAMIPC5.ne120_ne120_mt12.rerun-gen-restarts.001.clm2.r.2021-11-01-00000.nc
+set roffname = ${lndcase}.rtm.r.${year}-${mon}-01-00000.nc
+set roffname = f.e13.FAMIPC5.ne120_ne120_mt12.rerun-gen-restarts.001.rtm.r.2021-11-01-00000.nc
+
+
+
+
+
+
+
+set lnddir = ${lndpath}/${lndcase}/rest/${year}-${mon}-01-00000/
+set lnddir = /glade/scratch/nanr/archive//f.e13.FAMIPC5.ne120_ne120_mt12.rerun-gen-restarts.001/rest/2021-11-01-00000/
+
+
+set atmfout = ${case}.cam.i.${year}-${mon}-01-00000.nc
+set atmfout = b.e13.DP-HR_IC.ne120_t12.2021-11.01.cam.i.2021-11-01-00000.nc
+set lndfout = ${case}.clm2.r.${year}-${mon}-01-00000.nc
+set lndfout = b.e13.DP-HR_IC.ne120_t12.2021-11.01.clm2.r.2021-11-01-00000.nc
+set roffout = ${case}.rtm.r.${year}-${mon}-01-00000.nc
+set roffout = b.e13.DP-HR_IC.ne120_t12.2021-11.01.rtm.r.2021-11-01-00000.nc
+
+echo $atmfout
+echo b.e13.DP-HR_IC.ne120_t12.2021-11.01.cam.i.2021-11-01-00000.nc
+b.e13.DP-HR_IC.ne120_t12.2021-11.01.cam.i.2021-11-01-00000.nc
+
+set doThis = 1
+set doThis = 1
+
+if ( $doThis == 1 ) then
+if ( 1 == 1 ) then
+cp $atmdir/${atmfname} $icdir/$atmfout
+cp /glade/p/cesm/espwg/JRA55_regridded_to_CAM/ne120_L30//JRA55_ne120_L30.cam2.i.2021-11-01-00000.nc /glade/scratch/nanr//DP-HR/inputdata/cesm2_init/b.e13.DP-HR_IC.ne120_t12.2021-11.01/2021-11-01/b.e13.DP-HR_IC.ne120_t12.2021-11.01.cam.i.2021-11-01-00000.nc
+cp $lnddir/${lndfname} $icdir/$lndfout
+cp /glade/scratch/nanr/archive//f.e13.FAMIPC5.ne120_ne120_mt12.rerun-gen-restarts.001/rest/2021-11-01-00000//f.e13.FAMIPC5.ne120_ne120_mt12.rerun-gen-restarts.001.clm2.r.2021-11-01-00000.nc /glade/scratch/nanr//DP-HR/inputdata/cesm2_init/b.e13.DP-HR_IC.ne120_t12.2021-11.01/2021-11-01/b.e13.DP-HR_IC.ne120_t12.2021-11.01.clm2.r.2021-11-01-00000.nc
+cp: cannot stat ‘/glade/scratch/nanr/archive//f.e13.FAMIPC5.ne120_ne120_mt12.rerun-gen-restarts.001/rest/2021-11-01-00000//f.e13.FAMIPC5.ne120_ne120_mt12.rerun-gen-restarts.001.clm2.r.2021-11-01-00000.nc’: No such file or directory
+cp $lnddir/${roffname} $icdir/$roffout
+cp /glade/scratch/nanr/archive//f.e13.FAMIPC5.ne120_ne120_mt12.rerun-gen-restarts.001/rest/2021-11-01-00000//f.e13.FAMIPC5.ne120_ne120_mt12.rerun-gen-restarts.001.rtm.r.2021-11-01-00000.nc /glade/scratch/nanr//DP-HR/inputdata/cesm2_init/b.e13.DP-HR_IC.ne120_t12.2021-11.01/2021-11-01/b.e13.DP-HR_IC.ne120_t12.2021-11.01.rtm.r.2021-11-01-00000.nc
+cp: cannot stat ‘/glade/scratch/nanr/archive//f.e13.FAMIPC5.ne120_ne120_mt12.rerun-gen-restarts.001/rest/2021-11-01-00000//f.e13.FAMIPC5.ne120_ne120_mt12.rerun-gen-restarts.001.rtm.r.2021-11-01-00000.nc’: No such file or directory
+ncatted -a OriginalFile,global,a,c,$atmfname $icdir/$atmfout
+ncatted -a OriginalFile,global,a,c,JRA55_ne120_L30.cam2.i.2021-11-01-00000.nc /glade/scratch/nanr//DP-HR/inputdata/cesm2_init/b.e13.DP-HR_IC.ne120_t12.2021-11.01/2021-11-01/b.e13.DP-HR_IC.ne120_t12.2021-11.01.cam.i.2021-11-01-00000.nc
+ncatted -a OriginalFile,global,a,c,$lndfname $icdir/$lndfout
+ncatted -a OriginalFile,global,a,c,f.e13.FAMIPC5.ne120_ne120_mt12.rerun-gen-restarts.001.clm2.r.2021-11-01-00000.nc /glade/scratch/nanr//DP-HR/inputdata/cesm2_init/b.e13.DP-HR_IC.ne120_t12.2021-11.01/2021-11-01/b.e13.DP-HR_IC.ne120_t12.2021-11.01.clm2.r.2021-11-01-00000.nc
+ncatted: ERROR file /glade/scratch/nanr//DP-HR/inputdata/cesm2_init/b.e13.DP-HR_IC.ne120_t12.2021-11.01/2021-11-01/b.e13.DP-HR_IC.ne120_t12.2021-11.01.clm2.r.2021-11-01-00000.nc not found. It does not exist on the local filesystem, nor does it match remote filename patterns (e.g., http://foo or foo.bar.edu:file).
+ncatted: HINT file-not-found errors usually arise from filename typos, incorrect paths, missing files, or capricious gods. Please verify spelling and location of requested file. If the file resides on a High Performance Storage System (HPSS) accessible via the 'hsi' command, then add the --hpss option and re-try command.
+ncatted -a OriginalFile,global,a,c,$roffname $icdir/$roffout
+ncatted -a OriginalFile,global,a,c,f.e13.FAMIPC5.ne120_ne120_mt12.rerun-gen-restarts.001.rtm.r.2021-11-01-00000.nc /glade/scratch/nanr//DP-HR/inputdata/cesm2_init/b.e13.DP-HR_IC.ne120_t12.2021-11.01/2021-11-01/b.e13.DP-HR_IC.ne120_t12.2021-11.01.rtm.r.2021-11-01-00000.nc
+ncatted: ERROR file /glade/scratch/nanr//DP-HR/inputdata/cesm2_init/b.e13.DP-HR_IC.ne120_t12.2021-11.01/2021-11-01/b.e13.DP-HR_IC.ne120_t12.2021-11.01.rtm.r.2021-11-01-00000.nc not found. It does not exist on the local filesystem, nor does it match remote filename patterns (e.g., http://foo or foo.bar.edu:file).
+ncatted: HINT file-not-found errors usually arise from filename typos, incorrect paths, missing files, or capricious gods. Please verify spelling and location of requested file. If the file resides on a High Performance Storage System (HPSS) accessible via the 'hsi' command, then add the --hpss option and re-try command.
+
+endif
+endif
+
+
+set ocncase = g.e21.GIAF.TL319_t13.5thCyc.ice.001
+set ocncase = g.e21.GIAF.TL319_t13.5thCyc.ice.001
+set first_rest_year = 1958
+set first_rest_year = 1958
+set ocean_base_year = 245
+set ocean_base_year = 245
+
+
+
+
+
+
+
+@ offset = $first_rest_year - $ocean_base_year
+@ offset = 1958 - 245
+@ ocnyr = $year - $offset
+@ ocnyr = 2021 - 1713
+set ocndir = ${ocnpath}/g.e21.GIAF.TL319_t13.5thCyc.ice.001/rest/0${ocnyr}-${mon}-01-00000/
+set ocndir = /glade/scratch/fredc/archive//g.e21.GIAF.TL319_t13.5thCyc.ice.001/rest/0308-11-01-00000/
+
+set icefout = ${case}.cice.r.${year}-${mon}-01-00000.nc
+set icefout = b.e13.DP-HR_IC.ne120_t12.2021-11.01.cice.r.2021-11-01-00000.nc
+set lndfout = ${case}.clm2.r.${year}-${mon}-01-00000.nc
+set lndfout = b.e13.DP-HR_IC.ne120_t12.2021-11.01.clm2.r.2021-11-01-00000.nc
+set roffout = ${case}.rtm.r.${year}-${mon}-01-00000.nc
+set roffout = b.e13.DP-HR_IC.ne120_t12.2021-11.01.rtm.r.2021-11-01-00000.nc
+
+echo $ocnyr
+echo 308
+308
+
+
+
+set icefname = ${ocncase}.cice4.r.tx01v2.0${ocnyr}-${mon}-01-00000.nc
+set icefname = g.e21.GIAF.TL319_t13.5thCyc.ice.001.cice4.r.tx01v2.0308-11-01-00000.nc
+set poprfname = ${ocncase}.pop.r.tx01v2.0${ocnyr}-${mon}-01-00000.nc
+set poprfname = g.e21.GIAF.TL319_t13.5thCyc.ice.001.pop.r.tx01v2.0308-11-01-00000.nc
+
+
+set poprofname = ${ocncase}.pop.ro.0${ocnyr}-${mon}-01-00000
+set poprofname = g.e21.GIAF.TL319_t13.5thCyc.ice.001.pop.ro.0308-11-01-00000
+set poprhfname = ${ocncase}.pop.rh.ecosys.nyear1.0${ocnyr}-${mon}-01-00000.nc
+set poprhfname = g.e21.GIAF.TL319_t13.5thCyc.ice.001.pop.rh.ecosys.nyear1.0308-11-01-00000.nc
+
+
+set poprfout = ${case}.pop.r.${year}-${mon}-01-00000.nc
+set poprfout = b.e13.DP-HR_IC.ne120_t12.2021-11.01.pop.r.2021-11-01-00000.nc
+set poprofout = ${case}.pop.ro.${year}-${mon}-01-00000
+set poprofout = b.e13.DP-HR_IC.ne120_t12.2021-11.01.pop.ro.2021-11-01-00000
+set poprhfout = ${case}.pop.rh.ecosys.nyear1.${year}-${mon}-01-00000.nc
+set poprhfout = b.e13.DP-HR_IC.ne120_t12.2021-11.01.pop.rh.ecosys.nyear1.2021-11-01-00000.nc
+
+
+echo $icefname
+echo g.e21.GIAF.TL319_t13.5thCyc.ice.001.cice4.r.tx01v2.0308-11-01-00000.nc
+g.e21.GIAF.TL319_t13.5thCyc.ice.001.cice4.r.tx01v2.0308-11-01-00000.nc
+echo $poprfname
+echo g.e21.GIAF.TL319_t13.5thCyc.ice.001.pop.r.tx01v2.0308-11-01-00000.nc
+g.e21.GIAF.TL319_t13.5thCyc.ice.001.pop.r.tx01v2.0308-11-01-00000.nc
+
+set doThis2 = 1
+set doThis2 = 1
+if ( $doThis2 == 1 ) then
+if ( 1 == 1 ) then
+
+cp $ocndir/${icefname} $icdir/${icefout}
+cp /glade/scratch/fredc/archive//g.e21.GIAF.TL319_t13.5thCyc.ice.001/rest/0308-11-01-00000//g.e21.GIAF.TL319_t13.5thCyc.ice.001.cice4.r.tx01v2.0308-11-01-00000.nc /glade/scratch/nanr//DP-HR/inputdata/cesm2_init/b.e13.DP-HR_IC.ne120_t12.2021-11.01/2021-11-01/b.e13.DP-HR_IC.ne120_t12.2021-11.01.cice.r.2021-11-01-00000.nc
+cp $ocndir/${poprfname} $icdir/${poprfout}
+cp /glade/scratch/fredc/archive//g.e21.GIAF.TL319_t13.5thCyc.ice.001/rest/0308-11-01-00000//g.e21.GIAF.TL319_t13.5thCyc.ice.001.pop.r.tx01v2.0308-11-01-00000.nc /glade/scratch/nanr//DP-HR/inputdata/cesm2_init/b.e13.DP-HR_IC.ne120_t12.2021-11.01/2021-11-01/b.e13.DP-HR_IC.ne120_t12.2021-11.01.pop.r.2021-11-01-00000.nc
+
+
+
+
+ncatted -a OriginalFile,global,a,c,$icefname $icdir/$icefout
+ncatted -a OriginalFile,global,a,c,g.e21.GIAF.TL319_t13.5thCyc.ice.001.cice4.r.tx01v2.0308-11-01-00000.nc /glade/scratch/nanr//DP-HR/inputdata/cesm2_init/b.e13.DP-HR_IC.ne120_t12.2021-11.01/2021-11-01/b.e13.DP-HR_IC.ne120_t12.2021-11.01.cice.r.2021-11-01-00000.nc
+ncatted -a OriginalFile,global,a,c,$poprfname $icdir/$poprfout
+ncatted -a OriginalFile,global,a,c,g.e21.GIAF.TL319_t13.5thCyc.ice.001.pop.r.tx01v2.0308-11-01-00000.nc /glade/scratch/nanr//DP-HR/inputdata/cesm2_init/b.e13.DP-HR_IC.ne120_t12.2021-11.01/2021-11-01/b.e13.DP-HR_IC.ne120_t12.2021-11.01.pop.r.2021-11-01-00000.nc
+
+
+
+
+
+echo "$case.cice.r.$year-${mon}-01-00000.nc" > ${icdir}/rpointer.ice
+echo b.e13.DP-HR_IC.ne120_t12.2021-11.01.cice.r.2021-11-01-00000.nc
+echo "./$case.pop.ro.$year-${mon}-01-00000" > ${icdir}/rpointer.ocn.ovf
+echo ./b.e13.DP-HR_IC.ne120_t12.2021-11.01.pop.ro.2021-11-01-00000
+echo "$case.cam.i.$year-${mon}-01-00000.nc" > ${icdir}/rpointer.atm
+echo b.e13.DP-HR_IC.ne120_t12.2021-11.01.cam.i.2021-11-01-00000.nc
+echo "$case.cpl.r.$year-${mon}-01-00000.nc" > ${icdir}/rpointer.drv
+echo b.e13.DP-HR_IC.ne120_t12.2021-11.01.cpl.r.2021-11-01-00000.nc
+echo "$case.clm2.r.$year-${mon}-01-00000.nc" > ${icdir}/rpointer.clm
+echo b.e13.DP-HR_IC.ne120_t12.2021-11.01.clm2.r.2021-11-01-00000.nc
+echo "$case.rtm.r.$year-${mon}-01-00000.nc" > ${icdir}/rpointer.rof
+echo b.e13.DP-HR_IC.ne120_t12.2021-11.01.rtm.r.2021-11-01-00000.nc
+
+
+
+echo "./$case.pop.r.$year-${mon}-01-00000.nc" >> ${icdir}/rpointer.ocn.restart
+echo ./b.e13.DP-HR_IC.ne120_t12.2021-11.01.pop.r.2021-11-01-00000.nc
+echo "RESTART_FMT=nc" >> ${icdir}/rpointer.ocn.restart
+echo RESTART_FMT=nc
+
+endif
+endif
+
+
+
+end
+end
+end
+end
+
+exit
+exit
