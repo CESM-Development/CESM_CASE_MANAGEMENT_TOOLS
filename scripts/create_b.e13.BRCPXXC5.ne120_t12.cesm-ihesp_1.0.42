@@ -103,6 +103,7 @@ if ( $rcp == 85 ) then
 endif
 if ( $rcp == 60 ) then 
    cp $TOOLSROOT/user_nl_files/BRCPXX/user_nl_cam-RCP60 $CASEROOT/user_nl_cam
+   cp $TOOLSROOT/SourceMods/src.pop/iPOGS-RCP60/*  $CASEROOT/SourceMods/src.pop/
 endif 
 if ( $rcp == 45 ) then 
    cp $TOOLSROOT/user_nl_files/BRCPXX/user_nl_cam-RCP45 $CASEROOT/user_nl_cam
