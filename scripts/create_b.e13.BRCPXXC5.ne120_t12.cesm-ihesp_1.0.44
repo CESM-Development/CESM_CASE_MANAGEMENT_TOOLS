@@ -21,7 +21,7 @@ set RESOLN  = ne120_t12
 set MACHINE = frontera
 set TAG     = cesm-ihesp-hires1.0.44
 
-set mbr = 2a
+set mbr = 2
 setenv CASE b.e13.${COMPSET}.${RESOLN}.${TAG}.00${mbr}
 setenv REFCASE b.e13.BHISTC5.ne120_t12.cesm-ihesp-hires1.0.30-1920-2100.00${mbr}
 
