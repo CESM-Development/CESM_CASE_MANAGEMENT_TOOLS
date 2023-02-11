@@ -9,7 +9,7 @@ set TAG     = cesm-ihesp-hires1.0.44
 set mbr     = 4
 
 setenv REFCASE B.E.13.BHISTC5.ne120_t12.sehires38.003.sunway
-setenv CASE b.e13.${COMPSET}.${RESOLN}.${TAG}-1920-2100.00${mbr}
+setenv CASE b.e13.${COMPSET}.${RESOLN}.${TAG}-1920-2005.00${mbr}
 
 if ($MACHINE == frontera) then
         set PATH      = $STOCKYARD
@@ -62,8 +62,6 @@ cd $CASEROOT
 
 ./xmlchange --append CAM_CONFIG_OPTS=-cosp
 
-cp /home1/06091/nanr/CESM_tools/ihesp-tools/user_nl_files/BHIST/* $CASEROOT/
-cp /home1/06091/nanr/CESM_tools/ihesp-tools/SourceMods/src.pop/iPOGS/*  $CASEROOT/SourceMods/src.pop/
 cp $TOOLSROOT/user_nl_files/BHIST/* $CASEROOT/
 cp $TOOLSROOT/SourceMods/src.pop/iPOGS/*  $CASEROOT/SourceMods/src.pop/
 
