@@ -64,6 +64,8 @@ cd $CASEROOT
 
 cp /home1/06091/nanr/CESM_tools/ihesp-tools/user_nl_files/BHIST/* $CASEROOT/
 cp /home1/06091/nanr/CESM_tools/ihesp-tools/SourceMods/src.pop/iPOGS/*  $CASEROOT/SourceMods/src.pop/
+cp $TOOLSROOT/user_nl_files/BHIST/* $CASEROOT/
+cp $TOOLSROOT/SourceMods/src.pop/iPOGS/*  $CASEROOT/SourceMods/src.pop/
 
 # =========================
 # add pertlim perturbation to micro members 2 .. N 
