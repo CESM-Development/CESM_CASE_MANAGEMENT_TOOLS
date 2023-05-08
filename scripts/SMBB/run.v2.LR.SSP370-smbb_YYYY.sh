@@ -7,7 +7,9 @@
 # Bash coding style inspired by:
 # http://kfirlavi.herokuapp.com/blog/2012/11/14/defensive-bash-programming
 
-array=( 0111 0121 0131 0141 0161 0171 0181 0191 0211 0221 0231 0241 0261 0271 0281 0291 )
+#array=( 0111 0121 0131 0141 0161 0171 0181 0191 0211 0221 0231 )
+array=( 0241 0261 0271 0281 0291 0101 0151 0201 0251 0301 )
+#array=( 0111 0121 0131 0141 0161 0171 0181 0191 0211 0221 0231 0241 0261 0271 0281 0291 )
 #array=( 0131 0141 0161 0171 0181 0191 0211 0221 0231 0241 0261 0271 0281 0291 )
 for iyr in "${array[@]}"
 do
@@ -26,14 +28,14 @@ echo ${iyr}
 
 # Machine and project
 MACHINE=cori-knl
-PROJECT="mp9"
+PROJECT="m4195"
 #readonly YYYY="0141"
 #readonly YYYY=${iyr}
 
 # Simulation
 COMPSET="WCYCLSSP370" # 20th century transient
 RESOLUTION="ne30pg2_EC30to60E2r2"
-CASE_NAME="v2.LR.SSP370_${iyr}"
+CASE_NAME="v2.LR.SSP370-smbb_${iyr}"
 CASE_GROUP="v2.LR"
 
 # Code and compilation
@@ -48,8 +50,8 @@ START_DATE="2015-01-01"
 
 # Additional options for 'branch' and 'hybrid'
 GET_REFCASE=TRUE
-RUN_REFDIR="/global/cscratch1/sd/nanr/archive/v2.LR.historical_${iyr}/archive/rest/2015-01-01-00000"
-RUN_REFCASE="v2.LR.historical_${iyr}"
+RUN_REFDIR="/global/cscratch1/sd/nanr/E3SMv2-SMBB/v2.LR.historical-smbb_${iyr}/archive/rest/2015-01-01-00000"
+RUN_REFCASE="v2.LR.historical-smbb_${iyr}"
 RUN_REFDATE="2015-01-01"   # same as MODEL_START_DATE for 'branch', can be different for 'hybrid'
 
 # Set paths
@@ -57,7 +59,7 @@ MY_PATH="/global/project/projectdirs/ccsm1/people/nanr"
 #readonly CODE_ROOT="${HOME}/E3SMv2/code/${CHECKOUT}"
 #readonly CASE_ROOT="${MY_PATH}/cases/e3smv2/${CASE_NAME}"
 CODE_ROOT="${MY_PATH}/e3sm_tags/E3SMv2/E3SM/"
-CASE_ROOT="/global/cscratch1/sd/${USER}/E3SMv2/${CASE_NAME}"
+CASE_ROOT="/global/cscratch1/sd/${USER}/E3SMv2-SMBB/${CASE_NAME}"
 
 # Sub-directories
 CASE_BUILD_DIR=${CASE_ROOT}/build
@@ -110,7 +112,7 @@ else
   WALLTIME="48:00:00"
   STOP_OPTION="nyears"
   STOP_N="10" # How often to stop the model, should be a multiple of REST_N
-  STOP_DATE="21010101"    # -999 or specify stop date as yyyyddmm without leading zeros
+  STOP_DATE="-999"    # -999 or specify stop date as yyyyddmm without leading zeros
   REST_OPTION="nyears"
   REST_N="1" # How often to write a restart file
   RESUBMIT="0" # Submissions after initial one
@@ -189,6 +191,18 @@ cat << EOF >> user_nl_eam
  fincl6 = 'CLDTOT_ISCCP','MEANCLDALB_ISCCP','MEANTAU_ISCCP','MEANPTOP_ISCCP','MEANTB_ISCCP','CLDTOT_CAL','CLDTOT_CAL_LIQ','CLDTOT_CAL_ICE','CLDTOT_CAL_UN','CLDHGH_CAL','CLDHGH_CAL_LIQ','CLDHGH_CAL_ICE','CLDHGH_CAL_UN','CLDMED_CAL','CLDMED_CAL_LIQ','CLDMED_CAL_ICE','CLDMED_CAL_UN','CLDLOW_CAL','CLDLOW_CAL_LIQ','CLDLOW_CAL_ICE','CLDLOW_CAL_UN'
  ! monthly (h6) I
  fincl7 = 'O3', 'PS', 'TROP_P'
+
+ ext_frc_specifier              = 'SO2         -> /global/cfs/cdirs/ccsm1/people/nanr/e3sm/inputdata/atm/cam/chem/trop_mozart_aero/emis/CMIP6_SSP370_ne30-smoothed/cmip6_ssp370_mam4_smoothed_so2_elev_1850-2100_c221016.nc',
+         'SOAG        -> /global/cfs/cdirs/ccsm1/people/nanr/e3sm/inputdata/atm/cam/chem/trop_mozart_aero/emis/CMIP6_SSP370_ne30-smoothed/cmip6_ssp370_mam4_smoothed_soag_elev_1850-2100_c221016.nc',
+         'bc_a4       -> /global/cfs/cdirs/ccsm1/people/nanr/e3sm/inputdata/atm/cam/chem/trop_mozart_aero/emis/CMIP6_SSP370_ne30-smoothed/cmip6_ssp370_mam4_smoothed_bc_a4_elev_1850-2100_c221016.nc',
+         'num_a1      -> /global/cfs/cdirs/ccsm1/people/nanr/e3sm/inputdata/atm/cam/chem/trop_mozart_aero/emis/CMIP6_SSP370_ne30-smoothed/cmip6_ssp370_mam4_smoothed_num_a1_elev_1850-2100_c221016.nc',
+         'num_a2      -> /global/cfs/cdirs/e3sm/inputdata/atm/cam/chem/trop_mozart_aero/emis/CMIP6_SSP370_ne30/cmip6_ssp370_mam4_num_a2_elev_2015-2100_c210216.nc',
+         'num_a4      -> /global/cfs/cdirs/ccsm1/people/nanr/e3sm/inputdata/atm/cam/chem/trop_mozart_aero/emis/CMIP6_SSP370_ne30-smoothed/cmip6_ssp370_mam4_smoothed_num_a4_elev_1850-2100_c221016.nc',
+         'pom_a4      -> /global/cfs/cdirs/ccsm1/people/nanr/e3sm/inputdata/atm/cam/chem/trop_mozart_aero/emis/CMIP6_SSP370_ne30-smoothed/cmip6_ssp370_mam4_smoothed_pom_a4_elev_1850-2100_c221016.nc',
+         'so4_a1      -> /global/cfs/cdirs/ccsm1/people/nanr/e3sm/inputdata/atm/cam/chem/trop_mozart_aero/emis/CMIP6_SSP370_ne30-smoothed/cmip6_ssp370_mam4_smoothed_so4_a1_elev_1850-2100_c221016.nc',
+         'so4_a2      -> /global/cfs/cdirs/e3sm/inputdata/atm/cam/chem/trop_mozart_aero/emis/CMIP6_SSP370_ne30/cmip6_ssp370_mam4_so4_a2_elev_2015-2100_c210216.nc'
+ ext_frc_type           = 'INTERP_MISSING_MONTHS'
+
 
 EOF
 

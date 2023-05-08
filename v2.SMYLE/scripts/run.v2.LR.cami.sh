@@ -7,8 +7,11 @@
 # Bash coding style inspired by:
 # http://kfirlavi.herokuapp.com/blog/2012/11/14/defensive-bash-programming
 
-array=( 0111 0121 0131 0141 0161 0171 0181 0191 0211 0221 0231 0241 0261 0271 0281 0291 )
-#array=( 0131 0141 0161 0171 0181 0191 0211 0221 0231 0241 0261 0271 0281 0291 )
+   array=( 0241 )
+refarray=( 1991 )
+
+set ctr=0
+
 for iyr in "${array[@]}"
 do
 
@@ -21,19 +24,22 @@ main() {
 # Year array YYYY:  
 
 echo ${iyr}
+echo ${refarray[$ctr]}
+set refyear = ${refarray[$ctr]}
+echo ${refyear}
 
 # --- Configuration flags ----
 
 # Machine and project
 MACHINE=cori-knl
-PROJECT="mp9"
+PROJECT="m4195"
 #readonly YYYY="0141"
 #readonly YYYY=${iyr}
 
 # Simulation
-COMPSET="WCYCLSSP370" # 20th century transient
+COMPSET="WCYCL20TR" # 20th century transient
 RESOLUTION="ne30pg2_EC30to60E2r2"
-CASE_NAME="v2.LR.SSP370_${iyr}"
+CASE_NAME="v2.LR.historical_daily-cami_${iyr}"
 CASE_GROUP="v2.LR"
 
 # Code and compilation
@@ -44,20 +50,21 @@ DEBUG_COMPILE=false
 
 # Run options
 MODEL_START_TYPE="hybrid"  # 'initial', 'continue', 'branch', 'hybrid'
-START_DATE="2015-01-01"
+START_DATE="${refarray[$ctr]}-01-01"
 
 # Additional options for 'branch' and 'hybrid'
 GET_REFCASE=TRUE
-RUN_REFDIR="/global/cscratch1/sd/nanr/archive/v2.LR.historical_${iyr}/archive/rest/2015-01-01-00000"
+REFYEAR=${iyr}
+RUN_REFDIR="/global/cscratch1/sd/nanr/archive/v2.LR.historical_${iyr}/archive/rest/${refarray[$ctr]}-01-01-00000"
 RUN_REFCASE="v2.LR.historical_${iyr}"
-RUN_REFDATE="2015-01-01"   # same as MODEL_START_DATE for 'branch', can be different for 'hybrid'
+RUN_REFDATE="${refarray[$ctr]}-01-01"   # same as MODEL_START_DATE for 'branch', can be different for 'hybrid'
 
 # Set paths
 MY_PATH="/global/project/projectdirs/ccsm1/people/nanr"
 #readonly CODE_ROOT="${HOME}/E3SMv2/code/${CHECKOUT}"
 #readonly CASE_ROOT="${MY_PATH}/cases/e3smv2/${CASE_NAME}"
 CODE_ROOT="${MY_PATH}/e3sm_tags/E3SMv2/E3SM/"
-CASE_ROOT="/global/cscratch1/sd/${USER}/E3SMv2/${CASE_NAME}"
+CASE_ROOT="/global/cscratch1/sd/${USER}/E3SMv2-cami/${CASE_NAME}"
 
 # Sub-directories
 CASE_BUILD_DIR=${CASE_ROOT}/build
@@ -110,7 +117,7 @@ else
   WALLTIME="48:00:00"
   STOP_OPTION="nyears"
   STOP_N="10" # How often to stop the model, should be a multiple of REST_N
-  STOP_DATE="21010101"    # -999 or specify stop date as yyyyddmm without leading zeros
+  STOP_DATE="20150101"    # -999 or specify stop date as yyyyddmm without leading zeros
   REST_OPTION="nyears"
   REST_N="1" # How often to write a restart file
   RESUBMIT="0" # Submissions after initial one
@@ -170,37 +177,13 @@ echo $'\n----- All done -----\n'
 user_nl() {
 
 cat << EOF >> user_nl_eam
- !!                 h0, h1, h2, h3, h4, h5,h6
- nhtfrq          =   0,-24, -6, -6, -3,-24, 0
- mfilt           =   1, 30,120,120,240, 30, 1
- avgflag_pertape = 'A','A','I','A','A','A','I'
- fexcl1 = 'CFAD_SR532_CAL', 'LINOZ_DO3', 'LINOZ_DO3_PSC', 'LINOZ_O3CLIM', 'LINOZ_O3COL', 'LINOZ_SSO3', 'hstobie_linoz'
- ! monthly (h0) A
- fincl1 = 'extinct_sw_inp','extinct_lw_bnd7','extinct_lw_inp','CLD_CAL', 'TREFMNAV', 'TREFMXAV','IEFLX','ZMDT','ZMDQ','TTEND_CLUBB', 'RVMTEND_CLUBB', 'MPDT', 'MPDQ', 'DCQ', 'DTCOND'
- ! daily (h1) A
- fincl2 = 'FLUT','PRECT','U200','V200','U850','V850','Z500','OMEGA500','UBOT','VBOT','TREFHT','TREFHTMN:M','TREFHTMX:X','QREFHT','TS','PS','TMQ','TUQ','TVQ','TOZ', 'FLDS','FLNS','FSDS', 'FSNS', 'SHFLX', 'LHFLX', 'TGCLDCWP', 'TGCLDIWP', 'TGCLDLWP', 'CLDTOT', 'T250', 'T200', 'T150', 'T100', 'T050', 'T025', 'T010', 'T005', 'T002', 'T001', 'TTOP', 'U250', 'U150', 'U100', 'U050', 'U025', 'U010', 'U005', 'U002', 'U001', 'UTOP', 'FSNT', 'FLNT','PRECC','PRECTMX:X','PSL','RHREFHT', 'U10', 'Z200', 'QRS', 'QRL', 'Q1000', 'Q850', 'Q700', 'Q500', 'Q200', 'Q100', 'Q050', 'Q010', 'QBOT:A', 'U1000', 'U700', 'U500', 'U200', 'V1000', 'V700', 'V500', 'V100', 'V050', 'V010', 'VBOT', 'T1000', 'T850', 'T700','T500','T010','TBOT','Z1000', 'Z850', 'Z700', 'Z500', 'Z200', 'Z100', 'Z050', 'Z010','TROPF_P','TROPF_T','TROPF_Z'
- ! 6hourly (h2) I
- fincl3 = 'PSL','T200','T500','U850','V850','UBOT','VBOT','TREFHT', 'Z700', 'TBOT:M','FLDS', 'FSDS', 'PRECT', 'PS', 'QREFHT', 'TS','TMQ','U10','Z200:I','Z500:I','TTQ:I','TUQ:I','TVQ:I','Q:I', 'T:I', 'U:I', 'V:I', 'Z3:I'
- ! 6hourly (h3) A
- fincl4 = 'FLUT','U200','U850','PRECT','OMEGA500'
- ! 3hourly (h4) A
- fincl5 = 'PRECT','PRECC','TUQ','TVQ','QFLX','SHFLX','U90M','V90M'
- ! daily (h5) A
- fincl6 = 'CLDTOT_ISCCP','MEANCLDALB_ISCCP','MEANTAU_ISCCP','MEANPTOP_ISCCP','MEANTB_ISCCP','CLDTOT_CAL','CLDTOT_CAL_LIQ','CLDTOT_CAL_ICE','CLDTOT_CAL_UN','CLDHGH_CAL','CLDHGH_CAL_LIQ','CLDHGH_CAL_ICE','CLDHGH_CAL_UN','CLDMED_CAL','CLDMED_CAL_LIQ','CLDMED_CAL_ICE','CLDMED_CAL_UN','CLDLOW_CAL','CLDLOW_CAL_LIQ','CLDLOW_CAL_ICE','CLDLOW_CAL_UN'
- ! monthly (h6) I
- fincl7 = 'O3', 'PS', 'TROP_P'
+inithist = 'DAILY'
 
 EOF
 
 cat << EOF >> user_nl_elm
 ! Pointing to new simyr2015 file per Jim Benedict
  fsurdat = '/global/cfs/cdirs/e3sm/inputdata/lnd/clm2/surfdata_map/surfdata_ne30np4.pg2_SSP3_RCP70_simyr2015_c220420.nc'
-
- hist_dov2xy = .true.,.true.
- hist_fincl2 = 'H2OSNO', 'FSNO', 'QRUNOFF', 'QSNOMELT', 'FSNO_EFF', 'SNORDSL', 'SNOW', 'FSDS', 'FSR', 'FLDS', 'FIRE', 'FIRA'
- hist_mfilt = 1,365
- hist_nhtfrq = 0,-24
- hist_avgflag_pertape = 'A','A'
 
 ! Override - updated after EAM/ELM fixes
  check_finidat_fsurdat_consistency = .false.
@@ -209,12 +192,6 @@ cat << EOF >> user_nl_elm
 
 EOF
 
-cat << EOF >> user_nl_mosart
- rtmhist_fincl2 = 'RIVER_DISCHARGE_OVER_LAND_LIQ'
- rtmhist_mfilt = 1,365
- rtmhist_ndens = 2
- rtmhist_nhtfrq = 0,-24
-EOF
 
 }
 
@@ -335,7 +312,7 @@ case_setup() {
       echo $'\nThe specified configuration uses a data atmosphere, so cannot activate COSP simulator\n'
     else
       echo $'\nConfiguring E3SM to use the COSP simulator\n'
-      ./xmlchange --id CAM_CONFIG_OPTS --append --val='-cosp'
+      #./xmlchange --id CAM_CONFIG_OPTS --append --val='-cosp'
     fi
 
     # Extracts input_data_dir in case it is needed for user edits to the namelist later
@@ -458,6 +435,7 @@ runtime_options() {
         echo 'ERROR: $MODEL_START_TYPE = '${MODEL_START_TYPE}' is unrecognized. Exiting.'
         exit 380
     fi
+    ctr=$((ctr+1))
 
     # Patch mpas streams files
     patch_mpas_streams

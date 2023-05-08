@@ -1,0 +1,27 @@
+File can't have xtime in it.  so move xtime to xtime.original to retain some record (Jon Wolf)
+i pinged JonBob just to be sure i was correct about what to do, and, shockingly, i (mostly) wasâ
+
+MPAS has some idiosyncrasies that require a few extra steps if you want to run a hybrid (or branch) case.  the restart files have a time string xtime that causes trouble in these cases, so you need to do the following (i assume you have access to NCO):
+
+### mv v21.LR.hosingRampUp.beta1.001.mpaso.rst.0501-01-01_00000.nc v21.LR.hosingRampUp.beta1.001.mpaso.rst.0501-01-01_00000.orig.nc
+### ncrename -v xtime,xtime.orig v21.LR.hosingRampUp.beta1.001.mpaso.rst.0501-01-01_00000.orig.nc v21.LR.hosingRampUp.beta1.001.mpaso.rst.0501-01-01_00000.nc
+
+### mv v21.LR.hosingRampUp.beta1.001.mpassi.rst.0501-01-01_00000.nc v21.LR.hosingRampUp.beta1.001.mpassi.rst.0501-01-01_00000.orig.nc
+### ncrename -v xtime,xtime.orig v21.LR.hosingRampUp.beta1.001.mpassi.rst.0501-01-01_00000.orig.nc v21.LR.hosingRampUp.beta1.001.mpassi.rst.0501-01-01_00000.nc
+
+mv v2.LR.piControl.mpaso.rst.0501-01-01_00000.nc v2.LR.piControl.mpaso.rst.0501-01-01_00000.orig.nc
+ncrename -v xtime,xtime.orig v2.LR.piControl.mpaso.rst.0501-01-01_00000.orig.nc v2.LR.piControl.mpaso.rst.0501-01-01_00000.nc
+
+mv v2.LR.piControl.mpassi.rst.0501-01-01_00000.nc v2.LR.piControl.mpassi.rst.0501-01-01_00000.orig.nc
+ncrename -v xtime,xtime.orig v2.LR.piControl.mpassi.rst.0501-01-01_00000.orig.nc v2.LR.piControl.mpassi.rst.0501-01-01_00000.nc
+
+
+<immutable_stream name="input"
+                  type="input"
+                  io_type="pnetcdf"
+                  input_interval="initial_only"
+!                 filename_template="/global/cfs/cdirs/e3sm/inputdata/ocn/mpas-o/EC30to60E2r2/mpaso.EC30to60E2r2.rstFromG-anvil.201001.nc"
+                  filename_template="/global/cscratch1/sd/nanr/v21.LR.hosingRampUp.beta1.001/run/v2.LR.piControl.mpaso.rst.0501-01-01_00000.nc"
+/>
+
+change the filename to v21.LR.hosingRampUp.beta1.001.mpaso.rst.0501-01-01_00000.nc

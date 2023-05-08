@@ -1,0 +1,1014 @@
+<streams>
+
+<immutable_stream name="mesh"
+                  type="none"
+                  io_type="pnetcdf"
+                  filename_template="/global/cfs/cdirs/e3sm/inputdata/ocn/mpas-o/EC30to60E2r2/mpaso.EC30to60E2r2.rstFromG-anvil.201001.nc"
+/>
+<immutable_stream name="input"
+                  type="input"
+                  io_type="pnetcdf"
+                  input_interval="initial_only"
+                  filename_template="/global/cscratch1/sd/nanr/v21.LR.hosingRampUp.beta1.001/run/v2.LR.piControl.mpaso.rst.0501-01-01_00000.nc"
+/>
+
+<!--
+The restart stream is actually controlled via the coupler.
+Changing output_interval here will not have any affect on
+the frequency restart files are written.
+
+Changing the output_interval could cause loss of data.
+
+The output_interval is set to 1 second to ensure each restart frame has a
+unique file.
+-->
+<immutable_stream name="restart"
+                  type="input;output"
+                  io_type="pnetcdf"
+                  filename_template="v21.LR.hosingRampUp.beta1.001.mpaso.rst.$Y-$M-$D_$S.nc"
+                  filename_interval="output_interval"
+                  clobber_mode="truncate"
+                  input_interval="initial_only"
+                  reference_time="01-01-01_00:00:00"
+                  output_interval="00-00-00_00:00:01"/>
+
+<!--
+output is the main history output stream. You can add auxiliary streams to
+this stream to include more fields.
+-->
+
+<stream name="output"
+        type="output"
+        io_type="pnetcdf"
+        filename_template="v21.LR.hosingRampUp.beta1.001.mpaso.hist.$Y-$M-$D_$S.nc"
+        filename_interval="00-01-00_00:00:00"
+        clobber_mode="truncate"
+        reference_time="01-01-01_00:00:00"
+        output_interval="none">
+
+    <var_array name="activeTracerHorizontalAdvectionTendency"/>
+    <var_array name="activeTracerVerticalAdvectionTendency"/>
+    <var_array name="activeTracerVertMixTendency"/>
+    <var_array name="activeTracerSurfaceFluxTendency"/>
+    <var_array name="temperatureShortWaveTendency"/>
+    <var_array name="activeTracerNonLocalTendency"/>
+    <var name="salinitySurfaceRestoringTendency"/>
+    <var name="vertTransportVelocityTop"/>
+    <var name="vertGMBolusVelocityTop"/>
+    <var name="vertAleTransportTop"/>
+    <var name="tendSSH"/>
+    <var_array name="activeTracers"/>
+    <var name="layerThickness"/>
+    <var name="normalVelocity"/>
+    <var name="ssh"/>
+    <var name="maxLevelEdgeTop"/>
+    <var name="vertCoordMovementWeights"/>
+    <var name="edgeMask"/>
+    <var name="cellMask"/>
+    <var name="vertexMask"/>
+    <var name="refZMid"/>
+    <var name="refLayerThickness"/>
+    <var name="xtime"/>
+    <var name="kineticEnergyCell"/>
+    <var name="relativeVorticityCell"/>
+    <var name="relativeVorticity"/>
+    <var name="divergence"/>
+    <var name="areaCellGlobal"/>
+    <var name="areaEdgeGlobal"/>
+    <var name="areaTriangleGlobal"/>
+    <var name="volumeCellGlobal"/>
+    <var name="volumeEdgeGlobal"/>
+    <var name="CFLNumberGlobal"/>
+    <var name="BruntVaisalaFreqTop"/>
+    <var name="vertVelocityTop"/>
+    <var name="velocityZonal"/>
+    <var name="velocityMeridional"/>
+    <var name="displacedDensity"/>
+    <var name="potentialDensity"/>
+    <var name="pressure"/>
+    <var name="refBottomDepth"/>
+    <var name="zMid"/>
+    <var name="bottomDepth"/>
+    <var name="maxLevelCell"/>
+    <var name="maxLevelEdgeTop"/>
+    <var name="maxLevelEdgeBot"/>
+    <var name="columnIntegratedSpeed"/>
+    <var name="landIceFreshwaterFlux"/>
+    <var name="landIceHeatFlux"/>
+    <var name="heatFluxToLandIce"/>
+</stream>
+
+<!--
+Block debugging stream produces a file per core where errors have occured.
+-->
+
+<stream name="block_debug_output"
+        type="output"
+        io_type="pnetcdf"
+        filename_template="v21.LR.hosingRampUp.beta1.001.mpaso.output_debug_block_$B.nc"
+        reference_time="01-01-01_00:00:00"
+        filename_interval="1000-00-00_00:00:00"
+        clobber_mode="truncate"
+        output_interval="1000-00-00_00:00:00">
+
+    <stream name="mesh"/>
+    <var name="xtime"/>
+    <var_struct name="tracers"/>
+    <var name="layerThickness"/>
+    <var name="normalVelocity"/>
+    <var name="ssh"/>
+
+</stream>
+
+<!--
+Streams between this line and the auxiliary stream line below are analysis member streams.
+They can be used to perform online analysis of the simulation and control the output of
+the analysis data.
+-->
+
+<stream name="hosing_annual_flux"
+       type="input"
+       io_type="pnetcdf"
+!      filename_template="/global/cfs/cdirs/e3sm/inputdata/ocn/mpas-o/EC30to60E2r2/hosingExp.yearlyForcing.EC30to60E2r2.11282022_1850_2449.nc"
+       filename_template="/global/cscratch1/sd/nanr/v21.LR.hosingRampUp.beta1.001/run/v2.LR.piControl.mpaso.rst.0501-01-01_00000.nc"
+       input_interval="none">
+
+       <var name="xtime"/>
+       <var name="freshWaterHosing"/>
+</stream>
+
+
+
+<stream name="transectMasksInput"
+        type="input"
+        io_type="pnetcdf"
+        filename_template="/global/cfs/cdirs/e3sm/inputdata/ocn/mpas-o/EC30to60E2r2/EC30to60E2r2_mocBasinsAndTransects20210623.nc"
+        input_interval="initial_only">
+
+        <var name="transectEdgeMasks"/>
+        <var name="transectNames"/>
+        <var name="nTransectsInGroup"/>
+        <var name="transectsInGroup"/>
+        <var name="transectGroupNames"/>
+        <var name="transectEdgeMaskSigns"/>
+</stream>
+
+<stream name="regionalMasksInput"
+        type="input"
+        io_type="pnetcdf"
+        filename_template="/global/cfs/cdirs/e3sm/inputdata/ocn/mpas-o/EC30to60E2r2/EC30to60E2r2_mocBasinsAndTransects20210623.nc"
+        input_interval="initial_only">
+
+        <var name="regionCellMasks"/>
+        <var name="regionNames"/>
+        <var name="nRegionsInGroup"/>
+        <var name="regionsInGroup"/>
+        <var name="regionGroupNames"/>
+</stream>
+
+<stream name="mocStreamfunctionOutput"
+        type="output"
+        io_type="pnetcdf"
+        filename_template="v21.LR.hosingRampUp.beta1.001.mpaso.hist.am.mocStreamfunctionOutput.$Y-$M-$D.nc"
+        filename_interval="01-00-00_00:00:00"
+        clobber_mode="truncate"
+        reference_time="01-01-01_00:00:00"
+        output_interval="none"
+        packages="mocStreamfunctionAMPKG">
+
+        <var name="xtime"/>
+        <var name="mocStreamvalLatAndDepth"/>
+        <var name="mocStreamvalLatAndDepthRegion"/>
+        <var name="binBoundaryMocStreamfunction"/>
+        <var name="refBottomDepth"/>
+        <var name="regionGroupNames"/>
+        <var name="minMaxLatRegion"/>
+        <var name="regionNames"/>
+        <var name="nRegionsInGroup"/>
+        <var name="regionsInGroup"/>
+</stream>
+
+<stream name="globalStatsOutput"
+        type="output"
+        io_type="netcdf"
+        filename_template="v21.LR.hosingRampUp.beta1.001.mpaso.hist.am.globalStats.$Y-$M-$D.nc"
+        filename_interval="00-01-00_00:00:00"
+        reference_time="01-01-01_00:00:00"
+        output_interval="00-00-01_00:00:00"
+        clobber_mode="truncate"
+        packages="globalStatsAMPKG">
+
+    <var name="xtime"/>
+    <var name="daysSinceStartOfSim"/>
+    <var name="totalVolumeChange"/>
+    <var name="absoluteFreshWaterConservation"/>
+    <var name="netFreshwaterInput"/>
+    <var_array name="minGlobalStats"/>
+    <var_array name="maxGlobalStats"/>
+    <var_array name="sumGlobalStats"/>
+    <var_array name="rmsGlobalStats"/>
+    <var_array name="avgGlobalStats"/>
+    <var_array name="vertSumMinGlobalStats"/>
+    <var_array name="vertSumMaxGlobalStats"/>
+    <var name="volumeCellGlobal"/>
+    <var name="CFLNumberGlobal"/>
+</stream>
+
+<stream name="surfaceAreaWeightedAveragesOutput"
+        type="output"
+        io_type="netcdf"
+        filename_template="v21.LR.hosingRampUp.beta1.001.mpaso.hist.am.surfaceAreaWeightedAverages.$Y-$M-$D.nc"
+        filename_interval="00-01-00_00:00:00"
+        reference_time="01-01-01_00:00:00"
+        output_interval="none"
+        clobber_mode="truncate"
+        packages="surfaceAreaWeightedAveragesAMPKG">
+
+    <var name="xtime"/>
+    <var name="daysSinceStartOfSim"/>
+    <var_array name="minValueWithinOceanRegion"/>
+    <var_array name="maxValueWithinOceanRegion"/>
+    <var_array name="avgValueWithinOceanRegion"/>
+</stream>
+
+<stream name="waterMassCensusOutput"
+        type="output"
+        io_type="pnetcdf"
+        filename_template="v21.LR.hosingRampUp.beta1.001.mpaso.hist.am.waterMassCensus.$Y-$M-$D.nc"
+        filename_interval="00-01-00_00:00:00"
+        reference_time="01-01-01_00:00:00"
+        output_interval="none"
+        clobber_mode="truncate"
+        packages="waterMassCensusAMPKG">
+
+    <var name="xtime"/>
+    <var name="daysSinceStartOfSim"/>
+    <var_array name="waterMassCensusTemperatureValues"/>
+    <var_array name="waterMassCensusSalinityValues"/>
+    <var_array name="waterMassFractionalDistribution"/>
+    <var_array name="potentialDensityOfTSDiagram"/>
+    <var_array name="zPositionOfTSDiagram"/>
+</stream>
+
+<stream name="layerVolumeWeightedAverageOutput"
+        type="output"
+        io_type="pnetcdf"
+        filename_template="v21.LR.hosingRampUp.beta1.001.mpaso.hist.am.layerVolumeWeightedAverage.$Y-$M-$D.nc"
+        filename_interval="00-01-00_00:00:00"
+        reference_time="01-01-01_00:00:00"
+        output_interval="none"
+        clobber_mode="truncate"
+        packages="layerVolumeWeightedAverageAMPKG">
+
+    <var name="xtime"/>
+    <var name="daysSinceStartOfSim"/>
+    <var_array name="minValueWithinOceanLayerRegion"/>
+    <var_array name="maxValueWithinOceanLayerRegion"/>
+    <var_array name="avgValueWithinOceanLayerRegion"/>
+    <var_array name="minValueWithinOceanVolumeRegion"/>
+    <var_array name="maxValueWithinOceanVolumeRegion"/>
+    <var_array name="avgValueWithinOceanVolumeRegion"/>
+</stream>
+
+<stream name="zonalMeanOutput"
+        type="output"
+        io_type="pnetcdf"
+        filename_template="v21.LR.hosingRampUp.beta1.001.mpaso.hist.am.zonalMeans.$Y-$M-$D.nc"
+        filename_interval="00-01-00_00:00:00"
+        reference_time="01-01-01_00:00:00"
+        output_interval="none"
+        ulobber_mode="truncate"
+        packages="zonalMeanAMPKG">
+
+    <var name="xtime"/>
+    <var name="daysSinceStartOfSim"/>
+    <var_array name="tracersZonalMean"/>
+    <var name="binCenterZonalMean"/>
+    <var name="binBoundaryZonalMean"/>
+    <var name="velocityZonalZonalMean"/>
+    <var name="velocityMeridionalZonalMean"/>
+    <var name="refZMid"/>
+    <var name="refBottomDepth"/>
+</stream>
+
+<stream name="meridionalHeatTransportOutput"
+        type="output"
+        io_type="pnetcdf"
+        filename_template="v21.LR.hosingRampUp.beta1.001.mpaso.hist.am.meridionalHeatTransport.$Y-$M-$D.nc"
+        filename_interval="00-01-00_00:00:00"
+        reference_time="01-01-01_00:00:00"
+        output_interval="00-01-00_00:00:00"
+        clobber_mode="truncate"
+        packages="meridionalHeatTransportAMPKG">
+
+    <var name="xtime"/>
+    <var name="daysSinceStartOfSim"/>
+    <var name="binBoundaryMerHeatTrans"/>
+    <var name="meridionalHeatTransportLatZ"/>
+    <var name="meridionalHeatTransportLat"/>
+    <var name="refZMid"/>
+    <var name="refBottomDepth"/>
+</stream>
+
+<stream name="eddyProductVariablesOutput"
+        type="output"
+        precision="single"
+        io_type="pnetcdf"
+        filename_template="v21.LR.hosingRampUp.beta1.001.mpaso.hist.am.eddyProductVariables.$Y-$M-$D.nc"
+        filename_interval="00-01-00_00:00:00"
+        reference_time="01-01-01_00:00:00"
+        output_interval="00-01-00_00:00:00"
+        clobber_mode="truncate"
+        packages="eddyProductVariablesAMPKG">
+
+    <var name="xtime"/>
+    <var name="SSHSquared"/>
+    <var name="velocityZonalSquared"/>
+    <var name="velocityMeridionalSquared"/>
+    <var name="normalVelocitySquared"/>
+    <var name="velocityZonalTimesTemperature"/>
+    <var name="velocityMeridionalTimesTemperature"/>
+    <var name="normalVelocityTimesTemperature"/>
+</stream>
+
+<stream name="highFrequencyOutput"
+        type="output"
+        precision="single"
+        io_type="pnetcdf"
+        filename_template="v21.LR.hosingRampUp.beta1.001.mpaso.hist.am.highFrequencyOutput.$Y-$M-$D_$h.$m.$s.nc"
+        filename_interval="00-01-00_00:00:00"
+        reference_time="01-01-01_00:00:00"
+        output_interval="00-00-05_00:00:00"
+        clobber_mode="truncate"
+        packages="highFrequencyOutputAMPKG">
+
+    <var name="xtime"/>
+    <var name="daysSinceStartOfSim"/>
+    <var_array name="activeTracersAtSurface"/>
+    <var_array name="activeTracersAt250m"/>
+    <var_array name="activeTracersAtBottom"/>
+    <var name="kineticEnergyAtSurface"/>
+    <var name="kineticEnergyAt250m"/>
+    <var name="relativeVorticityAt250m"/>
+    <var name="ssh"/>
+    <var name="pressureAdjustedSSH"/>
+    <var name="boundaryLayerDepth"/>
+    <var name="dThreshMLD"/>
+    <var name="tThreshMLD"/>
+    <var name="columnIntegratedSpeed"/>
+    <var name="barotropicSpeed"/>
+    <var name="landIceFreshwaterFlux"/>
+    <var name="pressureAdjustedSSH"/>
+    <var name="atmosphericPressure"/>
+</stream>
+
+<stream name="mixedLayerDepthsOutput"
+        type="output"
+        precision="single"
+        io_type="pnetcdf"
+        filename_template="v21.LR.hosingRampUp.beta1.001.mpaso.hist.am.mixedLayerDepths.$Y-$M-$D.nc"
+        filename_interval="00-01-00_00:00:00"
+        reference_time="01-01-01_00:00:00"
+        output_interval="none"
+        clobber_mode="truncate"
+        packages="mixedLayerDepthsAMPKG">
+
+    <var name="xtime"/>
+    <var name="daysSinceStartOfSim"/>
+    <var name="tThreshMLD"/>
+    <var name="dThreshMLD"/>
+</stream>
+
+<stream name="oceanHeatContentOutput"
+        type="output"
+        precision="single"
+        io_type="pnetcdf"
+        filename_template="v21.LR.hosingRampUp.beta1.001.mpaso.hist.am.oceanHeatContent.$Y-$M-$D.nc"
+        filename_interval="00-01-00_00:00:00"
+        reference_time="01-01-01_00:00:00"
+        output_interval="00-01-00_00:00:00"
+        clobber_mode="truncate"
+        packages="oceanHeatContentAMPKG">
+
+    <var name="xtime"/>
+    <var name="oceanHeatContentSfcToBot"/>
+    <var name="oceanHeatContentSfcTo700m"/>
+    <var name="oceanHeatContent700mTo2000m"/>
+    <var name="oceanHeatContent2000mToBot"/>
+</stream>
+
+<stream name="mixedLayerHeatBudgetOutput"
+        type="output"
+        precision="single"
+        io_type="pnetcdf"
+        filename_template="v21.LR.hosingRampUp.beta1.001.mpaso.hist.am.mixedLayerHeatBudget.$Y-$M-$D.nc"
+        filename_interval="00-01-00_00:00:00"
+        reference_time="01-01-01_00:00:00"
+        output_interval="none"
+        clobber_mode="truncate"
+        packages="mixedLayerHeatBudgetAMPKG">
+
+    <var name="xtime"/>
+    <var name="activeTracerForcingMLTend"/>
+    <var name="activeTracerHorMixMLTend"/>
+    <var name="activeTracerNonLocalMLTend"/>
+    <var name="activeTracerVertAdvectionMLTend"/>
+    <var name="activeTracerHorAdvectionMLTend"/>
+    <var name="activeTracerVertMixMLTend"/>
+    <var name="activeTracersML"/>
+    <var name="bruntVaisalaFreqML"/>
+    <var name="activeTracersTendML"/>
+</stream>
+
+<stream name="sedimentFluxIndexOutput"
+        type="output"
+        precision="single"
+        io_type="pnetcdf"
+        filename_template="v21.LR.hosingRampUp.beta1.001.mpaso.hist.am.sedimentFluxIndex.$Y-$M-$D.nc"
+        filename_interval="00-01-00_00:00:00"
+        reference_time="01-01-01_00:00:00"
+        output_interval="none"
+        clobber_mode="truncate"
+        packages="sedimentFluxIndexAMPKG">
+
+    <var name="xtime"/>
+    <var name="sedimentFluxIndexVAX"/>
+    <var name="sedimentFluxIndexVAY"/>
+    <var name="sedimentFluxIndexBX"/>
+    <var name="sedimentFluxIndexBY"/>
+</stream>
+
+<stream name="sedimentTransportOutput"
+        type="output"
+        precision="single"
+        io_type="pnetcdf"
+        filename_template="v21.LR.hosingRampUp.beta1.001.mpaso.hist.am.sedimentTransport.$Y-$M-$D.nc"
+        filename_interval="00-01-00_00:00:00"
+        reference_time="01-01-01_00:00:00"
+        output_interval="none"
+        clobber_mode="truncate"
+        packages="sedimentTransportAMPKG">
+
+    <var name="xtime"/>
+    <var name="ssh"/>
+    <var name="velocityZonal"/>
+    <var name="velocityMeridional"/>
+    <var name="sedimentErosionFlux"/>
+    <var name="sedimentFallVelocity"/>
+    <var name="sedimentDepositionFlux"/>
+    <var name="sedimentFluxVAX"/>
+    <var name="sedimentFluxVAY"/>
+    <var name="sedimentFluxBX"/>
+    <var name="sedimentFluxBY"/>
+    <var name="sedimentBedloadX"/>
+    <var name="sedimentBedloadY"/>
+    <var name="sedimentBottomReferenceConcentration"/>
+    <var name="sedimentConcentration"/>
+</stream>
+
+<stream name="harmonicAnalysisOutput"
+        type="output"
+        precision="single"
+        io_type="pnetcdf"
+        filename_template="v21.LR.hosingRampUp.beta1.001.mpaso.hist.am.harmonicAnalysis.$Y-$M-$D.nc"
+        filename_interval="00-01-00_00:00:00"
+        reference_time="01-01-01_00:00:00"
+        output_interval="none"
+        clobber_mode="truncate"
+        packages="harmonicAnalysisAMPKG">
+
+    <var name="xtime"/>
+    <var name="M2Amplitude"/>
+    <var name="M2Phase"/>
+    <var name="S2Amplitude"/>
+    <var name="S2Phase"/>
+    <var name="N2Amplitude"/>
+    <var name="N2Phase"/>
+    <var name="K2Amplitude"/>
+    <var name="K2Phase"/>
+    <var name="K1Amplitude"/>
+    <var name="K1Phase"/>
+    <var name="O1Amplitude"/>
+    <var name="O1Phase"/>
+    <var name="Q1Amplitude"/>
+    <var name="Q1Phase"/>
+    <var name="P1Amplitude"/>
+    <var name="P1Phase"/>
+</stream>
+
+<stream name="harmonicAnalysisRestart"
+        type="input;output"
+        io_type="pnetcdf"
+        filename_template="v21.LR.hosingRampUp.beta1.001.mpaso.rst.am.harmonicAnalysis.$Y-$M-$D_$S.nc"
+        filename_interval="output_interval"
+        clobber_mode="truncate"
+        input_interval="none"
+        packages="harmonicAnalysisAMPKG"
+        reference_time="01-01-01_00:00:00"
+        output_interval="none">
+
+    <var name="xtime"/>
+    <var name="leastSquaresLHSMatrix"/>
+    <var name="leastSquaresRHSVector"/>
+</stream>
+
+<stream name="conservationCheckOutput"
+        type="output"
+        io_type="pnetcdf"
+        filename_template="v21.LR.hosingRampUp.beta1.001.mpaso.hist.am.conservationCheck.$Y-$M-$D.nc"
+        filename_interval="00-01-00_00:00:00"
+        reference_time="01-01-01_00:00:00"
+        output_interval="00-01-00_00:00:00"
+        clobber_mode="append"
+        packages="conservationCheckAMPKG">
+
+<var name="xtime"/>
+<var name="initialEnergy"/>
+<var name="finalEnergy"/>
+<var name="energyChange"/>
+<var name="netEnergyFlux"/>
+<var name="absoluteEnergyError"/>
+<var name="relativeEnergyError"/>
+<var name="initialMass"/>
+<var name="finalMass"/>
+<var name="massChange"/>
+<var name="netMassFlux"/>
+<var name="absoluteMassError"/>
+<var name="relativeMassError"/>
+<var name="initialSalt"/>
+<var name="finalSalt"/>
+<var name="saltChange"/>
+<var name="netSaltFlux"/>
+<var name="absoluteSaltError"/>
+<var name="relativeSaltError"/>
+<var name="accumulatedLatentHeatFlux"/>
+<var name="accumulatedSensibleHeatFlux"/>
+<var name="accumulatedLongWaveHeatFluxUp"/>
+<var name="accumulatedLongWaveHeatFluxDown"/>
+<var name="accumulatedShortWaveHeatFlux"/>
+<var name="accumulatedSeaIceHeatFlux"/>
+<var name="accumulatedMeltingSnowHeatFlux"/>
+<var name="accumulatedMeltingIceRunoffHeatFlux"/>
+<var name="accumulatedRemovedIceRunoffHeatFlux"/>
+<var name="accumulatedIcebergHeatFlux"/>
+<var name="accumulatedFrazilHeatFlux"/>
+<var name="accumulatedLandIceHeatFlux"/>
+<var name="accumulatedLandIceFrazilHeatFlux"/>
+<var name="accumulatedRainTemperatureFlux"/>
+<var name="accumulatedEvapTemperatureFlux"/>
+<var name="accumulatedSeaIceTemperatureFlux"/>
+<var name="accumulatedRiverRunoffTemperatureFlux"/>
+<var name="accumulatedIcebergTemperatureFlux"/>
+<var name="accumulatedRainFlux"/>
+<var name="accumulatedSnowFlux"/>
+<var name="accumulatedEvaporationFlux"/>
+<var name="accumulatedSeaIceFlux"/>
+<var name="accumulatedRiverRunoffFlux"/>
+<var name="accumulatedIceRunoffFlux"/>
+<var name="accumulatedRemovedRiverRunoffFlux"/>
+<var name="accumulatedRemovedIceRunoffFlux"/>
+<var name="accumulatedIcebergFlux"/>
+<var name="accumulatedFrazilFlux"/>
+<var name="accumulatedLandIceFlux"/>
+<var name="accumulatedLandIceFrazilFlux"/>
+<var name="accumulatedSeaIceSalinityFlux"/>
+<var name="initialCarbon"/>
+<var name="finalCarbon"/>
+<var name="carbonChange"/>
+<var name="netCarbonFlux"/>
+<var name="absoluteCarbonError"/>
+<var name="relativeCarbonError"/>
+<var name="accumulatedAbsoluteCarbonError"/>
+<var name="accumulatedRelativeCarbonError"/>
+</stream>
+
+<immutable_stream name="conservationCheckRestart"
+        type="input;output"
+        io_type="pnetcdf"
+        filename_template="v21.LR.hosingRampUp.beta1.001.mpaso.rst.am.conservationCheck.$Y-$M-$D_$S.nc"
+        filename_interval="output_interval"
+        clobber_mode="truncate"
+        packages="conservationCheckAMPKG"
+        input_interval="none"
+        reference_time="01-01-01_00:00:00"
+        output_interval="none">
+</immutable_stream>
+
+<stream name="timeSeriesStatsDailyOutput"
+        type="output"
+        precision="single"
+        io_type="pnetcdf"
+        filename_template="v21.LR.hosingRampUp.beta1.001.mpaso.hist.am.timeSeriesStatsDaily.$Y-$M-$D.nc"
+        filename_interval="00-01-00_00:00:00"
+        reference_time="01-01-01_00:00:00"
+        output_interval="00-00-01_00:00:00"
+        clobber_mode="truncate"
+        packages="timeSeriesStatsDailyAMPKG"
+        runtime_format="single_file">
+
+    <var_array name="tracersSurfaceValue"/>
+    <var_array name="surfaceVelocity"/>
+    <var_array name="SSHGradient"/>
+    <var name="xtime"/>
+    <var name="pressureAdjustedSSH"/>
+    <var name="normalVelocity"/>
+    <var name="velocityZonal"/>
+    <var name="velocityMeridional"/>
+    <var name="vertVelocityTop"/>
+    <var name="normalTransportVelocity"/>
+    <var name="transportVelocityZonal"/>
+    <var name="transportVelocityMeridional"/>
+    <var name="vertTransportVelocityTop"/>
+    <var_array name="activeTracerHorizontalAdvectionTendency"/>
+    <var_array name="activeTracerVerticalAdvectionTendency"/>
+    <var_array name="activeTracerVertMixTendency"/>
+    <var_array name="avgValueWithinOceanLayerRegion"/>
+    <var_array name="avgValueWithinOceanVolumeRegion"/>
+</stream>
+
+<stream name="timeSeriesStatsMonthlyOutput"
+        type="output"
+        precision="single"
+        io_type="pnetcdf"
+        filename_template="v21.LR.hosingRampUp.beta1.001.mpaso.hist.am.timeSeriesStatsMonthly.$Y-$M-$D.nc"
+        filename_interval="00-01-00_00:00:00"
+        reference_time="01-01-01_00:00:00"
+        output_interval="00-01-00_00:00:00"
+        clobber_mode="truncate"
+        packages="timeSeriesStatsMonthlyAMPKG"
+        runtime_format="single_file">
+
+    <var name="daysSinceStartOfSim"/>
+    <var name="binBoundaryMerHeatTrans"/>
+    <var name="binBoundaryZonalMean"/>
+    <var name="ssh"/>
+    <var_struct name="tracers"/>
+    <var name="velocityMeridional"/>
+    <var name="velocityZonal"/>
+    <var name="layerThickness"/>
+    <var name="density"/>
+    <var name="potentialDensity"/>
+    <var name="windStressZonal"/>
+    <var name="windStressMeridional"/>
+    <var name="frazilLayerThicknessTendency"/>
+    <var_array name="avgValueWithinOceanRegion"/>
+    <var_array name="avgValueWithinOceanLayerRegion"/>
+    <var_array name="avgValueWithinOceanVolumeRegion"/>
+    <var name="meridionalHeatTransportLatZ"/>
+    <var name="meridionalHeatTransportLat"/>
+    <var_array name="minGlobalStats"/>
+    <var_array name="maxGlobalStats"/>
+    <var_array name="sumGlobalStats"/>
+    <var_array name="rmsGlobalStats"/>
+    <var_array name="avgGlobalStats"/>
+    <var_array name="vertSumMinGlobalStats"/>
+    <var_array name="vertSumMaxGlobalStats"/>
+    <var name="tThreshMLD"/>
+    <var name="dThreshMLD"/>
+    <var name="normalVelocity"/>
+    <var name="vertVelocityTop"/>
+    <var name="zMid"/>
+    <var name="atmosphericPressure"/>
+    <var name="normalMLEvelocity"/>
+    <var name="vertMLEBolusVelocityTop"/>
+    <var name="normalGMBolusVelocity"/>
+    <var name="vertGMBolusVelocityTop"/>
+    <var name="GMBolusVelocityZonal"/>
+    <var name="GMBolusVelocityMeridional"/>
+    <var name="cGMphaseSpeed"/>
+    <var name="velocityZonalTimesTemperature_GM"/>
+    <var name="velocityMeridionalTimesTemperature_GM"/>
+    <var name="normalGMBolusVelocityTimesTemperature"/>
+    <var name="normalGMBolusVelocitySquared"/>
+    <var name="gmKappaScaling"/>
+    <var name="gmBolusKappa"/>
+    <var name="mocStreamvalLatAndDepthGM"/>
+    <var name="mocStreamvalLatAndDepthRegionGM"/>
+    <var name="mocStreamvalLatAndDepthMLE"/>
+    <var name="mocStreamvalLatAndDepthRegionMLE"/>
+    <var_struct name="tracersSurfaceFlux"/>
+    <var name="penetrativeTemperatureFlux"/>
+    <var name="latentHeatFlux"/>
+    <var name="sensibleHeatFlux"/>
+    <var name="longWaveHeatFluxUp"/>
+    <var name="longWaveHeatFluxDown"/>
+    <var name="seaIceHeatFlux"/>
+    <var name="shortWaveHeatFlux"/>
+    <var name="frazilTemperatureTendency"/>
+    <var name="evaporationFlux"/>
+    <var name="seaIceSalinityFlux"/>
+    <var name="seaIceFreshWaterFlux"/>
+    <var name="riverRunoffFlux"/>
+    <var name="iceRunoffFlux"/>
+    <var name="rainFlux"/>
+    <var name="snowFlux"/>
+    <var name="vertNonLocalFlux"/>
+    <var name="bottomLayerShortwaveTemperatureFlux"/>
+    <var_array name="activeTracersTend"/>
+    <var name="salinitySurfaceRestoringTendency"/>
+    <var_array name="activeTracerHorizontalAdvectionTendency"/>
+    <var_array name="activeTracerVerticalAdvectionTendency"/>
+    <var_array name="activeTracerVertMixTendency"/>
+    <var_array name="activeTracerHorMixTendency"/>
+    <var_array name="activeTracerSurfaceFluxTendency"/>
+    <var_array name="temperatureShortWaveTendency"/>
+    <var_array name="activeTracerNonLocalTendency"/>
+    <var name="areaCellGlobal"/>
+    <var name="areaEdgeGlobal"/>
+    <var name="areaTriangleGlobal"/>
+    <var name="volumeCellGlobal"/>
+    <var name="volumeEdgeGlobal"/>
+    <var name="CFLNumberGlobal"/>
+    <var name="vertDiffTopOfCell"/>
+    <var name="vertViscTopOfCell"/>
+    <var name="bulkRichardsonNumber"/>
+    <var name="boundaryLayerDepth"/>
+    <var name="columnIntegratedSpeed"/>
+    <var name="landIceFreshwaterFlux"/>
+    <var name="landIceHeatFlux"/>
+    <var name="heatFluxToLandIce"/>
+    <var name="landIceFrictionVelocity"/>
+    <var_array name="landIceBoundaryLayerTracers"/>
+    <var_array name="landIceInterfaceTracers"/>
+    <var name="mocStreamvalLatAndDepth"/>
+    <var name="mocStreamvalLatAndDepthRegion"/>
+    <var name="binBoundaryMocStreamfunction"/>
+    <var name="surfaceBuoyancyForcing"/>
+    <var name="tendLayerThickness"/>
+    <var name="boundaryLayerDepthSmooth"/>
+    <var name="pressureAdjustedSSH"/>
+    <var name="SSHSquared"/>
+    <var name="velocityZonalSquared"/>
+    <var name="velocityMeridionalSquared"/>
+    <var name="normalVelocitySquared"/>
+    <var name="velocityZonalTimesTemperature"/>
+    <var name="velocityMeridionalTimesTemperature"/>
+    <var name="normalVelocityTimesTemperature"/>
+    <var name="oceanHeatContentSfcToBot"/>
+    <var name="oceanHeatContentSfcTo700m"/>
+    <var name="oceanHeatContent700mTo2000m"/>
+    <var name="oceanHeatContent2000mToBot"/>
+    <var name="activeTracerForcingMLTend"/>
+    <var name="activeTracerHorMixMLTend"/>
+    <var name="activeTracerNonLocalMLTend"/>
+    <var name="activeTracerVertAdvectionMLTend"/>
+    <var name="activeTracerHorAdvectionMLTend"/>
+    <var name="activeTracerVertMixMLTend"/>
+    <var name="activeTracersML"/>
+    <var name="BruntVaisalaFreqTop"/>
+    <var name="bruntVaisalaFreqML"/>
+    <var name="activeTracersTendML"/>
+    <var_array name="activeTracerVerticalAdvectionTopFlux"/>
+    <var_array name="activeTracerHorizontalAdvectionEdgeFlux"/>
+    <var_array name="totalFreshWaterTemperatureFlux"/>
+    <var name="hosingFlux"/>
+</stream>
+
+<stream name="timeSeriesStatsMonthlyMaxOutput"
+        type="output"
+        precision="single"
+        io_type="pnetcdf"
+        filename_template="v21.LR.hosingRampUp.beta1.001.mpaso.hist.am.timeSeriesStatsMonthlyMax.$Y-$M-$D.nc"
+        filename_interval="00-01-00_00:00:00"
+        reference_time="01-01-01_00:00:00"
+        output_interval="00-01-00_00:00:00"
+        clobber_mode="truncate"
+        packages="timeSeriesStatsMonthlyMaxAMPKG"
+        runtime_format="single_file">
+
+    <var name="daysSinceStartOfSim"/>
+    <var name="ssh"/>
+    <var name="windStressZonal"/>
+    <var name="windStressMeridional"/>
+    <var name="tThreshMLD"/>
+    <var name="dThreshMLD"/>
+    <var_struct name="tracersSurfaceFlux"/>
+    <var name="penetrativeTemperatureFlux"/>
+    <var name="latentHeatFlux"/>
+    <var name="sensibleHeatFlux"/>
+    <var name="longWaveHeatFluxUp"/>
+    <var name="longWaveHeatFluxDown"/>
+    <var name="seaIceHeatFlux"/>
+    <var name="shortWaveHeatFlux"/>
+    <var name="evaporationFlux"/>
+    <var name="seaIceSalinityFlux"/>
+    <var name="seaIceFreshWaterFlux"/>
+    <var name="riverRunoffFlux"/>
+    <var name="iceRunoffFlux"/>
+    <var name="rainFlux"/>
+    <var name="snowFlux"/>
+    <var name="boundaryLayerDepth"/>
+    <var name="landIceFreshwaterFlux"/>
+    <var name="landIceHeatFlux"/>
+    <var name="heatFluxToLandIce"/>
+    <var name="surfaceBuoyancyForcing"/>
+    <var name="boundaryLayerDepthSmooth"/>
+    <var name="SSHSquared"/>
+    <var name="activeTracerForcingMLTend"/>
+    <var name="activeTracerHorMixMLTend"/>
+    <var name="activeTracerNonLocalMLTend"/>
+    <var name="activeTracerVertAdvectionMLTend"/>
+    <var name="activeTracerHorAdvectionMLTend"/>
+    <var name="activeTracerVertMixMLTend"/>
+    <var name="activeTracersML"/>
+    <var name="bruntVaisalaFreqML"/>
+    <var name="activeTracersTendML"/>
+</stream>
+
+<stream name="timeSeriesStatsMonthlyMinOutput"
+        type="output"
+        precision="single"
+        io_type="pnetcdf"
+        filename_template="v21.LR.hosingRampUp.beta1.001.mpaso.hist.am.timeSeriesStatsMonthlyMin.$Y-$M-$D.nc"
+        filename_interval="00-01-00_00:00:00"
+        reference_time="01-01-01_00:00:00"
+        output_interval="00-01-00_00:00:00"
+        clobber_mode="truncate"
+        packages="timeSeriesStatsMonthlyMinAMPKG"
+        runtime_format="single_file">
+
+    <var name="daysSinceStartOfSim"/>
+    <var name="ssh"/>
+    <var name="windStressZonal"/>
+    <var name="windStressMeridional"/>
+    <var name="tThreshMLD"/>
+    <var name="dThreshMLD"/>
+    <var_struct name="tracersSurfaceFlux"/>
+    <var name="penetrativeTemperatureFlux"/>
+    <var name="latentHeatFlux"/>
+    <var name="sensibleHeatFlux"/>
+    <var name="longWaveHeatFluxUp"/>
+    <var name="longWaveHeatFluxDown"/>
+    <var name="seaIceHeatFlux"/>
+    <var name="shortWaveHeatFlux"/>
+    <var name="evaporationFlux"/>
+    <var name="seaIceSalinityFlux"/>
+    <var name="seaIceFreshWaterFlux"/>
+    <var name="riverRunoffFlux"/>
+    <var name="iceRunoffFlux"/>
+    <var name="rainFlux"/>
+    <var name="snowFlux"/>
+    <var name="boundaryLayerDepth"/>
+    <var name="landIceFreshwaterFlux"/>
+    <var name="landIceHeatFlux"/>
+    <var name="heatFluxToLandIce"/>
+    <var name="surfaceBuoyancyForcing"/>
+    <var name="boundaryLayerDepthSmooth"/>
+    <var name="SSHSquared"/>
+    <var name="activeTracerForcingMLTend"/>
+    <var name="activeTracerHorMixMLTend"/>
+    <var name="activeTracerNonLocalMLTend"/>
+    <var name="activeTracerVertAdvectionMLTend"/>
+    <var name="activeTracerHorAdvectionMLTend"/>
+    <var name="activeTracerVertMixMLTend"/>
+    <var name="activeTracersML"/>
+    <var name="bruntVaisalaFreqML"/>
+    <var name="activeTracersTendML"/>
+</stream>
+
+<stream name="timeSeriesStatsClimatologyOutput"
+        type="output"
+        precision="single"
+        io_type="pnetcdf"
+        filename_template="v21.LR.hosingRampUp.beta1.001.mpaso.hist.am.timeSeriesStatsClimatology.$Y-$M-$D.nc"
+        filename_interval="00-01-00_00:00:00"
+        reference_time="01-01-01_00:00:00"
+        output_interval="00-03-00_00:00:00"
+        clobber_mode="truncate"
+        packages="timeSeriesStatsClimatologyAMPKG"
+        runtime_format="single_file">
+
+</stream>
+
+<stream name="timeSeriesStatsCustomOutput"
+        type="output"
+        precision="single"
+        io_type="pnetcdf"
+        filename_template="v21.LR.hosingRampUp.beta1.001.mpaso.hist.am.timeSeriesStatsCustom.$Y-$M-$D.nc"
+        filename_interval="00-01-00_00:00:00"
+        reference_time="01-01-01_00:00:00"
+        output_interval="00-01-00_00:00:00"
+        clobber_mode="truncate"
+        packages="timeSeriesStatsCustomAMPKG"
+        runtime_format="single_file">
+
+</stream>
+
+<stream name="timeSeriesStatsDailyRestart"
+        type="input;output"
+        io_type="pnetcdf"
+        filename_template="v21.LR.hosingRampUp.beta1.001.mpaso.rst.am.timeSeriesStatsDaily.$Y-$M-$D_$S.nc"
+        filename_interval="output_interval"
+        clobber_mode="truncate"
+        input_interval="none"
+        packages="timeSeriesStatsDailyAMPKG"
+        reference_time="01-01-01_00:00:00"
+        output_interval="none">
+</stream>
+
+<stream name="timeSeriesStatsMonthlyRestart"
+        type="input;output"
+        io_type="pnetcdf"
+        filename_template="v21.LR.hosingRampUp.beta1.001.mpaso.rst.am.timeSeriesStatsMonthly.$Y-$M-$D_$S.nc"
+        filename_interval="output_interval"
+        clobber_mode="truncate"
+        input_interval="none"
+        packages="timeSeriesStatsMonthlyAMPKG"
+        reference_time="01-01-01_00:00:00"
+        output_interval="none">
+</stream>
+
+<stream name="timeSeriesStatsMonthlyMaxRestart"
+        type="input;output"
+        io_type="pnetcdf"
+        filename_template="v21.LR.hosingRampUp.beta1.001.mpaso.rst.am.timeSeriesStatsMonthlyMax.$Y-$M-$D_$S.nc"
+        filename_interval="output_interval"
+        clobber_mode="truncate"
+        input_interval="none"
+        packages="timeSeriesStatsMonthlyMaxAMPKG"
+        reference_time="01-01-01_00:00:00"
+        output_interval="none">
+</stream>
+
+<stream name="timeSeriesStatsMonthlyMinRestart"
+        type="input;output"
+        io_type="pnetcdf"
+        filename_template="v21.LR.hosingRampUp.beta1.001.mpaso.rst.am.timeSeriesStatsMonthlyMin.$Y-$M-$D_$S.nc"
+        filename_interval="output_interval"
+        clobber_mode="truncate"
+        input_interval="none"
+        packages="timeSeriesStatsMonthlyMinAMPKG"
+        reference_time="01-01-01_00:00:00"
+        output_interval="none">
+</stream>
+
+<stream name="timeSeriesStatsClimatologyRestart"
+        type="input;output"
+        io_type="pnetcdf"
+        filename_template="v21.LR.hosingRampUp.beta1.001.mpaso.rst.am.timeSeriesStatsClimatology.$Y-$M-$D_$S.nc"
+        filename_interval="output_interval"
+        clobber_mode="truncate"
+        input_interval="initial_only"
+        packages="timeSeriesStatsClimatologyAMPKG"
+        reference_time="01-01-01_00:00:00"
+        output_interval="stream:restart:output_interval">
+</stream>
+
+<stream name="timeSeriesStatsCustomRestart"
+        type="input;output"
+        io_type="pnetcdf"
+        filename_template="v21.LR.hosingRampUp.beta1.001.mpaso.rst.am.timeSeriesStatsCustom.$Y-$M-$D_$S.nc"
+        filename_interval="output_interval"
+        clobber_mode="truncate"
+        input_interval="initial_only"
+        packages="timeSeriesStatsCustomAMPKG"
+        reference_time="01-01-01_00:00:00"
+        output_interval="stream:restart:output_interval">
+</stream>
+
+<!--
+All streams below this line are auxiliary streams. They are provided as
+groupings of fields that one might be interested in. You can either enable the
+stream to write a file for the fileds, or add the stream to another stream that
+will already be written.  
+-->
+
+<stream name="forcing"
+        type="none"
+        io_type="pnetcdf"
+        filename_template="v21.LR.hosingRampUp.beta1.001.mpaso.hist.forcing_variables.$Y-$M-$D_$S.nc"
+        filename_interval="00-01-00_00:00:00"
+        clobber_mode="truncate">
+
+    <stream name="mesh"/>
+    <var_struct name="tracersSurfaceFlux"/>
+    <var_array name="tracersSurfaceValue"/>
+    <var_array name="surfaceVelocity"/>
+    <var_array name="SSHGradient"/>
+    <var_array name="vertNonLocalFlux"/>
+    <var name="surfaceStressMagnitude"/>
+    <var name="surfaceStress"/>
+    <var name="surfaceThicknessFlux"/>
+    <var name="seaIceEnergy"/>
+    <var name="penetrativeTemperatureFlux"/>
+    <var name="fractionAbsorbed"/>
+    <var name="windStressZonal"/>
+    <var name="windStressMeridional"/>
+    <var name="latentHeatFlux"/>
+    <var name="sensibleHeatFlux"/>
+    <var name="longWaveHeatFluxUp"/>
+    <var name="longWaveHeatFluxDown"/>
+    <var name="seaIceHeatFlux"/>
+    <var name="shortWaveHeatFlux"/>
+    <var name="evaporationFlux"/>
+    <var name="seaIceSalinityFlux"/>
+    <var name="seaIceFreshWaterFlux"/>
+    <var name="riverRunoffFlux"/>
+    <var name="iceRunoffFlux"/>
+    <var name="rainFlux"/>
+    <var name="snowFlux"/>
+    <var name="iceFraction"/>
+    <var name="nAccumulatedCoupled"/>
+</stream>
+
+</streams>

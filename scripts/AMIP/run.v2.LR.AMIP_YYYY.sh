@@ -7,7 +7,7 @@
 # Bash coding style inspired by:
 # http://kfirlavi.herokuapp.com/blog/2012/11/14/defensive-bash-programming
 
-array=( 0111 0121 0131 0141 0161 0171 0181 0191 0211 0221 0231 0241 0261 0271 0281 0291 )
+array=( 0111 0121 0131 0141 0161 0171 0181 0191 0211 0221 0231 )
 #array=( 0131 0141 0161 0171 0181 0191 0211 0221 0231 0241 0261 0271 0281 0291 )
 for iyr in "${array[@]}"
 do
@@ -31,9 +31,9 @@ PROJECT="mp9"
 #readonly YYYY=${iyr}
 
 # Simulation
-COMPSET="WCYCLSSP370" # 20th century transient
+COMPSET="F20TR" # 20th century transient
 RESOLUTION="ne30pg2_EC30to60E2r2"
-CASE_NAME="v2.LR.SSP370_${iyr}"
+CASE_NAME="v2.LR.AMIP20TR_${iyr}"
 CASE_GROUP="v2.LR"
 
 # Code and compilation
@@ -44,20 +44,20 @@ DEBUG_COMPILE=false
 
 # Run options
 MODEL_START_TYPE="hybrid"  # 'initial', 'continue', 'branch', 'hybrid'
-START_DATE="2015-01-01"
+START_DATE="1976-01-01"
 
 # Additional options for 'branch' and 'hybrid'
 GET_REFCASE=TRUE
-RUN_REFDIR="/global/cscratch1/sd/nanr/archive/v2.LR.historical_${iyr}/archive/rest/2015-01-01-00000"
+RUN_REFDIR="/global/cscratch1/sd/nanr/archive/AMIP/v2.LR.historical_${iyr}/archive/rest/1976-01-01-00000"
 RUN_REFCASE="v2.LR.historical_${iyr}"
-RUN_REFDATE="2015-01-01"   # same as MODEL_START_DATE for 'branch', can be different for 'hybrid'
+RUN_REFDATE="1976-01-01"   # same as MODEL_START_DATE for 'branch', can be different for 'hybrid'
 
 # Set paths
 MY_PATH="/global/project/projectdirs/ccsm1/people/nanr"
 #readonly CODE_ROOT="${HOME}/E3SMv2/code/${CHECKOUT}"
 #readonly CASE_ROOT="${MY_PATH}/cases/e3smv2/${CASE_NAME}"
 CODE_ROOT="${MY_PATH}/e3sm_tags/E3SMv2/E3SM/"
-CASE_ROOT="/global/cscratch1/sd/${USER}/E3SMv2/${CASE_NAME}"
+CASE_ROOT="/global/cscratch1/sd/${USER}/E3SMv2-AMIP/${CASE_NAME}"
 
 # Sub-directories
 CASE_BUILD_DIR=${CASE_ROOT}/build

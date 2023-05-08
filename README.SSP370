@@ -1,0 +1,69 @@
+------------
+# fix EAM settings for v2
+------------
+cd /global/project/projectdirs/ccsm1/people/nanr/e3sm_tags/E3SMv2/E3SM/components/eam/bld/namelist_files/use_cases
+cp /global/cfs/cdirs/e3sm/wlin/share/fix_ssp370_ssp585_use_case_files/SSP370_eam_CMIP6.xml .
+cp /global/cfs/cdirs/e3sm/wlin/share/fix_ssp370_ssp585_use_case_files/SSP585_eam_CMIP6.xml .
+
+------------
+May 30 2022
+------------
+The v2 SSP370 is supposed to have the same atm physics parameter settings as for the historical simulations. The only differences should be inputdata files related. 
+
+With the current master, I created a historical (WCYCL20TR) and a SSP370 (WCYCLSSP370) cases. Due to the wrong use_case setting,  the atm physics parameters is a mixture of EAMv1 and EAMv2. The atm_in files for the two test cases, as follows, differ in more than just the input files.
+WCYCL20TR: /global/cscratch1/sd/wlin/E3SM_testings/E3SMv2/20220527.WCYCL20TR.ne30pg2_EC30to60E2r2/run/atm_in
+WCYCLSSP370old : /global/cscratch1/sd/wlin/E3SM_testings/E3SMv2/20220527.WCYCLSSP370old.ne30pg2_EC30to60E2r2/run/atm_in
+I think atm_in in your SSP370 run is the same as in WCYCLSSP370old.
+
+A PR to fix the use_cases for the E3SM master is in. atm_in for a new WCYCLSSP370 test case created off it is
+/global/cscratch1/sd/wlin/E3SM_testings/E3SMv2/20220527.WCYCLSSP370new.ne30pg2_EC30to60E2r2/run/atm_in
+The use_case file was created using a template from V1. The forcing files were correctly updated. All the settings for the tuning parameters should have been removed but were not. I am terribly sorry for this negligence.
+
+To rerun with the same code base but with the correct atm settings, need to replace the following file
+components/eam/bld/namelist_files/use_cases/SSP370_eam_CMIP6.xml
+with the one in the above bug-fix PR. I also copied the new use_case files to the following directory on NERSC 
+/global/cfs/cdirs/e3sm/wlin/share/fix_ssp370_ssp585_use_case_files
+
+-----------
+ELM settings:
+I'm curious about the changes to the ELM settings.  Do I also need to make these changes or will the previous settings I used be ok, since they were validated in the original SSP370 PR for ELM.
+
+
+< <fsurdat>lnd/clm2/surfdata_map/surfdata_ne30np4.pg2_simyr1850_2015_c211105.nc </fsurdat>
+> <fsurdat>lnd/clm2/surfdata_map/surfdata_ne30np4.pg2_SSP3_RCP70_simyr2015_c220420.nc </fsurdat>
+
+> <!-- Add following for hybrid run of SSP370 continuing from a historical simulation -->
+> <check_finidat_fsurdat_consistency>.false.</check_finidat_fsurdat_consistency>
+> <check_finidat_year_consistency>.true.</check_finidat_year_consistency>
+> <check_finidat_pct_consistency>.true.</check_finidat_pct_consistency>
+
+---------------------
+Wuyin Lin:
+Thanks for bringing up the ELM settings. The previous settings you used are ok.
+
+In general, it looks somewhat more consistent in terms of simyr starting time if using surfdata_ne30np4.pg2_SSP3_RCP70_simyr2015_c220420.nc.
+
+The two files are essentially the same and either one is ok for the currently SSP runs, as long as the same file is used for all ensemble members. They are different in five variables, four of which -- PCT_NATVEG, PCT_LAKE, PCT_GLACIER, and PCT_URBAN at 1e-7 level. The other one, PCT_NAT_PFT, has large differences, but during run time, the same variable from landuse.timeseries will be used. 
+
+Please note that, for hybrid runs as for the SSP370 simulations, the surface data recorded in the restart file (elm.r) are supposed to take precedence over what are in fsurdat. But the elm initialization code does have an issue and it is not implemented exactly that way. As a result, simulation results would be non-BFB using one vs the other.  Alan Di Vittorio is working on the fix. 
+
+---------------------
+Jim Benedict:
+All,
+
+A summary of the ELM bug and its implications for v2 SSP* runs can be found here:
+https://acme-climate.atlassian.net/wiki/spaces/DOC/pages/3417112603/Statement+on+ELM+land+use+behavior+for+future+projection+simulations
+
+The bug impacts were found to be negligible (but not zero) for v2 SSP* runs, as Wuyin mentioned.  Use of the "2015" fsurdat file in the updated ELM use case file should eliminate any issues.
+
+Jim
+
+-------------------
+Jim Benedict:
+Hi Nan,
+
+
+Many (many!) apologies for the error in the SSP370 EAM config!  When I started putting together the SSP370 configuration last year, I asked about the EAM parameter settings and the guidance then was that the values would not change, so I put it aside.  I should have brought it up again once the other aerosol/GHG/etc inputs were finalized.  The problem, I believe, was that the EAM parameter settings had not yet been updated to be consistent with the v2 DECK at the time I started and those changes never made it into my workflow.
+
+
+The small silver lining is that your new runs will use the "2015" ELM fsurdat file that is more consistent with a (2015-2100) SSP simulation, based on our discovery of the small ELM bug that Wuyin noted.

@@ -7,75 +7,60 @@
 # Bash coding style inspired by:
 # http://kfirlavi.herokuapp.com/blog/2012/11/14/defensive-bash-programming
 
-array=( 0111 0121 0131 0141 0161 0171 0181 0191 0211 0221 0231 0241 0261 0271 0281 0291 )
-#array=( 0131 0141 0161 0171 0181 0191 0211 0221 0231 0241 0261 0271 0281 0291 )
-for iyr in "${array[@]}"
-do
+# TO DO:
+# - custom pelayout
 
+main() {
 
 # For debugging, uncomment libe below
 #set -x
 
-main() {
-
-# Year array YYYY:  
-
-echo ${iyr}
-
 # --- Configuration flags ----
 
 # Machine and project
-MACHINE=cori-knl
-PROJECT="mp9"
-#readonly YYYY="0141"
-#readonly YYYY=${iyr}
+readonly MACHINE=cori-knl
+readonly PROJECT="mp9"
 
 # Simulation
-COMPSET="WCYCLSSP370" # 20th century transient
-RESOLUTION="ne30pg2_EC30to60E2r2"
-CASE_NAME="v2.LR.SSP370_${iyr}"
-CASE_GROUP="v2.LR"
+readonly COMPSET="WCYCL1850-1pctCO2"
+readonly RESOLUTION="ne30pg2_EC30to60E2r2"
+readonly CASE_NAME="v2.1.LR.1pctCO2_EXTEND.001"
+readonly CASE_GROUP="v2.1.LR"
 
 # Code and compilation
-CHECKOUT="20220412"
-BRANCH="maint-2.0" # master as of 2021-12-21
-CHERRY=(  )
-DEBUG_COMPILE=false
+#readonly CHECKOUT="20221216"
+#readonly BRANCH="b02bfec1784525d8f05c9fe7d60cc044ca435c40" # v2.beta 2.1 as of 2022-12-16
+#readonly CHERRY=( )
+#readonly DEBUG_COMPILE=false
 
 # Run options
-MODEL_START_TYPE="hybrid"  # 'initial', 'continue', 'branch', 'hybrid'
-START_DATE="2015-01-01"
+readonly MODEL_START_TYPE="hybrid"  # 'initial', 'continue', 'branch', 'hybrid'
+readonly START_DATE="0151-01-01"
 
 # Additional options for 'branch' and 'hybrid'
-GET_REFCASE=TRUE
-RUN_REFDIR="/global/cscratch1/sd/nanr/archive/v2.LR.historical_${iyr}/archive/rest/2015-01-01-00000"
-RUN_REFCASE="v2.LR.historical_${iyr}"
-RUN_REFDATE="2015-01-01"   # same as MODEL_START_DATE for 'branch', can be different for 'hybrid'
+readonly GET_REFCASE=TRUE
+readonly RUN_REFDIR="/global/cscratch1/sd/lvroekel/hosing_experiments/0151-01-01-00000/"
+readonly RUN_REFCASE="v2.LR.1pctCO2_0101"
+readonly RUN_REFDATE="0151-01-01"   # same as MODEL_START_DATE for 'branch', can be different for 'hybrid'
 
 # Set paths
-MY_PATH="/global/project/projectdirs/ccsm1/people/nanr"
-#readonly CODE_ROOT="${HOME}/E3SMv2/code/${CHECKOUT}"
-#readonly CASE_ROOT="${MY_PATH}/cases/e3smv2/${CASE_NAME}"
-CODE_ROOT="${MY_PATH}/e3sm_tags/E3SMv2/E3SM/"
-CASE_ROOT="/global/cscratch1/sd/${USER}/E3SMv2/${CASE_NAME}"
+readonly MY_PATH="/global/project/projectdirs/ccsm1/people/nanr"
+#readonly CODE_ROOT="${MY_PATH}/e3sm_tags/E3SMv2/code/${CHECKOUT}"
+readonly CODE_ROOT="${MY_PATH}/e3sm_tags/E3SMv2.1/code/v2.1.0-beta.3"
+readonly CASE_ROOT="${MY_PATH}/cases/e3smv2/${CASE_NAME}"
+#readonly CASE_ROOT="${SCRATCH}/cases/e3smv2/${CASE_NAME}"
 
 # Sub-directories
-CASE_BUILD_DIR=${CASE_ROOT}/build
-CASE_ARCHIVE_DIR=${CASE_ROOT}/archive
-#readonly CASE_BUILD_DIR=/global/cscratch1/sd/nanr/E3SMv2/v2.LR.SSP370_0111/build/
-#readonly CASE_BUILD_DIR=$SCRATCH/$CASE_NAME/bld
-#readonly CASE_ARCHIVE_DIR=$SCRATCH/archive/$CASE_NAME/
+#readonly CASE_BUILD_DIR=${CASE_ROOT}/build
+#readonly CASE_ARCHIVE_DIR=${CASE_ROOT}/archive
+readonly CASE_BUILD_DIR=$SCRATCH/$CASE_NAME/bld
+readonly CASE_ARCHIVE_DIR=$SCRATCH/archive/$CASE_NAME/
 
 # Define type of run
 #  short tests: 'XS_2x5_ndays', 'XS_1x10_ndays', 'S_1x10_ndays', 
 #               'M_1x10_ndays', 'M2_1x10_ndays', 'M80_1x10_ndays', 'L_1x10_ndays'
 #  or 'production' for full simulation
-#readonly run='S_1x10_ndays'
-#readonly run='S_1x1_nmonths'
-#readonly run='M_1x1_nmonths'
-#readonly run='L_1x1_nmonths'
-#readonly run='XL_1x1_nmonths'
-run='production'
+readonly run='production'
 if [ "${run}" != "production" ]; then
 
   # Short test simulations
@@ -85,51 +70,44 @@ if [ "${run}" != "production" ]; then
   resubmit=$(( ${tmp[1]%%x*} -1 ))
   length=${tmp[1]##*x}
 
-  CASE_SCRIPTS_DIR=${CASE_ROOT}/tests/${run}/case_scripts
-  CASE_RUN_DIR=${CASE_ROOT}/tests/${run}/run
-  PELAYOUT=${layout}
-  WALLTIME="0:30:00"
-  STOP_OPTION=${units}
-  STOP_N=${length}
-  STOP_DATE="-999"    # -999 or specify stop date as yyyyddmm without leading zeros
-  REST_OPTION=${STOP_OPTION}
-  REST_N=${STOP_N}
-  RESUBMIT=${resubmit}
-  DO_SHORT_TERM_ARCHIVING=false
+  readonly CASE_SCRIPTS_DIR=${CASE_ROOT}/tests/${run}/case_scripts
+  readonly CASE_RUN_DIR=${CASE_ROOT}/tests/${run}/run
+  readonly PELAYOUT=${layout}
+  readonly WALLTIME="2:00:00"
+  readonly STOP_OPTION=${units}
+  readonly STOP_N=${length}
+  readonly REST_OPTION=${STOP_OPTION}
+  readonly REST_N=${STOP_N}
+  readonly RESUBMIT=${resubmit}
+  readonly DO_SHORT_TERM_ARCHIVING=false
 
 else
 
   # Production simulation
-  CASE_SCRIPTS_DIR=${CASE_ROOT}/case_scripts
-  CASE_RUN_DIR=${CASE_ROOT}/run
-  # nanr changes
-  #readonly CASE_SCRIPTS_DIR=${CASE_ROOT}/
-  #readonly CASE_RUN_DIR=${SCRATCH}/${CASE_NAME}/run
-  # end nanr
-  PELAYOUT="L"
-  WALLTIME="48:00:00"
-  STOP_OPTION="nyears"
-  STOP_N="10" # How often to stop the model, should be a multiple of REST_N
-  STOP_DATE="21010101"    # -999 or specify stop date as yyyyddmm without leading zeros
-  REST_OPTION="nyears"
-  REST_N="1" # How often to write a restart file
-  RESUBMIT="0" # Submissions after initial one
-  DO_SHORT_TERM_ARCHIVING=false
+  readonly CASE_SCRIPTS_DIR=${CASE_ROOT}/
+  readonly CASE_RUN_DIR=${SCRATCH}/${CASE_NAME}/run
+  readonly PELAYOUT="L"
+  readonly WALLTIME="24:00:00"
+  readonly STOP_OPTION="nyears"
+  readonly STOP_N="1"
+  readonly REST_OPTION="nyears"
+  readonly REST_N="1"
+  readonly RESUBMIT="2"
+  readonly DO_SHORT_TERM_ARCHIVING=true
 fi
 
 # Coupler history 
-HIST_OPTION="nyears"
-HIST_N="1"
+readonly HIST_OPTION="nyears"
+readonly HIST_N="5"
 
 # Leave empty (unless you understand what it does)
-#OLD_EXECUTABLE=""
-OLD_EXECUTABLE="/global/cscratch1/sd/nanr/E3SMv2/EXEROOT/build/e3sm.exe"
+readonly OLD_EXECUTABLE=""
 
 # --- Toggle flags for what to do ----
 do_fetch_code=false
 do_create_newcase=true
 do_case_setup=true
-do_case_build=false
+do_case_build=true
 do_case_submit=false
 
 # --- Now, do the work ---
@@ -170,43 +148,39 @@ echo $'\n----- All done -----\n'
 user_nl() {
 
 cat << EOF >> user_nl_eam
- !!                 h0, h1, h2, h3, h4, h5,h6
- nhtfrq          =   0,-24, -6, -6, -3,-24, 0
- mfilt           =   1, 30,120,120,240, 30, 1
+ nhtfrq =   0,-24,-6,-6,-3,-24,0
+ mfilt  = 1,30,120,120,240,30,1
  avgflag_pertape = 'A','A','I','A','A','A','I'
  fexcl1 = 'CFAD_SR532_CAL', 'LINOZ_DO3', 'LINOZ_DO3_PSC', 'LINOZ_O3CLIM', 'LINOZ_O3COL', 'LINOZ_SSO3', 'hstobie_linoz'
- ! monthly (h0) A
- fincl1 = 'extinct_sw_inp','extinct_lw_bnd7','extinct_lw_inp','CLD_CAL', 'TREFMNAV', 'TREFMXAV','IEFLX','ZMDT','ZMDQ','TTEND_CLUBB', 'RVMTEND_CLUBB', 'MPDT', 'MPDQ', 'DCQ', 'DTCOND'
- ! daily (h1) A
- fincl2 = 'FLUT','PRECT','U200','V200','U850','V850','Z500','OMEGA500','UBOT','VBOT','TREFHT','TREFHTMN:M','TREFHTMX:X','QREFHT','TS','PS','TMQ','TUQ','TVQ','TOZ', 'FLDS','FLNS','FSDS', 'FSNS', 'SHFLX', 'LHFLX', 'TGCLDCWP', 'TGCLDIWP', 'TGCLDLWP', 'CLDTOT', 'T250', 'T200', 'T150', 'T100', 'T050', 'T025', 'T010', 'T005', 'T002', 'T001', 'TTOP', 'U250', 'U150', 'U100', 'U050', 'U025', 'U010', 'U005', 'U002', 'U001', 'UTOP', 'FSNT', 'FLNT','PRECC','PRECTMX:X','PSL','RHREFHT', 'U10', 'Z200', 'QRS', 'QRL', 'Q1000', 'Q850', 'Q700', 'Q500', 'Q200', 'Q100', 'Q050', 'Q010', 'QBOT:A', 'U1000', 'U700', 'U500', 'U200', 'V1000', 'V700', 'V500', 'V100', 'V050', 'V010', 'VBOT', 'T1000', 'T850', 'T700','T500','T010','TBOT','Z1000', 'Z850', 'Z700', 'Z500', 'Z200', 'Z100', 'Z050', 'Z010','TROPF_P','TROPF_T','TROPF_Z'
- ! 6hourly (h2) I
- fincl3 = 'PSL','T200','T500','U850','V850','UBOT','VBOT','TREFHT', 'Z700', 'TBOT:M','FLDS', 'FSDS', 'PRECT', 'PS', 'QREFHT', 'TS','TMQ','U10','Z200:I','Z500:I','TTQ:I','TUQ:I','TVQ:I','Q:I', 'T:I', 'U:I', 'V:I', 'Z3:I'
- ! 6hourly (h3) A
+ fincl1 = 'extinct_sw_inp','extinct_lw_bnd7','extinct_lw_inp','CLD_CAL', 'TREFMNAV', 'TREFMXAV'
+ fincl2 = 'FLUT','PRECT','U200','V200','U850','V850','Z500','OMEGA500','UBOT','VBOT','TREFHT','TREFHTMN:M','TREFHTMX:X','QREFHT','TS','PS','TMQ','TUQ','TVQ','TOZ', 'FLDS', 'FLNS', 'FSDS', 'FSNS', 'SHFLX', 'LHFLX', 'TGCLDCWP', 'TGCLDIWP', 'TGCLDLWP', 'CLDTOT', 'T250', 'T200', 'T150', 'T100', 'T050', 'T025', 'T010', 'T005', 'T002', 'T001', 'TTOP', 'U250', 'U150', 'U100', 'U050', 'U025', 'U010', 'U005', 'U002', 'U001', 'UTOP', 'FSNT', 'FLNT'
+ fincl3 = 'PSL','T200','T500','U850','V850','UBOT','VBOT','TREFHT', 'Z700', 'TBOT:M'
  fincl4 = 'FLUT','U200','U850','PRECT','OMEGA500'
- ! 3hourly (h4) A
  fincl5 = 'PRECT','PRECC','TUQ','TVQ','QFLX','SHFLX','U90M','V90M'
- ! daily (h5) A
  fincl6 = 'CLDTOT_ISCCP','MEANCLDALB_ISCCP','MEANTAU_ISCCP','MEANPTOP_ISCCP','MEANTB_ISCCP','CLDTOT_CAL','CLDTOT_CAL_LIQ','CLDTOT_CAL_ICE','CLDTOT_CAL_UN','CLDHGH_CAL','CLDHGH_CAL_LIQ','CLDHGH_CAL_ICE','CLDHGH_CAL_UN','CLDMED_CAL','CLDMED_CAL_LIQ','CLDMED_CAL_ICE','CLDMED_CAL_UN','CLDLOW_CAL','CLDLOW_CAL_LIQ','CLDLOW_CAL_ICE','CLDLOW_CAL_UN'
- ! monthly (h6) I
  fincl7 = 'O3', 'PS', 'TROP_P'
+
+!! setting constant co2vmr
+&chem_surfvals_nl
+ bndtvghg               = '/global/cfs/cdirs/e3sm/inputdata/atm/cam/ggas/GHG_CMIP6_1pctCO2_c20180216.nc'
+ ch4vmr         = 808.249e-9
+ co2vmr         = 1264.76e-6
+ f11vmr         = 32.1102e-12
+ f12vmr         = 0.0
+ flbc_list              = ' '
+ n2ovmr         = 273.0211e-9
+ scenario_ghg           = 'FIXED'
+/
+
 
 EOF
 
 cat << EOF >> user_nl_elm
-! Pointing to new simyr2015 file per Jim Benedict
- fsurdat = '/global/cfs/cdirs/e3sm/inputdata/lnd/clm2/surfdata_map/surfdata_ne30np4.pg2_SSP3_RCP70_simyr2015_c220420.nc'
-
  hist_dov2xy = .true.,.true.
  hist_fincl2 = 'H2OSNO', 'FSNO', 'QRUNOFF', 'QSNOMELT', 'FSNO_EFF', 'SNORDSL', 'SNOW', 'FSDS', 'FSR', 'FLDS', 'FIRE', 'FIRA'
  hist_mfilt = 1,365
  hist_nhtfrq = 0,-24
  hist_avgflag_pertape = 'A','A'
-
-! Override - updated after EAM/ELM fixes
- check_finidat_fsurdat_consistency = .false.
- check_finidat_pct_consistency = .true.
- check_finidat_year_consistency = .true.
-
 EOF
 
 cat << EOF >> user_nl_mosart
@@ -323,11 +297,9 @@ case_setup() {
     ./xmlchange CIME_OUTPUT_ROOT=${CASE_RUN_DIR}
     ./xmlchange EXEROOT=${CASE_BUILD_DIR}
     ./xmlchange RUNDIR=${CASE_RUN_DIR}
-    # nanr changes
-    #./xmlchange EXEROOT=/global/cscratch1/sd/nanr/E3SMv2/v2.LR.SSP370_0111/build/
 
     # Short term archiving
-    ./xmlchange DOUT_S=${DO_SHORT_TERM_ARCHIVING}
+    ./xmlchange DOUT_S=${DO_SHORT_TERM_ARCHIVING^^}
     ./xmlchange DOUT_S_ROOT=${CASE_ARCHIVE_DIR}
 
     # Build with COSP, except for a data atmosphere (datm)
@@ -346,7 +318,6 @@ case_setup() {
 
     # Finally, run CIME case.setup
     ./case.setup --reset
-
 
     popd
 }
@@ -395,12 +366,11 @@ case_build() {
         # Run CIME case.build
         ./case.build
 
-    fi
+        # Some user_nl settings won't be updated to *_in files under the run directory
+        # Call preview_namelists to make sure *_in and user_nl files are consistent.
+        ./preview_namelists
 
-    # Some user_nl settings won't be updated to *_in files under the run directory
-    # Call preview_namelists to make sure *_in and user_nl files are consistent.
-    echo $'\n----- Preview namelists -----\n'
-    ./preview_namelists
+    fi
 
     popd
 }
@@ -416,9 +386,6 @@ runtime_options() {
 
     # Segment length
     ./xmlchange STOP_OPTION=${STOP_OPTION,,},STOP_N=${STOP_N}
-
-    # End date
-    ./xmlchange STOP_DATE=${STOP_DATE}
 
     # Restart frequency
     ./xmlchange REST_OPTION=${REST_OPTION,,},REST_N=${REST_N}
@@ -447,13 +414,14 @@ runtime_options() {
     elif [ "${MODEL_START_TYPE,,}" == "branch" ] || [ "${MODEL_START_TYPE,,}" == "hybrid" ]; then
         ./xmlchange RUN_TYPE=${MODEL_START_TYPE,,}
         ./xmlchange GET_REFCASE=${GET_REFCASE}
-        ./xmlchange RUN_REFDIR=${RUN_REFDIR}
+	./xmlchange RUN_REFDIR=${RUN_REFDIR}
         ./xmlchange RUN_REFCASE=${RUN_REFCASE}
         ./xmlchange RUN_REFDATE=${RUN_REFDATE}
         echo 'Warning: $MODEL_START_TYPE = '${MODEL_START_TYPE} 
-        echo '$RUN_REFDIR = '${RUN_REFDIR}
-        echo '$RUN_REFCASE = '${RUN_REFCASE}
-        echo '$RUN_REFDATE = '${START_DATE}
+	echo '$RUN_REFDIR = '${RUN_REFDIR}
+	echo '$RUN_REFCASE = '${RUN_REFCASE}
+	echo '$RUN_REFDATE = '${START_DATE}
+ 
     else
         echo 'ERROR: $MODEL_START_TYPE = '${MODEL_START_TYPE}' is unrecognized. Exiting.'
         exit 380
@@ -508,4 +476,3 @@ popd() {
 #-----------------------------------------------------
 main
 
-done

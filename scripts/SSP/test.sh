@@ -1,34 +1,25 @@
-#!/bin/bash -fe
+#!/bin/bash -l
 
-# E3SM Water Cycle v2 run_e3sm script template.
-#
-# Inspired by v1 run_e3sm script as well as SCREAM group simplified run script.
-#
-# Bash coding style inspired by:
-# http://kfirlavi.herokuapp.com/blog/2012/11/14/defensive-bash-programming
-
-
-# For debugging, uncomment libe below
-#set -x
-
-echo "Here I am"
-
-main() {
-# Year array YYYY:  
-declare -a arr=( "0111" "0121" "0131" )
-
-echo "${arr[0]}", "${arr[1]}" 
-## declare an array variable
-##declare -a arr=("element1" "element2" "element3")
-for i in "${arr[@]}"
+# Loop over members
+#for n in \
+#0111 0121 0131 0141 0161 0171 0181 0191 \
+#0211 0221 0231 0241 0261 0271 0281 0291
+#do
+for n in \
+0111 0121 0131 0181 0191 0231 0241 0271 0281
 do
-        echo "WAHAAi"
-        echo "$i"
+
+  echo === Starting member ${n} ===
+
+  if [[ ${n} == 0111 || ${n} == 0121 || ${n} == 0131 || ${n} == 0181 || ${n} == 0191 || \
+        ${n} == 0231 || ${n} == 0241 || ${n} == 0271 || ${n} == 0281 ]] 
+  then
+      echo "first stop" ${n}
+  else
+      echo "second stop"
+  fi
+
+  echo ============================
+
 done
- #set myvar = "${arr[0]}"
-    
-}
 
-main
-
-#echo "myvari == ",${myvar}
