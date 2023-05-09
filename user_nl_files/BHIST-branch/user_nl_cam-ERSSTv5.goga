@@ -1,0 +1,23 @@
+! Users should add all user specific namelist changes below in the form of 
+! namelist_var = new_namelist_value
+ inithist='MONTHLY' 
+ ! pertlim = 1.d-14
+ cldfrc_rhminl = 0.8925D0
+ nhtfrq=0,-24,-6
+ mfilt=1,365,1460
+ empty_htapes=.true.
+ fincl1='ANRAIN:A', 'ANSNOW:A', 'AODDUST1:A', 'AODDUST2:A', 'AODDUST3:A', 'AODVIS:A', 'AQRAIN:A',
+      'AQSNOW:A', 'AREI:A', 'AREL:A', 'AWNC:A', 'AWNI:A', 'CCN3:A', 'CDNUMC:A', 'CLDHGH:A', 'CLDICE:A',
+      'CLDLIQ:A', 'CLDLOW:A', 'CLDMED:A', 'CLDTOT:A', 'CLOUD:A', 'DCQ:A', 'DTCOND:A', 'DTV:A', 'FICE:A',
+      'FLDS:A', 'FLNS:A', 'FLNSC:A', 'FLNT:A', 'FLNTC:A', 'FLUT:A', 'FLUTC:A', 'FREQI:A', 'FREQL:A', 'FREQR:A',
+      'FREQS:A', 'FSDS:A', 'FSDSC:A', 'FSNS:A', 'FSNSC:A', 'FSNT:A', 'FSNTC:A', 'FSNTOA:A', 'FSNTOAC:A', 'ICEFRAC:A',
+      'ICIMR:A', 'ICWMR:A', 'IWC:A', 'LANDFRAC:A', 'LHFLX:A', 'LWCF:A', 'NUMICE:A', 'NUMLIQ:A', 'OCNFRAC:A', 'OMEGA:A',
+      'OMEGAT:A', 'PBLH:A', 'PHIS:A', 'PRECC:A', 'PRECL:A', 'PRECSC:A', 'PRECSL:A', 'PS:A', 'PSL:A', 'Q:A', 'QFLX:A', 'QREFHT:A','QRL:A', 'QRS:A',
+      'RELHUM:A', 'SHFLX:A', 'SNOWHICE:A', 'SNOWHLND:A', 'SOLIN:A', 'SST:A', 'SWCF:A', 'T:A', 'TAUX:A', 'TAUY:A', 
+      'TGCLDIWP:A', 'TGCLDLWP:A', 'TMQ:A', 'TREFHT:A','TREFHTMX:X','TREFHTMN:M','TS:A','TSMX:X','TSMN:M','U:A', 'U10:A', 
+      'UU:A', 'V:A', 'VD01:A', 'VQ:A', 'VT:A', 'VU:A', 'VV:A','WSPDSRFMX:A','WSUB:A', 'Z3:A'
+ fincl2='FSNTOA:A','FLDS:A','FLNS:A','FLNSC:A','FLUT:A','FSDS:A','FSNSC:A','FSNS:A','ICEFRAC:A''LHFLX:A','PRECL:A','PRECSL:A','PRECSC:A','PRECT:A','PRECTMX:A',
+        'PSL:A','QBOT:A','QREFHT:A','RELHUM:A','RHREFHT:A','SHFLX:A','TAUX:A','TAUY:A','TMQ:A','TREFHT:A','TREFHTMN:M','TREFHTMX:X','TS:A','UBOT:A','VBOT:A','WSPDSRFAV:A',
+        'Q850:A','Q200:A','T850:A','T500:A','T200:A','T010:A','U850:A','U500:A','U200:A','U010:A','V850:A','V500:A','V200:A','Z500:A','Z050:A',   
+ fincl3='PSL:I','Q850:I','T850:I','T500:I','T200:I','U850:I','U500:I','U200:I','V850:I','V500:I','V200:I'
+

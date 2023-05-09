@@ -60,7 +60,7 @@
 	<tseries_output_format>netcdf4c</tseries_output_format>
 	<tseries_tper>hour_3</tseries_tper>
         <tseries_filecat_tper>years</tseries_filecat_tper>
-        <tseries_filecat_n>2</tseries_filecat_n>
+        <tseries_filecat_n>10</tseries_filecat_n>
       </file_extension>
       <file_extension suffix=".h3.[0-9]">      
 	<subdir>hist</subdir> 
@@ -68,7 +68,7 @@
 	<tseries_output_format>netcdf4c</tseries_output_format>
 	<tseries_tper>hour_6</tseries_tper>
         <tseries_filecat_tper>years</tseries_filecat_tper>
-        <tseries_filecat_n>5</tseries_filecat_n>
+        <tseries_filecat_n>10</tseries_filecat_n>
       </file_extension>
       <file_extension suffix=".h4.[0-9]">      
 	<subdir>hist</subdir> 
@@ -76,7 +76,7 @@
 	<tseries_output_format>netcdf4c</tseries_output_format>
 	<tseries_tper>hour_6</tseries_tper>
         <tseries_filecat_tper>years</tseries_filecat_tper>
-        <tseries_filecat_n>5</tseries_filecat_n>
+        <tseries_filecat_n>10</tseries_filecat_n>
       </file_extension>
       <file_extension suffix=".h5.[0-9]">      
 	<subdir>hist</subdir> 
@@ -84,7 +84,7 @@
 	<tseries_output_format>netcdf4c</tseries_output_format>
 	<tseries_tper>day_1</tseries_tper>
         <tseries_filecat_tper>years</tseries_filecat_tper>
-        <tseries_filecat_n>5</tseries_filecat_n>
+        <tseries_filecat_n>10</tseries_filecat_n>
       </file_extension>
       <file_extension suffix=".h6.[0-9]">      
 	<subdir>hist</subdir> 

@@ -10,6 +10,7 @@ setenv LOGSDIR  $CSDIR/logs
 setenv RESTDIR  $CSDIR/restarts
 setenv POPDDIR  $CSDIR/popd_files
 setenv CASE     b.e21.BHISTcmip6.f09_g17.L83_cam6.001
+setenv CASE     b.e21.BSSP370cmip6.f09_g17.L83_cam6.001
 
 if (! -d $TSERIES/$CASE/cpl/hist) then
 	mkdir -p $TSERIES/$CASE/cpl/hist

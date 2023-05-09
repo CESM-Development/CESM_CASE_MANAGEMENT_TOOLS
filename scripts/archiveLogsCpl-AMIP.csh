@@ -4,6 +4,7 @@ module load ncl nco
 
 setenv CESM2_TOOLS_ROOT /glade/work/$USER/cesm_tags/CASE_tools/cesm2-L83/
 setenv USE_ARCHDIR  /glade/scratch/$USER/archive/
+#setenv USE_ARCHDIR  /glade/scratch/sglanvil/archive/
 setenv CSDIR    /glade/campaign/cesm/development/cvcwg/cvwg/L83/
 setenv TSERIES  $CSDIR/timeseries
 setenv LOGSDIR  $CSDIR/logs
@@ -14,6 +15,12 @@ setenv CASE     f.e21.FHIST_BGC.f09_f09_mg17.L83_cam6_SSP370.003
 setenv CASE     f.e21.FHIST_BGC.f09_f09_mg17.L83_cam6_nudging.003
 setenv CASE     f.e21.FHIST_BGC.f09_f09_mg17.L83_cam6_nudging_SSP370.001
 setenv CASE     f.e21.FHIST_BGC.f09_f09_mg17.L83_cam6_nudging_SSP370.003
+setenv CASE     f.e21.FHIST_BGC.f09_f09_mg17.L83_cam6_nudging_clim.001
+setenv CASE     f.e21.FHIST_BGC.f09_f09_mg17.L83_cam6_nudging_clim.002
+setenv CASE     f.e21.FHIST_BGC.f09_f09_mg17.L83_cam6_nudging_clim.003
+setenv CASE     f.e21.FHIST_BGC.f09_f09_mg17.L83_cam6_nudging_clim_SSP370.003
+#setenv CASE     f.e21.FHIST_BGC.f09_f09_mg17.L83_cam6_nudging_clim_SSP370.002
+#setenv CASE     f.e21.FHIST_BGC.f09_f09_mg17.L83_cam6_nudging_clim_SSP370.001
 
 if (! -d $TSERIES/$CASE/cpl/hist) then
 	mkdir -p $TSERIES/$CASE/cpl/hist

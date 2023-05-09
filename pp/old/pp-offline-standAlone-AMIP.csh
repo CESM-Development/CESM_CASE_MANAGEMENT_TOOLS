@@ -20,10 +20,10 @@ set embr =  2
 foreach mbr ( `seq $mb $me` )
 if ($mbr < 10) then
         #set CASE = f.e21.FHIST_BGC.f09_f09_mg17.L83_cam6.00${mbr}
-        set CASE = f.e21.FHIST_BGC.f09_f09_mg17.L83_cam6_nudging_clim.00${mbr}
+        set CASE = f.e21.FHIST_BGC.f09_f09_mg17.L83_cam6_SSP370.00${mbr}
 else
         #set CASE = f.e21.FHIST_BGC.f09_f09_mg17.L83_cam6.0${mbr}
-        set CASE = f.e21.FHIST_BGC.f09_f09_mg17.L83_cam6_nudging_clim.0${mbr}
+        set CASE = f.e21.FHIST_BGC.f09_f09_mg17.L83_cam6_SSP370.0${mbr}
 endif
 
 mkdir -p $CASEROOT/$CASE
@@ -35,8 +35,8 @@ endif
 
 cd postprocess
 
-#pp_config --set TIMESERIES_OUTPUT_ROOTDIR=/glade/scratch/nanr/timeseries/$CASE/
-pp_config --set TIMESERIES_OUTPUT_ROOTDIR=/glade/collections/cdg/timeseries-cmip6/$CASE
+pp_config --set TIMESERIES_OUTPUT_ROOTDIR=/glade/scratch/nanr/timeseries/$CASE/
+#pp_config --set TIMESERIES_OUTPUT_ROOTDIR=/glade/collections/cdg/timeseries-cmip6/$CASE
 pp_config --set CASE=$CASE
 pp_config --set DOUT_S_ROOT=$DOUT_S_ROOT/hist/$CASE
 pp_config --set ATM_GRID=0.9x1.25

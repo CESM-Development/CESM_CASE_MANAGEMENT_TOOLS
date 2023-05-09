@@ -3,8 +3,8 @@
 #ncdata='/glade/scratch/islas/archive/b.e21.B1850.f09_f09_mg17.L83_ogw2.001/rest/0037-01-01-00000/b.e21.B1850.f09_f09_mg17.L83_ogw2.001.cam.i.0037-01-01-00000.nc'
 
 
-mbr='001'
-#mbr='002'
+#mbr='001'
+mbr='002'
 #mbr='003'
 curdir='/glade/work/nanr/cesm_tags/CASE_tools/cesm2-L83/'
 compset='FHIST_BGC'
@@ -12,9 +12,9 @@ resoln='f09_f09_mg17'
 runname='f.e21.'$compset'.'$resoln'.L83_cam6_nudging_clim.'$mbr
 #tagdir='/glade/work/islas/cesm2.1.4-rc.08/'
 tagdir='/glade/work/nanr/cesm_tags/git_sandbox/cesm2.1.4-rc.11/'
-caseroot='/glade/work/nanr/L83/'
+caseroot='/glade/work/$USER/L83/'
 casedir=$caseroot/$runname
-rundir=/glade/scratch/nanr/$runname
+rundir=/glade/scratch/$USER/$runname
 cd $tagdir/cime/scripts
 
 ./create_newcase --case $casedir --res $resoln --compset $compset --run-unsupported
@@ -24,7 +24,7 @@ cd $casedir
 ./xmlchange --append --file env_build.xml -id CAM_CONFIG_OPTS --val="-co2_cycle -nlev=83"
  
 ./xmlchange PROJECT=P93300313
-./xmlchange STOP_N=3
+./xmlchange STOP_N=2
 ./xmlchange STOP_OPTION=nyears
 ./xmlchange RESUBMIT=0
 ./xmlchange NTASKS_CPL=720
@@ -58,8 +58,8 @@ then
     echo ${restyear}
     echo '/glade/scratch/islas/archive/b.e21.B1850.f09_g17.L83_cam6.001/rest/'${restyear}'-01-01-00000/'
     ./xmlchange RUN_REFDATE='0100-01-01'
-    ./xmlchange EXEROOT='/glade/scratch/nanr/f.e21.FHIST_BGC.f09_f09_mg17.L83_cam6_nudging_clim.001/bld/'
-    ./xmlchange BUILD_COMPLETE=TRUE
+    #./xmlchange EXEROOT='/glade/scratch/$USER/f.e21.FHIST_BGC.f09_f09_mg17.L83_cam6_nudging_clim.001/bld/'
+    #./xmlchange BUILD_COMPLETE=TRUE
 fi
 if [[ ${mbr} == 003 ]]
 then
@@ -68,8 +68,8 @@ then
     echo 'member - ${mbr} and rest = ${restyear}'
     restdir='/glade/scratch/islas/archive/b.e21.B1850.f09_g17.L83_cam6.001/rest/'${restyear}'-01-01-00000/'
     ./xmlchange RUN_REFDATE='0103-01-01'
-    ./xmlchange EXEROOT='/glade/scratch/nanr/f.e21.FHIST_BGC.f09_f09_mg17.L83_cam6_nudging_clim.001/bld/'
-    ./xmlchange BUILD_COMPLETE=TRUE
+    #./xmlchange EXEROOT='/glade/scratch/$USER/f.e21.FHIST_BGC.f09_f09_mg17.L83_cam6_nudging_clim.001/bld/'
+    #./xmlchange BUILD_COMPLETE=TRUE
 fi
 #echo 'Here I am'
 #echo ${restyear}'-01-01'
