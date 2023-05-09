@@ -1,0 +1,8 @@
+!! First, extract the last year (which is year 2101)
+ncks -d time,108, /glade/p/cesmdata/cseg/inputdata/atm/cam/chem/emis/elev/H2OemissionCH4oxidationx2_3D_L70_2014-2101_CMIP6-SSP5-8.5_c190307.nc H2OemissionCH4oxidationx2_3D_L70_year2101_CMIP6-SSP5-8.5_c20220317.nc
+
+!! Then change the date from year 2101 to year 2100 to make it cycle over year 2100.  Doesn't matter since all vars are zero.
+ncap2 -O -s 'date=date-10000' H2OemissionCH4oxidationx2_3D_L70_year2101_CMIP6-SSP5-8.5_c20220317.nc H2OemissionCH4oxidationx2_3D_L70_2100clim_CMIP6-SSP5-8.5_c20220317.nc
+
+cp H2OemissionCH4oxidationx2_3D_L70_2100clim_CMIP6-SSP5-8.5_c20220317.nc /glade/p/cesmdata/cseg/inputdata/atm/cam/chem/emis/elev/
+
