@@ -1,8 +1,0 @@
-Is it from tseries3.slurm? If so, it's the cice.h1 component. It's happening on occasions. You'll need to do 2 things before resubmitting. 
-
-1. Edit Line 58 in tseries3.slurm and change HIST to loop over just cice.h1.
-         i.e. for HIST in cice.h1 ; do
-
-2. rm ice/proc/b.e13.BDP-HR.ne120_t12.2004-11.010.*
-
-3. sbatch tseries3.slurm 

@@ -1,0 +1,157 @@
+#!/bin/csh -f
+
+set MACHINE = cheyenne
+
+#set COMPSET = B1850C5
+#set EXPERIMENT = DP-HR-SPNA
+#set RESOLN  = ne120_t12
+#set TAG     = cesm-ihesp-hires1.0.43
+
+set COMPSET = BHISTC5
+set COMPSET = BSSP370cmip6
+set EXPERIMENT = BDP-HR-TEST
+set RESOLN  = ne120_t12
+set TAG     = cesm-ihesp-hires1.0.43
+
+
+#set RESUBMIT = 1
+#set STOP_OPTION=nmonths
+#set STOP_N=31
+set RESUBMIT = 0
+set STOP_OPTION=ndays
+set STOP_N=5
+
+# ls /glade/campaign/collections/cmip/CMIP6/iHESP/PIcntl/HR/B.E.13.B1850C5.ne120_t12.sehires38.003.sunway_02/restart/
+# 220/  240/  260/  280/  300/  320/  340/  359/  360/  380/  400/  420/  440/  460/  480/  500/  520/  540/  560/  580/  600/
+
+set syear =  2022
+set eyear =  2022
+set year = $syear
+
+
+        #set PATH      = /glade/work/nanr/
+        #set RUNDIR    = /glade/scratch/nanr/$CASE/run
+        #set BLDDIR    = /glade/scratch/nanr/$CASE/bld
+        #setenv CASEROOT /glade/work/nanr/SPNA/cases/$CASE
+        #set TOOLSROOT = /glade/work/nanr/cesm_tags/CASE_tools/ihesp-tools/
+
+
+set smbr =  2
+set embr =  2
+
+@ mb = $smbr
+@ me = $embr
+
+#foreach year  ( `seq $syear 20 $eyear` )
+foreach mbr  ( `seq $mb  $me` )
+
+#echo mbr ( `seq $mb 2 $me` )
+#@ USE_REFDATE = 1001 + ( $mbr - 1 ) * 10
+#@ mmm++
+
+if ($mbr < 10) then
+	setenv CASE b.e13.${EXPERIMENT}.${RESOLN}.${year}.00${mbr}
+else
+	setenv CASE b.e13.${EXPERIMENT}.${RESOLN}.${year}.0${mbr}
+endif
+#setenv REFCASE B.E.13.B1850C5.ne120_t12.sehires38.003.sunway_02
+setenv REFCASE b.e13.DP-HR_IC.${RESOLN}.${year}-11.01
+set REFROOT   = /glade/scratch/nanr/DP-HR/inputdata/cesm2_init/
+
+set PATH      = /glade/work/nanr/
+set RUNDIR    = /glade/scratch/nanr/$CASE/run
+set BLDDIR    = /glade/scratch/nanr/$CASE/bld
+setenv CASEROOT /glade/work/nanr/SPNA-HR/cases/$CASE
+set TOOLSROOT = /glade/work/nanr/cesm_tags/CASE_tools/cesm13-SPNA-HR/
+
+setenv CESMROOT ${PATH}/cesm_tags/${TAG}/
+
+
+$CESMROOT/cime/scripts/create_newcase --case $CASEROOT --res $RESOLN  --mach $MACHINE --compset $COMPSET --pecount L --run-unsupported
+
+cd $CASEROOT
+
+set runCheap = 0
+
+if ($runCheap == 0) then
+	./xmlchange NTASKS_CPL=7200
+	./xmlchange NTASKS_ATM=7200
+	./xmlchange NTASKS_LND=1200
+	./xmlchange NTASKS_ICE=6000
+	./xmlchange ROOTPE_ICE=1200
+	./xmlchange NTASKS_OCN=2135
+	./xmlchange ROOTPE_OCN=7200
+	./xmlchange NTASKS_ROF=1200
+	./xmlchange NTASKS_GLC=1
+	./xmlchange NTASKS_WAV=1
+else
+	./xmlchange NTASKS_CPL=3600
+	./xmlchange NTASKS_ATM=3600
+	./xmlchange NTASKS_LND=180
+	./xmlchange NTASKS_ICE=3420
+	./xmlchange ROOTPE_ICE=180
+	./xmlchange NTASKS_OCN=1664
+	./xmlchange ROOTPE_OCN=3600
+	./xmlchange NTASKS_ROF=180
+	./xmlchange NTASKS_GLC=36
+	./xmlchange NTASKS_WAV=36
+endif
+
+./xmlchange DOUT_S_SAVE_INTERIM_RESTART_FILES=TRUE 
+./xmlchange RESUBMIT=$RESUBMIT
+./xmlchange STOP_OPTION=$STOP_OPTION
+./xmlchange STOP_N=$STOP_N
+./xmlchange RUN_TYPE=hybrid
+./xmlchange RUN_STARTDATE=${year}-11-01
+./xmlchange RUN_REFCASE=${REFCASE}
+./xmlchange RUN_REFDATE=${year}-11-01
+./xmlchange GET_REFCASE=FALSE
+./xmlchange OCN_TRACER_MODULES=""
+./xmlchange --append CAM_CONFIG_OPTS=-cosp
+
+./xmlchange PROJECT=CESM0021
+./xmlchange JOB_QUEUE=premium --subgroup case.run
+
+##cp $TOOLSROOT/user_nl_files/DP-HR/user_nl_cam-COSP-ON $CASEROOT/user_nl_cam
+cp $TOOLSROOT/user_nl_files/piCNTL/user_nl_cam $CASEROOT/user_nl_cam
+cp $TOOLSROOT/user_nl_files/piCNTL/user_nl_clm $CASEROOT/user_nl_clm
+cp $TOOLSROOT/user_nl_files/piCNTL/user_nl_cice $CASEROOT/user_nl_cice
+cp $TOOLSROOT/user_nl_files/piCNTL/user_nl_rtm $CASEROOT/user_nl_rtm
+
+cp $TOOLSROOT/SourceMods/src.pop/BSPNA_HR/*  $CASEROOT/SourceMods/src.pop/
+cp $TOOLSROOT/SourceMods/src.cam/*F90  $CASEROOT/SourceMods/src.cam/
+
+
+echo "================="
+echo "================="
+
+if (! -d $RUNDIR) then
+ mkdir -p $RUNDIR
+endif
+
+#echo    $REFROOT/rest/${year}/rpoint* 
+#cp    $REFROOT/rest/${year}/rpoint* $RUNDIR
+#ln -s $REFROOT/rest/${year}/B.* $RUNDIR
+
+echo "================="
+echo $REFROOT/$REFCASE/${year}-11-01/
+echo "================="
+
+./case.setup
+
+cp    $REFROOT/$REFCASE/${year}-11-01/rpoint* $RUNDIR
+ln -s $REFROOT/$REFCASE/${year}-11-01/b.* $RUNDIR
+
+
+./case.setup
+
+if ($mbr == $smbr) then
+	set masterroot = $BLDDIR
+	./case.setup --reset; ./case.setup
+	./case.build
+else
+	./case.setup --reset; ./case.setup
+	./xmlchange EXEROOT=$masterroot
+	./xmlchange BUILD_COMPLETE=TRUE
+endif
+

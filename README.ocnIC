@@ -1,0 +1,4 @@
+nccopy -k cdf5 /glade/work/yeager/cesm_runs/cesm1.3_iHESP_B/BSPNA_HR/SHF_SPNA_DJFM_NAO_2X_forcing_ERA5_to_TL319_t12.nc /glade/work/nanr/SPNA-HR/SHF_SPNA_DJFM_NAO_2X_forcing_ERA5_to_TL319_t12.cdf5.nc
+
+ncdump -k /glade/work/yeager/cesm_runs/cesm1.3_iHESP_B/BSPNA_HR/SHF_SPNA_DJFM_NAO_2X_forcing_ERA5_to_TL319_t12.nc
+netCDF-4
