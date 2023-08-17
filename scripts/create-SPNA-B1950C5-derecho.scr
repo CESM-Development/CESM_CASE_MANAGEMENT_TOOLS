@@ -1,0 +1,100 @@
+#!/bin/csh -f
+
+set MACHINE = derecho
+set TOOLS_ROOT = /glade/work/nanr/cesm_tags/CASE_tools/cesm13-SPNA-HR/
+
+set COMPSET = B1950C5 
+set EXPERIMENT = SPNA-derecho
+set RESOLN  = ne120_t12
+set TAG     = cesm-ihesp-hires1.0.44
+
+#set RESUBMIT = 1
+#set STOP_OPTION=nmonths
+#set STOP_N=31
+set RESUBMIT = 3
+set STOP_OPTION=nmonths
+set STOP_N=24
+
+# ls /glade/campaign/collections/cmip/CMIP6/iHESP/PIcntl/HR/B.E.13.B1850C5.ne120_t12.sehires38.003.sunway_02/restart/
+# ls /glade/campaign/collections/cmip/CMIP6/iHESP/HighResMIP/B1950cntl/HR/restarts
+# 0089
+
+set syear =  89
+set eyear =  89
+#set syear =  96
+#set eyear =  96
+set year = $syear
+if ($year < 100) then
+  set useyear = "00"${year}
+else
+  set useyear = "0"${year}
+endif
+
+if ($year < 100) then
+	setenv CASE b.e13.${EXPERIMENT}.${RESOLN}.SY-0${year}.001
+else
+	setenv CASE b.e13.${EXPERIMENT}.${RESOLN}.SY-${year}.001
+endif
+
+setenv REFCASE B.E.13.B1950C5.ne120_t12.cesm-ihesp-1950cntl.013
+
+set PATH      = /glade/work/nanr/
+set RUNDIR    = /glade/derecho/scratch/nanr/$CASE/run
+set BLDDIR    = /glade/derecho/scratch/nanr/$CASE/bld
+setenv CASEROOT /glade/work/nanr/SPNA-HR/cases/$CASE
+set TOOLSROOT = /glade/work/nanr/cesm_tags/CASE_tools/cesm13-SPNA-HR/
+set REFROOT   = /glade/derecho/scratch/nanr/archive/$REFCASE
+
+setenv CESMROOT ${PATH}/cesm_tags/sandbox/${TAG}/
+
+
+$CESMROOT/cime/scripts/create_newcase --case $CASEROOT --res $RESOLN  --mach $MACHINE --compset $COMPSET --run-unsupported
+
+cd $CASEROOT
+
+cp /glade/derecho/scratch/jedwards/PFS.ne120_t12.B1850C5.derecho_intel.20230713_142721_f6jwlw/env_mach_pes.xml $CASEROOT
+cp $TOOLS_ROOT/pelayout/env_mach_pes.xml-derecho $CASEROOT/env_mach_pes.xml
+
+./xmlchange DOUT_S_SAVE_INTERIM_RESTART_FILES=TRUE 
+./xmlchange RESUBMIT=$RESUBMIT
+./xmlchange STOP_OPTION=$STOP_OPTION
+./xmlchange STOP_N=$STOP_N
+./xmlchange RUN_TYPE=hybrid
+./xmlchange RUN_STARTDATE=${useyear}-01-01
+./xmlchange RUN_REFCASE=${REFCASE}
+./xmlchange RUN_REFDATE=${useyear}-01-01
+./xmlchange GET_REFCASE=FALSE
+./xmlchange OCN_TRACER_MODULES=""
+./xmlchange RUN_REFDIR=${REFROOT}
+##./xmlchange --append CAM_CONFIG_OPTS=-cosp
+
+./xmlchange PROJECT=P93300313
+#./xmlchange JOB_QUEUE= --subgroup case.run
+
+##cp $TOOLSROOT/user_nl_files/DP-HR/user_nl_cam-COSP-ON $CASEROOT/user_nl_cam
+cp $TOOLSROOT/user_nl_files/1950-derecho/user_nl_cam $CASEROOT/user_nl_cam
+cp $TOOLSROOT/user_nl_files/1950-derecho/user_nl_clm $CASEROOT/user_nl_clm
+cp $TOOLSROOT/user_nl_files/1950-derecho/user_nl_cice $CASEROOT/user_nl_cice
+cp $TOOLSROOT/user_nl_files/1950-derecho/user_nl_rtm $CASEROOT/user_nl_rtm
+
+cp $TOOLSROOT/SourceMods/src.pop/BSPNA_HR/*  $CASEROOT/SourceMods/src.pop/
+cp $TOOLSROOT/SourceMods/src.cam/*F90  $CASEROOT/SourceMods/src.cam/
+
+
+if (! -d $RUNDIR) then
+ mkdir -p $RUNDIR
+endif
+
+echo "================="
+echo $REFROOT/rest/${useyear}-01-01-00000/
+echo "================="
+echo    $REFROOT/rest/${useyear}-01-01-00000/rpoint* 
+cp    $REFROOT/rest/${useyear}-01-01-00000/rpoint* $RUNDIR
+ln -s $REFROOT/rest/${useyear}-01-01-00000/B.* $RUNDIR
+
+./case.setup
+
+./case.setup --reset
+#qcmd -A ACGD0008 -- ./case.build
+qcmd -A P93300313 -- ./case.build
+

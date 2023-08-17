@@ -1,0 +1,1 @@
+/glade/work/whokim/cesm_forcing/NAO_forcing/WISHBONE/SHF_SPNA_DJFM_NAO_2X_forcing_ERA5_to_TL319_t13.nc

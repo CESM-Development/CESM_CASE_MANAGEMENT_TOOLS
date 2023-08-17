@@ -10,7 +10,7 @@ set MACHINE = cheyenne
 #set COMPSET = BHISTC5
 #set COMPSET = BSSP370cmip6
 #set COMPSET = B1850C5
-set COMPSET = B1950TRC5
+set COMPSET = BHISTC5
 set EXPERIMENT = SPNA
 set RESOLN  = ne120_t12
 set TAG     = cesm-ihesp-hires1.0.43
@@ -26,8 +26,8 @@ set STOP_N=5
 # ls /glade/campaign/collections/cmip/CMIP6/iHESP/PIcntl/HR/B.E.13.B1850C5.ne120_t12.sehires38.003.sunway_02/restart/
 # 220/  240/  260/  280/  300/  320/  340/  359/  360/  380/  400/  420/  440/  460/  480/  500/  520/  540/  560/  580/  600/
 
-set refyear = 0055
-set refyear = 0089
+set refyear = 1950
+set refyear = 1950
 set year = 1950
 
 
@@ -38,8 +38,8 @@ set year = 1950
         #set TOOLSROOT = /glade/work/nanr/cesm_tags/CASE_tools/ihesp-tools/
 
 
-set smbr =  2
-set embr =  2
+set smbr =  1
+set embr =  1
 
 @ mb = $smbr
 @ me = $embr
@@ -47,15 +47,16 @@ set embr =  2
 foreach mbr  ( `seq $mb  $me` )
 
 if ($mbr < 10) then
-	setenv CASE b.e13.${EXPERIMENT}.${RESOLN}.${year}.00${mbr}
+	setenv CASE b.e13.${COMPSET}.${EXPERIMENT}.${RESOLN}.${year}.00${mbr}
 else
-	setenv CASE b.e13.${EXPERIMENT}.${RESOLN}.${year}.0${mbr}
+	setenv CASE b.e13.${COMPSET}.${EXPERIMENT}.${RESOLN}.${year}.0${mbr}
 endif
 #setenv REFCASE B.E.13.B1850C5.ne120_t12.sehires38.003.sunway_02
 setenv REFCASE B.E.13.B1950C5.ne120_t12.cesm-ihesp-1950cntl.011
 setenv REFCASE B.E.13.B1950C5.ne120_t12.cesm-ihesp-1950cntl.013
 set REFROOT   = /glade/p/cesmdata/cseg/inputdata/ccsm4_init/
-set REFROOT   = /glade/scratch/nanr/archive/
+setenv REFCASE b.e13.BHISTC5.ne120_t12.cesm-ihesp-hires1.0.30-1920-2100.003
+set REFROOT   = /glade/scratch/nanr/SPNA/
 
 set PATH      = /glade/work/nanr/
 set RUNDIR    = /glade/scratch/nanr/$CASE/run
@@ -108,7 +109,7 @@ endif
 ./xmlchange OCN_TRACER_MODULES=""
 ./xmlchange --append CAM_CONFIG_OPTS=-cosp
 
-./xmlchange PROJECT=CESM0021
+./xmlchange PROJECT=P93300313
 ./xmlchange JOB_QUEUE=premium --subgroup case.run
 
 ##cp $TOOLSROOT/user_nl_files/DP-HR/user_nl_cam-COSP-ON $CASEROOT/user_nl_cam
@@ -136,8 +137,10 @@ echo "================="
 echo $REFROOT/$REFCASE/rest/${refyear}-01-01-00000/
 echo "================="
 
-cp    $REFROOT/$REFCASE/rest/${refyear}-01-01-00000/rpoint* $RUNDIR
-ln -s $REFROOT/$REFCASE/${refyear}-01-01/b.* $RUNDIR
+#cp    $REFROOT/$REFCASE/rest/${refyear}-01-01-00000/rpoint* $RUNDIR
+#ln -s $REFROOT/$REFCASE/${refyear}-01-01/b.* $RUNDIR
+cp    $REFROOT/$REFCASE/${refyear}-01-01-00000/rpoint* $RUNDIR
+ln -s $REFROOT/$REFCASE/${refyear}-01-01-00000/b.* $RUNDIR
 
 
 ./case.setup

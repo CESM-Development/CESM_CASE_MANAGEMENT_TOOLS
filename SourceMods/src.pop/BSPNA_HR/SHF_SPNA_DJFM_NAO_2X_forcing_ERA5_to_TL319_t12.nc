@@ -1,0 +1,1 @@
+/glade/work/yeager/cesm_runs/cesm1.3_iHESP_B/BSPNA_HR/SHF_SPNA_DJFM_NAO_2X_forcing_ERA5_to_TL319_t12.nc
