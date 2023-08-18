@@ -19,7 +19,7 @@ set embr =  1
 
 foreach mbr ( `seq $mb $me` )
 if ($mbr < 10) then
-        set CASE = waccm-SC.QBOi.EXP2.EL.001
+        set CASE = f.e23.FAMIPfosi.ne0np4.NATL.ne30x8_t13.001
 else
         set CASE = b.e21.B1PCTcmip6.f09_g17.rampUp.0${mbr}
 endif
@@ -38,11 +38,11 @@ cp $CESM2_TOOLS_ROOT/scripts/env_timeseries.xml $PPROOT/$CASE/postprocess
 pp_config --set TIMESERIES_OUTPUT_ROOTDIR=/glade/scratch/$USER/timeseries/$CASE/
 #pp_config --set TIMESERIES_OUTPUT_ROOTDIR=/glade/collections/cdg/timeseries-cmip6/$CASE
 pp_config --set CASE=$CASE
-pp_config --set DOUT_S_ROOT=/glade/campaign/cgd/amp/cchen/QBOi/$CASE
-pp_config --set ATM_GRID=0.9x1.25
-pp_config --set LND_GRID=0.9x1.25
-pp_config --set ICE_GRID=gx1v7
-pp_config --set OCN_GRID=gx1v7
+pp_config --set DOUT_S_ROOT=/glade/scratch/islas/archive/$CASE
+pp_config --set ATM_GRID=ne30x8
+pp_config --set LND_GRID=ne30x8
+pp_config --set ICE_GRID=gxt13
+pp_config --set OCN_GRID=gxt13
 pp_config --set ICE_NX=320
 pp_config --set ICE_NY=384
 

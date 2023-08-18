@@ -1,0 +1,6 @@
+module use /glade/work/bdobbins/Software/Modules
+module load cesm_postprocessing_derecho
+create_postprocess -caseroot=`pwd`
+cd postprocess/
+cp /glade/work/nanr/cesm_tags/CASE_tools/pp-offline/derecho/timeseries .
+

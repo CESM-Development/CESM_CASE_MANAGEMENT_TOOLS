@@ -1,0 +1,26 @@
+#!/bin/bash
+
+#PBS -N ASDtseries
+#PBS -q main
+#PBS -l select=36:ncpus=128:mpiprocs=16
+#PBS -l walltime=12:00:00
+#PBS -A P06010014
+
+
+##########
+##
+## See https://github.com/NCAR/CESM_postprocessing/wiki for details
+## regarding settings for optimal performance for CESM postprocessing tools.
+##
+##########
+
+
+today="$(date '+%Y%m%d-%H%M%S')"
+log_filename=/glade/derecho/scratch/nanr/post-proc/b.e13.B1850C5.ne120_t12.icesm13_ihesp.PI.002/postprocess/logs/timeseries.log.$today
+
+module load intel-mpi
+module load apptainer
+
+export I_MPI_HYDRA_BRANCH_COUNT=36
+
+mpiexec singularity run -B /glade,/var /glade/work/bdobbins/Containers/CESM_Postprocessing/image /opt/ncar/cesm_postprocessing/cesm-env2/bin/cesm_tseries_generator.py  --caseroot /glade/derecho/scratch/nanr/post-proc/b.e13.B1850C5.ne120_t12.icesm13_ihesp.PI.002/postprocess >> ${log_filename} 2>&1 
