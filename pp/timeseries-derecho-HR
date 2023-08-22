@@ -1,0 +1,29 @@
+#!/bin/bash
+
+#PBS -N tihesp4
+#PBS -q main
+#PBS -l select=12:ncpus=128:mpiprocs=16
+#PBS -l walltime=24:00:00
+#PBS -A ACGD0008
+
+
+##########
+##
+## See https://github.com/NCAR/CESM_postprocessing/wiki for details
+## regarding settings for optimal performance for CESM postprocessing tools.
+##
+##########
+
+
+today="$(date '+%Y%m%d-%H%M%S')"
+log_filename=/glade/derecho/scratch/nanr/post-proc/b.e13.BHISTC5.ne120_t12.cesm-ihesp-hires1.0.44-1920-2005.004/postprocess/logs/timeseries.log.$today
+
+# module load singularity/3.7.2
+# module load impi
+
+module load intel-mpi
+module load apptainer
+
+
+mpiexec singularity run -B /glade,/var /glade/work/bdobbins/Containers/CESM_Postprocessing/image /opt/ncar/cesm_postprocessing/cesm-env2/bin/cesm_tseries_generator.py  --caseroot /glade/derecho/scratch/nanr/post-proc/b.e13.BHISTC5.ne120_t12.cesm-ihesp-hires1.0.44-1920-2005.004/postprocess >> ${log_filename} 2>&1 
+

@@ -1,0 +1,74 @@
+#!/bin/csh -f
+
+set PATH    = /glade/work/nanr/
+set TOOLS   = /glade/work/nanr/cesm_tags/CASE_tools/ihesp-tools/
+set COMPSET = BHISTC5
+set RESOLN  = ne120_t12
+set MACHINE = derecho
+set TAG     = cesm-ihesp-hires1.0.44
+setenv CESMROOT ${PATH}/cesm_tags/sandbox/${TAG}/
+
+set mbr = 6
+setenv CASE b.e13.${COMPSET}.${RESOLN}.${TAG}-1920-2005.00${mbr}
+setenv CASEROOT /glade/work/nanr/ihesp-HiRes/cases/ne120_t12/$CASE
+set RUNDIR   = /glade/derecho/scratch/$USER/$CASE/run
+
+echo $RUNDIR
+
+$CESMROOT/cime/scripts/create_newcase --case $CASEROOT --res $RESOLN  --mach $MACHINE --compset $COMPSET --pecount L --run-unsupported
+
+cd $CASEROOT
+
+./xmlchange NTASKS_CPL=10240
+./xmlchange NTASKS_ATM=10240
+./xmlchange NTASKS_LND=1280
+./xmlchange NTASKS_ICE=8960
+./xmlchange ROOTPE_ICE=1280
+./xmlchange NTASKS_OCN=3840
+./xmlchange ROOTPE_OCN=10240
+./xmlchange NTASKS_ROF=1280
+./xmlchange NTASKS_GLC=1
+./xmlchange NTASKS_WAV=1
+
+./xmlchange RUN_REFCASE=B.E.13.BHISTC5.ne120_t12.sehires38.003.sunway
+./xmlchange RUN_REFDATE=1920-01-01
+./xmlchange RUN_STARTDATE=1920-01-01
+./xmlchange RUN_TYPE=hybrid
+./xmlchange GET_REFCASE=TRUE
+./xmlchange RUN_REFDIR=ccsm4_init
+./xmlchange STOP_OPTION=nyears
+./xmlchange STOP_N=1
+./xmlchange RESUBMIT=4
+./xmlchange DOUT_S_SAVE_INTERIM_RESTART_FILES=TRUE
+./xmlchange REST_N=1
+./xmlchange REST_OPTION=nyears
+
+./xmlchange --append CAM_CONFIG_OPTS=-cosp
+
+cp $TOOLS/user_nl_files/BHIST/* $CASEROOT/
+cp $TOOLS/SourceMods/src.pop/*  $CASEROOT/SourceMods/src.pop/
+
+# =========================
+# add pertlim perturbation to micro members 2 .. N 
+# =========================
+if ($mbr != 1) then
+cat >> head.${mbr} << EOF
+
+! add micro-member perturbation
+pertlim = ${mbr}.d-14
+
+EOF
+
+mv user_nl_cam tmp.cam
+cat head.${mbr} tmp.cam  > user_nl_cam
+rm tmp.cam head.${mbr}
+
+endif
+# =========================
+# END - pertlim 
+# =========================
+#
+
+./case.setup --reset
+./case.setup
+qcmd -- ./case.build

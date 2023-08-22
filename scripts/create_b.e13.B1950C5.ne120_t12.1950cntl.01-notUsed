@@ -1,0 +1,55 @@
+#!/bin/csh -f
+### set env variables
+
+
+## We need to create
+set COMPSET = B1950C5
+set RESOLN  = ne120_t12
+set MACHINE = cheyenne
+set TAG     = ihesp24
+setenv CESMROOT /gpfs/fs1/work/nanr/cesm_tags/cesm-ihesp-hires1.0.24/
+
+set mbr = 89
+setenv CASE b.e13.${COMPSET}.${RESOLN}.${TAG}_1950cntl.00${mbr}
+#setenv CASEROOT /global/project/projectdirs/ccsm1/people/nanr/cases/cesm1_3/testCases/$CASE
+setenv CASEROOT /glade/work/nanr/ihesp-HiRes/cases/ne120_t12/$CASE
+
+
+# $CESMROOT/scripts/create_newcase -case $CASEROOT -res $RESOLN  -mach $MACHINE -compset $COMPSET -compiler $COMPILER
+  $CESMROOT/cime/scripts/create_newcase --case $CASEROOT --res $RESOLN  --mach $MACHINE --compset $COMPSET --user-mods-dir 1950cntl
+
+cd $CASEROOT
+
+### modify case parameters
+./xmlchange RUN_TYPE=branch
+./xmlchange STOP_OPTION=nmonths
+./xmlchange STOP_N=1
+./xmlchange GET_REFCASE=FALSE
+./xmlchange DIN_LOC_ROOT='/glade/p/cesm/cseg/inputdata'
+./xmlchange DIN_LOC_ROOT_CLMFORC='/glade/p/cesm/cseg/inputdata/atm/datm7'
+
+ ./xmlchange NTASKS_ATM=7200
+ ./xmlchange NTASKS_LND=1200
+ ./xmlchange NTASKS_ICE=6000
+ ./xmlchange ROOTPE_ICE=1200
+ ./xmlchange NTASKS_OCN=2135
+ ./xmlchange ROOTPE_OCN=7200
+ ./xmlchange NTASKS_CPL=7200
+ ./xmlchange NTASKS_ROF=1200
+ ./xmlchange --append CAM_CONFIG_OPTS=-cosp
+
+./xmlchange RUNDIR='/glade/scratch/nanr/$CASE/run'
+./xmlchange EXEROOT='/glade/scratch/nanr/$CASE/bld'
+
+./case.setup
+
+mv user_nl_cam user_nl_cam.`date +%m%d-%H%M`
+mv user_nl_clm user_nl_clm.`date +%m%d-%H%M`
+mv user_nl_cice user_nl_cice.`date +%m%d-%H%M`
+
+#cp /glade/work/nanr/cesm_tags/CASE_tools/ihesp-tools/user_nl_files/HR-1950cntl/* $CASEROOT
+cp /glade/work/nanr/cesm_tags/CASE_tools/ihesp-tools/SourceMods/src.pop/* $CASEROOT/SourceMods/src.pop/
+
+#cp /glade/scratch/fredc/archive/b.e13.B1950C5.ne30_g16.cesm-ihesp-NCPL-CESM1_MOD-ROF2OCN_RMAP_1950cntl.01/rest/0031-01-01-00000/* /glade/scratch/nanr/$CASE/run
+
+#qcmd -- ./$CASE.build

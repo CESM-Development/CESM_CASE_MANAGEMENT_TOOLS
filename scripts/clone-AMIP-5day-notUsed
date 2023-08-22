@@ -1,0 +1,52 @@
+#!/bin/csh -f
+### set env variables
+
+
+## We need to create
+set COMPSET = FAMIPC5
+set RESOLN  = ne30_ne30_mt12
+set MACHINE = cheyenne
+set TAG     = cesm-ihesp-hires1.0.38
+
+set mbr = 1
+setenv CASE f.e13.${COMPSET}.${RESOLN}.DECK_pftdyn.5-day
+
+
+if ($MACHINE == frontera) then
+        set PATH      = $STOCKYARD
+        set RUNDIR    = $SCRATCH/$CASE/run
+        set BLDDIR    = $SCRATCH/$CASE/bld
+        set CASEROOT  = $STOCKYARD/frontera/cases/cesm13/$CASE
+        set TOOLSROOT = $HOME/CESM_tools/ihesp-tools/
+        set INPUTDATA = /work2/02503/edwardsj/CESM/inputdata/
+	setenv CESMROOT /gpfs/fs1/work/nanr/cesm_tags/cesm-ihesp-hires1.0.24/
+else 
+        set PATH      = /glade/work/nanr/
+        set RUNDIR    = /glade/scratch/nanr/$CASE/run
+        set BLDDIR    = /glade/scratch/nanr/$CASE/bld
+        setenv CASEROOT /glade/work/nanr/ihesp-HiRes/cases/ne30_ne30_mt12/$CASE
+        set TOOLSROOT = /glade/work/nanr/cesm_tags/CASE_tools/ihesp-tools/
+        set INPUTDATA = /glade/p/cesmdata/cseg/inputdata/
+endif
+
+setenv CESMROOT ${PATH}/cesm_tags/${TAG}/
+$CESMROOT/cime/scripts/create_clone --case $CASEROOT --clone /glade/work/nanr/ihesp-HiRes/cases/ne30_ne30_mt12/f.e13.FAMIPC5.ne30_ne30_mt12.ihesp24_1950-2050.5-day
+
+cd $CASEROOT
+
+./case.setup
+
+mv user_nl_clm user_nl_clm.`date +%m%d-%H%M`
+
+#cp $TOOLSROOT/user_nl_files/AMIP-1950-2050-lowRes-DECK-pftdyn/user_docn.streams.txt.prescribed-frontera* $CASEROOT/user_docn.streams.txt.prescribed
+#cp $TOOLSROOT/user_nl_files/AMIP-1950-2050-lowRes-DECK-pftdyn/user_nl_cpl $CASEROOT/user_nl_cpl
+#cp $TOOLSROOT/user_nl_files/AMIP-1950-2050-lowRes-DECK-pftdyn/user_nl_clm $CASEROOT/user_nl_clm
+#cp $TOOLSROOT/user_nl_files/AMIP-1950-2050-lowRes-DECK-pftdyn/user_nl_cice $CASEROOT/user_nl_cice
+#cp $TOOLSROOT/user_nl_files/AMIP-1950-2050-lowRes-DECK-pftdyn/user_nl_cam $CASEROOT/user_nl_cam
+
+#cp $TOOLSROOT/SourceMods/src.cam/* $CASEROOT/SourceMods/src.cam/
+#cp /glade/work/nanr/cesm_tags/CASE_tools/ihesp-tools/SourceMods/src.clm/ne30_ne30_mt12-ONLY/* $CASEROOT/SourceMods/src.clm/
+
+cp $INPUTDATA/ccsm4_init/b.e13.B1950C5.ne30_g16.cesm-ihesp-NCPL-CESM1_MOD-ROF2OCN_RMAP_1950cntl.01/0031-01-01/* /glade/scratch/nanr/$CASE/run
+
+#qcmd -- ./case.build
