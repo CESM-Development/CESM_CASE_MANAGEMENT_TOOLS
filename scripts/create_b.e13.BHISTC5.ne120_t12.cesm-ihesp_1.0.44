@@ -6,12 +6,29 @@ set RESOLN  = ne120_t12
 set MACHINE = frontera
 set TAG     = cesm-ihesp-hires1.0.30
 set TAG     = cesm-ihesp-hires1.0.44
-setenv CESMROOT ${PATH}/cesm_tags/${TAG}/
+set mbr     = 4
 
-set mbr = 2
-setenv CASE b.e13.${COMPSET}.${RESOLN}.${TAG}-1920-2100.00${mbr}
-setenv CASEROOT /work/06091/nanr/frontera/cases/cesm13/$CASE
-set RUNDIR   = /scratch1/06091/nanr/$CASE/run
+setenv REFCASE B.E.13.BHISTC5.ne120_t12.sehires38.003.sunway
+setenv CASE b.e13.${COMPSET}.${RESOLN}.${TAG}-1920-2005.00${mbr}
+
+if ($MACHINE == frontera) then
+        set PATH      = $STOCKYARD
+        set RUNDIR    = $SCRATCH/$CASE/run
+        set BLDDIR    = $SCRATCH/$CASE/bld
+        set CASEROOT  = $STOCKYARD/frontera/cases/cesm13/$CASE
+        set TOOLSROOT = $HOME/CESM_tools/ihesp-tools/
+        set REFROOT   = /scratch1/06090/fredc/inputdata/BHIST/$REFCASE/rest/1920-01-01-00000
+        set REFROOT   = /work2/02503/edwardsj/CESM/inputdata/ccsm4_init/$REFCASE/1920-01-01-00000
+        setenv CESMROOT ${STOCKYARD}/cesm_tags/${TAG}/
+else 
+        set PATH      = /glade/work/nanr/
+        set RUNDIR    = /glade/scratch/nanr/$CASE/run
+        set BLDDIR    = /glade/scratch/nanr/$CASE/bld
+        set CASEROOT  = /glade/work/nanr/ihesp-HiRes/cases/ne120_t12/$CASE
+        set TOOLSROOT = /glade/work/nanr/cesm_tags/CASE_tools/ihesp-tools/
+        set REFROOT   = /glade/scratch/nanr/archive/$REFCASE/rest/2006-01-01-00000
+        setenv CESMROOT /glade/work/nanr/cesm_tags/${TAG}/
+endif
 
 echo $RUNDIR
 
@@ -30,7 +47,7 @@ cd $CASEROOT
 ./xmlchange NTASKS_GLC=1
 ./xmlchange NTASKS_WAV=1
 
-./xmlchange RUN_REFCASE=B.E.13.BHISTC5.ne120_t12.sehires38.003.sunway
+./xmlchange RUN_REFCASE=$REFCASE
 ./xmlchange RUN_REFDATE=1920-01-01
 ./xmlchange RUN_STARTDATE=1920-01-01
 ./xmlchange RUN_TYPE=hybrid
@@ -45,8 +62,8 @@ cd $CASEROOT
 
 ./xmlchange --append CAM_CONFIG_OPTS=-cosp
 
-cp /home1/06091/nanr/CESM_tools/ihesp-tools/user_nl_files/BHIST/* $CASEROOT/
-cp /home1/06091/nanr/CESM_tools/ihesp-tools/SourceMods/src.pop/*  $CASEROOT/SourceMods/src.pop/
+cp $TOOLSROOT/user_nl_files/BHIST/* $CASEROOT/
+cp $TOOLSROOT/SourceMods/src.pop/iPOGS/*  $CASEROOT/SourceMods/src.pop/
 
 # =========================
 # add pertlim perturbation to micro members 2 .. N 
@@ -54,7 +71,7 @@ cp /home1/06091/nanr/CESM_tools/ihesp-tools/SourceMods/src.pop/*  $CASEROOT/Sour
 if ($mbr != 1) then
 cat >> head.${mbr} << EOF
 
-# ! add micro-member perturbation
+! add micro-member perturbation
 pertlim = ${mbr}.d-14
 
 EOF
