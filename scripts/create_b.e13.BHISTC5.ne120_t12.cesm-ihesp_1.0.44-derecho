@@ -1,16 +1,16 @@
 #!/bin/csh -f
 
-set PATH    = /glade/work/nanr/
+set NANPATH    = /glade/work/nanr/
 set TOOLS   = /glade/work/nanr/cesm_tags/CASE_tools/ihesp-tools/
 set COMPSET = BHISTC5
 set RESOLN  = ne120_t12
 set MACHINE = derecho
 set TAG     = cesm-ihesp-hires1.0.44
-setenv CESMROOT ${PATH}/cesm_tags/sandbox/${TAG}/
+setenv CESMROOT ${NANPATH}/cesm_tags/sandbox/${TAG}/
 
 set mbr = 6
 setenv CASE b.e13.${COMPSET}.${RESOLN}.${TAG}-1920-2005.00${mbr}
-setenv CASEROOT /glade/work/nanr/ihesp-HiRes/cases/ne120_t12/$CASE
+setenv CASEROOT /glade/work/$USER/ihesp-HiRes/cases/ne120_t12/$CASE
 set RUNDIR   = /glade/derecho/scratch/$USER/$CASE/run
 
 echo $RUNDIR
@@ -38,12 +38,14 @@ cd $CASEROOT
 ./xmlchange RUN_REFDIR=ccsm4_init
 ./xmlchange STOP_OPTION=nyears
 ./xmlchange STOP_N=1
-./xmlchange RESUBMIT=4
+./xmlchange RESUBMIT=10
 ./xmlchange DOUT_S_SAVE_INTERIM_RESTART_FILES=TRUE
 ./xmlchange REST_N=1
 ./xmlchange REST_OPTION=nyears
+./xmlchange REST_OPTION=nyears
 
 ./xmlchange --append CAM_CONFIG_OPTS=-cosp
+./xmlchange JOB_WALLCLOCK_TIME=12:00:00 --subgroup case.run
 
 cp $TOOLS/user_nl_files/BHIST/* $CASEROOT/
 cp $TOOLS/SourceMods/src.pop/*  $CASEROOT/SourceMods/src.pop/
