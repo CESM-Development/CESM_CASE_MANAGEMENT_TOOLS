@@ -1,0 +1,714 @@
+    1  ls -ld /global/cscratch1/sd/nanr/archive/v2.LR.historical_0*
+    2  less ~/README.zstashExtract
+    3  zstash extract --hpss=/home/g/golaz/E3SMv2/v2.LR.historical_0111 "archive/rest/2015-01-01-00000/*"
+    4  mv archive/rest/2015-01-01-00000/v2.LR.historical_0111.* ..
+    5  cd ../../case_scripts/
+    6  ./case.submit 
+    7  ./xmlquery EXEROOT
+    8  ls ..
+    9  ls ../build/
+   10  ls -ltr ../build/
+   11  qme
+   12  exit
+   13  source /global/common/software/e3sm/anaconda_envs/load_latest_e3sm_unified_cori-haswell.sh
+   14  cd /global/cfs/cdirs/mp9/archive/E3SMv2-SMBB/v2.LR.SSP370-smbb_0241
+   15  zstash create --hpss=/home/c/ccsm/E3SMv2-SMBB/v2.LR.SSP370-smbb_0241 --exclude="rest/???[!05]-*/" --maxsize 128 . 2>&1 | tee ~nanr/zstash_create_smbb-ssp370-0241_20230306.log
+   16  pwd
+   17  ls
+   18  history
+   19  source /global/common/software/e3sm/anaconda_envs/load_latest_e3sm_unified_cori-haswell.sh
+   20  zstash create --hpss=/home/c/ccsm/E3SMv2-SMBB/v2.LR.SSP370-smbb_0241 --exclude="rest/???[!05]-*/" --maxsize 128 . 2>&1 | tee ~nanr/zstash_create_smbb-ssp370-0241_20230306.log
+   21  pwd
+   22  ls -l
+   23  ls zstash/
+   24  source /global/common/software/e3sm/anaconda_envs/load_latest_e3sm_unified_cori-haswell.sh
+   25  zstash create --hpss=/home/c/ccsm/E3SMv2-SMBB/v2.LR.SSP370-smbb_0241 --exclude="rest/???[!05]-*/" --maxsize 128 . 2>&1 | tee ~nanr/zstash_create_smbb-ssp370-0241_20230306.log
+   26  exit
+   27  source /global/common/software/e3sm/anaconda_envs/load_latest_e3sm_unified_cori-haswell.sh
+   28  zstash check --hpss=/home/c/ccsm/E3SMv2-SMBB/v2.LR.historical-smbb_0241 2>&1 | tee zstash_update_smbb-hist-0241_20230306.log
+   29  bg
+   30  ls -ltr
+   31  jobs
+   32  ls -ltr
+   33  less zstash_update_smbb-hist-0241_20230306.log
+   34  cd ..
+   35  mkdir 261
+   36  cd 261/
+   37  zstash check --hpss=/home/c/ccsm/E3SMv2-SMBB/v2.LR.historical-smbb_0261 2>&1 | tee zstash_update_smbb-hist-0261_20230306.log &
+   38  ls -ltr ~/zstash_create_*261*
+   39  less /global/homes/n/nanr/zstash_create_smbb-hist-0261_20230203.log
+   40  less /global/homes/n/nanr/zstash_create_smbb-hist-0271_20230203.log
+   41  cd ../
+   42  mkdir 271
+   43  cd 271/
+   44  zstash check --hpss=/home/c/ccsm/E3SMv2-SMBB/v2.LR.historical-smbb_0271 2>&1 | tee zstash_update_smbb-hist-0271_20230306.log &
+   45  ls -ltr
+   46  jobs
+   47  cd ../
+   48  mkdir 281
+   49  cd 281/
+   50  zstash check --hpss=/home/c/ccsm/E3SMv2-SMBB/v2.LR.historical-smbb_0281 2>&1 | tee zstash_update_smbb-hist-0281_20230306.log
+   51  bg
+   52  cd ..
+   53  mkdir 291
+   54  cd 291/
+   55  zstash check --hpss=/home/c/ccsm/E3SMv2-SMBB/v2.LR.historical-smbb_0291 2>&1 | tee zstash_update_smbb-hist-0291_20230306.log
+   56  bg
+   57  cd ..
+   58  mkdir 101
+   59  cd 101
+   60  zstash check --hpss=/home/c/ccsm/E3SMv2-SMBB/v2.LR.historical-smbb_0101 2>&1 | tee zstash_update_smbb-hist-0101_20230306.log
+   61  bg
+   62  jobs
+   63  cd ../
+   64  mkdir 151
+   65  cd 151/
+   66  zstash check --hpss=/home/c/ccsm/E3SMv2-SMBB/v2.LR.historical-smbb_0151 2>&1 | tee zstash_update_smbb-hist-0151_20230306.log
+   67  bg
+   68  cd ..
+   69  mkdir 201
+   70  cd 201
+   71  zstash check --hpss=/home/c/ccsm/E3SMv2-SMBB/v2.LR.historical-smbb_0201 2>&1 | tee zstash_update_smbb-hist-0201_20230306.log
+   72  less ~/zstash_create_*201*
+   73  cd ..
+   74  mkdir 251
+   75  cd 251/
+   76  zstash check --hpss=/home/c/ccsm/E3SMv2-SMBB/v2.LR.historical-smbb_0251 2>&1 | tee zstash_update_smbb-hist-0251_20230306.log
+   77  bg
+   78  cd ../201
+   79  ls
+   80  jobs
+   81  cd ..
+   82  mkdir 301
+   83  cd 301
+   84  zstash check --hpss=/home/c/ccsm/E3SMv2-SMBB/v2.LR.historical-smbb_0301 2>&1 | tee zstash_update_smbb-hist-0301_20230306.log
+   85  bg
+   86  cd ../../
+   87  cd 210/
+   88  zstash ls --hpss=/home/c/ccsm/E3SMv1-LE/e3smv1.20TR_CMIP6.ne30_oECv3_ICG.LE-v1.0210.001 "rest/*"
+   89  zstash ls --hpss=/home/c/ccsm/E3SMv1-LE/e3smv1.20TR_CMIP6.ne30_oECv3_ICG.LE-v1.0210.001 "rest/*" | less
+   90  zstash ls --hpss=/home/c/ccsm/E3SMv1-LE/e3smv1.20TR_CMIP6.ne30_oECv3_ICG.LE-v1.0210.001 "atm/hist/*" | less
+   91  zstash ls --hpss=/home/c/ccsm/E3SMv1-LE/e3smv1.20TR_CMIP6.ne30_oECv3_ICG.LE-v1.0210.001 "atm/hist/*h0*" | less
+   92  zstash ls --hpss=/home/c/ccsm/E3SMv1-LE/e3smv1.20TR_CMIP6.ne30_oECv3_ICG.LE-v1.0210.001 "atm/hist/*h0*" | wc
+   93  zstash ls --hpss=/home/c/ccsm/E3SMv1-LE/e3smv1.20TR_CMIP6.ne30_oECv3_ICG.LE-v1.0210.001 "lnd/hist/*h0*" | wc
+   94  zstash check  --hpss=/home/c/ccsm/E3SMv1-LE/e3smv1.20TR_CMIP6.ne30_oECv3_ICG.LE-v1.0210.001 2>&1 | tee zstash_check_210.001-20230307.log
+   95  bg
+   96  less zstash_check_210.001-20230307.log
+   97  fg
+   98  ls
+   99  mv zstash zstash-0ld
+  100  zstash check  --hpss=/home/c/ccsm/E3SMv1-LE/e3smv1.20TR_CMIP6.ne30_oECv3_ICG.LE-v1.0210.001 2>&1 | tee zstash_check_210.001-20230307a.log
+  101  source /global/common/software/e3sm/anaconda_envs/load_latest_e3sm_unified_cori-haswell.sh
+  102  zstash check  --hpss=/home/c/ccsm/E3SMv1-LE/e3smv1.20TR_CMIP6.ne30_oECv3_ICG.LE-v1.0210.001 2>&1 | tee zstash_check_210.001-20230307a.log
+  103  exit
+  104  source /global/common/software/e3sm/anaconda_envs/load_latest_e3sm_unified_cori-haswell.sh
+  105  less ~/README.zstashInstructions
+  106  zstash ls --hpss=/home/c/ccsm/E3SMv2/v2.LR.SSP370_0111 "archive/rest/*"
+  107  zstash extract --hpss=/home/c/ccsm/E3SMv2/v2.LR.SSP370_0111 "archive/rest/2021-01-01-00000/*"
+  108  ls
+  109  cd archive/rest/2021-01-01-00000/
+  110  cp * /global/cscratch1/sd/nanr/E3SMv2/v2.LR.SSP370_0111/run/
+  111  scr
+  112  exit
+  113  source /global/common/software/e3sm/anaconda_envs/load_latest_e3sm_unified_cori-haswell.sh
+  114  ls -ltr
+  115  ls -l archive/rest/
+  116  ls archive/atm/hist/*h0*
+  117  b
+  118  zstash update --hpss=/home/c/ccsm/E3SMv2-SMBB/v2.LR.historical-smbb_0201 --exclude="rest/???[!05]-*/"  2>&1 | tee ~nanr/zstash_update_smbb-hist-0201_20230313.log
+  119  source /global/common/software/e3sm/anaconda_envs/load_latest_e3sm_unified_cori-haswell.sh
+  120  zstash update --hpss=/home/c/ccsm/E3SMv2-SMBB/v2.LR.historical-smbb_0201 --exclude="rest/???[!05]-*/"  2>&1 | tee ~nanr/zstash_update_smbb-hist-0201_20230313.log
+  121  zstash create --hpss=/home/c/ccsm/E3SMv2-SMBB/v2.LR.historical-smbb_0201-new --exclude="rest/???[!05]-*/"  2>&1 | tee ~nanr/zstash_create-new_smbb-hist-0201_20230313.log
+  122  cd ..
+  123  b
+  124  cd v2.LR.historical-smbb_0201/
+  125  hsi
+  126  exit
+  127  source /global/common/software/e3sm/anaconda_envs/load_latest_e3sm_unified_cori-haswell.sh
+  128  cd /global/cfs/cdirs/mp9/archive/E3SMv2-SMBB/v2.LR.SSP370-smbb_0131
+  129  pwd
+  130  zstash update --hpss=/home/c/ccsm/E3SMv2-SMBB/v2.LR.SSP370-smbb_0131 --exclude="rest/???[!05]-*/" --maxsize 128 . 2>&1 | tee ~nanr/zstash_update_smbb-ssp370-0131_20230313.log
+  131  zstash update --hpss=/home/c/ccsm/E3SMv2-SMBB/v2.LR.SSP370-smbb_0131 --exclude="rest/???[!05]-*/" --maxsize 128 . 2>&1 | tee ~nanr/zstash_update_smbb-ssp370-0131_20230313.log
+  132  exit
+  133  source /global/common/software/e3sm/anaconda_envs/load_latest_e3sm_unified_cori-haswell.sh
+  134  cd ../../
+  135  cd 210/
+  136  zstash check  --hpss=/home/c/ccsm/E3SMv1-LE/e3smv1.20TR_CMIP6.ne30_oECv3_ICG.LE-v1.0210.001 2>&1 | tee zstash_check_210.001-20230307a.log
+  137  hsi "ls -l /home/c/ccsm/E3SMv1-LE/e3smv1.20TR_CMIP6.ne30_oECv3_ICG.LE-v1.0210.001"
+  138  ls -ltr
+  139  less zstash_check_210.001-20230307b.log
+  140  hsi
+  141  less ~/README.zstashInstructions
+  142  source /global/common/software/e3sm/anaconda_envs/load_latest_e3sm_unified_cori-haswell.sh
+  143  pwd
+  144  less ~/README.zstashExtract
+  145  zstash extract --hpss=/home/c/ccsm/E3SMv2/v2.LR.SSP370_0211 "archive/rest/2101-01-01-00000/*"
+  146  bg
+  147  zstash extract --hpss=/home/c/ccsm/E3SMv2/v2.LR.SSP370_0211 "archive/run/*"
+  148  fg
+  149  source /global/common/software/e3sm/anaconda_envs/load_latest_e3sm_unified_cori-haswell.sh
+  150  zstash ls --hpss=/home/c/ccsm/E3SMv2/v2.LR.SSP370_0111/ "archive/ocn/"
+  151  zstash ls --hpss=/home/c/ccsm/E3SMv2/v2.LR.SSP370_0111/ "archive/ocn/*"
+  152  exit
+  153  screen
+  154  source /global/common/software/e3sm/anaconda_envs/load_latest_e3sm_unified_cori-haswell.sh
+  155  pwd
+  156  less ~/zstash_update_320.003_20230413.log 
+  157  cd /global/cfs/cdirs/mp9/archive/e3smv1
+  158  ls
+  159  cd e3smv1.20TR_CMIP6.ne30_oECv3_ICG.LE-v1.0480.002
+  160  pwd
+  161  zstash update --hpss=/home/c/ccsm/E3SMv1-LE/e3smv1.20TR_CMIP6.ne30_oECv3_ICG.LE-v1.0480.002 --exclude="rest/???[!05]-*/" 2>&1 | tee ~nanr/zstash_update_480.002_20230413.log
+  162  history
+  163  pwd
+  164  zstash update --hpss=/home/c/ccsm/E3SMv1-LE/e3smv1.20TR_CMIP6.ne30_oECv3_ICG.LE-v1.0480.002 --exclude="rest/???[!05]-*/" 2>&1 | tee ~nanr/zstash_update_480.002_20230413a.log
+  165  exit
+  166  source /global/common/software/e3sm/anaconda_envs/load_latest_e3sm_unified_cori-haswell.sh
+  167  zstash ls --hpss=/home/g/golaz/E3SMv2/v2.LR.historical_0111 "/archive/rest/*"
+  168  zstash ls --hpss=/home/g/golaz/E3SMv2/v2.LR.historical_0111 "/\archive/rest/*"
+  169  zstash ls --hpss=/home/g/golaz/E3SMv2/v2.LR.historical_0111 "archive/rest/*"
+  170  zstash ls --hpss=/home/g/golaz/E3SMv2/v2.LR.historical_0111 "archive/rest/*" > doh
+  171  less doh
+  172  zstash extract --hpss=/home/g/golaz/E3SMv2/v2.LR.historical_0111 "archive/rest/1976-01-01-00000
+  173  zstash extract --hpss=/home/g/golaz/E3SMv2/v2.LR.historical_0111 "archive/rest/1976-01-01-00000"
+  174  zstash extract --hpss=/home/g/golaz/E3SMv2/v2.LR.historical_0111 "archive/rest/1976-01-01-00000
+  175  zstash extract --hpss=/home/g/golaz/E3SMv2/v2.LR.historical_0111 "archive/rest/1976-01-01-00000/*"
+  176  cd ../
+  177  mkdir v2.LR.historical_0121
+  178  cd v2.LR.historical_0121/
+  179  zstash extract --hpss=/home/g/golaz/E3SMv2/v2.LR.historical_0121 "archive/rest/1976-01-01-00000/*"
+  180  cd ..
+  181  mkdir v2.LR.historical_0131
+  182  cd v2.LR.historical_0131/
+  183  zstash extract --hpss=/home/g/golaz/E3SMv2/v2.LR.historical_0131 "archive/rest/1976-01-01-00000/*"
+  184  cd ..
+  185  mkdir v2.LR.historical_0141
+  186  cd v2.LR.historical_0141/
+  187  zstash extract --hpss=/home/g/golaz/E3SMv2/v2.LR.historical_0141 "archive/rest/1976-01-01-00000/*"
+  188  cd ..
+  189  mkdir v2.LR.historical_0161
+  190  cd v2.LR.historical_0161/
+  191  zstash extract --hpss=/home/g/golaz/E3SMv2/v2.LR.historical_0161 "archive/rest/1976-01-01-00000/*"
+  192  cd ..
+  193  mkdir v2.LR.historical_0171
+  194  cd v2.LR.historical_0171/
+  195  zstash extract --hpss=/home/g/golaz/E3SMv2/v2.LR.historical_0171 "archive/rest/1976-01-01-00000/*"
+  196  cd ..
+  197  mkdir v2.LR.historical_0181
+  198  cd v2.LR.historical_0181/
+  199  zstash extract --hpss=/home/g/golaz/E3SMv2/v2.LR.historical_0181 "archive/rest/1976-01-01-00000/*"
+  200  cd ..
+  201  mkdir v2.LR.historical_0191
+  202  cd v2.LR.historical_0191/
+  203  zstash extract --hpss=/home/g/golaz/E3SMv2/v2.LR.historical_0191 "archive/rest/1976-01-01-00000/*"
+  204  cd ..
+  205  mkdir v2.LR.historical_0211
+  206  cd v2.LR.historical_0211/
+  207  zstash extract --hpss=/home/g/golaz/E3SMv2/v2.LR.historical_0211 "archive/rest/1976-01-01-00000/*"
+  208  cd ..
+  209  mkdir v2.LR.historical_0221
+  210  cd v2.LR.historical_0221/
+  211  zstash extract --hpss=/home/g/golaz/E3SMv2/v2.LR.historical_0221 "archive/rest/1976-01-01-00000/*"
+  212  pwd
+  213  source /global/common/software/e3sm/anaconda_envs/load_latest_e3sm_unified_cori-haswell.sh
+  214  pwd
+  215  zstash update --dry-run
+  216  source /global/common/software/e3sm/anaconda_envs/load_latest_e3sm_unified_cori-haswell.sh
+  217  exit
+  218  source /global/common/software/e3sm/anaconda_envs/load_latest_e3sm_unified_cori-haswell.sh
+  219  pwd
+  220  zstash update --dry-run
+  221  history
+  222  bash
+  223  exit
+  224  pwd
+  225  source /global/common/software/e3sm/anaconda_envs/load_latest_e3sm_unified_cori-haswell.sh
+  226  zstash update --dry-run
+  227  zstash update --dry-run --hpss=/home/c/ccsm/E3SMv2/v2.LR.SSP370_0111
+  228  zstash update --hpss=/home/c/ccsm/E3SMv2/v2.LR.SSP370_0111/ 2>&1 | tee ~nanr/zstash_update_v2.ssp370.111_20230414.log
+  229  ls -ltr
+  230  cd ..
+  231  cd ..
+  232  ls -ltr
+  233  cd E3SMv2
+  234  ls -ltr
+  235  cd v2.LR.SSP370_0281
+  236  zstash update --dry-run --hpss=/home/c/ccsm/E3SMv2/v2.LR.SSP370_0281
+  237  zstash update --hpss=/home/c/ccsm/E3SMv2/v2.LR.SSP370_0281/ 2>&1 | tee ~nanr/zstash_update_v2.ssp370.281_20230414.log
+  238  ../cd v2.LR.SSP370_0211
+  239  ls
+  240  pwd
+  241  cd ../v2.LR.SSP370_0211/
+  242  zstash update --dry-run --hpss=/home/c/ccsm/E3SMv2/v2.LR.SSP370_0211
+  243  zstash update --hpss=/home/c/ccsm/E3SMv2/v2.LR.SSP370_0211/ 2>&1 | tee ~nanr/zstash_update_v2.ssp370.211_20230414.log
+  244  exit
+  245  pwd
+  246  source /global/common/software/e3sm/anaconda_envs/load_latest_e3sm_unified_cori-haswell.sh
+  247  vi ~/README.zstashExtract 
+  248  zstash extract --hpss=/home/g/golaz/E3SMv2/v2.LR.historical_0231 "archive/rest/1976-01-01-00000/*"
+  249  exit
+  250  source /global/common/software/e3sm/anaconda_envs/load_latest_e3sm_unified_cori-haswell.sh
+  251  vi ~/README.zstashInstructions
+  252  zstash check  --hpss=/home/c/ccsm/E3SMv2/v2.LR.SSP370_0251 2>&1 | tee zstash_check_0251_20230320.log
+  253  source /global/common/software/e3sm/anaconda_envs/load_latest_e3sm_unified_cori-haswell.sh
+  254  cd /global/cfs/cdirs/mp9/archive/E3SMv2-SMBB/v2.LR.SSP370-smbb_0121
+  255  zstash update --hpss=/home/c/ccsm/E3SMv2-SMBB/v2.LR.SSP370-smbb_0121 --exclude="rest/???[!05]-*/" 2>&1 | tee ~nanr/zstash_create_smbb-ssp370-0121_20230320.log
+  256  screen
+  257  source /global/common/software/e3sm/anaconda_envs/load_latest_e3sm_unified_cori-haswell.sh
+  258  pwd
+  259  zstash create --hpss=/home/c/ccsm/E3SMv1-LE/e3smv1.20TR_CMIP6.ne30_oECv3_ICG.LE-v1.0320.003 --exclude="rest/???[!05]-*/" --maxsize 128 . 2>&1 | tee ~nanr/zstash_create_320.003_20230321.log
+  260  $ source /global/common/software/e3sm/anaconda_envs/load_latest_e3sm_unified_cori-haswell.sh
+  261  source /global/common/software/e3sm/anaconda_envs/load_latest_e3sm_unified_cori-haswell.sh
+  262  vi ~/README.zstashInstructions
+  263  cd /global/cfs/cdirs/mp9/archive/E3SMv2-SMBB/v2.LR.SSP370-smbb_0221
+  264  pwd
+  265  fg
+  266  pwd
+  267  zstash update --hpss=/home/c/ccsm/E3SMv2-SMBB/v2.LR.SSP370-smbb_0221 --exclude="rest/???[!05]-*/" 2>&1 | tee ~nanr/zstash_update_smbb-ssp370-0221_20230320.log
+  268  source /global/common/software/e3sm/anaconda_envs/load_latest_e3sm_unified_cori-haswell.sh
+  269  cd /global/cfs/cdirs/mp9/archive/
+  270  ls
+  271  cd e3smv1
+  272  ls
+  273  pwd
+  274  ls -ltr
+  275  source /global/common/software/e3sm/anaconda_envs/load_latest_e3sm_unified_cori-haswell.sh
+  276  cd /global/cfs/cdirs/mp9/archive/E3SMv2/v2.LR.SSP370_0251
+  277  zstash update --hpss=/home/c/ccsm/E3SMv2/v2.LR.SSP370_0251 --exclude="rest/???[!05]-*/"  2>&1 | tee ~nanr/zstash_update_0251_20230321.log
+  278  source /global/common/software/e3sm/anaconda_envs/load_latest_e3sm_unified_cori-haswell.sh
+  279  pwd
+  280  cd /global/cfs/cdirs/mp9/archive/E3SMv2-SMBB/
+  281  ls -ltr
+  282  cd v2.LR.historical-smbb_0101
+  283  vi ~/README.zstashInstructions
+  284  pwd
+  285  zstash create --hpss=/home/c/ccsm/E3SMv2-SMBB/v2.LR.historical-smbb_0101 --exclude="rest/???[!05]-*/" --maxsize 128 . 2>&1 | tee ~nanr/zstash_create_smbb-hist-0101_20230203.log
+  286  source /global/common/software/e3sm/anaconda_envs/load_latest_e3sm_unified_cori-haswell.sh
+  287  cd /global/cfs/cdirs/mp9/archive/E3SMv2-SMBB/v2.LR.SSP370-smbb_0201
+  288  pwd
+  289  zstash create --hpss=/home/c/ccsm/E3SMv2-SMBB/v2.LR.SSP370-smbb_0201 --exclude="rest/???[!05]-*/" --maxsize 128 . 2>&1 | tee ~nanr/zstash_create_smbb-ssp370-0201_20230314.log
+  290  source /global/common/software/e3sm/anaconda_envs/load_latest_e3sm_unified_cori-haswell.sh
+  291  cd /global/cfs/cdirs/mp9/archive/E3SMv2-SMBB/v2.LR.SSP370-smbb_0191
+  292  pwd
+  293  ls -ltr ~/zstash*
+  294  less /global/homes/n/nanr/zstash_update_smbb-ssp370-0181_20230314.log
+  295  pwd
+  296  zstash update --hpss=/home/c/ccsm/E3SMv2-SMBB/v2.LR.SSP370-smbb_0191 --exclude="rest/???[!05]-*/" 2>&1 | tee ~nanr/zstash_update_smbb-ssp370-0191_20230314.log
+  297  source /global/common/software/e3sm/anaconda_envs/load_latest_e3sm_unified_cori-haswell.sh
+  298  cd /global/cfs/cdirs/mp9/archive/E3SMv2-SMBB/v2.LR.SSP370-smbb_0101
+  299  source /global/common/software/e3sm/anaconda_envs/load_latest_e3sm_unified_cori-haswell.sh
+  300  zstash update --hpss=/home/c/ccsm/E3SMv1-LE/e3smv1.20TR_CMIP6.ne30_oECv3_ICG.LE-v1.0320.003 --exclude="rest/???[!05]-*/" . 2>&1 | tee ~nanr/zstash_update_320.003_20230413.log
+  301  zstash update --hpss=/home/c/ccsm/E3SMv1-LE/e3smv1.20TR_CMIP6.ne30_oECv3_ICG.LE-v1.0320.003 --exclude="rest/???[!05]-*/" 2>&1 | tee ~nanr/zstash_update_320.003_20230413.log
+  302  source /global/common/software/e3sm/anaconda_envs/load_latest_e3sm_unified_cori-haswell.sh
+  303  hsi ls /home/c/ccsm/E3SMv1-LE/e3smv1.20TR_CMIP6.ne30_oECv3_ICG.LE-v1.0320.003
+  304  hsi ls /home/c/ccsm/E3SMv1-LE/
+  305  hsi ls -l /home/c/ccsm/E3SMv1-LE/
+  306  cd /global/cfs/cdirs/mp9/archive/e3smv1
+  307  pwd
+  308  ls
+  309  zstash create --hpss=/home/c/ccsm/E3SMv1-LE/e3smv1.20TR_CMIP6.ne30_oECv3_ICG.LE-v1.0480.002 --exclude="rest/???[!05]-*/" --maxsize 128 . 2>&1 | tee ~nanr/zstash_create_480.003_20230321.log
+  310  source /global/common/software/e3sm/anaconda_envs/load_latest_e3sm_unified_cori-haswell.sh
+  311  cd /global/cfs/cdirs/mp9/archive/E3SMv2-SMBB/v2.LR.SSP370-smbb_0101
+  312  source /global/common/software/e3sm/anaconda_envs/load_latest_e3sm_unified_cori-haswell.sh
+  313  cd /global/cfs/cdirs/mp9/archive/E3SMv2-SMBB/v2.LR.SSP370-smbb_0171
+  314  pwd
+  315  zstash update --hpss=/home/c/ccsm/E3SMv2-SMBB/v2.LR.SSP370-smbb_0171 --exclude="rest/???[!05]-*/" 2>&1 | tee ~nanr/zstash_update_smbb-ssp370-0171_20230314.log
+  316  source /global/common/software/e3sm/anaconda_envs/load_latest_e3sm_unified_cori-haswell.sh
+  317  cd /global/cfs/cdirs/mp9/archive/E3SMv2-SMBB/v2.LR.SSP370-smbb_0131
+  318  zstash create --hpss=/home/c/ccsm/E3SMv2-SMBB/v2.LR.SSP370-smbb_0131 --exclude="rest/???[!05]-*/" --maxsize 128 . 2>&1 | tee ~nanr/zstash_create_smbb-ssp370-0131_20230217.log
+  319  source /global/common/software/e3sm/anaconda_envs/load_latest_e3sm_unified_cori-haswell.sh
+  320  cd /global/cfs/cdirs/mp9/archive/E3SMv2-SMBB/v2.LR.SSP370-smbb_0241
+  321  pwd
+  322  zstash create --hpss=/home/c/ccsm/E3SMv2-SMBB/v2.LR.SSP370-smbb_0241 --exclude="rest/???[!05]-*/" --maxsize 128 . 2>&1 | tee ~nanr/zstash_create_smbb-ssp370-0241_20230314.log
+  323  source /global/common/software/e3sm/anaconda_envs/load_latest_e3sm_unified_cori-haswell.sh
+  324  cd /global/cfs/cdirs/mp9/archive/E3SMv2-SMBB/v2.LR.SSP370-smbb_0121
+  325  pwd
+  326  zstash update --hpss=/home/c/ccsm/E3SMv2-SMBB/v2.LR.SSP370-smbb_0121 --exclude="rest/???[!05]-*/" 2>&1 | tee ~nanr/zstash_create_smbb-ssp370-0121_20230314.log
+  327  source /global/common/software/e3sm/anaconda_envs/load_latest_e3sm_unified_cori-haswell.sh
+  328  cd /global/cfs/cdirs/mp9/archive/E3SMv2-SMBB/v2.LR.SSP370-smbb_0141
+  329  pwd
+  330  zstash update --hpss=/home/c/ccsm/E3SMv2-SMBB/v2.LR.SSP370-smbb_0141 --exclude="rest/???[!05]-*/" 2>&1 | tee ~nanr/zstash_create_smbb-ssp370-0141_20230314.log
+  331  source /global/common/software/e3sm/anaconda_envs/load_latest_e3sm_unified_cori-haswell.sh
+  332  cd /global/cfs/cdirs/mp9/archive/E3SMv2-SMBB/v2.LR.SSP370-smbb_0181
+  333  pwd
+  334  zstash update --hpss=/home/c/ccsm/E3SMv2-SMBB/v2.LR.SSP370-smbb_0181 --exclude="rest/???[!05]-*/" 2>&1 | tee ~nanr/zstash_update_smbb-ssp370-0181_20230314.log
+  335  source /global/common/software/e3sm/anaconda_envs/load_latest_e3sm_unified_cori-haswell.sh
+  336  cd /global/cfs/cdirs/mp9/archive/E3SMv2-SMBB/v2.LR.SSP370-smbb_0121
+  337  pwd
+  338  zstash create --hpss=/home/c/ccsm/E3SMv2-SMBB/v2.LR.SSP370-smbb_0121 --exclude="rest/???[!05]-*/" --maxsize 128 . 2>&1 | tee ~nanr/zstash_create_smbb-ssp370-0121_20230217.log
+  339  source /global/common/software/e3sm/anaconda_envs/load_latest_e3sm_unified_cori-haswell.sh
+  340  cd /global/cfs/cdirs/mp9/archive/E3SMv2-SMBB/v2.LR.SSP370-smbb_0151
+  341  pwd
+  342  zstash create --hpss=/home/c/ccsm/E3SMv2-SMBB/v2.LR.SSP370-smbb_0151 --exclude="rest/???[!05]-*/" --maxsize 128 . 2>&1 | tee ~nanr/zstash_create_smbb-ssp370-0151_20230314.log
+  343  fg
+  344  source /global/common/software/e3sm/anaconda_envs/load_latest_e3sm_unified_cori-haswell.sh
+  345  cd /global/cfs/cdirs/mp9/archive/E3SMv2-SMBB/v2.LR.SSP370-smbb_0231
+  346  pwd
+  347  zstash update --hpss=/home/c/ccsm/E3SMv2-SMBB/v2.LR.SSP370-smbb_0231 --exclude="rest/???[!05]-*/" 2>&1 | tee ~nanr/zstash_update_smbb-ssp370-0231_20230314.log
+  348  source /global/common/software/e3sm/anaconda_envs/load_latest_e3sm_unified_cori-haswell.sh
+  349  cd /global/cscratch1/sd/nanr/E3SMv2-SMBB/v2.LR.SSP370-smbb_0111
+  350  pwd
+  351  cfs
+  352  cd /global/cfs/cdirs/mp9/archive/E3SMv2-SMBB/v2.LR.SSP370-smbb_0111
+  353  ls -ltr
+  354  zstash create --hpss=/home/c/ccsm/E3SMv2-SMBB/v2.LR.SSP370-smbb_0111 --exclude="rest/???[!05]-*/" --maxsize 128 . 2>&1 | tee ~nanr/zstash_create_smbb-ssp370-0111_20230217.log
+  355  source /global/common/software/e3sm/anaconda_envs/load_latest_e3sm_unified_cori-haswell.sh
+  356  cd /global/cfs/cdirs/mp9/archive/E3SMv2-SMBB/v2.LR.SSP370-smbb_0161
+  357  pwd
+  358  zstash update --hpss=/home/c/ccsm/E3SMv2-SMBB/v2.LR.SSP370-smbb_0161 --exclude="rest/???[!05]-*/" 2>&1 | tee ~nanr/zstash_update_smbb-ssp370-0161_20230314.log
+  359  source /global/common/software/e3sm/anaconda_envs/load_latest_e3sm_unified_cori-haswell.sh
+  360  cd /global/cfs/cdirs/mp9/archive/E3SMv2-SMBB/v2.LR.SSP370-smbb_0101
+  361  pwd
+  362  zstash create --hpss=/home/c/ccsm/E3SMv2-SMBB/v2.LR.SSP370-smbb_0101 --exclude="rest/???[!05]-*/" --maxsize 128 . 2>&1 | tee ~nanr/zstash_create_smbb-ssp370-0101_20230314.log
+  363  source /global/common/software/e3sm/anaconda_envs/load_latest_e3sm_unified_cori-haswell.sh
+  364  cd /global/cfs/cdirs/mp9/archive/E3SMv2-SMBB/v2.LR.SSP370-smbb_0101
+  365  source /global/common/software/e3sm/anaconda_envs/load_latest_e3sm_unified_cori-haswell.sh
+  366  cd /global/cfs/cdirs/mp9/archive/E3SMv2-SMBB/v2.LR.SSP370-smbb_0211
+  367  pwd
+  368  zstash update --hpss=/home/c/ccsm/E3SMv2-SMBB/v2.LR.SSP370-smbb_0211 --exclude="rest/???[!05]-*/" 2>&1 | tee ~nanr/zstash_update_smbb-ssp370-0211_20230314.log
+  369  source /global/common/software/e3sm/anaconda_envs/load_latest_e3sm_unified_cori-haswell.sh
+  370  pwd
+  371  cd /global/cfs/cdirs/mp9/archive/e3smv1
+  372  ls -ltr
+  373  cd e3smv1.20TR_CMIP6.ne30_oECv3_ICG.LE-v1.0480.002
+  374  ls -ltr
+  375  ls zstash/
+  376  rmdir zstash/
+  377  pwd
+  378  source /global/common/software/e3sm/anaconda_envs/load_latest_e3sm_unified_cori-haswell.sh
+  379  zstash create --hpss=/home/c/ccsm/E3SMv1-LE/e3smv1.20TR_CMIP6.ne30_oECv3_ICG.LE-v1.0480.002 --exclude="rest/???[!05]-*/" --maxsize 128 . 2>&1 | tee ~nanr/zstash_create_480.002_20230413.log
+  380  source /global/common/software/e3sm/anaconda_envs/load_latest_e3sm_unified_cori-haswell.sh
+  381  cd /global/cfs/cdirs/mp9/archive/E3SMv2-SMBB/v2.LR.SSP370-smbb_0251
+  382  pwd
+  383  zstash create --hpss=/home/c/ccsm/E3SMv2-SMBB/v2.LR.SSP370-smbb_0251 --exclude="rest/???[!05]-*/" --maxsize 128 . 2>&1 | tee ~nanr/zstash_create_smbb-ssp370-0251_20230314.log
+  384  source /global/common/software/e3sm/anaconda_envs/load_latest_e3sm_unified_cori-haswell.sh
+  385  cd /global/cfs/cdirs/mp9/archive/E3SMv2-SMBB/v2.LR.SSP370-smbb_0301
+  386  pwd
+  387  zstash create --hpss=/home/c/ccsm/E3SMv2-SMBB/v2.LR.SSP370-smbb_0301 --exclude="rest/???[!05]-*/" --maxsize 128 . 2>&1 | tee ~nanr/zstash_create_smbb-ssp370-0301_20230314.log
+  388  source /global/common/software/e3sm/anaconda_envs/load_latest_e3sm_unified_cori-haswell.sh
+  389  cd /global/cfs/cdirs/mp9/archive/E3SMv2-SMBB/v2.LR.SSP370-smbb_0261
+  390  pwd
+  391  zstash create --hpss=/home/c/ccsm/E3SMv2-SMBB/v2.LR.SSP370-smbb_0261 --exclude="rest/???[!05]-*/" --maxsize 128 . 2>&1 | tee ~nanr/zstash_create_smbb-ssp370-0261_20230314.log
+  392  source /global/common/software/e3sm/anaconda_envs/load_latest_e3sm_unified_cori-haswell.sh
+  393  cd /global/cfs/cdirs/mp9/archive/E3SMv2-SMBB/v2.LR.SSP370-smbb_0271
+  394  zstash create --hpss=/home/c/ccsm/E3SMv2-SMBB/v2.LR.SSP370-smbb_0271 --exclude="rest/???[!05]-*/" --maxsize 128 . 2>&1 | tee ~nanr/zstash_create_smbb-ssp370-0271_20230314.log
+  395  source /global/common/software/e3sm/anaconda_envs/load_latest_e3sm_unified_cori-haswell.sh
+  396  cd /global/cfs/cdirs/mp9/archive/E3SMv2-SMBB/v2.LR.SSP370-smbb_0281
+  397  pwd
+  398  zstash create --hpss=/home/c/ccsm/E3SMv2-SMBB/v2.LR.SSP370-smbb_0281 --exclude="rest/???[!05]-*/" --maxsize 128 . 2>&1 | tee ~nanr/zstash_create_smbb-ssp370-0281_20230314.log
+  399  source /global/common/software/e3sm/anaconda_envs/load_latest_e3sm_unified_cori-haswell.sh
+  400  cd /global/cfs/cdirs/mp9/archive/E3SMv2-SMBB/v2.LR.SSP370-smbb_0111
+  401  pwd
+  402  zstash update --hpss=/home/c/ccsm/E3SMv2-SMBB/v2.LR.SSP370-smbb_0111 --exclude="rest/???[!05]-*/" 2>&1 | tee ~nanr/zstash_create_smbb-ssp370-0111_20230314.log
+  403  source /global/common/software/e3sm/anaconda_envs/load_latest_e3sm_unified_cori-haswell.sh
+  404  jobs
+  405  cd /global/cscratch1/sd/nanr
+  406  cd checkZstash/210/
+  407  ls
+  408  pwd
+  409  ls
+  410  mv zstash zstash-a
+  411  zstash check  --hpss=/home/c/ccsm/E3SMv1-LE/e3smv1.20TR_CMIP6.ne30_oECv3_ICG.LE-v1.0210.001 2>&1 | tee zstash_check_210.001-20230307b.log
+  412  ls -ltr
+  413  hsi
+  414  zstash check  --hpss=/home/c/ccsm/E3SMv1-LE/e3smv1.20TR_CMIP6.ne30_oECv3_ICG.LE-v1.0210.001 2>&1 | tee zstash_check_210.001-20230307b.log
+  415  cd zstash
+  416  pwd
+  417  cd /global/cfs/cdirs/mp9/archive/
+  418  cd e3smv1
+  419  ls
+  420  cd *210.001
+  421  ls -ltr
+  422  cd zstash/
+  423  ls
+  424  pwd
+  425  less index.db 
+  426  sqlite3 index.db
+  427  pwd
+  428  cd ..
+  429  zstash update --hpss=/home/c/ccsm/E3SMv1-LE/e3smv1.20TR_CMIP6.ne30_oECv3_ICG.LE-v1.0210.001     --exclude="rest/???[!05]-*/"  2>&1 | tee ~nanr/zstash_update_210.001-20230307a.log
+  430  source /global/common/software/e3sm/anaconda_envs/load_latest_e3sm_unified_cori-haswell.sh
+  431  cd /global/cfs/cdirs/mp9/archive/E3SMv2-SMBB/v2.LR.SSP370-smbb_0221
+  432  pwd
+  433  zstash update --hpss=/home/c/ccsm/E3SMv2-SMBB/v2.LR.SSP370-smbb_0221 --exclude="rest/???[!05]-*/" 2>&1 | tee ~nanr/zstash_update_smbb-ssp370-0221_20230314.log
+  434  source /global/common/software/e3sm/anaconda_envs/load_latest_e3sm_unified_cori-haswell.sh
+  435  cd /global/cfs/cdirs/mp9/archive/E3SMv2-SMBB/v2.LR.historical-smbb_0201
+  436  zstash create --hpss=/home/c/ccsm/E3SMv2-SMBB/v2.LR.historical-smbb_0201 --exclude="rest/???[!05]-*/" --maxsize 128 . 2>&1 | tee ~nanr/zstash_create_smbb-hist-0201_20230313.log
+  437  source /global/common/software/e3sm/anaconda_envs/load_latest_e3sm_unified_cori-haswell.sh
+  438  vi ~/README.zstashExtract
+  439  cd ../
+  440  ls
+  441  cd v2.LR.historica_0201
+  442  cd v2.LR.historical_0201
+  443  zstash extract --hpss=/home/f/forsyth/E3SMv2/v2.LR.historical_0201 "archive/rest/1990-01-01-00000/*"
+  444  zstash extract --hpss=/home/f/forsyth/E3SMv2/v2.LR.historical_0201 "archive/rest/1970-01-01-00000/*"
+  445  qme
+  446  exit
+  447  source /global/common/software/e3sm/anaconda_envs/load_latest_e3sm_unified_cori-haswell.sh 
+  448  less extract_zstash.sh
+  449  hsi ls -l --hpss=/home/s/slgs/20200116.en1.LE_ens_ssp370.ne30_oECv3_ICG.cori-knl
+  450  zstash ls -l --hpss=/home/s/slgs/20200116.en1.LE_ens_ssp370.ne30_oECv3_ICG.cori-knl
+  451  zstash ls -l --hpss=/home/s/slgs/20200116.en1.LE_ens_ssp370.ne30_oECv3_ICG.cori-knl "archive/20200116.en1.LE_ens_ssp370.ne30_oECv3_ICG.cori-knl/atm/hist/*h0*"
+  452  zstash ls -l --hpss=/home/s/slgs/20200116.en1.LE_ens_ssp370.ne30_oECv3_ICG.cori-knl "archive/20200116.en1.LE_ens_ssp370.ne30_oECv3_ICG.cori-knl/"
+  453  zstash ls -l --hpss=/home/s/slgs/20200116.en1.LE_ens_ssp370.ne30_oECv3_ICG.cori-knl "archive/"
+  454  zstash ls -l --hpss=/home/s/slgs/20200116.en1.LE_ens_ssp370.ne30_oECv3_ICG.cori-knl "archive"
+  455  zstash ls -l --hpss=/home/s/slgs/20200116.en1.LE_ens_ssp370.ne30_oECv3_ICG.cori-knl "archive/20200116.en1.LE_ens_ssp370.ne30_oECv3_ICG.cori-knl/atm/hist/"
+  456  zstash ls -l --hpss=/home/s/slgs/20200116.en1.LE_ens_ssp370.ne30_oECv3_ICG.cori-knl "archive/20200116.en1.LE_ens_ssp370.ne30_oECv3_ICG.cori-knl/atm/hist/*.nc"
+  457  zstash ls -l --hpss=/home/s/slgs/20200116.en1.LE_ens_ssp370.ne30_oECv3_ICG.cori-knl "archive/20191024.en1.LE_ens_1_ssp370.ne30_oECv3_ICG.compy/atm/hist/*"
+  458  zstash ls -l --hpss=/home/s/slgs/20200116.en1.LE_ens_ssp370.ne30_oECv3_ICG.cori-knl "archive/20200116.en1.LE_ens_ssp370.ne30_oECv3_ICG.cori-knl/atm/hist/*h0*.nc"
+  459  zstash ls -l --hpss=/home/s/slgs/20200116.en1.LE_ens_ssp370.ne30_oECv3_ICG.cori-knl "archive/20191024.en1.LE_ens_1_ssp370.ne30_oECv3_ICG.compy/atm/hist/*" > /global/cscratch1/sd/nanr/hpss.archive/20191024.en1.LE_ens_1_ssp370.ne30_oECv3_ICG.compy/atm/hist/
+  460  zstash ls -l --hpss=/home/s/slgs/20200116.en1.LE_ens_ssp370.ne30_oECv3_ICG.cori-knl "archive/20191024.en1.LE_ens_1_ssp370.ne30_oECv3_ICG.compy/atm/hist/*" >& /global/cscratch1/sd/nanr/hpss.archive/20191024.en1.LE_ens_1_ssp370.ne30_oECv3_ICG.compy/atm/hist/
+  461  zstash ls -l --hpss=/home/s/slgs/20200116.en1.LE_ens_ssp370.ne30_oECv3_ICG.cori-knl "archive/20200116.en1.LE_ens_ssp370.ne30_oECv3_ICG.cori-knl/atm/hist/*h0*.nc"
+  462  zstash ls -l --hpss=/home/s/slgs/20200116.en1.LE_ens_ssp370.ne30_oECv3_ICG.cori-knl "archive/20200116.en1.LE_ens_ssp370.ne30_oECv3_ICG.cori-knl/atm/hist/*.nc"
+  463  zstash ls -l --hpss=/home/s/slgs/20200116.en1.LE_ens_ssp370.ne30_oECv3_ICG.cori-knl "archive/20191024.en1.LE_ens_1_ssp370.ne30_oECv3_ICG.compy/atm/hist/*"
+  464  zstash ls -l --hpss=/home/s/slgs/20200116.en1.LE_ens_ssp370.ne30_oECv3_ICG.cori-knl "archive/20191024.en1.LE_ens_1_ssp370.ne30_oECv3_ICG.compy/atm/hist/
+  465  less ~/doh
+  466  zstash ls -l --hpss=/home/s/slgs/20200119.en3.LE_ens_ssp370.ne30_oECv3_ICG.cori-knl
+  467  history
+  468  zstash ls -l --hpss=/home/s/slgs/20200119.en3.LE_ens_ssp370.ne30_oECv3_ICG.cori-knl "archive/20200119.en3.LE_ens_ssp370.ne30_oECv3_ICG.cori-knl/atm/hist" 
+  469  zstash ls -l --hpss=/home/s/slgs/20200119.en3.LE_ens_ssp370.ne30_oECv3_ICG.cori-knl
+  470  zstash ls -l --hpss=/home/s/slgs/20200119.en3.LE_ens_ssp370.ne30_oECv3_ICG.cori-knl "archive/20191024.en1.LE_ens_1_ssp370.ne30_oECv3_ICG.compy/atm"
+  471  zstash ls -l --hpss=/home/s/slgs/20200119.en3.LE_ens_ssp370.ne30_oECv3_ICG.cori-knl "archive/20191024.en1.LE_ens_1_ssp370.ne30_oECv3_ICG.compy/atm/hist"
+  472  zstash ls -l --hpss=/home/s/slgs/20200119.en3.LE_ens_ssp370.ne30_oECv3_ICG.cori-knl >& ~nanr/doh1
+  473  less ~/doh1
+  474  tcsh
+  475  source /global/common/software/e3sm/anaconda_envs/load_latest_e3sm_unified_cori-haswell.sh
+  476  less ~/README.zstashInstructions
+  477  hsi ls --hpss=/home/c/ccsm/E3SMv2/v2.LR.SSP370_0111 
+  478  zstash ls --hpss=/home/c/ccsm/E3SMv2/v2.LR.SSP370_0111 
+  479  zstash ls --hpss=/home/c/ccsm/E3SMv2/v2.LR.SSP370_0111 "archive/rest"
+  480  zstash ls --hpss=/home/c/ccsm/E3SMv2/v2.LR.SSP370_0111 "rest"
+  481  zstash ls --hpss=/home/c/ccsm/E3SMv2/v2.LR.SSP370_0111 | less
+  482  cd v2.LR.SSP370_0111
+  483  ls
+  484  cd archive/
+  485  ls
+  486  mkdir rest
+  487  cd rest
+  488  ls
+  489  zstash ls --hpss=/home/c/ccsm/E3SMv2/v2.LR.SSP370_0111 "archive/rest/2019-01-01-00000/"
+  490  zstash extract --hpss=/home/c/ccsm/E3SMv2/v2.LR.SSP370_0111 "archive/rest/2019-01-01-00000/"
+  491  zstash extract --hpss=/home/c/ccsm/E3SMv2/v2.LR.SSP370_0111 "archive/rest/2019-01-01-00000/*"
+  492  cd ../../../v2.LR.SSP370_0121/archive/
+  493  mkdir rest; cd rest
+  494  zstash extract --hpss=/home/c/ccsm/E3SMv2/v2.LR.SSP370_0121 "archive/rest/2019-01-01-00000/*"
+  495  source /global/common/software/e3sm/anaconda_envs/load_latest_e3sm_unified_cori-haswell.sh
+  496  less ~/README.zstashInstructions
+  497  less ~/README.zstashExtract
+  498  zstash extract --hpss=/home/c/ccsm/E3SMv2/v2.LR.SSP370_0111 "archive/rest/2020-01-01-00000/*"
+  499  exit
+  500  tcsh
+  501  tcsh
+  502  exit
+  503  tcsh
+  504  less /global/cfs/cdirs/
+  505  cd /global/cfs/cdirs/
+  506  cd ccsm1
+  507  ls
+  508  cd people
+  509  cd nanr/
+  510  cd e3sm_tags
+  511  ls
+  512  cd E3SMv2.1
+  513  ls
+  514  history
+  515  git clone -b maint-2.1 --recursive https://github.com/E3SM-Project/E3SM.git
+  516  mv E3SM/ E3SM-safe
+  517  git clone -b maint-2.1 --recursive https://github.com/E3SM-Project/E3SM.git
+  518  hsi  /home/c/ccsm/E3SMv2/v2.LR.SSP370_0111/00005d.tar
+  519  hsi ls  /home/c/ccsm/E3SMv2/v2.LR.SSP370_0111/00005d.tar
+  520  hsi ls -l  /home/c/ccsm/E3SMv2/v2.LR.SSP370_0111/00005d.tar
+  521  hsi "cd  /home/c/ccsm/E3SMv2/v2.LR.SSP370_0111/; chmod 744 00005d.tar"
+  522  hsi ls -l  /home/c/ccsm/E3SMv2/v2.LR.SSP370_0111/00005d.tar
+  523  wk
+  524  tcsh
+  525  tcsh
+  526  ls -ltr
+  527  ./create-v2.SMYLE.IC_RESTARTS.csh 
+  528  less ~/README.nco 
+  529  module load cray-hdf5
+  530  module load cray-netcdf
+  531  module load nco
+  532  ./create-v2.SMYLE.IC_RESTARTS.csh 
+  533  vi ~/README.zstashExtract
+  534  vi create-v2.SMYLE.IC_RESTARTS.csh 
+  535  scp cheyenne.ucar.edu:/glade/work/nanr/cesm_tags/CASE_tools/cesm2-smyle/restarts/generate_cami_ensemble_offline.py .
+  536  less ~/.alias.nanr 
+  537  pwd
+  538  vi generate_cami_ensemble_offline.py 
+  539  pwd
+  540  fg
+  541  vi create-v2.SMYLE.IC_RESTARTS.csh 
+  542  vi generate_cami_ensemble_offline.py 
+  543  vi create-v2.SMYLE.IC_RESTARTS.csh 
+  544  vi generate_cami_ensemble_offline.py 
+  545  vi create-v2.SMYLE.IC_RESTARTS.csh 
+  546  vi generate_cami_ensemble_offline.py 
+  547  vi create-v2.SMYLE.IC_RESTARTS.csh 
+  548  ./create-v2.SMYLE.IC_RESTARTS.csh 
+  549  vi create-v2.SMYLE.IC_RESTARTS.csh 
+  550  vi generate_cami_ensemble_offline.py 
+  551  vi create-v2.SMYLE.IC_RESTARTS.csh 
+  552  grep CESM2_TOOLS_ROOT *
+  553  vi create-v2.SMYLE.IC_RESTARTS.csh 
+  554  ./create-v2.SMYLE.IC_RESTARTS.csh 
+  555  spack env activate gcc
+  556  exit
+  557  source ~/.alias.bash 
+  558  tools
+  559  cd e3sm/v2/scripts/v2.SMYLE/restarts/
+  560  ls -ltr
+  561  vi generate_cami_ensemble_offline.py 
+  562  less create-v2.SMYLE.IC_RESTARTS.csh 
+  563  export CYLC_TASK_CYCLE_POINT=1959-01-01
+  564  ./generate_cami_ensemble_offline.py 
+  565  PYTHONPATH=/global/cfs/cdirs/ccsm1/people/nanr/e3sm_tags/E3SMv2.1/E3SM/cime
+  566  PYTHONPATH=/global/cfs/cdirs/ccsm1/people/nanr/e3sm_tags/E3SMv2.1/E3SM/cime ./generate_cami_ensemble_offline.py 
+  567  PYTHONPATH=/global/cfs/cdirs/ccsm1/people/nanr/e3sm_tags/E3SMv2.1/E3SM/cime/CIME ./generate_cami_ensemble_offline.py 
+  568  PYTHONPATH=/global/cfs/cdirs/ccsm1/people/nanr/e3sm_tags/E3SMv2.1/E3SM/cime/CIME/Tools ./generate_cami_ensemble_offline.py 
+  569  module avail python
+  570  module load python/3.9
+  571  PYTHONPATH=/global/cfs/cdirs/ccsm1/people/nanr/e3sm_tags/E3SMv2.1/E3SM/cime/CIME/Tools ./generate_cami_ensemble_offline.py 
+  572  vi generate_cami_ensemble_offline.py 
+  573  PYTHONPATH=/global/cfs/cdirs/ccsm1/people/nanr/e3sm_tags/E3SMv2.1/E3SM/cime/CIME/Tools ./generate_cami_ensemble_offline.py 
+  574  ls /global/cfs/cdirs/mp9/archive/E3SMv2-SMYLE/initial_conditions/cases/cases/
+  575  ls /global/cfs/cdirs/mp9/archive/E3SMv2-SMYLE/initial_conditions/cases/
+  576  fg
+  577  vi generate_cami_ensemble_offline.py 
+  578  PYTHONPATH=/global/cfs/cdirs/ccsm1/people/nanr/e3sm_tags/E3SMv2.1/E3SM/cime/CIME/Tools ./generate_cami_ensemble_offline.py 
+  579  ls /global/cfs/cdirs/mp9/
+  580  vi generate_cami_ensemble_offline.py 
+  581  PYTHONPATH=/global/cfs/cdirs/ccsm1/people/nanr/e3sm_tags/E3SMv2.1/E3SM/cime/CIME/Tools ./generate_cami_ensemble_offline.py 
+  582  ls /global/cfs/cdirs/mp9/E3SMv2.1-SMYLE/inputdata/e2sm_init/v21.LR.SMYLE_IC.ne30np4.1959-01.01/
+  583  ls /global/cfs/cdirs/mp9/E3SMv2.1-SMYLE/inputdata/e2sm_init/
+  584  vi generate_cami_ensemble_offline.py 
+  585  PYTHONPATH=/global/cfs/cdirs/ccsm1/people/nanr/e3sm_tags/E3SMv2.1/E3SM/cime/CIME/Tools ./generate_cami_ensemble_offline.py 
+  586  history
+  587  export CYLC_TASK_CYCLE_POINT=1959-11-01
+  588  PYTHONPATH=/global/cfs/cdirs/ccsm1/people/nanr/e3sm_tags/E3SMv2.1/E3SM/cime/CIME/Tools ./generate_cami_ensemble_offline.py 
+  589  less ~/README.nco 
+  590  module load e4s
+  591  spack env activate gcc
+  592  spack load nco
+  593  module load cudatoolkit/11.5
+  594  PYTHONPATH=/global/cfs/cdirs/ccsm1/people/nanr/e3sm_tags/E3SMv2.1/E3SM/cime/CIME/Tools ./generate_cami_ensemble_offline.py 
+  595  history
+  596  vi README.generate.bash 
+  597  vi create-v2.SMYLE.IC_RESTARTS.csh 
+  598  ./create-v2.SMYLE.IC_RESTARTS.csh 
+  599  echo $SHERLL
+  600  echo $SHELL
+  601  vi create-v2.SMYLE.IC_RESTARTS.csh 
+  602  vi setEnv.scr
+  603  chmod u+x setEnv.scr 
+  604  ./setEnv.scr 
+  605  echo $CYLC_TASK_CYCLE_POINT
+  606  setenv CYLC_TASK_CYCLE_POINT 1960-11-01
+  607  export CYLC_TASK_CYCLE_POINT 1960-11-01
+  608  export CYLC_TASK_CYCLE_POINT=1960-11-01
+  609  echo $CYLC_TASK_CYCLE_POINT
+  610  ./generate_cami_ensemble_offline.py 
+  611  PYTHONPATH=/global/cfs/cdirs/ccsm1/people/nanr/e3sm_tags/E3SMv2.1/E3SM/cime/CIME/Tools ./generate_cami_ensemble_offline.py 
+  612  less README.generate.bash 
+  613  module load e4s
+  614  spack env activate gcc
+  615  spack load nco
+  616  module load cudatoolkit/11.5
+  617  PYTHONPATH=/global/cfs/cdirs/ccsm1/people/nanr/e3sm_tags/E3SMv2.1/E3SM/cime/CIME/Tools ./generate_cami_ensemble_offline.py 
+  618  ls -l /global/cfs/cdirs/mp9/E3SMv2.1-SMYLE/inputdata/e2sm_init/
+  619  ls /global/cfs/cdirs/mp9/E3SMv2.1-SMYLE/inputdata/e2sm_init/v21.LR.SMYLE_IC.ne30np4.1960-11.01/1960-11-01/
+  620  vi generate_cami_ensemble_offline.py 
+  621  vi create-v2.SMYLE.IC_RESTARTS.csh 
+  622  ./create-v2.SMYLE.IC_RESTARTS.csh 
+  623  export CYLC_TASK_CYCLE_POINT=1961-11-01
+  624  PYTHONPATH=/global/cfs/cdirs/ccsm1/people/nanr/e3sm_tags/E3SMv2.1/E3SM/cime/CIME/Tools ./generate_cami_ensemble_offline.py 
+  625  ls /global/cfs/cdirs/mp9/E3SMv2.1-SMYLE/S2S_perts_DIFF/11/
+  626  vi generate_cami_ensemble_offline.py 
+  627  PYTHONPATH=/global/cfs/cdirs/ccsm1/people/nanr/e3sm_tags/E3SMv2.1/E3SM/cime/CIME/Tools ./generate_cami_ensemble_offline.py 
+  628  export CYLC_TASK_CYCLE_POINT=1960-11-01
+  629  PYTHONPATH=/global/cfs/cdirs/ccsm1/people/nanr/e3sm_tags/E3SMv2.1/E3SM/cime/CIME/Tools ./generate_cami_ensemble_offline.py 
+  630  export CYLC_TASK_CYCLE_POINT=1959-11-01
+  631  ./generate_cami_ensemble_offline.py 
+  632  ncdump -h /global/cfs/cdirs/mp9/E3SMv2.1-SMYLE/inputdata/e2sm_init/v21.LR.SMYLE_IC.ne30np4.1959-11.11/pert.01/v21.LR.SMYLE_IC.pert.ne30np4.eam.i.1959-11-01-00000.nc 
+  633  vi generate_cami_ensemble_offline.py 
+  634  ./generate_cami_ensemble_offline.py 
+  635  history
+  636  module load e4s
+  637  spack env activate gcc
+  638  spack load nco
+  639  module load cudatoolkit/11.5
+  640  PYTHONPATH=/global/cfs/cdirs/ccsm1/people/nanr/e3sm_tags/E3SMv2.1/E3SM/cime/CIME/Tools ./generate_cami_ensemble_offline.py 
+  641  grep slat *
+  642  ncdump -h /global/cfs/cdirs/mp9/E3SMv2.1-SMYLE/inputdata/e2sm_init/v21.LR.SMYLE_IC.ne30np4.1959-11.01/pert.19/v21.LR.SMYLE_IC.pert.ne30np4.eam.i.1959-11-01-00000.nc | less
+  643  vi generate_cami_ensemble_offline.py 
+  644  ncdump -h /global/cfs/cdirs/mp9/E3SMv2.1-SMYLE/inputdata/e2sm_init/v21.LR.SMYLE_IC.ne30np4.1959-11.01/pert.19/v21.LR.SMYLE_IC.pert.ne30np4.eam.i.1959-11-01-00000.nc | less
+  645  PYTHONPATH=/global/cfs/cdirs/ccsm1/people/nanr/e3sm_tags/E3SMv2.1/E3SM/cime/CIME/Tools ./generate_cami_ensemble_offline.py 
+  646  ncdump -h /global/cfs/cdirs/mp9/E3SMv2.1-SMYLE/inputdata/e2sm_init/v21.LR.SMYLE_IC.ne30np4.1959-11.01/pert.19/v21.LR.SMYLE_IC.pert.ne30np4.eam.i.1959-11-01-00000.nc | less
+  647  ./create-v2.SMYLE.IC_RESTARTS.csh 
+  648  export CYLC_TASK_CYCLE_POINT=1961-11-01
+  649  PYTHONPATH=/global/cfs/cdirs/ccsm1/people/nanr/e3sm_tags/E3SMv2.1/E3SM/cime/CIME/Tools ./generate_cami_ensemble_offline.py 
+  650  vi generate_cami_ensemble_offline.py 
+  651  ncdump -h /global/cfs/cdirs/mp9/E3SMv2.1-SMYLE/inputdata/e2sm_init/v21.LR.SMYLE_IC.ne30np4.1959-11.01/pert.19/v21.LR.SMYLE_IC.pert.ne30np4.eam.i.1959-11-01-00000.nc | less
+  652  vi generate_cami_ensemble_offline.py 
+  653  PYTHONPATH=/global/cfs/cdirs/ccsm1/people/nanr/e3sm_tags/E3SMv2.1/E3SM/cime/CIME/Tools ./generate_cami_ensemble_offline.py 
+  654  vi ./create-v2.SMYLE.IC_RESTARTS.csh 
+  655  ./create-v2.SMYLE.IC_RESTARTS.csh 
+  656  export CYLC_TASK_CYCLE_POINT=1960-11-01
+  657  PYTHONPATH=/global/cfs/cdirs/ccsm1/people/nanr/e3sm_tags/E3SMv2.1/E3SM/cime/CIME/Tools ./generate_cami_ensemble_offline.py 
+  658  history
+  659  vi generate_cami_ensemble_offline.py 
+  660  cp generate_cami_ensemble_offline.py doh.py
+  661  vi doh.py 
+  662  fg
+  663  vi doh.py 
+  664  vi generate_cami_ensemble_offline.py 
+  665  PYTHONPATH=/global/cfs/cdirs/ccsm1/people/nanr/e3sm_tags/E3SMv2.1/E3SM/cime/CIME/Tools ./generate_cami_ensemble_offline.py 
+  666  ncdump -h /global/cfs/cdirs/mp9/E3SMv2.1-SMYLE/inputdata/e2sm_init/v21.LR.SMYLE_IC.ne30np4.1960-11.01/pert.19/v21.LR.SMYLE_IC.pert.ne30np4.eam.i.1960-11-01-00000.nc
+  667  ncdump -h /global/cfs/cdirs/mp9/E3SMv2.1-SMYLE/inputdata/e2sm_init/v21.LR.SMYLE_IC.ne30np4.1960-11.01/pert.18/v21.LR.SMYLE_IC.pert.ne30np4.eam.i.1960-11-01-00000.nc | less
+  668  ncdump -h /global/cfs/cdirs/mp9/E3SMv2.1-SMYLE/inputdata/e2sm_init/v21.LR.SMYLE_IC.ne30np4.1960-11.01/pert.17/v21.LR.SMYLE_IC.pert.ne30np4.eam.i.1960-11-01-00000.nc | less
+  669  ncdump -h /global/cfs/cdirs/mp9/E3SMv2.1-SMYLE/inputdata/e2sm_init/v21.LR.SMYLE_IC.ne30np4.1960-11.01/pert.14/v21.LR.SMYLE_IC.pert.ne30np4.eam.i.1960-11-01-00000.nc | less
+  670  ncdump -h /global/cfs/cdirs/mp9/E3SMv2.1-SMYLE/inputdata/e2sm_init/v21.LR.SMYLE_IC.ne30np4.1960-11.01/pert.13/v21.LR.SMYLE_IC.pert.ne30np4.eam.i.1960-11-01-00000.nc | less
+  671  ncdump -h /global/cfs/cdirs/mp9/E3SMv2.1-SMYLE/inputdata/e2sm_init/v21.LR.SMYLE_IC.ne30np4.1960-11.01/pert.15/v21.LR.SMYLE_IC.pert.ne30np4.eam.i.1960-11-01-00000.nc | less
+  672  grep eamic *
+  673  ncdump -h /global/cfs/cdirs/mp9/E3SMv2.1-SMYLE/inputdata/e2sm_init/v21.LR.SMYLE_IC.ne30np4.1960-11.01/pert.16/v21.LR.SMYLE_IC.pert.ne30np4.eam.i.1960-11-01-00000.nc | less
+  674  jobs
+  675  vi generate_cami_ensemble_offline.py 
+  676  PYTHONPATH=/global/cfs/cdirs/ccsm1/people/nanr/e3sm_tags/E3SMv2.1/E3SM/cime/CIME/Tools ./generate_cami_ensemble_offline.py 
+  677  ./create-v2.SMYLE.IC_RESTARTS.csh 
+  678  PYTHONPATH=/global/cfs/cdirs/ccsm1/people/nanr/e3sm_tags/E3SMv2.1/E3SM/cime/CIME/Tools ./generate_cami_ensemble_offline.py 
+  679  vi generate_cami_ensemble_offline.py 
+  680  PYTHONPATH=/global/cfs/cdirs/ccsm1/people/nanr/e3sm_tags/E3SMv2.1/E3SM/cime/CIME/Tools ./generate_cami_ensemble_offline.py 
+  681  fg
+  682  vi generate_cami_ensemble_offline.py 
+  683  PYTHONPATH=/global/cfs/cdirs/ccsm1/people/nanr/e3sm_tags/E3SMv2.1/E3SM/cime/CIME/Tools ./generate_cami_ensemble_offline.py 
+  684  ncdump -h /global/cfs/cdirs/mp9/E3SMv2.1-SMYLE/inputdata/e2sm_init/v21.LR.SMYLE_IC.ne30np4.1960-11.01/pert.16/v21.LR.SMYLE_IC.pert.ne30np4.eam.i.1960-11-01-00000.nc | less
+  685  vi generate_cami_ensemble_offline.py 
+  686  ./generate_cami_ensemble_offline.py 
+  687  vi generate_cami_ensemble_offline.py 
+  688  ./generate_cami_ensemble_offline.py 
+  689  ls /global/cfs/cdirs/mp9/E3SMv2.1-SMYLE/inputdata/e3sm_init/v21.LR.SMYLE_IC.ne30np4.1960-11.01/
+  690  ls /global/cfs/cdirs/mp9/E3SMv2.1-SMYLE/inputdata/e3sm_init/
+  691  vi generate_cami_ensemble_offline.py 
+  692  vi create-v2.SMYLE.IC_RESTARTS.csh 
+  693  ./generate_cami_ensemble_offline.py 
+  694  ls -l /pscratch/sd/n/nanr/v21.SMYLE/v21.LR.BSMYLE.ne30np4.1960-11.001/run.002/v21.LR.SMYLE_IC.ne30np4.1960-11.01.eam.i.1960-11-01-00000.nc
+  695  vi create-v2.SMYLE.IC_RESTARTS.csh 
+  696  vi generate_cami_ensemble_offline.py 
+  697  vi create-v2.SMYLE.IC_RESTARTS.csh 
+  698  ./create-v2.SMYLE.IC_RESTARTS.csh 
+  699  export CYLC_TASK_CYCLE_POINT=1962-11-01
+  700  ./generate_cami_ensemble_offline.py 
+  701  vi create-v2.SMYLE.IC_RESTARTS.csh 
+  702  vi generate_cami_ensemble_offline.py 
+  703  ./generate_cami_ensemble_offline.py 
+  704  vi generate_cami_ensemble_offline.py 
+  705  ./generate_cami_ensemble_offline.py 
+  706  vi generate_cami_ensemble_offline.py 
+  707  ./generate_cami_ensemble_offline.py 
+  708  vi generate_cami_ensemble_offline.py 
+  709  ./generate_cami_ensemble_offline.py 
+  710  history
+  711  vi README.generate.bash 
+  712  fg
+  713  history
+  714  history > doh

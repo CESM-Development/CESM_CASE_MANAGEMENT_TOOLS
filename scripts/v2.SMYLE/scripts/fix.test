@@ -1,0 +1,12 @@
+./xmlchange RUN_REFCASE=v21.LR.SMYLE_IC.ne30np4.1972-11.01
+./xmlquery RUN_REFDATE
+./xmlchange RUN_REFDATE=1972-11-01
+./xmlchange RUN_STARTDATE=1972-11-01
+cp /pscratch/sd/n/nanr/v21.LR.SMYLE/v21.LR.BSMYLE.1972-11.001/run/v2* /pscratch/sd/n/nanr/e3sm_scratch/pm-cpu/testBcase.20TR/run/
+cp /pscratch/sd/n/nanr/v21.LR.SMYLE/v21.LR.BSMYLE.1972-11.001/run/rpointer.* /pscratch/sd/n/nanr/e3sm_scratch/pm-cpu/testBcase.20TR/run/
+
+cp /pscratch/sd/n/nanr/v21.LR.SMYLE/v21.LR.BSMYLE.1972-11.001/run/v2* /pscratch/sd/n/nanr/e3sm_scratch/pm-cpu/testBcase/run/
+cp /pscratch/sd/n/nanr/v21.LR.SMYLE/v21.LR.BSMYLE.1972-11.001/run/rpointer.* /pscratch/sd/n/nanr/e3sm_scratch/pm-cpu/testBcase/run/
+cd /pscratch/sd/n/nanr/e3sm_scratch/pm-cpu/testBcase/run/
+rm v21.LR.BSMYLE.1972-11.001.mpas*
+
