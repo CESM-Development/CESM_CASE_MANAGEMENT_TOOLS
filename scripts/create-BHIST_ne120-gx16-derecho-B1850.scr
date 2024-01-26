@@ -1,0 +1,89 @@
+#!/bin/csh -f
+
+set MACHINE = derecho
+set TOOLS_ROOT = /glade/work/nanr/cesm_tags/CASE_tools/cesm13-ne120_g16/
+
+set COMPSET = BHISTC5
+set EXPERIMENT = derecho
+set RESOLN  = ne120_g16
+set TAG     = cesm-ihesp-hires1.0.46
+
+#set RESUBMIT = 1
+#set STOP_OPTION=nmonths
+#set STOP_N=31
+set RESUBMIT = 3
+set STOP_OPTION=nmonths
+set STOP_N=12
+
+
+# ls /glade/campaign/collections/cmip/CMIP6/iHESP/PIcntl/HR/B.E.13.B1850C5.ne120_t12.sehires38.003.sunway_02/restart/
+# ls /glade/campaign/collections/cmip/CMIP6/iHESP/HighResMIP/B1950cntl/HR/restarts
+# 0089
+
+set syear =  57
+set eyear =  57
+set year = $syear
+if ($year < 100) then
+  set useyear = "00"${year}
+else
+  set useyear = "0"${year}
+endif
+
+# HR == setenv CASE b.e13.${EXPERIMENT}.${RESOLN}.003
+setenv CASE b.e13.${EXPERIMENT}.${RESOLN}.001
+setenv REFCASE b.e13.B1850C5CN.ne120_g16.tuning.005
+
+set PATH      = /glade/work/nanr/
+set RUNDIR    = /glade/derecho/scratch/nanr/$CASE/run
+set BLDDIR    = /glade/derecho/scratch/nanr/$CASE/bld
+setenv CASEROOT /glade/work/nanr/CESM13-HR-LR/cases/$CASE
+set REFROOT   = /glade/p/cesm/cseg/inputdata/ccsm4_init/$REFCASE
+
+setenv CESMROOT ${PATH}/cesm_tags/${TAG}/
+
+
+$CESMROOT/cime/scripts/create_newcase --case $CASEROOT --res $RESOLN  --mach $MACHINE --compset $COMPSET --run-unsupported
+
+cd $CASEROOT
+
+set HR = 0
+
+if ($HR == 1) then
+  cp /glade/derecho/scratch/jedwards/PFS.ne120_t12.B1850C5.derecho_intel.20230713_142721_f6jwlw/env_mach_pes.xml $CASEROOT
+else
+  cp /glade/work/nanr/SPNA-HR/cases/b.e13.SPNA-derecho.ne120_t12.SY-105.001/env_mach_pes.xml $CASEROOT
+endif
+
+./xmlchange DOUT_S_SAVE_INTERIM_RESTART_FILES=TRUE 
+./xmlchange RESUBMIT=$RESUBMIT
+./xmlchange STOP_OPTION=$STOP_OPTION
+./xmlchange STOP_N=$STOP_N
+./xmlchange RUN_TYPE=hybrid
+./xmlchange RUN_STARTDATE=1850-01-01
+./xmlchange RUN_REFCASE=${REFCASE}
+./xmlchange RUN_REFDATE=${useyear}-01-01
+./xmlchange GET_REFCASE=FALSE
+./xmlchange OCN_TRACER_MODULES=""
+./xmlchange RUN_REFDIR=${REFROOT}
+./xmlchange JOB_WALLCLOCK_TIME=12:00:00 --subgroup case.run
+
+./xmlchange PROJECT=P06010014
+./xmlchange PIO_VERSION=1
+
+
+if (! -d $RUNDIR) then
+ mkdir -p $RUNDIR
+endif
+
+echo "================="
+echo $REFROOT/${useyear}-01-01/
+echo "================="
+echo    $REFROOT/${useyear}-01-01/rpoint* 
+cp    $REFROOT/${useyear}-01-01/rpoint* $RUNDIR
+ln -s $REFROOT/${useyear}-01-01/*.nc $RUNDIR
+
+./case.setup
+
+./case.setup --reset
+qcmd -A P06010014 -- ./case.build
+

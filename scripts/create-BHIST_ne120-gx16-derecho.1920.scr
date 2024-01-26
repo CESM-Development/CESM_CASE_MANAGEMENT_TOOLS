@@ -1,0 +1,142 @@
+#!/bin/csh -f
+
+set MACHINE = derecho
+set TOOLS_ROOT = /glade/work/nanr/cesm_tags/CASE_tools/cesm13-ne120_g16/
+
+set COMPSET = BHISTC5
+set EXPERIMENT = HR-LR-derecho-1920
+set RESOLN  = ne120_g16
+set TAG     = cesm-ihesp-hires1.0.46
+
+#set RESUBMIT = 1
+#set STOP_OPTION=nmonths
+#set STOP_N=31
+set RESUBMIT = 3
+set STOP_OPTION=nmonths
+set STOP_N=12
+
+
+# ls /glade/campaign/collections/cmip/CMIP6/iHESP/PIcntl/HR/B.E.13.B1850C5.ne120_t12.sehires38.003.sunway_02/restart/
+# ls /glade/campaign/collections/cmip/CMIP6/iHESP/HighResMIP/B1950cntl/HR/restarts
+# 0089
+
+# /glade/campaign/collections/cmip/CMIP6/iHESP/BHIST/HR/b.e13.BHISTC5.ne120_t12.cesm-ihesp-hires1.0.44-1920-2005.004/rest/1970-01-01-00000
+
+#  1920 LENS restarts
+#  /glade/p/cesm/cseg/inputdata/ccsm4_init/b.e11.B20TRC5CNBDRD.f09_g16.001/1920-01-01
+#  CAM / CLM → ihesp 1920 
+#  POP / CICE → LENS 1920 restart
+#  Use the first member as base for future (shorter?) runs
+
+# iHESP 1920 restarts:  atm/lnd
+# /glade/campaign/cesm/cesmdata/inputdata/ccsm4_init/B.E.13.BHISTC5.ne120_t12.sehires38.003.sunway/1920-01-01
+
+# LENS 1920 restarts:   ocn/ice
+# /glade/campaign/cesm/cesmdata/inputdata/ccsm4_init/b.e11.B20TRC5CNBDRD.f09_g16.001/1920-01-01
+
+set LENSPATH   = /glade/p/cesm/cseg/inputdata/ccsm4_init/b.e11.B20TRC5CNBDRD.f09_g16.001/1920-01-01
+set HRPATH     = /glade/p/cesm/cseg/inputdata/ccsm4_init/B.E.13.BHISTC5.ne120_t12.sehires38.003.sunway/1920-01-01
+set syear =  1920
+set eyear =  1920
+set useyear = $syear
+set mbr = 001
+
+setenv CASE b.e13.${COMPSET}.${EXPERIMENT}.${RESOLN}.$mbr
+setenv REFCASE B.E.13.BHISTC5.ne120_t12.sehires38.003.sunway
+
+set PATH      = /glade/work/nanr/
+set RUNDIR    = /glade/derecho/scratch/nanr/$CASE/run
+set BLDDIR    = /glade/derecho/scratch/nanr/$CASE/bld
+setenv CASEROOT /glade/work/nanr/CESM13-HR-LR/cases/$CASE
+#set REFROOT   = /glade/p/cesm/cseg/inputdata/ccsm4_init/$REFCASE
+set REFROOT   = /glade/campaign/collections/cmip/CMIP6/iHESP/BHIST/HR/$REFCASE/
+
+setenv CESMROOT ${PATH}/cesm_tags/${TAG}/
+
+
+$CESMROOT/cime/scripts/create_newcase --case $CASEROOT --res $RESOLN  --mach $MACHINE --compset $COMPSET --run-unsupported
+
+cd $CASEROOT
+
+set highCost = 0
+
+if ($highCost == 1) then
+  cp /glade/derecho/scratch/jedwards/PFS.ne120_t12.B1850C5.derecho_intel.20230713_142721_f6jwlw/env_mach_pes.xml $CASEROOT
+else
+  cp /glade/work/nanr/SPNA-HR/cases/b.e13.SPNA-derecho.ne120_t12.SY-105.001/env_mach_pes.xml $CASEROOT
+endif
+
+./xmlchange DOUT_S_SAVE_INTERIM_RESTART_FILES=TRUE 
+./xmlchange RESUBMIT=$RESUBMIT
+./xmlchange STOP_OPTION=$STOP_OPTION
+./xmlchange STOP_N=$STOP_N
+./xmlchange RUN_TYPE=hybrid
+./xmlchange RUN_STARTDATE=${useyear}-01-01
+./xmlchange RUN_REFCASE=${REFCASE}
+./xmlchange RUN_REFDATE=${useyear}-01-01
+./xmlchange GET_REFCASE=FALSE
+./xmlchange OCN_TRACER_MODULES=""
+./xmlchange RUN_REFDIR=${REFROOT}
+./xmlchange GET_REFCASE=FALSE
+./xmlchange JOB_WALLCLOCK_TIME=12:00:00 --subgroup case.run
+
+./xmlchange PROJECT=CESM0020
+./xmlchange PIO_VERSION=1
+
+
+# copy namelists for lnd (IP) and ice (LR ocn)
+cp $TOOLS_ROOT/user_nl_files/user_nl* $CASEROOT/
+
+
+# =========================
+# add pertlim perturbation to micro members 2 .. N 
+# =========================
+if ($mbr != 1) then
+cat >> head.${mbr} << EOF
+! micro-member perturbation
+pertlim = ${mbr}.d-14
+
+EOF
+
+mv user_nl_cam tmp.cam
+cat head.${mbr} tmp.cam  > user_nl_cam
+rm tmp.cam head.${mbr}
+
+endif
+# =========================
+# END - pertlim 
+# =========================
+
+
+
+if (! -d $RUNDIR) then
+ mkdir -p $RUNDIR
+endif
+
+# copy iHESP restarts to RUNDIR
+
+echo "iHESP restarts================="
+echo $HRPATH/
+echo "================="
+cp    $HRPATH/rpointer.atm $RUNDIR
+cp    $HRPATH/rpointer.lnd $RUNDIR
+cp    $HRPATH/rpointer.rof $RUNDIR
+cp    $HRPATH/rpointer.drv $RUNDIR
+ln -s $HRPATH/*cam*.nc $RUNDIR
+ln -s $HRPATH/*clm*.nc $RUNDIR
+ln -s $HRPATH/*rtm*.nc $RUNDIR
+ln -s $HRPATH/*cpl*.nc $RUNDIR
+
+echo "LENS restarts================="
+echo $LENSPATH/
+echo "================="
+cp    $LENSPATH/rpointer.ocn* $RUNDIR
+cp    $LENSPATH/rpointer.ice $RUNDIR
+ln -s $LENSPATH/*pop* $RUNDIR
+ln -s $LENSPATH/*cice* $RUNDIR
+
+./case.setup
+
+./case.setup --reset
+qcmd -A P06010014 -- ./case.build
+
