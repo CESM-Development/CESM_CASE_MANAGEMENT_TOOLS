@@ -3,16 +3,14 @@
 module load ncl nco
 
 setenv CESM2_TOOLS_ROOT /glade/work/$USER/cesm_tags/CASE_tools/cesm2-L83/
-setenv USE_ARCHDIR  /glade/scratch/$USER/archive/
+setenv USE_ARCHDIR  /glade/derecho/scratch/$USER/archive/
 setenv CSDIR    /glade/campaign/cesm/development/cvcwg/cvwg/L83/
 setenv TSERIES  $CSDIR/timeseries
 setenv LOGSDIR  $CSDIR/logs
 setenv RESTDIR  $CSDIR/restarts
 setenv POPDDIR  $CSDIR/popd_files
-setenv CASE     b.e21.BHISTcmip6.f09_g17.L83_cam6.001
-setenv CASE     b.e21.BSSP370cmip6.f09_g17.L83_cam6.001
-setenv CASE     b.e21.BHISTcmip6.f09_g17.L83_cam6.003
-setenv CASE     b.e21.BHISTcmip6.f09_g17.L83_cam6.002
+setenv CASE     b.e21.BSSP370cmip6.f09_g17.L83_cam6.002
+setenv CASE     b.e21.BSSP370cmip6.f09_g17.L83_cam6.003
 
 if (! -d $TSERIES/$CASE/cpl/hist) then
 	mkdir -p $TSERIES/$CASE/cpl/hist

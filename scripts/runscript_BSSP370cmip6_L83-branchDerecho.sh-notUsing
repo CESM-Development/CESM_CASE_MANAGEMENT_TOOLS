@@ -6,7 +6,7 @@
 curdir='/glade/work/nanr/cesm_tags/CASE_tools/cesm2-L83/'
 compset='BSSP370cmip6'
 resoln='f09_g17'
-runname='b.e21.'$compset'.'$resoln'.L83_cam6.002'
+runname='b.e21.'$compset'.'$resoln'.L83_cam6.003a'
 #tagdir='/glade/work/islas/cesm2.1.4-rc.08/'
 tagdir='/glade/work/nanr/cesm_tags/git_sandbox/cesm2.1.4-rc.11/'
 caseroot='/glade/work/nanr/L83/'
@@ -22,10 +22,10 @@ cd $casedir
 ./xmlchange PROJECT=P93300313
 ./xmlchange STOP_N=3
 ./xmlchange STOP_OPTION=nyears
-./xmlchange JOB_QUEUE=economy --subgroup case.run
+#./xmlchange JOB_QUEUE=economy --subgroup case.run
 ./xmlchange RESUBMIT=2
 # copy Isla's PE layout
-cp /glade/work/islas/cesm2.1.4-rc.08/runs/b.e21.B1850.f09_g17.L83_cam6.001/env_mach_pes.xml .
+#cp /glade/work/islas/cesm2.1.4-rc.08/runs/b.e21.B1850.f09_g17.L83_cam6.001/env_mach_pes.xml .
 
 #Comp  NTASKS  NTHRDS  ROOTPE
 #CPL :   1152/     3;      0
@@ -41,8 +41,8 @@ cp /glade/work/islas/cesm2.1.4-rc.08/runs/b.e21.B1850.f09_g17.L83_cam6.001/env_m
 
 ./xmlchange RUN_TYPE='hybrid'
 #./xmlchange RUN_REFDIR='/glade/scratch/islas/archive/b.e21.B1850.f09_g17.L83_cam6.001/rest/0106-01-01-00000/'
-./xmlchange RUN_REFCASE='b.e21.BHISTcmip6.f09_g17.L83_cam6.002'
-./xmlchange RUN_REFDATE='2015-01-01'
+./xmlchange RUN_REFCASE='b.e21.'$compset'.'$resoln'.L83_cam6.003'
+./xmlchange RUN_REFDATE='2027-07-01'
 
 ./case.setup
 
