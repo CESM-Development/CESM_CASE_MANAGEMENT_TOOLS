@@ -1,6 +1,0 @@
-cd /global/cscratch1/sd/nanr/E3SMv2/v2.LR.SSP370_0271/case_scripts
-./case.st_archive --last-date 2065-01-01 --force-move --no-incomplete-logs;
-cd /global/cscratch1/sd/nanr/E3SMv2/v2.LR.SSP370_0281/case_scripts
-./case.st_archive --last-date 2065-01-01 --force-move --no-incomplete-logs;
-cd /global/cscratch1/sd/nanr/E3SMv2/v2.LR.SSP370_0291/case_scripts
-./case.st_archive --last-date 2034-01-01 --force-move --no-incomplete-logs;

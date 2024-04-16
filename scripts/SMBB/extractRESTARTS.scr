@@ -1,4 +1,0 @@
-bash
-source /global/common/software/e3sm/anaconda_envs/load_latest_e3sm_unified_cori-haswell.sh
-zstash extract --hpss=/home/g/golaz/E3SMv2/v2.LR.historical_0131 "archive/rest/2015*"
-zstash extract --hpss=/home/f/forsyth/E3SMv2/v2.LR.historical_0201 "archive/rest/1990*"
