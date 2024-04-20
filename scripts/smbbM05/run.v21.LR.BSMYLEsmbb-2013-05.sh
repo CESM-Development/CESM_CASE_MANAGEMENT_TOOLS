@@ -123,7 +123,7 @@ else
   STOP_N="20" # How often to stop the model, should be a multiple of REST_N
   REST_N="20" # How often to write a restart file
   RESUBMIT="0" # Submissions after initial one
-  DO_SHORT_TERM_ARCHIVING=true
+  DO_SHORT_TERM_ARCHIVING=false
 fi
 
 # Coupler history 

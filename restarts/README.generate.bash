@@ -2,6 +2,9 @@ export CYLC_TASK_CYCLE_POINT="1959-11-01"
 
 ### use bash
 
+# might be all I need!!
+source /global/common/software/e3sm/anaconda_envs/load_latest_e3sm_unified_pm-cpu.sh
+
 module load e4s
 spack env activate gcc
 spack load nco

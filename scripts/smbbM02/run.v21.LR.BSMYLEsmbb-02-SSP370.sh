@@ -30,8 +30,8 @@ fi
 # For debugging, uncomment libe below
 #set -x
 
-useyear=2019
-usemonth=11
+useyear=1970
+usemonth=02
 
 
 # --- Configuration flags ----
@@ -71,18 +71,15 @@ RUN_REFDATE="${useyear}-${usemonth}-01"   # same as MODEL_START_DATE for 'branch
 # Additional options for 'branch' and 'hybrid'
 
 # Set paths
-#MY_PATH="/global/cfs/cdirs/ccsm1/people/nanr"
-#CODE_ROOT="${MY_PATH}/e3sm_tags/E3SMv2.1/E3SM/"
 MY_PATH="/global/cfs/cdirs/mp9/"
 CODE_ROOT="${MY_PATH}/e3sm_tags/E3SMv2.1/"
-MAIN_CASE_ROOT="/pscratch/sd/n/${USER}/v21.LR.SMYLEsmbb/${MAIN_CASE_NAME}"
-CASE_ROOT="/pscratch/sd/n/${USER}/v21.LR.SMYLEsmbb/${MAIN_CASE_NAME}/"
+MAIN_CASE_ROOT="${SCRATCH}/v21.LR.SMYLEsmbb/${MAIN_CASE_NAME}"
+CASE_ROOT="${SCRATCH}/v21.LR.SMYLEsmbb/${MAIN_CASE_NAME}/"
 
 # Sub-directories
 #CASE_BUILD_DIR=${MAIN_CASE_ROOT}/build
-CASE_BUILD_DIR=/pscratch/sd/n/nanr/v21.LR.SMYLE/exeroot/build
+CASE_BUILD_DIR=${SCRATCH}/v21.LR.SMYLEsmbb/exeroot/build
 CASE_ARCHIVE_DIR=${MAIN_CASE_ROOT}/archive.${mbr}
-#CASE_ARCHIVE_DIR=/global/cfs/cdirs/mp9/archive/v21.LR.SMYLE/${MAIN_CASE_NAME}/archive.${mbr}
 
 # Define type of run
 #  short tests: 'XS_2x5_ndays', 'XS_1x10_ndays', 'S_1x10_ndays', 

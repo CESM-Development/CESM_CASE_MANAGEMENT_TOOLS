@@ -23,16 +23,16 @@ setenv TOOLS_ROOT /global/u2/n/nanr/CESM_tools/e3sm/v2/scripts/v2.SMYLE/
 #ncrename -v xtime,xtime.orig v2.LR.piControl.mpassi.rst.0501-01-01_00000.orig.nc v2.LR.piControl.mpassi.rst.0501-01-01_00000.nc
 
 #foreach  year ( 1954 1964 1974 1984 1994 2004 )
-set syr = 1971
+set syr = 1970
+set eyr = 1999
+set syr = 2018
 set eyr = 2018
-set syr = 2020
-set eyr = 2020
 
 @ ib = $syr
 @ ie = $eyr
 
 foreach year ( `seq $ib $ie` )
-foreach mon ( 08 )
+foreach mon ( 02 )
 
 set case = v21.LR.SMYLE_IC.${year}-${mon}.01
 
@@ -56,7 +56,12 @@ set atmcase = eami.HICCUP-ERA5-CATALYST
 set lndcase = v21.LR.I20TRELM_CRUNCEP
 
 # names
-set atmfname = ${atmcase}.${year}-${mon}-01.ne30np4.L72.c20230203.nc
+if (${year} == 2018) then
+	set cdate  = 20230203
+else
+	set cdate  = 20240402
+endif
+set atmfname = ${atmcase}.${year}-${mon}-01.ne30np4.L72.c${cdate}.nc
 set lndfname = ${lndcase}.elm.r.${year}-${mon}-01-00000.nc
 set roffname = ${lndcase}.mosart.r.${year}-${mon}-01-00000.nc
 

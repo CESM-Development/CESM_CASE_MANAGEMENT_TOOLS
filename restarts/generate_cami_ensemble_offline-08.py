@@ -55,6 +55,29 @@ def get_rvals(date, ensemble_start,ensemble_end, model):
     random.seed(int(date[0:4])+int(date[5:7])+int(date[8:10]))
     rvals = random.sample(range(1001),k=ensemble_end//2)
     print("Rvals are {}".format(rvals))
+
+## me
+    month = date[5:7]
+    year  = date[0:3]
+    local_path = "/global/cfs/cdirs/mp9/E3SMv2.1-SMYLE/S2S_perts_DIFF"
+    perturb_files = []
+    for i in range(ensemble_start,ensemble_end, 2):
+        print ("HERE rvals[{}] = {}".format((i-1)//2,rvals[(i-1)//2]))
+        perturb_file = os.path.join(local_path+"/{}".format(month),
+                                        "v2.LR.historical_daily-cami_0241.eam.i.M{}.diff.{:03}.nc".format(month,rvals[(i-1)//2]))
+        if not os.path.isfile(perturb_file):
+              print ("Missing file for rval = ",perturb_file, rvals[(i-1)//2])
+              print ("original rval = ",rvals[(i-1)//2],"new rval = ",rvals[(i-1)//2]+1)
+              perturb_file2 = os.path.join(local_path+"/{}".format(month),
+                                        "v2.LR.historical_daily-cami_0241.eam.i.M{}.diff.{:03}.nc".format(month,rvals[(i-1)//2]+1))
+              if not os.path.isfile(perturb_file2):
+                    print ("STILL missing file for rval = ",perturb_file2, rvals[(i-1)//2]+1)
+              else:
+                    print ("old rvals[{}] = {}".format((i-1)//2,rvals[(i-1)//2]))
+                    rvals[(i-1)//2] = rvals[(i-1)//2]+1
+                    print ("new rvals[{}] = {}".format((i-1)//2,rvals[(i-1)//2]))
+## me
+
     #rvals_file = os.path.join("/global/cfs/cdirs/mp9/E3SMv2.1-SMYLE/initial_conditions/","cases","eamic_"+date+".{}-{}.txt".format(ensemble_start,ensemble_end))
     rvals_file = os.path.join("/global/cfs/cdirs/mp9/E3SMv2.1-SMYLE/inputdata/e3sm_init","v21.LR.SMYLE_IC."+date[0:7]+".01","eamic_"+date+".{}-{}.txt".format(ensemble_start,ensemble_end))
     if not os.path.isfile(rvals_file):
