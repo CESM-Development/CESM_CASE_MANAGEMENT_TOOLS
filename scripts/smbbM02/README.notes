@@ -1,0 +1,50 @@
+!!! Git Repo:
+	mkdir ~jcaron/CESM_tools/
+	cd ~jcaron/CESM_tools/
+	git clone https://github.com/CESM-Development/CESM_CASE_MANAGEMENT_TOOLS/ -b v21.LR.SMYLE v21.LR.SMYLE
+
+!!! Script to run 20mbr ensembles:
+	cd jcaron/CESM_tools/v21.LR.SMYLE/scripts/smbb02
+	Script:  run.v21.LR.BSMYLEsmbb.sh
+	Edit:  useyear=1980  (running 1980-2010)
+
+!!! Check if run is complete:
+	cd $SCRATCH/v21.LR.SMYLEsmbb/$CASE
+	cat run.0*/rpointer.atm | grep master 
+	cat run.0*/rpointer.atm | grep master | wc  (should be 20 mbrs)
+
+!!! Create Zstash archive:  
+!! SMBB 02 archiving (we use ‘screen’ to avoid timing out)
+!! Note:  I keep a README.zstash file to keep track of cases that I’ve archived and I can cut and paste from this file each time I want to archive a new case:
+
+	screen
+	bash
+	source /global/common/software/e3sm/anaconda_envs/load_latest_e3sm_unified_pm-cpu.sh
+	cd $SCRATCH//v21.LR.SMYLEsmbb/v21.LR.BSMYLEsmbb.2010-02.001
+	zstash create --hpss=/home/c/ccsm/E3SMv2.1-SMYLEsmbb/v21.LR.BSMYLEsmbb.2010-02.001 --maxsize 128 . 2>&1 | tee ~jcaron/zstash_create_SMYLEsmbb.2010-02_20240424.log
+	Ctl-a, ctl-d to escape screen.
+
+!!! Check Zstash:  
+!!! Note that we aren’t officially ‘checking’ the zstash archive b/c if we have to rerun we can do that more efficiently than checking every archive for errors.
+!!! Note:  wait until the file is no longer being updated; ~24 hrs later
+	Look at the log file:  e.g.,  ~jcaron/zstash_create_SMYLEsmbb.2010-02_20240424.log
+	Look for errors at the end of the file.  It won’t say ‘complete’ or ‘success’ but if everything looks normal then we assume it worked
+!! Normal looks like this:
+	INFO: Archiving run.030/wav_modelio.nml
+	INFO: Archiving run.030/spio_stats/io_perf_summary_368500.json
+	INFO: Archiving run.030/spio_stats/io_perf_summary_368500.txt
+	INFO: Archiving run.030/spio_stats/io_perf_summary_427687.json
+	INFO: Archiving run.030/spio_stats/io_perf_summary_427687.txt
+	INFO: tar name=000038.tar, tar size=67575439360, tar md5=f71511ec4de4bd55d15a35028260e1ce
+	INFO: Transferring file to HPSS: zstash/000038.tar
+	INFO: Transferring file to HPSS: zstash/index.db
+
+!! Errors look like this:
+	INFO: Transferring file to HPSS: zstash/00008f.tar
+	ERROR: Error=Transferring file to HPSS: 00008f.tar, Command was `hsi -q "cd /home/c/ccsm/E3SMv2-AUFIRE/v2.LR.SSP370_AUFIRE-cntl.2019-08.001; put 00008f.tar"`. This command includes `hsi`. Be sure that you have logged into `hsi`. This command includes `cd`. Check t hat this directory exists and contains the needed files
+Traceback (most recent call last):
+  File "/global/common/software/e3sm/anaconda_envs/base/envs/e3sm_unified_1.9.2_login/bin/zstash", line 10, in <module>
+    sys.exit(main())
+
+
+
