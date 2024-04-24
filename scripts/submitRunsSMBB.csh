@@ -6,23 +6,23 @@ setenv DOUT  /pscratch/sd/n/nanr/v21.LR.SMYLEsmbb
 setenv TOOLSROOT  /global/u2/n/nanr/CESM_tools/e3sm/v2/scripts/v2.SMYLE/
 
 # ...
-set syr = 2014
-set eyr = 2014
+set syr = 2013
+set eyr = 2013
 
 @ ib = $syr
 @ ie = $eyr
 
 foreach year ( `seq $ib $ie` )
-foreach mon ( 11 )
+foreach mon ( 02 )
 
 # case name counter
-set smbr =  3
+set smbr =  2
 set embr =  20
 
 @ mb = $smbr
 @ me = $embr
 
-set CASE = v21.LR.BSMYLEsmbb.${year}-11.001
+set CASE = v21.LR.BSMYLEsmbb.${year}-${mon}.001
 
 foreach mbr ( `seq $mb $me` )
 if ($mbr < 10) then
@@ -35,7 +35,7 @@ endif
 echo "==================================    " 
 #echo $CASE 
     cd $DOUT/$CASE/$CASEDIR
-    cp /pscratch/sd/n/nanr/v21.LR.SMYLEsmbb/v21.LR.BSMYLEsmbb.2014-11.001/case_scripts.001/user_nl_eam .
+    #cp /pscratch/sd/n/nanr/v21.LR.SMYLEsmbb/v21.LR.BSMYLEsmbb.2014-${mon}.001/case_scripts.001/user_nl_eam .
     #./xmlchange STOP_N=14
     #./xmlchange REST_N=14
 
