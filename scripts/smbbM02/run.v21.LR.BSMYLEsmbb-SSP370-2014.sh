@@ -31,7 +31,7 @@ fi
 #set -x
 
 useyear=2014
-usemonth=11
+usemonth=02
 
 
 # --- Configuration flags ----

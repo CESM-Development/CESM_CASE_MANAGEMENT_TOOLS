@@ -30,7 +30,7 @@ fi
 #set -x
 
 ## Rerunning: 1989-2018
-useyear=1980
+useyear=2012
 usemonth=02
 
 

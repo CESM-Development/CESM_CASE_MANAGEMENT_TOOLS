@@ -30,8 +30,8 @@ fi
 # For debugging, uncomment libe below
 #set -x
 
-useyear=2019
-usemonth=05
+useyear=2013
+usemonth=08
 
 
 # --- Configuration flags ----
@@ -41,8 +41,8 @@ MACHINE=pm-cpu
 PROJECT="m4417"
 
 # Simulation
-COMPSET="WCYCLSSP370" # SSP370 transient
-#COMPSET="WCYCL20TR" # 20th century transient
+#COMPSET="WCYCLSSP370" # SSP370 transient
+COMPSET="WCYCL20TR" # 20th century transient
 RESOLUTION="ne30pg2_EC30to60E2r2"
 CASE_NAME="v21.LR.BSMYLEsmbb.${useyear}-${usemonth}.${mbr}"
 if [[ ${imbr} -eq "1" ]]
@@ -82,7 +82,7 @@ CASE_ROOT="/pscratch/sd/n/${USER}/v21.LR.SMYLEsmbb/${MAIN_CASE_NAME}/"
 #CASE_BUILD_DIR=${MAIN_CASE_ROOT}/build
 CASE_BUILD_DIR=/pscratch/sd/n/nanr/v21.LR.SMYLE/exeroot/build
 CASE_ARCHIVE_DIR=${MAIN_CASE_ROOT}/archive.${mbr}
-#CASE_ARCHIVE_DIR=/global/cfs/cdirs/mp9/archive/v21.LR.SMYLE/${MAIN_CASE_NAME}/archive.${mbr}
+#CASE_ARCHIVE_DIR=/global/cfs/cdirs/mp9/archive/v21.LR.SMYLEsmbb/${MAIN_CASE_NAME}/archive.${mbr}
 
 # Define type of run
 #  short tests: 'XS_2x5_ndays', 'XS_1x10_ndays', 'S_1x10_ndays', 
@@ -117,16 +117,18 @@ else
   #PELAYOUT="L"
   WALLTIME="16:00:00"
   STOP_OPTION="nmonths"
-  STOP_N="28" # How often to stop the model, should be a multiple of REST_N
   REST_OPTION="nmonths"
-  REST_N="28" # How often to write a restart file
+  # 2013-11 through 2014-12 = 14 months; HIST portion has 2015 in it; 
+  # then switch to SSP370 (which has 2014 in as well)
+  STOP_N="17" # How often to stop the model, should be a multiple of REST_N
+  REST_N="17" # How often to write a restart file
   RESUBMIT="0" # Submissions after initial one
-  DO_SHORT_TERM_ARCHIVING=true
+  DO_SHORT_TERM_ARCHIVING=false
 fi
 
 # Coupler history 
 HIST_OPTION="nyears"
-HIST_N="5"
+HIST_N="1"
 
 # Leave empty (unless you understand what it does)
 #OLD_EXECUTABLE=""
@@ -200,18 +202,6 @@ cat << EOF >> user_nl_eam
  fincl5 = 'PRECT','PRECC','TUQ','TVQ','QFLX','SHFLX','U90M','V90M'
  ! monthly (h6) I
  fincl7 = 'O3', 'PS', 'TROP_P'
-
- ext_frc_specifier              = 'SO2         -> /global/cfs/cdirs/ccsm1/people/nanr/e3sm/inputdata/atm/cam/chem/trop_mozart_aero/emis/CMIP6_SSP370_ne30-smoothed/cmip6_ssp370_mam4_smoothed_so2_elev_1850-2100_c221016.nc',
-         'SOAG        -> /global/cfs/cdirs/ccsm1/people/nanr/e3sm/inputdata/atm/cam/chem/trop_mozart_aero/emis/CMIP6_SSP370_ne30-smoothed/cmip6_ssp370_mam4_smoothed_soag_elev_1850-2100_c221016.nc',
-         'bc_a4       -> /global/cfs/cdirs/ccsm1/people/nanr/e3sm/inputdata/atm/cam/chem/trop_mozart_aero/emis/CMIP6_SSP370_ne30-smoothed/cmip6_ssp370_mam4_smoothed_bc_a4_elev_1850-2100_c221016.nc',
-         'num_a1      -> /global/cfs/cdirs/ccsm1/people/nanr/e3sm/inputdata/atm/cam/chem/trop_mozart_aero/emis/CMIP6_SSP370_ne30-smoothed/cmip6_ssp370_mam4_smoothed_num_a1_elev_1850-2100_c221016.nc',
-         'num_a2      -> /global/cfs/cdirs/e3sm/inputdata/atm/cam/chem/trop_mozart_aero/emis/CMIP6_SSP370_ne30/cmip6_ssp370_mam4_num_a2_elev_2015-2100_c210216.nc',
-         'num_a4      -> /global/cfs/cdirs/ccsm1/people/nanr/e3sm/inputdata/atm/cam/chem/trop_mozart_aero/emis/CMIP6_SSP370_ne30-smoothed/cmip6_ssp370_mam4_smoothed_num_a4_elev_1850-2100_c221016.nc',
-         'pom_a4      -> /global/cfs/cdirs/ccsm1/people/nanr/e3sm/inputdata/atm/cam/chem/trop_mozart_aero/emis/CMIP6_SSP370_ne30-smoothed/cmip6_ssp370_mam4_smoothed_pom_a4_elev_1850-2100_c221016.nc',
-         'so4_a1      -> /global/cfs/cdirs/ccsm1/people/nanr/e3sm/inputdata/atm/cam/chem/trop_mozart_aero/emis/CMIP6_SSP370_ne30-smoothed/cmip6_ssp370_mam4_smoothed_so4_a1_elev_1850-2100_c221016.nc',
-         'so4_a2      -> /global/cfs/cdirs/e3sm/inputdata/atm/cam/chem/trop_mozart_aero/emis/CMIP6_SSP370_ne30/cmip6_ssp370_mam4_so4_a2_elev_2015-2100_c210216.nc'
- ext_frc_type           = 'INTERP_MISSING_MONTHS'
-
 
 EOF
 

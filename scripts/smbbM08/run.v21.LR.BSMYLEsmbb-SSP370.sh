@@ -30,7 +30,7 @@ fi
 # For debugging, uncomment libe below
 #set -x
 
-useyear=2019
+useyear=2017
 usemonth=05
 
 

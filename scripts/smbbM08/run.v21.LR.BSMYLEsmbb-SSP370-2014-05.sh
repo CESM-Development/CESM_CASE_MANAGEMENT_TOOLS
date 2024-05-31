@@ -30,7 +30,7 @@ fi
 # For debugging, uncomment libe below
 #set -x
 
-useyear=2019
+useyear=2014
 usemonth=05
 
 
@@ -211,6 +211,9 @@ cat << EOF >> user_nl_eam
          'so4_a1      -> /global/cfs/cdirs/ccsm1/people/nanr/e3sm/inputdata/atm/cam/chem/trop_mozart_aero/emis/CMIP6_SSP370_ne30-smoothed/cmip6_ssp370_mam4_smoothed_so4_a1_elev_1850-2100_c221016.nc',
          'so4_a2      -> /global/cfs/cdirs/e3sm/inputdata/atm/cam/chem/trop_mozart_aero/emis/CMIP6_SSP370_ne30/cmip6_ssp370_mam4_so4_a2_elev_2015-2100_c210216.nc'
  ext_frc_type           = 'INTERP_MISSING_MONTHS'
+
+!! See README file: /global/cfs/cdirs/mp9/E3SMv2.1-SMYLE/inputdata/atm/cam/ggas/README.GHG_CMIP_SSP370
+bndtvghg = '/global/cfs/cdirs/mp9/E3SMv2.1-SMYLE/inputdata/atm/cam/ggas/GHG_CMIP_SSP370-1-2-1_Annual_Global_0000-2500_c20210509.nc'
 
 
 EOF

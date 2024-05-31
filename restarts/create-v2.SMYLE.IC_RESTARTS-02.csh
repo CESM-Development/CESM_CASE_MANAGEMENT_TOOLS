@@ -27,6 +27,8 @@ set syr = 1970
 set eyr = 1999
 set syr = 2018
 set eyr = 2018
+set syr = 1973
+set eyr = 1973
 
 @ ib = $syr
 @ ie = $eyr

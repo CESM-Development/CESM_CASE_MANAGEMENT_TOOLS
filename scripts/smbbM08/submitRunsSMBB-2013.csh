@@ -13,7 +13,7 @@ set eyr = 2013
 @ ie = $eyr
 
 foreach year ( `seq $ib $ie` )
-foreach mon ( 02 )
+foreach mon ( 05 )
 
 # case name counter
 set smbr =  1
@@ -35,13 +35,12 @@ endif
 echo "==================================    " 
 #echo $CASE 
     cd $DOUT/$CASE/$CASEDIR
-    ./xmlchange STOP_N=5
-    ./xmlchange REST_N=5
+    #cp /pscratch/sd/n/nanr/v21.LR.SMYLEsmbb/v21.LR.BSMYLEsmbb.2014-11.001/case_scripts.001/user_nl_eam .
+    ./xmlchange STOP_N=6
+    ./xmlchange REST_N=6
 
-    mv user_nl_eam user_nl_eam-historical
-    cp $TOOLSROOT/user_nl_files/smbb/user_nl_eam-SSP370smbb ./user_nl_eam
-    #cp $TOOLSROOT/env_mach/env_mach_specific.xml .
-    ./xmlchange CONTINUE_RUN=TRUE
+    #diff user_nl_eam ../case_scripts.001/user_nl_eam
+    #./preview_namelists
     ./case.submit
 
 

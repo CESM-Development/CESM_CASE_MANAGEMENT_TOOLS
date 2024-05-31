@@ -6,8 +6,8 @@ setenv DOUT  /pscratch/sd/n/nanr/v21.LR.SMYLEsmbb
 setenv TOOLSROOT  /global/u2/n/nanr/CESM_tools/e3sm/v2/scripts/v2.SMYLE/
 
 # ...
-set syr = 2013
-set eyr = 2013
+set syr = 2012
+set eyr = 2012
 
 @ ib = $syr
 @ ie = $eyr
@@ -35,13 +35,12 @@ endif
 echo "==================================    " 
 #echo $CASE 
     cd $DOUT/$CASE/$CASEDIR
-    ./xmlchange STOP_N=5
-    ./xmlchange REST_N=5
+    #cp /pscratch/sd/n/nanr/v21.LR.SMYLEsmbb/v21.LR.BSMYLEsmbb.2014-${mon}.001/case_scripts.001/user_nl_eam .
+    #./xmlchange STOP_N=14
+    #./xmlchange REST_N=14
 
-    mv user_nl_eam user_nl_eam-historical
-    cp $TOOLSROOT/user_nl_files/smbb/user_nl_eam-SSP370smbb ./user_nl_eam
-    #cp $TOOLSROOT/env_mach/env_mach_specific.xml .
-    ./xmlchange CONTINUE_RUN=TRUE
+    #diff user_nl_eam ../case_scripts.001/user_nl_eam
+    #./preview_namelists
     ./case.submit
 
 

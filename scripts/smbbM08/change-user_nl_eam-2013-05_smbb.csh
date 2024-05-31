@@ -13,7 +13,7 @@ set eyr = 2013
 @ ie = $eyr
 
 foreach year ( `seq $ib $ie` )
-foreach mon ( 02 )
+foreach mon ( 05 )
 
 # case name counter
 set smbr =  1
@@ -35,13 +35,14 @@ endif
 echo "==================================    " 
 #echo $CASE 
     cd $DOUT/$CASE/$CASEDIR
-    ./xmlchange STOP_N=5
-    ./xmlchange REST_N=5
+    ./xmlchange STOP_N=8
+    ./xmlchange REST_N=8
 
     mv user_nl_eam user_nl_eam-historical
     cp $TOOLSROOT/user_nl_files/smbb/user_nl_eam-SSP370smbb ./user_nl_eam
     #cp $TOOLSROOT/env_mach/env_mach_specific.xml .
     ./xmlchange CONTINUE_RUN=TRUE
+    ./xmlchange DOUT_S=TRUE
     ./case.submit
 
 
