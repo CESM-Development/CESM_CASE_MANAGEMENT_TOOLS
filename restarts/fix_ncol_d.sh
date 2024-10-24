@@ -6,10 +6,11 @@
 #module load cudatoolkit/11.5
 #module load python
 
-for year in {1970..2018}; do
+for year in {2016..2017}; do
 for pert in {01..20}; do
-  case=v21.LR.SMYLE_IC.${year}-11.01
-  eamfile=v21.LR.SMYLE_IC.pert.eam.i.$year-11-01-00000.nc
+  mon = 02
+  case=v21.LR.SMYLE_IC.${year}-${mon}.01
+  eamfile=v21.LR.SMYLE_IC.pert.eam.i.${year}-${mon}-01-00000.nc
   icdir=/global/cfs/cdirs/mp9/E3SMv2.1-SMYLE/inputdata/e3sm_init/${case}/pert.${pert}
   echo $case
   echo $icdir

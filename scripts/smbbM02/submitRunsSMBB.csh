@@ -6,8 +6,8 @@ setenv DOUT  /pscratch/sd/n/nanr/v21.LR.SMYLEsmbb
 setenv TOOLSROOT  /global/u2/n/nanr/CESM_tools/e3sm/v2/scripts/v2.SMYLE/
 
 # ...
-set syr = 2012
-set eyr = 2012
+set syr = 2018
+set eyr = 2018
 
 @ ib = $syr
 @ ie = $eyr
@@ -16,7 +16,7 @@ foreach year ( `seq $ib $ie` )
 foreach mon ( 02 )
 
 # case name counter
-set smbr =  1
+set smbr =  2
 set embr =  20
 
 @ mb = $smbr

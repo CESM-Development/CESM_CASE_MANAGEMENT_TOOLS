@@ -30,15 +30,15 @@ fi
 # For debugging, uncomment libe below
 #set -x
 
-useyear=2017
-usemonth=05
+useyear=2018
+usemonth=08
 
 
 # --- Configuration flags ----
 
 # Machine and project
 MACHINE=pm-cpu
-PROJECT="m4417"
+PROJECT="mp9"
 
 # Simulation
 COMPSET="WCYCLSSP370" # SSP370 transient

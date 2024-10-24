@@ -23,12 +23,14 @@ setenv TOOLS_ROOT /global/u2/n/nanr/CESM_tools/e3sm/v2/scripts/v2.SMYLE/
 #ncrename -v xtime,xtime.orig v2.LR.piControl.mpassi.rst.0501-01-01_00000.orig.nc v2.LR.piControl.mpassi.rst.0501-01-01_00000.nc
 
 #foreach  year ( 1954 1964 1974 1984 1994 2004 )
-set syr = 1970
+set syr = 1999
 set eyr = 1999
-set syr = 2018
-set eyr = 2018
-set syr = 1973
-set eyr = 1973
+#set syr = 2018
+#set eyr = 2018
+#set syr = 2016
+#set eyr = 2016
+set syr = 2019
+set eyr = 2019
 
 @ ib = $syr
 @ ie = $eyr

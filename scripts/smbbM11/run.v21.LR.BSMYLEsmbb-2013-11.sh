@@ -9,7 +9,8 @@
 # http://kfirlavi.herokuapp.com/blog/2012/11/14/defensive-bash-programming
 
 #array=( 001 002 003 004 005 006 007 008 009 010 )
-array=( 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 )
+#array=( 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 )
+array=(1 17 18 )
 for imbr in "${array[@]}"
 do
 
@@ -38,7 +39,7 @@ usemonth=11
 
 # Machine and project
 MACHINE=pm-cpu
-PROJECT="m4417"
+PROJECT="mp9"
 
 # Simulation
 #COMPSET="WCYCLSSP370" # SSP370 transient

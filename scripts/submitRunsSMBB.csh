@@ -3,11 +3,10 @@
 ### module load ncl nco
 
 setenv DOUT  /pscratch/sd/n/nanr/v21.LR.SMYLEsmbb
-setenv TOOLSROOT  /global/u2/n/nanr/CESM_tools/e3sm/v2/scripts/v2.SMYLE/
 
 # ...
-set syr = 2010
-set eyr = 2010
+set syr = 2019
+set eyr = 2019
 
 @ ib = $syr
 @ ie = $eyr
