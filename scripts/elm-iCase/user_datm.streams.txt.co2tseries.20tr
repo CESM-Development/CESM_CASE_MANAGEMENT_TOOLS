@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<file id="stream" version="1.0">
+<dataSource>
+   GENERIC
+</dataSource>
+<domainInfo>
+  <variableNames>
+     time    time
+        lonc    lon
+        latc    lat
+        area    area
+        mask    mask
+  </variableNames>
+  <filePath>
+     /global/cfs/cdirs/e3sm/inputdata/atm/datm7/CO2
+  </filePath>
+  <fileNames>
+     fco2_datm_1765-2023_c241030.nc
+  </fileNames>
+</domainInfo>
+<fieldInfo>
+   <variableNames>
+     CO2        co2diag
+   </variableNames>
+   <filePath>
+     /global/cfs/cdirs/e3sm/inputdata/atm/datm7/CO2
+   </filePath>
+   <fileNames>
+    fco2_datm_1765-2023_c241030.nc
+   </fileNames>
+   <offset>
+      0
+   </offset>
+</fieldInfo>
+</file>

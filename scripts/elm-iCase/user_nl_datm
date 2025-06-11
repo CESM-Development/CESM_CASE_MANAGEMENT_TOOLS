@@ -1,0 +1,9 @@
+
+datm.streams.txt.CLMCRUNCEP.Precip
+ streams = "datm.streams.txt.CLMCRUNCEPv7.Solar 1901 1901 1920",
+     "datm.streams.txt.CLMCRUNCEPv7.Precip 1901 1901 1920",
+     "datm.streams.txt.CLMCRUNCEPv7.TPQW 1901 1901 1920",
+     "datm.streams.txt.presaero.SSP3-7.0 1850 1850 2025",
+     "datm.streams.txt.topo.observed 1 1 1",
+     "datm.streams.txt.co2tseries.SSP3-7.0 1850 1850 2025"
+

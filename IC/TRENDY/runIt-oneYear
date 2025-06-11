@@ -1,0 +1,8 @@
+./mk_CLMCRUNCEP_TRENDY_forcing.py \
+    --trendy clmforc.TRENDY.c2020.0.5x0.5.TPQWL.1958.nc \
+    --cruncep-template clmforc.cruncep.V8.c2017.0.5d.TPQWL.1958-{month:02d}.nc \
+    --output-template clmforc.TRENDY_qianFilled.c2017.0.5d.TPQWL.1958-{month:02d}.nc \
+    --variables PSRF TBOT WIND QBOT FLDS
+
+
+

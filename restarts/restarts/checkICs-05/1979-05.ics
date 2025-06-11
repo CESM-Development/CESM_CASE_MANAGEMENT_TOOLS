@@ -1,0 +1,38 @@
+checking year 1979-05-02
+			"Wed May 24 10:17:42 2023: ncdiff /global/cfs/cdirs/mp9/SMYLE/S2S_perts/05//v2.LR.historical_daily-cami_0241.eam.i.1991-05-20-00000.nc /global/cfs/cdirs/mp9/SMYLE/S2S_perts/05//v2.LR.historical_daily-cami_0241.eam.i.2007-05-02-00000.nc /global/cfs/cdirs/mp9/SMYLE/S2S_perts_DIFF/05//v2.LR.historical_daily-cami_0241.eam.i.M05.diff.413.nc\n",
+checking year 1979-05-03
+			"Wed May 24 10:08:18 2023: ncdiff /global/cfs/cdirs/mp9/SMYLE/S2S_perts/05//v2.LR.historical_daily-cami_0241.eam.i.2000-05-11-00000.nc /global/cfs/cdirs/mp9/SMYLE/S2S_perts/05//v2.LR.historical_daily-cami_0241.eam.i.2007-05-28-00000.nc /global/cfs/cdirs/mp9/SMYLE/S2S_perts_DIFF/05//v2.LR.historical_daily-cami_0241.eam.i.M05.diff.368.nc\n",
+checking year 1979-05-04
+			"Wed May 24 10:08:18 2023: ncdiff /global/cfs/cdirs/mp9/SMYLE/S2S_perts/05//v2.LR.historical_daily-cami_0241.eam.i.2000-05-11-00000.nc /global/cfs/cdirs/mp9/SMYLE/S2S_perts/05//v2.LR.historical_daily-cami_0241.eam.i.2007-05-28-00000.nc /global/cfs/cdirs/mp9/SMYLE/S2S_perts_DIFF/05//v2.LR.historical_daily-cami_0241.eam.i.M05.diff.368.nc\n",
+checking year 1979-05-05
+			"Wed May 24 10:10:10 2023: ncdiff /global/cfs/cdirs/mp9/SMYLE/S2S_perts/05//v2.LR.historical_daily-cami_0241.eam.i.1994-05-02-00000.nc /global/cfs/cdirs/mp9/SMYLE/S2S_perts/05//v2.LR.historical_daily-cami_0241.eam.i.2012-05-24-00000.nc /global/cfs/cdirs/mp9/SMYLE/S2S_perts_DIFF/05//v2.LR.historical_daily-cami_0241.eam.i.M05.diff.377.nc\n",
+checking year 1979-05-06
+			"Wed May 24 10:10:10 2023: ncdiff /global/cfs/cdirs/mp9/SMYLE/S2S_perts/05//v2.LR.historical_daily-cami_0241.eam.i.1994-05-02-00000.nc /global/cfs/cdirs/mp9/SMYLE/S2S_perts/05//v2.LR.historical_daily-cami_0241.eam.i.2012-05-24-00000.nc /global/cfs/cdirs/mp9/SMYLE/S2S_perts_DIFF/05//v2.LR.historical_daily-cami_0241.eam.i.M05.diff.377.nc\n",
+checking year 1979-05-07
+			"Wed May 24 11:43:26 2023: ncdiff /global/cfs/cdirs/mp9/SMYLE/S2S_perts/05//v2.LR.historical_daily-cami_0241.eam.i.1991-05-27-00000.nc /global/cfs/cdirs/mp9/SMYLE/S2S_perts/05//v2.LR.historical_daily-cami_0241.eam.i.2003-05-08-00000.nc /global/cfs/cdirs/mp9/SMYLE/S2S_perts_DIFF/05//v2.LR.historical_daily-cami_0241.eam.i.M05.diff.834.nc\n",
+checking year 1979-05-08
+			"Wed May 24 11:43:26 2023: ncdiff /global/cfs/cdirs/mp9/SMYLE/S2S_perts/05//v2.LR.historical_daily-cami_0241.eam.i.1991-05-27-00000.nc /global/cfs/cdirs/mp9/SMYLE/S2S_perts/05//v2.LR.historical_daily-cami_0241.eam.i.2003-05-08-00000.nc /global/cfs/cdirs/mp9/SMYLE/S2S_perts_DIFF/05//v2.LR.historical_daily-cami_0241.eam.i.M05.diff.834.nc\n",
+checking year 1979-05-09
+			"Wed May 24 10:40:13 2023: ncdiff /global/cfs/cdirs/mp9/SMYLE/S2S_perts/05//v2.LR.historical_daily-cami_0241.eam.i.1994-05-07-00000.nc /global/cfs/cdirs/mp9/SMYLE/S2S_perts/05//v2.LR.historical_daily-cami_0241.eam.i.2010-05-18-00000.nc /global/cfs/cdirs/mp9/SMYLE/S2S_perts_DIFF/05//v2.LR.historical_daily-cami_0241.eam.i.M05.diff.525.nc\n",
+checking year 1979-05-10
+			"Wed May 24 10:40:13 2023: ncdiff /global/cfs/cdirs/mp9/SMYLE/S2S_perts/05//v2.LR.historical_daily-cami_0241.eam.i.1994-05-07-00000.nc /global/cfs/cdirs/mp9/SMYLE/S2S_perts/05//v2.LR.historical_daily-cami_0241.eam.i.2010-05-18-00000.nc /global/cfs/cdirs/mp9/SMYLE/S2S_perts_DIFF/05//v2.LR.historical_daily-cami_0241.eam.i.M05.diff.525.nc\n",
+checking year 1979-05-11
+			"Wed May 24 08:54:15 2023: ncdiff /global/cfs/cdirs/mp9/SMYLE/S2S_perts/05//v2.LR.historical_daily-cami_0241.eam.i.1996-05-08-00000.nc /global/cfs/cdirs/mp9/SMYLE/S2S_perts/05//v2.LR.historical_daily-cami_0241.eam.i.2008-05-14-00000.nc /global/cfs/cdirs/mp9/SMYLE/S2S_perts_DIFF/05//v2.LR.historical_daily-cami_0241.eam.i.M05.diff.029.nc\n",
+checking year 1979-05-12
+			"Wed May 24 08:54:15 2023: ncdiff /global/cfs/cdirs/mp9/SMYLE/S2S_perts/05//v2.LR.historical_daily-cami_0241.eam.i.1996-05-08-00000.nc /global/cfs/cdirs/mp9/SMYLE/S2S_perts/05//v2.LR.historical_daily-cami_0241.eam.i.2008-05-14-00000.nc /global/cfs/cdirs/mp9/SMYLE/S2S_perts_DIFF/05//v2.LR.historical_daily-cami_0241.eam.i.M05.diff.029.nc\n",
+checking year 1979-05-13
+			"Wed May 24 10:13:49 2023: ncdiff /global/cfs/cdirs/mp9/SMYLE/S2S_perts/05//v2.LR.historical_daily-cami_0241.eam.i.1992-05-06-00000.nc /global/cfs/cdirs/mp9/SMYLE/S2S_perts/05//v2.LR.historical_daily-cami_0241.eam.i.2006-05-11-00000.nc /global/cfs/cdirs/mp9/SMYLE/S2S_perts_DIFF/05//v2.LR.historical_daily-cami_0241.eam.i.M05.diff.395.nc\n",
+checking year 1979-05-14
+			"Wed May 24 10:13:49 2023: ncdiff /global/cfs/cdirs/mp9/SMYLE/S2S_perts/05//v2.LR.historical_daily-cami_0241.eam.i.1992-05-06-00000.nc /global/cfs/cdirs/mp9/SMYLE/S2S_perts/05//v2.LR.historical_daily-cami_0241.eam.i.2006-05-11-00000.nc /global/cfs/cdirs/mp9/SMYLE/S2S_perts_DIFF/05//v2.LR.historical_daily-cami_0241.eam.i.M05.diff.395.nc\n",
+checking year 1979-05-15
+			"Wed May 24 10:57:20 2023: ncdiff /global/cfs/cdirs/mp9/SMYLE/S2S_perts/05//v2.LR.historical_daily-cami_0241.eam.i.1994-05-28-00000.nc /global/cfs/cdirs/mp9/SMYLE/S2S_perts/05//v2.LR.historical_daily-cami_0241.eam.i.2004-05-09-00000.nc /global/cfs/cdirs/mp9/SMYLE/S2S_perts_DIFF/05//v2.LR.historical_daily-cami_0241.eam.i.M05.diff.611.nc\n",
+checking year 1979-05-16
+			"Wed May 24 10:57:20 2023: ncdiff /global/cfs/cdirs/mp9/SMYLE/S2S_perts/05//v2.LR.historical_daily-cami_0241.eam.i.1994-05-28-00000.nc /global/cfs/cdirs/mp9/SMYLE/S2S_perts/05//v2.LR.historical_daily-cami_0241.eam.i.2004-05-09-00000.nc /global/cfs/cdirs/mp9/SMYLE/S2S_perts_DIFF/05//v2.LR.historical_daily-cami_0241.eam.i.M05.diff.611.nc\n",
+checking year 1979-05-17
+			"Wed May 24 11:41:50 2023: ncdiff /global/cfs/cdirs/mp9/SMYLE/S2S_perts/05//v2.LR.historical_daily-cami_0241.eam.i.2001-05-29-00000.nc /global/cfs/cdirs/mp9/SMYLE/S2S_perts/05//v2.LR.historical_daily-cami_0241.eam.i.2012-05-30-00000.nc /global/cfs/cdirs/mp9/SMYLE/S2S_perts_DIFF/05//v2.LR.historical_daily-cami_0241.eam.i.M05.diff.826.nc\n",
+checking year 1979-05-18
+			"Wed May 24 11:41:50 2023: ncdiff /global/cfs/cdirs/mp9/SMYLE/S2S_perts/05//v2.LR.historical_daily-cami_0241.eam.i.2001-05-29-00000.nc /global/cfs/cdirs/mp9/SMYLE/S2S_perts/05//v2.LR.historical_daily-cami_0241.eam.i.2012-05-30-00000.nc /global/cfs/cdirs/mp9/SMYLE/S2S_perts_DIFF/05//v2.LR.historical_daily-cami_0241.eam.i.M05.diff.826.nc\n",
+checking year 1979-05-19
+			"Wed May 24 09:55:03 2023: ncdiff /global/cfs/cdirs/mp9/SMYLE/S2S_perts/05//v2.LR.historical_daily-cami_0241.eam.i.1997-05-01-00000.nc /global/cfs/cdirs/mp9/SMYLE/S2S_perts/05//v2.LR.historical_daily-cami_0241.eam.i.2004-05-10-00000.nc /global/cfs/cdirs/mp9/SMYLE/S2S_perts_DIFF/05//v2.LR.historical_daily-cami_0241.eam.i.M05.diff.308.nc\n",
+checking year 1979-05-20
+			"Wed May 24 09:55:03 2023: ncdiff /global/cfs/cdirs/mp9/SMYLE/S2S_perts/05//v2.LR.historical_daily-cami_0241.eam.i.1997-05-01-00000.nc /global/cfs/cdirs/mp9/SMYLE/S2S_perts/05//v2.LR.historical_daily-cami_0241.eam.i.2004-05-10-00000.nc /global/cfs/cdirs/mp9/SMYLE/S2S_perts_DIFF/05//v2.LR.historical_daily-cami_0241.eam.i.M05.diff.308.nc\n",

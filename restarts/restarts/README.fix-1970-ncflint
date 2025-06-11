@@ -1,0 +1,12 @@
+Original file called for diff.179.nc which didn't exist so I modified the eamic_1970-02-01.1-20.txt and ran these commands by hand.
+
+1053  cd /global/cfs/cdirs/mp9/E3SMv2.1-SMYLE/inputdata/e3sm_init/v21.LR.SMYLE_IC.1970-02.01/pert.01
+ 1054  ncflint -O -C -v time_bnds,lev,ilev,hyai,hybi,hyam,hybm,U,V,T,Q,PS -w 0.15,1.0 /global/cfs/cdirs/mp9/E3SMv2.1-SMYLE/S2S_perts_DIFF/02/v2.LR.historical_daily-cami_0241.eam.i.M02.diff.178.nc /global/cfs/cdirs/mp9/E3SMv2.1-SMYLE/inputdata/e3sm_init/v21.LR.SMYLE_IC.1970-02.01/1970-02-01/v21.LR.SMYLE_IC.1970-02.01.eam.i.1970-02-01-00000.nc /global/cfs/cdirs/mp9/E3SMv2.1-SMYLE/inputdata/e3sm_init/v21.LR.SMYLE_IC.1970-02.01/pert.01/v21.LR.SMYLE_IC.pert.eam.i.1970-02-01-tmp.nc
+# Rename file
+mv v21.LR.SMYLE_IC.pert.eam.i.1970-02-01-tmp.nc v21.LR.SMYLE_IC.pert.eam.i.1970-02-01-00000.nc 
+
+ 1056  cd ../pert.02/
+ 1057  ncflint -O -C -v time_bnds,lev,ilev,hyai,hybi,hyam,hybm,U,V,T,Q,PS -w -0.15,1.0 /global/cfs/cdirs/mp9/E3SMv2.1-SMYLE/S2S_perts_DIFF/02/v2.LR.historical_daily-cami_0241.eam.i.M02.diff.178.nc /global/cfs/cdirs/mp9/E3SMv2.1-SMYLE/inputdata/e3sm_init/v21.LR.SMYLE_IC.1970-02.01/1970-02-01/v21.LR.SMYLE_IC.1970-02.01.eam.i.1970-02-01-00000.nc /global/cfs/cdirs/mp9/E3SMv2.1-SMYLE/inputdata/e3sm_init/v21.LR.SMYLE_IC.1970-02.01/pert.02/v21.LR.SMYLE_IC.pert.eam.i.1970-02-01-tmp.nc
+
+# Rename file
+mv v21.LR.SMYLE_IC.pert.eam.i.1970-02-01-tmp.nc v21.LR.SMYLE_IC.pert.eam.i.1970-02-01-00000.nc 
