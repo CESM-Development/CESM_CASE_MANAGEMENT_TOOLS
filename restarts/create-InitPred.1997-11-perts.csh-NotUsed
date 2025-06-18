@@ -1,0 +1,46 @@
+#! /bin/csh -fxv 
+
+setenv CESM2_TOOLS_ROOT /glade/work/nanr/cesm_tags/CASE_tools/cesm3-smyle/
+setenv CESMROOT /glade/work/nanr/cesm_tags/cesm2.1.4-SMYLE
+
+
+set syr = 1997
+set eyr = 1997
+
+@ ib = $syr
+@ ie = $eyr
+
+foreach year ( `seq $ib $ie` )
+foreach mon ( 11 )
+
+set case = b.e30.SMYLE_IC.ne30_${year}-${mon}.01
+
+#set icdir = /glade/p/cesm/cseg/inputdata/ccsm4_init/{$case} 
+set Picdir = /glade/campaign/cesm/development/espwg/SMYLE/inputdata/cesm2_init/{$case}/
+set icdir  = /glade/campaign/cesm/development/espwg/SMYLE/inputdata/cesm2_init/{$case}/${year}-${mon}-01
+if (! -d ${Picdir}) then
+ mkdir ${Picdir}
+endif
+if (! -d ${icdir}) then
+ mkdir ${icdir}
+endif
+
+
+/glade/campaign/cesm/development/espwg/CESM3_ERA5_IC/ne30np4_L58_gll
+
+# ==================================
+# generate perturbed cam.i.restarts
+# ==================================
+setenv CYLC_TASK_CYCLE_POINT ${year}-${mon}-01
+cd ${CESM2_TOOLS_ROOT}/restarts/
+./generate_cami_ensemble_offline-50perts.py
+
+end
+end
+
+exit
+ 
+ 
+
+
+
