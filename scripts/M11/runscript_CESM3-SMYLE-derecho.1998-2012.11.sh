@@ -1,8 +1,7 @@
 #!/bin/bash
 
-for useyear in $(seq 1991 1991)
+for useyear in $(seq 1998 2012)
 do
-#useyear=1992
 usemonth=11
 
 curdir='/glade/work/nanr/cesm_tags/CASE_tools/cesm3-smyle/'
@@ -25,7 +24,6 @@ casedir=$caseroot/$casename
 rundir=/glade/derecho/scratch/nanr/CESM3-SMYLE/${main_case_root}/run.${mbr}/
 
 echo $rundir
-#cd $casedir
 
 #============= START =======
 
@@ -36,8 +34,6 @@ cd $tagdir/cime/scripts
   --compset HISTC_CAM70%LT_CLM60%BGC-CROP_CICE_MOM6_MOSART_DGLC%NOEVOLVE_WW3_SESP \
   --res $resoln --case $casedir --run-unsupported
 
-#cd /glade/work/nanr/CESM3-SMYLE/b.e30_beta04.BLTHIST.ne30_t232_wgx3_SMYLE.001
-#cd /glade/work/nanr/CESM3-SMYLE/b.${usetag}.${usecompset}.${resoln}.$mbr
 cd $casedir
 
 

@@ -1,6 +1,7 @@
 #!/bin/bash
 
-useyear=1992
+for useyear in $(seq 2013 2013)
+do
 usemonth=11
 
 curdir='/glade/work/nanr/cesm_tags/CASE_tools/cesm3-smyle/'
@@ -23,7 +24,6 @@ casedir=$caseroot/$casename
 rundir=/glade/derecho/scratch/nanr/CESM3-SMYLE/${main_case_root}/run.${mbr}/
 
 echo $rundir
-#cd $casedir
 
 #============= START =======
 
@@ -34,8 +34,6 @@ cd $tagdir/cime/scripts
   --compset HISTC_CAM70%LT_CLM60%BGC-CROP_CICE_MOM6_MOSART_DGLC%NOEVOLVE_WW3_SESP \
   --res $resoln --case $casedir --run-unsupported
 
-#cd /glade/work/nanr/CESM3-SMYLE/b.e30_beta04.BLTHIST.ne30_t232_wgx3_SMYLE.001
-#cd /glade/work/nanr/CESM3-SMYLE/b.${usetag}.${usecompset}.${resoln}.$mbr
 cd $casedir
 
 
@@ -51,6 +49,17 @@ micro_mg_dcs = 600.D-6
 clubb_c8 = 4.6
 cldfrc_dp1 = 0.05
 bnd_topo = '/glade/campaign/cgd/amp/pel/topo/cesm3/ne30pg3_gmted2010_modis_bedmachine_nc3000_Laplace0050_noleak_20250325.nc'
+
+ ext_frc_specifier              = 'bc_a4 -> /glade/campaign/cesm/cesmdata/inputdata/atm/cam/chem/emis/historical_ne30pg3/emissions-cmip6_bc_a4_aircraft_vertical_1750-2015_ne30pg3_c20231112.nc',
+         'num_a1 -> /glade/campaign/cesm/cesmdata/inputdata/atm/cam/chem/emis/historical_ne30pg3/emissions-cmip6_num_so4_a1_anthro-ene_vertical_mol_175001-201412_ne30pg3_c20200103.nc',
+         'num_a1 -> /glade/campaign/cesm/cesmdata/inputdata/atm/cam/chem/emis/historical_ne30pg3/emissions-cmip6_num_a1_so4_contvolcano_vertical_850-5000_ne30pg3_c20200125.nc',
+         'num_a2 -> /glade/campaign/cesm/cesmdata/inputdata/atm/cam/chem/emis/historical_ne30pg3/emissions-cmip6_num_a2_so4_contvolcano_vertical_850-5000_ne30pg3_c20200125.nc',
+         'num_a4 -> /glade/campaign/cesm/cesmdata/inputdata/atm/cam/chem/emis/historical_ne30pg3/emissions-cmip6_num_bc_a4_aircraft_vertical_1750-2015_ne30pg3_c20231112.nc',
+         'SO2 -> /glade/campaign/cesm/cesmdata/inputdata/atm/cam/chem/emis/historical_ne30pg3/emissions-cmip6_SO2_contvolcano_vertical_850-5000_ne30pg3_c20200125.nc',
+         'so4_a1 -> /glade/campaign/cesm/cesmdata/inputdata/atm/cam/chem/emis/historical_ne30pg3/emissions-cmip6_so4_a1_anthro-ene_vertical_mol_175001-201412_ne30pg3_c20200103.nc',
+         'so4_a1 -> /glade/campaign/cesm/cesmdata/inputdata/atm/cam/chem/emis/historical_ne30pg3/emissions-cmip6_so4_a1_contvolcano_vertical_850-5000_ne30pg3_c20200125.nc',
+         'so4_a2 -> /glade/campaign/cesm/cesmdata/inputdata/atm/cam/chem/emis/historical_ne30pg3/emissions-cmip6_so4_a2_contvolcano_vertical_850-5000_ne30pg3_c20200125.nc'
+ ext_frc_type           = 'INTERP_MISSING_MONTHS'
 
 EOF
 
@@ -122,8 +131,8 @@ cp $curdir/SourceMods/src.drv/* SourceMods/src.drv
 ./xmlchange RUNDIR=$rundir
  
 ./xmlchange PROJECT=CESM0020
-./xmlchange STOP_N=24
-./xmlchange REST_N=24
+./xmlchange STOP_N=13
+./xmlchange REST_N=13
 ./xmlchange STOP_OPTION=nmonths
 ./xmlchange RESUBMIT=0
 
@@ -159,4 +168,5 @@ mkdir -p $rundir
     #fi
     ./case.submit
 
+done
 done

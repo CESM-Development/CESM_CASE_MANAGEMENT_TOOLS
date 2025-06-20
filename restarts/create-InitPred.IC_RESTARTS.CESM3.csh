@@ -17,7 +17,7 @@ set eyr = 1991
 @ ie = $eyr
 
 foreach year ( `seq $ib $ie` )
-foreach mon ( 11 )
+foreach mon ( 08 )
 
 set case = b.e30.SMYLE_IC.ne30pg3_t232_wg37.${year}-${mon}.01
 
@@ -55,6 +55,8 @@ set lndfout = ${case}.clm2.r.${year}-${mon}-01-00000.nc
 set roffout = ${case}.mosart.r.${year}-${mon}-01-00000.nc
 
 echo $atmfout
+echo $atmdir/$atmfname
+end
 
 set doThis = 1
 
@@ -93,7 +95,7 @@ set ocean_base_year = 62
 @ offset = $first_rest_year - $ocean_base_year 
 @ ocnyr   = $year - $offset
 set pocnyr = `printf "%04d" $ocnyr`
-set ocndir = /glade/derecho/scratch/gmarques/archive/g.e30_b06.GJRAv4.TL319_t232_wgx3_hycom1_N75.2025.081/rest/${pocnyr}-11-01-00000/
+set ocndir = /glade/derecho/scratch/gmarques/archive/g.e30_b06.GJRAv4.TL319_t232_wgx3_hycom1_N75.2025.081/rest/${pocnyr}-${mon}-01-00000/
 
 echo $ocndir
 
