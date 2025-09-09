@@ -5,23 +5,23 @@
 setenv DOUT  /pscratch/sd/n/nanr/v21.LR.SMYLEsmbb
 
 # ...
-set syr = 2019
-set eyr = 2019
+set syr = 2012
+set eyr = 2012
 
 @ ib = $syr
 @ ie = $eyr
 
 foreach year ( `seq $ib $ie` )
-foreach mon ( 02 )
+foreach mon ( 11 )
 
 # case name counter
-set smbr =  1
-set embr =  20
+set smbr =  2
+set embr =  10
 
 @ mb = $smbr
 @ me = $embr
 
-set CASE = v21.LR.BSMYLEsmbb.${year}-${mon}.001
+set CASE = v21.LR.BSMYLEsmbb_TRENDY.${year}-${mon}.001
 
 foreach mbr ( `seq $mb $me` )
 if ($mbr < 10) then

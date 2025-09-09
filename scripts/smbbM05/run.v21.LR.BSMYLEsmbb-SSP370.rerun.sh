@@ -9,7 +9,7 @@
 # http://kfirlavi.herokuapp.com/blog/2012/11/14/defensive-bash-programming
 
 #array=( 001 002 003 004 005 006 007 008 009 010 )
-array=( 1 17 18 )
+array=( 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 )
 for imbr in "${array[@]}"
 do
 
@@ -30,7 +30,7 @@ fi
 # For debugging, uncomment libe below
 #set -x
 
-useyear=2019
+useyear=2021
 usemonth=05
 
 
@@ -38,7 +38,7 @@ usemonth=05
 
 # Machine and project
 MACHINE=pm-cpu
-PROJECT="m4417"
+PROJECT="mp9"
 
 # Simulation
 COMPSET="WCYCLSSP370" # SSP370 transient
@@ -80,7 +80,7 @@ CASE_ROOT="/pscratch/sd/n/${USER}/v21.LR.SMYLEsmbb/${MAIN_CASE_NAME}/"
 
 # Sub-directories
 #CASE_BUILD_DIR=${MAIN_CASE_ROOT}/build
-CASE_BUILD_DIR=/pscratch/sd/n/nanr/v21.LR.SMYLE/exeroot/build
+CASE_BUILD_DIR=/pscratch/sd/n/nanr/v21.LR.SMYLEsmbb/exeroot/build
 CASE_ARCHIVE_DIR=${MAIN_CASE_ROOT}/archive.${mbr}
 #CASE_ARCHIVE_DIR=/global/cfs/cdirs/mp9/archive/v21.LR.SMYLE/${MAIN_CASE_NAME}/archive.${mbr}
 

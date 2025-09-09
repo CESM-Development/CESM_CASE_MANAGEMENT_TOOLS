@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<file id="stream" version="1.0">
+<dataSource>
+   GENERIC
+</dataSource>
+<domainInfo>
+  <variableNames>
+     time    time
+        xc      lon
+        yc      lat
+        area    area
+        mask    mask
+  </variableNames>
+  <filePath>
+     /global/cfs/cdirs/e3sm/inputdata/share/domains/domain.clm
+  </filePath>
+  <fileNames>
+     domain.lnd.360x720.130305.nc
+  </fileNames>
+</domainInfo>
+<fieldInfo>
+   <variableNames>
+     FSDS swdn
+   </variableNames>
+   <filePath>
+     /pscratch/sd/n/nanr/TRENDY
+   </filePath>
+   <fileNames>
+    clmforc.TRENDY.c2020.0.5x0.5.Solr.2000.nc
+   </fileNames>
+   <offset>
+      0
+   </offset>
+</fieldInfo>
+</file>

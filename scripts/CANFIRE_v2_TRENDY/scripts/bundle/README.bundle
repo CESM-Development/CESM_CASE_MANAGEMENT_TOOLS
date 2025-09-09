@@ -1,0 +1,18 @@
+Rough instructions
+# set up runs
+./run.v2.LR.historical-smbb_YYYY.sh
+
+# copy restarts, set EXEROOT
+./change_JOB-QUEUE.csh
+
+# submit job
+sbatch ./v2.LR.SMBB_bundle.sh
+
+# Reset CONTINUE_RUN if necessary (e.g., if I've already submitted the bundle but it fails)
+./change_CONT_RUN.scr
+
+
+July 22 2025
+Perlmutter CPU jobs in the regular QOS using 256 or more nodes are also discounted by 50%.
+
+256 / 7 = 36

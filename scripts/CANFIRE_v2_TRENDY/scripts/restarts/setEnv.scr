@@ -1,0 +1,4 @@
+module load e4s
+spack env activate gcc
+spack load nco
+module load cudatoolkit/11.5

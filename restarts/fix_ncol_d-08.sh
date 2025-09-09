@@ -6,7 +6,7 @@
 #module load cudatoolkit/11.5
 #module load python
 
-for year in {1970..2020}; do
+for year in {2021..2021}; do
 for pert in {01..20}; do
   case=v21.LR.SMYLE_IC.${year}-08.01
   eamfile=v21.LR.SMYLE_IC.pert.eam.i.$year-08-01-00000.nc

@@ -9,7 +9,10 @@
 # http://kfirlavi.herokuapp.com/blog/2012/11/14/defensive-bash-programming
 
 #array=( 001 002 003 004 005 006 007 008 009 010 )
-array=( 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 )
+#array=( 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 )
+#array=( 1 2 )
+#array=( 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 )
+array=( 14 15 16 17 18 19 20 )
 for imbr in "${array[@]}"
 do
 
@@ -30,7 +33,7 @@ fi
 # For debugging, uncomment libe below
 #set -x
 
-useyear=2019
+useyear=2020
 usemonth=02
 
 
@@ -127,7 +130,7 @@ HIST_N="5"
 
 # Leave empty (unless you understand what it does)
 #OLD_EXECUTABLE=""
-OLD_EXECUTABLE="/pscratch/sd/n/nanr/v21.LR.SMYLE/exeroot/build"
+OLD_EXECUTABLE="/pscratch/sd/n/nanr/v21.LR.SMYLEsmbb/exeroot/build"
 #OLD_EXECUTABLE="${MAIN_CASE_ROOT}/build"
 
 # --- Toggle flags for what to do ----
@@ -384,7 +387,7 @@ case_setup() {
     ls ${CASE_RUN_DIR}
 
     # pre-stage ICs
-    cp /global/u2/n/nanr/CESM_tools/e3sm/v2/scripts/v2.SMYLE/env_mach/env_mach_specific.xml ${CASE_SCRIPTS_DIR}/
+    #cp /global/u2/n/nanr/CESM_tools/e3sm/v2/scripts/v2.SMYLE/env_mach/env_mach_specific.xml ${CASE_SCRIPTS_DIR}/
     cp ${ics}/${useyear}-${usemonth}-01/rpointer.* ${CASE_RUN_DIR}/
     ln -s ${ics}/${useyear}-${usemonth}-01/v21.* ${CASE_RUN_DIR}/
 

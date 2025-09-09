@@ -6,7 +6,7 @@
 #module load cudatoolkit/11.5
 #module load python
 
-for year in {2013..2013}; do
+for year in {2023..2023}; do
 for pert in {01..20}; do
   mon=11
   case=v21.LR.SMYLE_IC.${year}-${mon}.01

@@ -5,8 +5,8 @@
 setenv DOUT  /pscratch/sd/n/nanr/v21.LR.BSMYLE_v2
 
 # ...
-set syr = 1977
-set eyr = 1978
+set syr = 2013
+set eyr = 2013
 
 @ ib = $syr
 @ ie = $eyr
@@ -15,7 +15,7 @@ foreach year ( `seq $ib $ie` )
 foreach mon ( 02 )
 
 # case name counter
-set smbr =  1
+set smbr =  2
 set embr =  20
 
 @ mb = $smbr
@@ -34,13 +34,14 @@ endif
 echo "==================================    " 
 #echo $CASE 
     cd $DOUT/$CASE/$CASEDIR
-    #cp /pscratch/sd/n/nanr/v21.LR.SMYLEsmbb/v21.LR.BSMYLEsmbb.2014-${mon}.001/case_scripts.001/user_nl_eam .
+    #cp /pscratch/sd/n/nanr/v21.LR.BSMYLE_v2/v21.LR.BSMYLE_v2.2011-02.001/case_scripts.002/env_mach_specific.xml .
     #./xmlchange STOP_N=14
     #./xmlchange REST_N=14
+    #./xmlchange EXEROOT=/pscratch/sd/n/nanr/v21.LR.BSMYLE_v2/exeroot/
 
     #diff user_nl_eam ../case_scripts.001/user_nl_eam
     #./preview_namelists
-    ./xmlchange JOB_WALLCLOCK_TIME=16:00:00
+    #./xmlchange JOB_WALLCLOCK_TIME=16:00:00
     ./case.submit
 
 

@@ -30,7 +30,7 @@ fi
 # For debugging, uncomment libe below
 #set -x
 
-useyear=2019
+useyear=2020
 usemonth=11
 
 
@@ -38,7 +38,8 @@ usemonth=11
 
 # Machine and project
 MACHINE=pm-cpu
-PROJECT="m4417"
+#PROJECT="m4417"
+PROJECT="mp9"
 
 # Simulation
 COMPSET="WCYCLSSP370" # SSP370 transient

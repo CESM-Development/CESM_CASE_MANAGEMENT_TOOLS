@@ -1,0 +1,47 @@
+#!/bin/csh 
+### set env variables
+module load ncl nco
+
+setenv E3SM_TOOLS_ROOT /global/u2/n/nanr/CESM_tools/e3sm/v2/scripts/v2.AUFIRE/
+
+# ...
+set syr = 2019
+set eyr = 2019
+
+@ ib = $syr
+@ ie = $eyr
+
+foreach year ( `seq $ib $ie` )
+foreach mon ( 08 )
+#foreach mon ( 02 05 08 11 )
+
+# case name counter
+set smbr =  21
+set embr =  29
+
+@ mb = $smbr
+@ me = $embr
+
+
+foreach mbr ( `seq $mb $me` )
+if ($mbr < 10) then
+        set CASE_DIR = case_scripts.00${mbr}
+	set MAIN_CASE = v2.LR.SSP370_AUFIRE-cntl.${year}-${mon}.00${mbr}
+else
+        set CASE_DIR = case_scripts.0${mbr}
+	set MAIN_CASE = v2.LR.SSP370_AUFIRE-cntl.${year}-${mon}.0${mbr}
+endif
+
+set CASEROOT = $SCRATCH/v2.LR.AUFIRE/${MAIN_CASE}/${CASE_DIR}
+
+cd $CASEROOT
+echo $CASEROOT
+./xmlchange STOP_N=17,REST_N=17
+./case.submit
+
+end             # member loop
+end             # member loop
+end             # member loop
+
+exit
+

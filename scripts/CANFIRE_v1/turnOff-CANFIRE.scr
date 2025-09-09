@@ -1,0 +1,59 @@
+#!/bin/csh 
+### set env variables
+module load ncl nco
+
+setenv E3SM_TOOLS_ROOT /pscratch/sd/n/nanr/CESM_tools/v21.LR.SMYLE/scripts/CANFIRE_v1/
+
+# ...
+set syr = 2023
+set eyr = 2023
+
+@ ib = $syr
+@ ie = $eyr
+
+foreach year ( `seq $ib $ie` )
+foreach mon ( 05 )
+
+# case name counter
+set smbr =  3
+set embr =  20
+
+@ mb = $smbr
+@ me = $embr
+
+set MAIN_CASE = v21.LR.BSMYLE_v1_CANFIRE.${year}-${mon}.001
+
+foreach mbr ( `seq $mb $me` )
+if ($mbr < 10) then
+        set CASE_DIR = case_scripts.00${mbr}
+else
+        set CASE_DIR = case_scripts.0${mbr}
+endif
+
+set CASEROOT = $SCRATCH/v21.LR.BSMYLE_v1_CANFIRE/${MAIN_CASE}/${CASE_DIR}
+
+cd $CASEROOT
+echo $CASEROOT
+mv $CASEROOT/user_nl_eam $CASEROOT/user_nl_eam-canfiresON
+cp $E3SM_TOOLS_ROOT/user_nl_files/user_nl_eam-canfiresOFF $CASEROOT/user_nl_eam
+./xmlchange CONTINUE_RUN=TRUE
+# end in July 2021
+#./xmlchange STOP_N=13   
+
+# end in July 2022
+#./xmlchange STOP_N=25
+
+# end in December 2024 (54 months)
+./xmlchange STOP_DATE=20300101
+./xmlchange STOP_N=18
+./xmlchange REST_N=18
+./xmlchange JOB_WALLCLOCK_TIME=12:00:00 --subgroup case.run
+./xmlchange RESUBMIT=0
+./case.submit
+
+end             # member loop
+end             # member loop
+end             # member loop
+
+exit
+

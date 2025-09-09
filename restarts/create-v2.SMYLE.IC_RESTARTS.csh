@@ -29,8 +29,8 @@ setenv TOOLS_ROOT /global/u2/n/nanr/CESM_tools/e3sm/v2/scripts/v2.SMYLE/
 # set eyr = 1980
 # set syr = 1981
 # set eyr = 2000
-set syr = 2001
-set eyr = 2001
+set syr = 2020
+set eyr = 2020
 
 @ ib = $syr
 @ ie = $eyr

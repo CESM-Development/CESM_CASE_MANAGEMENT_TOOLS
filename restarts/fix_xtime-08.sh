@@ -6,7 +6,7 @@
 #module load cudatoolkit/11.5
 #module load python
 
-for year in {1970..2018}; do
+for year in {2021..2021}; do
   case=v21.LR.SMYLE_IC.${year}-08.01
   poprfout=v21.LR.SMYLE_IC.${year}-08.01.mpaso.rst.$year-08-01_00000.nc
   icerfout=v21.LR.SMYLE_IC.${year}-08.01.mpassi.rst.$year-08-01_00000.nc

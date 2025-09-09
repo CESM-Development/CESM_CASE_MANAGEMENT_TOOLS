@@ -1,0 +1,48 @@
+#!/bin/csh 
+### set env variables
+module load ncl nco
+
+setenv E3SM_TOOLS_ROOT /global/u2/n/nanr/CESM_tools/e3sm/v2/scripts/v2.AUFIRE/
+
+# ...
+set syr = 2019
+set eyr = 2019
+
+@ ib = $syr
+@ ie = $eyr
+
+foreach year ( `seq $ib $ie` )
+foreach mon ( 08 )
+#foreach mon ( 02 05 08 11 )
+
+# case name counter
+set smbr =  4
+set embr =  20
+
+@ mb = $smbr
+@ me = $embr
+
+set MAIN_CASE = v2.LR.SSP370_AUFIRE.${year}-${mon}.001
+
+foreach mbr ( `seq $mb $me` )
+if ($mbr < 10) then
+        set RUN_DIR = run.00${mbr}
+        set ARCH_DIR = archive.00${mbr}
+else
+        set RUN_DIR = run.0${mbr}
+        set ARCH_DIR = archive.0${mbr}
+endif
+
+set RUNROOT  = $SCRATCH/v2.LR.AUFIRE/${MAIN_CASE}/${RUN_DIR}
+set ARCHROOT = $SCRATCH/v2.LR.AUFIRE/${MAIN_CASE}/${ARCH_DIR}
+
+cd $RUNROOT
+echo $RUNROOT
+cp $ARCH_DIR/rof/hist/*.mosart.h1.2019-08-02-00000.nc .
+
+end             # member loop
+end             # member loop
+end             # member loop
+
+exit
+
