@@ -1,0 +1,1 @@
+The CESM_CASE_MANAGEMENT_TOOLS repository tracks the workflow and creation of CESM Large Ensembles as well as complicated workflows for individual simulations, including scripts for creating initial conditions, namelists and cases.
