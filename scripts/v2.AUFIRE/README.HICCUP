@@ -2,12 +2,62 @@ What I've done:
 
 git clone https://github.com/E3SM-Project/HICCUP ./HICCUP
 
-bash
-source /global/common/software/e3sm/anaconda_envs/load_latest_e3sm_unified_pm-cpu.sh
+## This zip file was attached to Walter's August 21, 2023 email:
+	scp cheyenne.ucar.edu:/glade/scratch/nanr/catalyst_hiccup.zip .
 
+bash
 
 From README.MD
-conda create --name hiccup_env -c conda-forge xarray dask pandas numpy scipy netcdf4 pynio hdf5 cdsapi tempest-remap nco
+~~ --------------------------
+module load e4s
+spack env activate gcc
+spack load nco
+module load cudatoolkit/11.7
+module load python
+
+conda activate hiccup_env3
+./setup.py install
+
+~~ --------------------------
+# First, need to get API for data download:
+# Look for api on website:  ECMWF 
+https://cds.climate.copernicus.eu/api-how-to
+
+# set up this file to download ERA5 data
+/global/homes/n/nanr/.cdsapirc
+
+# Get Data (edit time periods and month!)
+./get_hindcast_data.ERA5.py		
+
+# process Data (edit time periods and month!)
+sbatch 2023-CATALYST.batch.py
+~~ --------------------------
+# pick up data Walter shared for me
+cd /pscratch/sd/n/nanr/data_IC/data_ERA5
+take -u whannah 
+take -u whannah -a 
+~~ --------------------------
+
+# From Walter Hannah:
+
+
+
+
+~~ --------------------------
+conda create --name hiccup_env3 -c conda-forge xarray dask
+(nersc-python) nanr@perlmutter:login11:~> conda activate hiccup_env3
+conda install -c conda-forge pandas numpy scipy netcdf4 pynio hdf5
+conda install -c conda-forge cdsapi tempest-remap nco
+~~ --------------------------
+
+/global/u2/n/nanr/CESM_tools/e3sm/v2/scripts/v2.AUFIRE/HICCUP/catalyst_hiccup
+2023-CATALYST.batch.py
+
+Got help from JimEdwards:  Added script from 2023-CATALYST.batch.sh to the top of 2023-CATALYST.batch.py and changed from --partition to -qos regular.
+Then submitted:
+
+sbatch 2023-CATALYST.batch.py
+
 
 
 =======================================

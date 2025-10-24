@@ -1,0 +1,11 @@
+  551  mkdir v2.LR.historical_0251; cd v2.LR.historical_0251; 
+  557  zstash extract --hpss=/home/f/forsyth/E3SMv2/v2.LR.historical_0251 "archive/rest/1975-01-01-00000/*"
+  561  mkdir v2.LR.historical_0211; cd *211
+  564  zstash ls --hpss=/home/g/golaz/E3SMv2/v2.LR.historical_0211 "archive/rest/*" | less
+  565  zstash extract --hpss=/home/g/golaz/E3SMv2/v2.LR.historical_0211 "archive/rest/1976-01-01-00000/*"
+  569  mkdir v2.LR.historical_0191; cd *191
+  571  zstash extract --hpss=/home/g/golaz/E3SMv2/v2.LR.historical_0191 "archive/rest/1976-01-01-00000/*" &
+  573  mkdir v2.LR.historical_0151; cd *151
+  577  zstash extract --hpss=/home/f/forsyth/E3SMv2/v2.LR.historical_0151 "archive/rest/1975-01-01-00000/*"
+  580  mkdir v2.LR.historical_0121; cd *121
+  582  zstash extract --hpss=/home/g/golaz/E3SMv2/v2.LR.historical_0121 "archive/rest/1976-01-01-00000/*" &

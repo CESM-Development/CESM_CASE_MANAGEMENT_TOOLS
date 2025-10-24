@@ -1,0 +1,31 @@
+Jon Wolf:
+I'm looking at what they did to "fix" the default restart file and it seems like they just stuck on an array with no values in it. This is what I get from the fixed file:
+
+ncdump -h v2.LR.historical_0101.elm.r.2015-01-01-00000.nc | grep -i endwb
+double ENDWB_COL(column) ;
+ENDWB_COL:long_name = "col-level water mass end of the time step" ;
+ENDWB_COL:units = "mm" ;
+ENDWB_COL:interpinic_flag = 1 ;
+ENDWB_COL:interpinic_flag_meanings = "1=nearest neighbor, 2=copy directly, 3=skip" ;
+ENDWB_COL:_FillValue = 1.e+36 ;
+ENDWB_COL:missing_value = 1.e+36 ;
+
+but looking at it with ncview says "All values are missing!"
+
+---------------
+srcuni
+
+# Make a safe copy
+cp v2.LR.hist-GHG_0141.elm.r.1904-01-01-00000.nc v2.LR.hist-GHG_0141.elm.r.1904-01-01-00000.ORIG.nc
+
+# Extract variable to use as template fpr ENDWB_COL
+ncks -v URBAN_HEAT v2.LR.hist-GHG_0141.elm.r.1904-01-01-00000.nc URBAN_HEAT.nc
+ncrename -v URBAN_HEAT,ENDWB_COL URBAN_HEAT.nc 
+cp URBAN_HEAT.nc input.nc
+
+# Set ENDWB_COL to 0.0
+ncflint -O -v ENDWB_COL -w 0,0 input.nc input.nc output.nc
+mv output.nc ENDWB_COL.nc 
+
+# Append ENDWB_COL to restart file
+ncks -A ENDWB_COL.nc v2.LR.hist-GHG_0141.elm.r.1904-01-01-00000.nc

@@ -18,14 +18,14 @@ main() {
 # --- Configuration flags ----
 
 # Machine and project
-readonly MACHINE=cori-knl
+readonly MACHINE=pm-cpu
 readonly PROJECT="mp9"
 
 # Simulation
 readonly COMPSET="WCYCL1850-1pctCO2"
 readonly RESOLUTION="ne30pg2_EC30to60E2r2"
-readonly CASE_NAME="v2.1.LR.1pctCO2_EXTEND.001"
-readonly CASE_GROUP="v2.1.LR"
+readonly CASE_NAME="v21.LR.1pctCO2_EXTEND.001"
+readonly CASE_GROUP="v21.LR"
 
 # Code and compilation
 #readonly CHECKOUT="20221216"
@@ -38,23 +38,20 @@ readonly MODEL_START_TYPE="hybrid"  # 'initial', 'continue', 'branch', 'hybrid'
 readonly START_DATE="0151-01-01"
 
 # Additional options for 'branch' and 'hybrid'
-readonly GET_REFCASE=TRUE
-readonly RUN_REFDIR="/global/cscratch1/sd/lvroekel/hosing_experiments/0151-01-01-00000/"
-readonly RUN_REFCASE="v2.LR.1pctCO2_0101"
+readonly GET_REFCASE=FALSE
+readonly RUN_REFDIR="/pscratch/sd/n/nanr/archive/v2_1.LR.1pctCO2_0101/rest/0151-01-01-00000"
+readonly RUN_REFCASE="v2_1.LR.1pctCO2_0101"
 readonly RUN_REFDATE="0151-01-01"   # same as MODEL_START_DATE for 'branch', can be different for 'hybrid'
 
 # Set paths
-readonly MY_PATH="/global/project/projectdirs/ccsm1/people/nanr"
-#readonly CODE_ROOT="${MY_PATH}/e3sm_tags/E3SMv2/code/${CHECKOUT}"
-readonly CODE_ROOT="${MY_PATH}/e3sm_tags/E3SMv2.1/code/v2.1.0-beta.3"
-readonly CASE_ROOT="${MY_PATH}/cases/e3smv2/${CASE_NAME}"
-#readonly CASE_ROOT="${SCRATCH}/cases/e3smv2/${CASE_NAME}"
+MY_PATH="/global/cfs/cdirs/mp9/"
+CODE_ROOT="${MY_PATH}/e3sm_tags/E3SMv2.1/"
+CASE_ROOT="/pscratch/sd/n/${USER}/${CASE_NAME}/"
 
 # Sub-directories
-#readonly CASE_BUILD_DIR=${CASE_ROOT}/build
-#readonly CASE_ARCHIVE_DIR=${CASE_ROOT}/archive
-readonly CASE_BUILD_DIR=$SCRATCH/$CASE_NAME/bld
-readonly CASE_ARCHIVE_DIR=$SCRATCH/archive/$CASE_NAME/
+CASE_BUILD_DIR=${CASE_ROOT}/build
+CASE_ARCHIVE_DIR=${CASE_ROOT}/archive
+CASE_SCRIPTS_DIR=${CASE_ROOT}/case_scripts
 
 # Define type of run
 #  short tests: 'XS_2x5_ndays', 'XS_1x10_ndays', 'S_1x10_ndays', 
@@ -84,8 +81,8 @@ if [ "${run}" != "production" ]; then
 else
 
   # Production simulation
-  readonly CASE_SCRIPTS_DIR=${CASE_ROOT}/
-  readonly CASE_RUN_DIR=${SCRATCH}/${CASE_NAME}/run
+  readonly CASE_SCRIPTS_DIR=${CASE_ROOT}/case_scripts
+  readonly CASE_RUN_DIR=${CASE_ROOT}/run
   readonly PELAYOUT="L"
   readonly WALLTIME="24:00:00"
   readonly STOP_OPTION="nyears"
@@ -270,8 +267,7 @@ create_newcase() {
         --res ${RESOLUTION} \
         --machine ${MACHINE} \
         --project ${PROJECT} \
-        --walltime ${WALLTIME} \
-        --pecount ${PELAYOUT}
+        --walltime ${WALLTIME} 
 
     if [ $? != 0 ]; then
       echo $'\nNote: if create_newcase failed because sub-directory already exists:'
@@ -312,6 +308,11 @@ case_setup() {
 
     # Extracts input_data_dir in case it is needed for user edits to the namelist later
     local input_data_dir=`./xmlquery DIN_LOC_ROOT --value`
+
+    cp /global/u2/n/nanr/CESM_tools/e3sm/v2/scripts/v2.SMYLE/env_mach/env_mach_specific.xml ${CASE_SCRIPTS_DIR}/
+    #cp ${RUN_REFDIR}/rpointer.* ${CASE_RUN_DIR}/
+    #ln ${RUN_REFDIR}/v2_1.* ${CASE_RUN_DIR}/
+
 
     # Custom user_nl
     user_nl

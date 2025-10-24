@@ -1,0 +1,121 @@
+Rvals are [363, 848, 183, 723, 28, 381, 370, 268, 985, 166, 672, 11, 192, 316, 637, 626, 364, 539, 0, 582]
+HERE rvals[0] = 363
+HERE rvals[1] = 848
+HERE rvals[2] = 183
+HERE rvals[3] = 723
+HERE rvals[4] = 28
+HERE rvals[5] = 381
+HERE rvals[6] = 370
+HERE rvals[7] = 268
+HERE rvals[8] = 985
+HERE rvals[9] = 166
+HERE rvals[10] = 672
+HERE rvals[11] = 11
+HERE rvals[12] = 192
+HERE rvals[13] = 316
+HERE rvals[14] = 637
+HERE rvals[15] = 626
+HERE rvals[16] = 364
+HERE rvals[17] = 539
+HERE rvals[18] = 0
+HERE rvals[19] = 582
+Creating perturbed init file /global/cfs/cdirs/mp9/E3SMv2.1-SMYLE/inputdata/e3sm_init/v21.LR.SMYLE_IC.2019-08.01/pert.01/v21.LR.SMYLE_IC.pert.eam.i.2019-08-01-tmp.nc
+Creating perturbed init file /global/cfs/cdirs/mp9/E3SMv2.1-SMYLE/inputdata/e3sm_init/v21.LR.SMYLE_IC.2019-08.01/pert.02/v21.LR.SMYLE_IC.pert.eam.i.2019-08-01-tmp.nc
+Using perturb_file /global/cfs/cdirs/mp9/E3SMv2.1-SMYLE/S2S_perts_DIFF/08/v2.LR.historical_daily-cami_0241.eam.i.M08.diff.363.nc
+Creating perturbed init file /global/cfs/cdirs/mp9/E3SMv2.1-SMYLE/inputdata/e3sm_init/v21.LR.SMYLE_IC.2019-08.01/pert.03/v21.LR.SMYLE_IC.pert.eam.i.2019-08-01-tmp.nc
+Creating perturbed init file /global/cfs/cdirs/mp9/E3SMv2.1-SMYLE/inputdata/e3sm_init/v21.LR.SMYLE_IC.2019-08.01/pert.04/v21.LR.SMYLE_IC.pert.eam.i.2019-08-01-tmp.nc
+Using perturb_file /global/cfs/cdirs/mp9/E3SMv2.1-SMYLE/S2S_perts_DIFF/08/v2.LR.historical_daily-cami_0241.eam.i.M08.diff.848.nc
+Creating perturbed init file /global/cfs/cdirs/mp9/E3SMv2.1-SMYLE/inputdata/e3sm_init/v21.LR.SMYLE_IC.2019-08.01/pert.05/v21.LR.SMYLE_IC.pert.eam.i.2019-08-01-tmp.nc
+Creating perturbed init file /global/cfs/cdirs/mp9/E3SMv2.1-SMYLE/inputdata/e3sm_init/v21.LR.SMYLE_IC.2019-08.01/pert.06/v21.LR.SMYLE_IC.pert.eam.i.2019-08-01-tmp.nc
+Using perturb_file /global/cfs/cdirs/mp9/E3SMv2.1-SMYLE/S2S_perts_DIFF/08/v2.LR.historical_daily-cami_0241.eam.i.M08.diff.183.nc
+Creating perturbed init file /global/cfs/cdirs/mp9/E3SMv2.1-SMYLE/inputdata/e3sm_init/v21.LR.SMYLE_IC.2019-08.01/pert.07/v21.LR.SMYLE_IC.pert.eam.i.2019-08-01-tmp.nc
+Creating perturbed init file /global/cfs/cdirs/mp9/E3SMv2.1-SMYLE/inputdata/e3sm_init/v21.LR.SMYLE_IC.2019-08.01/pert.08/v21.LR.SMYLE_IC.pert.eam.i.2019-08-01-tmp.nc
+Using perturb_file /global/cfs/cdirs/mp9/E3SMv2.1-SMYLE/S2S_perts_DIFF/08/v2.LR.historical_daily-cami_0241.eam.i.M08.diff.723.nc
+Creating perturbed init file /global/cfs/cdirs/mp9/E3SMv2.1-SMYLE/inputdata/e3sm_init/v21.LR.SMYLE_IC.2019-08.01/pert.09/v21.LR.SMYLE_IC.pert.eam.i.2019-08-01-tmp.nc
+Creating perturbed init file /global/cfs/cdirs/mp9/E3SMv2.1-SMYLE/inputdata/e3sm_init/v21.LR.SMYLE_IC.2019-08.01/pert.10/v21.LR.SMYLE_IC.pert.eam.i.2019-08-01-tmp.nc
+Using perturb_file /global/cfs/cdirs/mp9/E3SMv2.1-SMYLE/S2S_perts_DIFF/08/v2.LR.historical_daily-cami_0241.eam.i.M08.diff.028.nc
+Creating perturbed init file /global/cfs/cdirs/mp9/E3SMv2.1-SMYLE/inputdata/e3sm_init/v21.LR.SMYLE_IC.2019-08.01/pert.11/v21.LR.SMYLE_IC.pert.eam.i.2019-08-01-tmp.nc
+Creating perturbed init file /global/cfs/cdirs/mp9/E3SMv2.1-SMYLE/inputdata/e3sm_init/v21.LR.SMYLE_IC.2019-08.01/pert.12/v21.LR.SMYLE_IC.pert.eam.i.2019-08-01-tmp.nc
+Using perturb_file /global/cfs/cdirs/mp9/E3SMv2.1-SMYLE/S2S_perts_DIFF/08/v2.LR.historical_daily-cami_0241.eam.i.M08.diff.381.nc
+Creating perturbed init file /global/cfs/cdirs/mp9/E3SMv2.1-SMYLE/inputdata/e3sm_init/v21.LR.SMYLE_IC.2019-08.01/pert.13/v21.LR.SMYLE_IC.pert.eam.i.2019-08-01-tmp.nc
+Creating perturbed init file /global/cfs/cdirs/mp9/E3SMv2.1-SMYLE/inputdata/e3sm_init/v21.LR.SMYLE_IC.2019-08.01/pert.14/v21.LR.SMYLE_IC.pert.eam.i.2019-08-01-tmp.nc
+Using perturb_file /global/cfs/cdirs/mp9/E3SMv2.1-SMYLE/S2S_perts_DIFF/08/v2.LR.historical_daily-cami_0241.eam.i.M08.diff.370.nc
+Creating perturbed init file /global/cfs/cdirs/mp9/E3SMv2.1-SMYLE/inputdata/e3sm_init/v21.LR.SMYLE_IC.2019-08.01/pert.15/v21.LR.SMYLE_IC.pert.eam.i.2019-08-01-tmp.nc
+Creating perturbed init file /global/cfs/cdirs/mp9/E3SMv2.1-SMYLE/inputdata/e3sm_init/v21.LR.SMYLE_IC.2019-08.01/pert.16/v21.LR.SMYLE_IC.pert.eam.i.2019-08-01-tmp.nc
+Using perturb_file /global/cfs/cdirs/mp9/E3SMv2.1-SMYLE/S2S_perts_DIFF/08/v2.LR.historical_daily-cami_0241.eam.i.M08.diff.268.nc
+Creating perturbed init file /global/cfs/cdirs/mp9/E3SMv2.1-SMYLE/inputdata/e3sm_init/v21.LR.SMYLE_IC.2019-08.01/pert.17/v21.LR.SMYLE_IC.pert.eam.i.2019-08-01-tmp.nc
+Creating perturbed init file /global/cfs/cdirs/mp9/E3SMv2.1-SMYLE/inputdata/e3sm_init/v21.LR.SMYLE_IC.2019-08.01/pert.18/v21.LR.SMYLE_IC.pert.eam.i.2019-08-01-tmp.nc
+Using perturb_file /global/cfs/cdirs/mp9/E3SMv2.1-SMYLE/S2S_perts_DIFF/08/v2.LR.historical_daily-cami_0241.eam.i.M08.diff.985.nc
+Creating perturbed init file /global/cfs/cdirs/mp9/E3SMv2.1-SMYLE/inputdata/e3sm_init/v21.LR.SMYLE_IC.2019-08.01/pert.19/v21.LR.SMYLE_IC.pert.eam.i.2019-08-01-tmp.nc
+Creating perturbed init file /global/cfs/cdirs/mp9/E3SMv2.1-SMYLE/inputdata/e3sm_init/v21.LR.SMYLE_IC.2019-08.01/pert.20/v21.LR.SMYLE_IC.pert.eam.i.2019-08-01-tmp.nc
+Using perturb_file /global/cfs/cdirs/mp9/E3SMv2.1-SMYLE/S2S_perts_DIFF/08/v2.LR.historical_daily-cami_0241.eam.i.M08.diff.166.nc
+Creating perturbed init file /global/cfs/cdirs/mp9/E3SMv2.1-SMYLE/inputdata/e3sm_init/v21.LR.SMYLE_IC.2019-08.01/pert.21/v21.LR.SMYLE_IC.pert.eam.i.2019-08-01-tmp.nc
+Creating perturbed init file /global/cfs/cdirs/mp9/E3SMv2.1-SMYLE/inputdata/e3sm_init/v21.LR.SMYLE_IC.2019-08.01/pert.22/v21.LR.SMYLE_IC.pert.eam.i.2019-08-01-tmp.nc
+Using perturb_file /global/cfs/cdirs/mp9/E3SMv2.1-SMYLE/S2S_perts_DIFF/08/v2.LR.historical_daily-cami_0241.eam.i.M08.diff.672.nc
+Creating perturbed init file /global/cfs/cdirs/mp9/E3SMv2.1-SMYLE/inputdata/e3sm_init/v21.LR.SMYLE_IC.2019-08.01/pert.23/v21.LR.SMYLE_IC.pert.eam.i.2019-08-01-tmp.nc
+Creating perturbed init file /global/cfs/cdirs/mp9/E3SMv2.1-SMYLE/inputdata/e3sm_init/v21.LR.SMYLE_IC.2019-08.01/pert.24/v21.LR.SMYLE_IC.pert.eam.i.2019-08-01-tmp.nc
+Using perturb_file /global/cfs/cdirs/mp9/E3SMv2.1-SMYLE/S2S_perts_DIFF/08/v2.LR.historical_daily-cami_0241.eam.i.M08.diff.011.nc
+Creating perturbed init file /global/cfs/cdirs/mp9/E3SMv2.1-SMYLE/inputdata/e3sm_init/v21.LR.SMYLE_IC.2019-08.01/pert.25/v21.LR.SMYLE_IC.pert.eam.i.2019-08-01-tmp.nc
+Creating perturbed init file /global/cfs/cdirs/mp9/E3SMv2.1-SMYLE/inputdata/e3sm_init/v21.LR.SMYLE_IC.2019-08.01/pert.26/v21.LR.SMYLE_IC.pert.eam.i.2019-08-01-tmp.nc
+Using perturb_file /global/cfs/cdirs/mp9/E3SMv2.1-SMYLE/S2S_perts_DIFF/08/v2.LR.historical_daily-cami_0241.eam.i.M08.diff.192.nc
+Creating perturbed init file /global/cfs/cdirs/mp9/E3SMv2.1-SMYLE/inputdata/e3sm_init/v21.LR.SMYLE_IC.2019-08.01/pert.27/v21.LR.SMYLE_IC.pert.eam.i.2019-08-01-tmp.nc
+Creating perturbed init file /global/cfs/cdirs/mp9/E3SMv2.1-SMYLE/inputdata/e3sm_init/v21.LR.SMYLE_IC.2019-08.01/pert.28/v21.LR.SMYLE_IC.pert.eam.i.2019-08-01-tmp.nc
+Using perturb_file /global/cfs/cdirs/mp9/E3SMv2.1-SMYLE/S2S_perts_DIFF/08/v2.LR.historical_daily-cami_0241.eam.i.M08.diff.316.nc
+Creating perturbed init file /global/cfs/cdirs/mp9/E3SMv2.1-SMYLE/inputdata/e3sm_init/v21.LR.SMYLE_IC.2019-08.01/pert.29/v21.LR.SMYLE_IC.pert.eam.i.2019-08-01-tmp.nc
+Creating perturbed init file /global/cfs/cdirs/mp9/E3SMv2.1-SMYLE/inputdata/e3sm_init/v21.LR.SMYLE_IC.2019-08.01/pert.30/v21.LR.SMYLE_IC.pert.eam.i.2019-08-01-tmp.nc
+Using perturb_file /global/cfs/cdirs/mp9/E3SMv2.1-SMYLE/S2S_perts_DIFF/08/v2.LR.historical_daily-cami_0241.eam.i.M08.diff.637.nc
+Creating perturbed init file /global/cfs/cdirs/mp9/E3SMv2.1-SMYLE/inputdata/e3sm_init/v21.LR.SMYLE_IC.2019-08.01/pert.31/v21.LR.SMYLE_IC.pert.eam.i.2019-08-01-tmp.nc
+Creating perturbed init file /global/cfs/cdirs/mp9/E3SMv2.1-SMYLE/inputdata/e3sm_init/v21.LR.SMYLE_IC.2019-08.01/pert.32/v21.LR.SMYLE_IC.pert.eam.i.2019-08-01-tmp.nc
+Using perturb_file /global/cfs/cdirs/mp9/E3SMv2.1-SMYLE/S2S_perts_DIFF/08/v2.LR.historical_daily-cami_0241.eam.i.M08.diff.626.nc
+Creating perturbed init file /global/cfs/cdirs/mp9/E3SMv2.1-SMYLE/inputdata/e3sm_init/v21.LR.SMYLE_IC.2019-08.01/pert.33/v21.LR.SMYLE_IC.pert.eam.i.2019-08-01-tmp.nc
+Creating perturbed init file /global/cfs/cdirs/mp9/E3SMv2.1-SMYLE/inputdata/e3sm_init/v21.LR.SMYLE_IC.2019-08.01/pert.34/v21.LR.SMYLE_IC.pert.eam.i.2019-08-01-tmp.nc
+Using perturb_file /global/cfs/cdirs/mp9/E3SMv2.1-SMYLE/S2S_perts_DIFF/08/v2.LR.historical_daily-cami_0241.eam.i.M08.diff.364.nc
+Creating perturbed init file /global/cfs/cdirs/mp9/E3SMv2.1-SMYLE/inputdata/e3sm_init/v21.LR.SMYLE_IC.2019-08.01/pert.35/v21.LR.SMYLE_IC.pert.eam.i.2019-08-01-tmp.nc
+Creating perturbed init file /global/cfs/cdirs/mp9/E3SMv2.1-SMYLE/inputdata/e3sm_init/v21.LR.SMYLE_IC.2019-08.01/pert.36/v21.LR.SMYLE_IC.pert.eam.i.2019-08-01-tmp.nc
+Using perturb_file /global/cfs/cdirs/mp9/E3SMv2.1-SMYLE/S2S_perts_DIFF/08/v2.LR.historical_daily-cami_0241.eam.i.M08.diff.539.nc
+Creating perturbed init file /global/cfs/cdirs/mp9/E3SMv2.1-SMYLE/inputdata/e3sm_init/v21.LR.SMYLE_IC.2019-08.01/pert.37/v21.LR.SMYLE_IC.pert.eam.i.2019-08-01-tmp.nc
+Creating perturbed init file /global/cfs/cdirs/mp9/E3SMv2.1-SMYLE/inputdata/e3sm_init/v21.LR.SMYLE_IC.2019-08.01/pert.38/v21.LR.SMYLE_IC.pert.eam.i.2019-08-01-tmp.nc
+Using perturb_file /global/cfs/cdirs/mp9/E3SMv2.1-SMYLE/S2S_perts_DIFF/08/v2.LR.historical_daily-cami_0241.eam.i.M08.diff.000.nc
+Creating perturbed init file /global/cfs/cdirs/mp9/E3SMv2.1-SMYLE/inputdata/e3sm_init/v21.LR.SMYLE_IC.2019-08.01/pert.39/v21.LR.SMYLE_IC.pert.eam.i.2019-08-01-tmp.nc
+Creating perturbed init file /global/cfs/cdirs/mp9/E3SMv2.1-SMYLE/inputdata/e3sm_init/v21.LR.SMYLE_IC.2019-08.01/pert.40/v21.LR.SMYLE_IC.pert.eam.i.2019-08-01-tmp.nc
+Using perturb_file /global/cfs/cdirs/mp9/E3SMv2.1-SMYLE/S2S_perts_DIFF/08/v2.LR.historical_daily-cami_0241.eam.i.M08.diff.582.nc
+Found existing file /global/cfs/cdirs/mp9/E3SMv2.1-SMYLE/inputdata/e3sm_init/v21.LR.SMYLE_IC.2019-08.01/pert.14/v21.LR.SMYLE_IC.pert.eam.i.2019-08-01-00000.nc
+Found existing file /global/cfs/cdirs/mp9/E3SMv2.1-SMYLE/inputdata/e3sm_init/v21.LR.SMYLE_IC.2019-08.01/pert.11/v21.LR.SMYLE_IC.pert.eam.i.2019-08-01-00000.nc
+Found existing file /global/cfs/cdirs/mp9/E3SMv2.1-SMYLE/inputdata/e3sm_init/v21.LR.SMYLE_IC.2019-08.01/pert.05/v21.LR.SMYLE_IC.pert.eam.i.2019-08-01-00000.nc
+Found existing file /global/cfs/cdirs/mp9/E3SMv2.1-SMYLE/inputdata/e3sm_init/v21.LR.SMYLE_IC.2019-08.01/pert.08/v21.LR.SMYLE_IC.pert.eam.i.2019-08-01-00000.nc
+Found existing file /global/cfs/cdirs/mp9/E3SMv2.1-SMYLE/inputdata/e3sm_init/v21.LR.SMYLE_IC.2019-08.01/pert.07/v21.LR.SMYLE_IC.pert.eam.i.2019-08-01-00000.nc
+Found existing file /global/cfs/cdirs/mp9/E3SMv2.1-SMYLE/inputdata/e3sm_init/v21.LR.SMYLE_IC.2019-08.01/pert.17/v21.LR.SMYLE_IC.pert.eam.i.2019-08-01-00000.nc
+Found existing file /global/cfs/cdirs/mp9/E3SMv2.1-SMYLE/inputdata/e3sm_init/v21.LR.SMYLE_IC.2019-08.01/pert.22/v21.LR.SMYLE_IC.pert.eam.i.2019-08-01-00000.nc
+Found existing file /global/cfs/cdirs/mp9/E3SMv2.1-SMYLE/inputdata/e3sm_init/v21.LR.SMYLE_IC.2019-08.01/pert.29/v21.LR.SMYLE_IC.pert.eam.i.2019-08-01-00000.nc
+Found existing file /global/cfs/cdirs/mp9/E3SMv2.1-SMYLE/inputdata/e3sm_init/v21.LR.SMYLE_IC.2019-08.01/pert.12/v21.LR.SMYLE_IC.pert.eam.i.2019-08-01-00000.nc
+Found existing file /global/cfs/cdirs/mp9/E3SMv2.1-SMYLE/inputdata/e3sm_init/v21.LR.SMYLE_IC.2019-08.01/pert.19/v21.LR.SMYLE_IC.pert.eam.i.2019-08-01-00000.nc
+Found existing file /global/cfs/cdirs/mp9/E3SMv2.1-SMYLE/inputdata/e3sm_init/v21.LR.SMYLE_IC.2019-08.01/pert.23/v21.LR.SMYLE_IC.pert.eam.i.2019-08-01-00000.nc
+Found existing file /global/cfs/cdirs/mp9/E3SMv2.1-SMYLE/inputdata/e3sm_init/v21.LR.SMYLE_IC.2019-08.01/pert.13/v21.LR.SMYLE_IC.pert.eam.i.2019-08-01-00000.nc
+Found existing file /global/cfs/cdirs/mp9/E3SMv2.1-SMYLE/inputdata/e3sm_init/v21.LR.SMYLE_IC.2019-08.01/pert.24/v21.LR.SMYLE_IC.pert.eam.i.2019-08-01-00000.nc
+Found existing file /global/cfs/cdirs/mp9/E3SMv2.1-SMYLE/inputdata/e3sm_init/v21.LR.SMYLE_IC.2019-08.01/pert.34/v21.LR.SMYLE_IC.pert.eam.i.2019-08-01-00000.nc
+Found existing file /global/cfs/cdirs/mp9/E3SMv2.1-SMYLE/inputdata/e3sm_init/v21.LR.SMYLE_IC.2019-08.01/pert.39/v21.LR.SMYLE_IC.pert.eam.i.2019-08-01-00000.nc
+Found existing file /global/cfs/cdirs/mp9/E3SMv2.1-SMYLE/inputdata/e3sm_init/v21.LR.SMYLE_IC.2019-08.01/pert.18/v21.LR.SMYLE_IC.pert.eam.i.2019-08-01-00000.nc
+Found existing file /global/cfs/cdirs/mp9/E3SMv2.1-SMYLE/inputdata/e3sm_init/v21.LR.SMYLE_IC.2019-08.01/pert.40/v21.LR.SMYLE_IC.pert.eam.i.2019-08-01-00000.nc
+Found existing file /global/cfs/cdirs/mp9/E3SMv2.1-SMYLE/inputdata/e3sm_init/v21.LR.SMYLE_IC.2019-08.01/pert.38/v21.LR.SMYLE_IC.pert.eam.i.2019-08-01-00000.nc
+Found existing file /global/cfs/cdirs/mp9/E3SMv2.1-SMYLE/inputdata/e3sm_init/v21.LR.SMYLE_IC.2019-08.01/pert.20/v21.LR.SMYLE_IC.pert.eam.i.2019-08-01-00000.nc
+Found existing file /global/cfs/cdirs/mp9/E3SMv2.1-SMYLE/inputdata/e3sm_init/v21.LR.SMYLE_IC.2019-08.01/pert.32/v21.LR.SMYLE_IC.pert.eam.i.2019-08-01-00000.nc
+Found existing file /global/cfs/cdirs/mp9/E3SMv2.1-SMYLE/inputdata/e3sm_init/v21.LR.SMYLE_IC.2019-08.01/pert.25/v21.LR.SMYLE_IC.pert.eam.i.2019-08-01-00000.nc
+Found existing file /global/cfs/cdirs/mp9/E3SMv2.1-SMYLE/inputdata/e3sm_init/v21.LR.SMYLE_IC.2019-08.01/pert.27/v21.LR.SMYLE_IC.pert.eam.i.2019-08-01-00000.nc
+Found existing file /global/cfs/cdirs/mp9/E3SMv2.1-SMYLE/inputdata/e3sm_init/v21.LR.SMYLE_IC.2019-08.01/pert.15/v21.LR.SMYLE_IC.pert.eam.i.2019-08-01-00000.nc
+Found existing file /global/cfs/cdirs/mp9/E3SMv2.1-SMYLE/inputdata/e3sm_init/v21.LR.SMYLE_IC.2019-08.01/pert.37/v21.LR.SMYLE_IC.pert.eam.i.2019-08-01-00000.nc
+Found existing file /global/cfs/cdirs/mp9/E3SMv2.1-SMYLE/inputdata/e3sm_init/v21.LR.SMYLE_IC.2019-08.01/pert.16/v21.LR.SMYLE_IC.pert.eam.i.2019-08-01-00000.nc
+Found existing file /global/cfs/cdirs/mp9/E3SMv2.1-SMYLE/inputdata/e3sm_init/v21.LR.SMYLE_IC.2019-08.01/pert.30/v21.LR.SMYLE_IC.pert.eam.i.2019-08-01-00000.nc
+Found existing file /global/cfs/cdirs/mp9/E3SMv2.1-SMYLE/inputdata/e3sm_init/v21.LR.SMYLE_IC.2019-08.01/pert.31/v21.LR.SMYLE_IC.pert.eam.i.2019-08-01-00000.nc
+Found existing file /global/cfs/cdirs/mp9/E3SMv2.1-SMYLE/inputdata/e3sm_init/v21.LR.SMYLE_IC.2019-08.01/pert.06/v21.LR.SMYLE_IC.pert.eam.i.2019-08-01-00000.nc
+Found existing file /global/cfs/cdirs/mp9/E3SMv2.1-SMYLE/inputdata/e3sm_init/v21.LR.SMYLE_IC.2019-08.01/pert.04/v21.LR.SMYLE_IC.pert.eam.i.2019-08-01-00000.nc
+Found existing file /global/cfs/cdirs/mp9/E3SMv2.1-SMYLE/inputdata/e3sm_init/v21.LR.SMYLE_IC.2019-08.01/pert.10/v21.LR.SMYLE_IC.pert.eam.i.2019-08-01-00000.nc
+Found existing file /global/cfs/cdirs/mp9/E3SMv2.1-SMYLE/inputdata/e3sm_init/v21.LR.SMYLE_IC.2019-08.01/pert.09/v21.LR.SMYLE_IC.pert.eam.i.2019-08-01-00000.nc
+Found existing file /global/cfs/cdirs/mp9/E3SMv2.1-SMYLE/inputdata/e3sm_init/v21.LR.SMYLE_IC.2019-08.01/pert.03/v21.LR.SMYLE_IC.pert.eam.i.2019-08-01-00000.nc
+Found existing file /global/cfs/cdirs/mp9/E3SMv2.1-SMYLE/inputdata/e3sm_init/v21.LR.SMYLE_IC.2019-08.01/pert.02/v21.LR.SMYLE_IC.pert.eam.i.2019-08-01-00000.nc
+Found existing file /global/cfs/cdirs/mp9/E3SMv2.1-SMYLE/inputdata/e3sm_init/v21.LR.SMYLE_IC.2019-08.01/pert.01/v21.LR.SMYLE_IC.pert.eam.i.2019-08-01-00000.nc
+Found existing file /global/cfs/cdirs/mp9/E3SMv2.1-SMYLE/inputdata/e3sm_init/v21.LR.SMYLE_IC.2019-08.01/pert.33/v21.LR.SMYLE_IC.pert.eam.i.2019-08-01-00000.nc
+Found existing file /global/cfs/cdirs/mp9/E3SMv2.1-SMYLE/inputdata/e3sm_init/v21.LR.SMYLE_IC.2019-08.01/pert.28/v21.LR.SMYLE_IC.pert.eam.i.2019-08-01-00000.nc
+Found existing file /global/cfs/cdirs/mp9/E3SMv2.1-SMYLE/inputdata/e3sm_init/v21.LR.SMYLE_IC.2019-08.01/pert.26/v21.LR.SMYLE_IC.pert.eam.i.2019-08-01-00000.nc
+Found existing file /global/cfs/cdirs/mp9/E3SMv2.1-SMYLE/inputdata/e3sm_init/v21.LR.SMYLE_IC.2019-08.01/pert.36/v21.LR.SMYLE_IC.pert.eam.i.2019-08-01-00000.nc
+Found existing file /global/cfs/cdirs/mp9/E3SMv2.1-SMYLE/inputdata/e3sm_init/v21.LR.SMYLE_IC.2019-08.01/pert.35/v21.LR.SMYLE_IC.pert.eam.i.2019-08-01-00000.nc
+Found existing file /global/cfs/cdirs/mp9/E3SMv2.1-SMYLE/inputdata/e3sm_init/v21.LR.SMYLE_IC.2019-08.01/pert.21/v21.LR.SMYLE_IC.pert.eam.i.2019-08-01-00000.nc
