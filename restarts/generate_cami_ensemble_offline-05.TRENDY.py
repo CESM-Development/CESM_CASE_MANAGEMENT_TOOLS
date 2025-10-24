@@ -32,7 +32,7 @@ def parse_command_line(args, description):
 
     parser.add_argument("--ensemble-start",default=1,
                         help="Specify the first ensemble member")
-    parser.add_argument("--ensemble-end",default=40,
+    parser.add_argument("--ensemble-end",default=20,
                         help="Specify the last ensemble member")
 
     args = CIME.utils.parse_args_and_handle_standard_logging_options(args, parser)
@@ -62,35 +62,41 @@ def get_rvals(date, ensemble_start,ensemble_end, model):
     local_path = "/global/cfs/cdirs/mp9/E3SMv2.1-SMYLE/S2S_perts_DIFF"
     perturb_files = []
     ovals = copy.deepcopy(rvals)
-
-    max_id = 999  # valid IDs are 1–999
-    used = set(rvals)  # track values to enforce uniqueness
-
-    for idx, i in enumerate(range(ensemble_start, ensemble_end, 2)):
-        base_val = rvals[idx]
-        found_val = None
-
-        # search forward with wrap-around in the range 1..999
-        for offset in range(0, max_id):
-            candidate = ((base_val - 1 + offset) % max_id) + 1
-            perturb_file = os.path.join(
-                local_path,
-                f"{month}/v2.LR.historical_daily-cami_0241.eam.i.M{month}.diff.{candidate:03}.nc"
-            )
-            if os.path.isfile(perturb_file) and candidate not in used:
-                found_val = candidate
-                break
-
-        if found_val is None:
-            print(f"❌ Could not find a valid perturbation file for base {base_val}")
-            sys.exit(1)
-
-        if found_val != base_val:
-            print(f"⚠️ Replacing missing rval {base_val} with {found_val}")
-
-        rvals[idx] = found_val
-        used.add(found_val)
-
+    for i in range(ensemble_start,ensemble_end, 2):
+        print ("1ST HERE rvals[{}] = {}".format((i-1)//2,rvals[(i-1)//2]))
+        perturb_file = os.path.join(local_path+"/{}".format(month),
+                                        "v2.LR.historical_daily-cami_0241.eam.i.M{}.diff.{:03}.nc".format(month,rvals[(i-1)//2]))
+        if not os.path.isfile(perturb_file):
+              print ("FIRST Missing file for rval = ",perturb_file, rvals[(i-1)//2])
+              print ("original rval = ",rvals[(i-1)//2],"new rval = ",rvals[(i-1)//2]+1)
+              perturb_file2 = os.path.join(local_path+"/{}".format(month),
+                                        "v2.LR.historical_daily-cami_0241.eam.i.M{}.diff.{:03}.nc".format(month,rvals[(i-1)//2]+1))
+              if os.path.isfile(perturb_file2):
+                    print ("old rvals[{}] = {}".format((i-1)//2,ovals[(i-1)//2]))
+                    rvals[(i-1)//2] = rvals[(i-1)//2]+1
+                    print ("new rvals[{}] = {}".format((i-1)//2,rvals[(i-1)//2]))
+              if not os.path.isfile(perturb_file2):
+                    print ("SECOND missing file for rval = ",perturb_file2, rvals[(i-1)//2]+1)
+                    print ("original rval = ",ovals[(i-1)//2],"new rval = ",rvals[(i-1)//2]+2)
+                    perturb_file3 = os.path.join(local_path+"/{}".format(month),
+                                        "v2.LR.historical_daily-cami_0241.eam.i.M{}.diff.{:03}.nc".format(month,rvals[(i-1)//2]+2))
+                    if os.path.isfile(perturb_file3):
+                          print ("old rvals[{}] = {}".format((i-1)//2,ovals[(i-1)//2]))
+                          rvals[(i-1)//2] = rvals[(i-1)//2]+2
+                          print ("new rvals[{}] = {}".format((i-1)//2,rvals[(i-1)//2]))
+                    if not os.path.isfile(perturb_file3):
+                          print ("STILL missing file for rval = ",perturb_file3, rvals[(i-1)//2]+2)
+                          print ("original rval = ",ovals[(i-1)//2],"new rval = ",rvals[(i-1)//2]+3)
+                          perturb_file4 = os.path.join(local_path+"/{}".format(month),
+                                        "v2.LR.historical_daily-cami_0241.eam.i.M{}.diff.{:03}.nc".format(month,rvals[(i-1)//2]+3))
+                          if os.path.isfile(perturb_file4):
+                                print ("old rvals[{}] = {}".format((i-1)//2,ovals[(i-1)//2]))
+                                rvals[(i-1)//2] = rvals[(i-1)//2]+3
+                                print ("new rvals[{}] = {}".format((i-1)//2,rvals[(i-1)//2]))
+                          if not os.path.isfile(perturb_file4):
+                                 print ("STILL missing file for rval = ",perturb_file4, rvals[(i-1)//2]+3)
+                                 print ("FAILING")
+                                 exit
 ## me
 
     #rvals_file = os.path.join("/global/cfs/cdirs/mp9/E3SMv2.1-SMYLE/initial_conditions/","cases","eamic_"+date+".{}-{}.txt".format(ensemble_start,ensemble_end))

@@ -2,7 +2,7 @@
 ### set env variables
 module load ncl nco
 
-setenv E3SM_TOOLS_ROOT /pscratch/sd/n/nanr/CESM_tools/v21.LR.SMYLE/scripts/CANFIRE_v1/
+setenv E3SM_TOOLS_ROOT /pscratch/sd/n/nanr/CESM_tools/v21.LR.SMYLE/scripts/CANFIRE_v2_TRENDY/
 
 # ...
 set syr = 2023
@@ -15,13 +15,13 @@ foreach year ( `seq $ib $ie` )
 foreach mon ( 05 )
 
 # case name counter
-set smbr =  10
-set embr =  10
+set smbr =  1
+set embr =  20
 
 @ mb = $smbr
 @ me = $embr
 
-set MAIN_CASE = v21.LR.BSMYLE_v1_CANFIRE.${year}-${mon}.001
+set MAIN_CASE = v21.LR.BSMYLE_v2_CANFIRE.${year}-${mon}.001
 
 foreach mbr ( `seq $mb $me` )
 if ($mbr < 10) then
@@ -30,7 +30,7 @@ else
         set CASE_DIR = case_scripts.0${mbr}
 endif
 
-set CASEROOT = $SCRATCH/v21.LR.BSMYLE_v1_CANFIRE/${MAIN_CASE}/${CASE_DIR}
+set CASEROOT = $SCRATCH/v21.LR.BSMYLE_v2_CANFIRE/${MAIN_CASE}/${CASE_DIR}
 
 cd $CASEROOT
 echo $CASEROOT

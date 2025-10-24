@@ -1,0 +1,8 @@
+module load python
+/path/to/python -m pip install --user xarray
+
+python ./mk_CLMCRUNCEP_JRA55_forcing.Prec.2023-fixTime.py
+python ./mk_CLMCRUNCEP_JRA55_forcing.Solr.2023-fixTime.py
+python ./mk_CLMCRUNCEP_JRA55_forcing.TPQWL.2023-fixTime.py
+
+output: $SCRATCH/TRENDY

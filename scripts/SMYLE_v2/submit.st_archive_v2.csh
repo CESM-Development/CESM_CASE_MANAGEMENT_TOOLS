@@ -5,8 +5,8 @@
 setenv DOUT  /pscratch/sd/n/nanr/v21.LR.BSMYLE_v2
 
 # ...
-set syr = 2014
-set eyr = 2014
+set syr = 2004
+set eyr = 2004
 
 @ ib = $syr
 @ ie = $eyr
@@ -15,8 +15,8 @@ foreach year ( `seq $ib $ie` )
 foreach mon ( 02 )
 
 # case name counter
-set smbr =  1
-set embr =  18
+set smbr =  2
+set embr =  20
 
 @ mb = $smbr
 @ me = $embr
@@ -43,7 +43,7 @@ echo "==================================    "
     #diff user_nl_eam ../case_scripts.001/user_nl_eam
     #./preview_namelists
     #./xmlchange JOB_WALLCLOCK_TIME=16:00:00
-    ./case.submit
+    ./case.st_archive
 
 
 end             # member loop

@@ -1,6 +1,6 @@
 #! /bin/csh -fxv 
 
-setenv TOOLS_ROOT /global/u2/n/nanr/CESM_tools/e3sm/v2/scripts/v2.SMYLE/
+setenv TOOLS_ROOT /pscratch/sd/n/nanr/CESM_tools/v21.LR.SMYLE/
 # module load e4s
 # spack env activate gcc
 # spack load nco
@@ -41,8 +41,6 @@ set cdate = c20240803
 
 set syr = 2022
 set eyr = 2022
-set syr = 2022
-set eyr = 2023
 set cdate = c20250902
 
 
@@ -52,10 +50,10 @@ set cdate = c20250902
 foreach year ( `seq $ib $ie` )
 #foreach mon ( 05 )
 #foreach mon ( 08 )
-#foreach mon ( 02 )
-foreach mon ( 11 )
+foreach mon ( 02 )
+#foreach mon ( 11 )
 
-set case = v21.LR.SMYLE_IC.${year}-${mon}.01
+set case = v21.LR.SMYLE_IC_TRENDY.${year}-${mon}.01
 
 set Picdir = /global/cfs/cdirs/mp9/E3SMv2.1-SMYLE/inputdata/e3sm_init/${case}/
 set icdir  = /global/cfs/cdirs/mp9/E3SMv2.1-SMYLE/inputdata/e3sm_init/${case}/${year}-${mon}-01
@@ -72,7 +70,7 @@ if ($doThis99 == 1) then
 
 # atm, lnd initial conditions
 set atmcase = eami.HICCUP-ERA5-CATALYST
-set lndcase = v21.LR.I20TRELM_CRUNCEP-daily
+set lndcase = v21.LR.I20TRELM_CRUNCEP_TRENDY
 
 # names
 set atmfname = ${atmcase}.${year}-${mon}-01.ne30np4.L72.${cdate}.nc
@@ -83,7 +81,8 @@ set roffname = ${lndcase}.mosart.r.${year}-${mon}-01-00000.nc
 set atmdir = /global/cfs/cdirs/mp9/E3SMv2.1-SMYLE/initial_conditions/atm/M${mon}/
 #set lnddir = /pscratch/sd/s/sglanvil/archive/s2sLandRun_ICRUELM_final/rest/${year}-${mon}-01-00000/
 #set lnddir = /pscratch/sd/n/nanr/v21.SMYLE/v21.LR.I20TRELM_CRUNCEP/archive/rest/${year}-${mon}-01-00000/
-set lnddir = /global/cfs/cdirs/mp9/E3SMv2.1-SMYLE/v21.LR.I20TRELM_CRUNCEP-daily/archive/rest/${year}-${mon}-01-00000/
+#set lnddir = /global/cfs/cdirs/mp9/E3SMv2.1-SMYLE/v21.LR.I20TRELM_CRUNCEP-daily/archive/rest/${year}-${mon}-01-00000/
+set lnddir = /global/cfs/cdirs/mp9/E3SMv2.1-SMYLE/v21.LR.I20TRELM_CRUNCEP_TRENDY/archive/rest/${year}-${mon}-01-00000/
 
 # rename atm, land IC files
 set atmfout = ${case}.eam.i.${year}-${mon}-01-00000.nc

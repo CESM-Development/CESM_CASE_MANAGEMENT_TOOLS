@@ -1,42 +1,8 @@
 #! /bin/csh -fxv 
 
-#setenv TOOLS_ROOT /global/u2/n/nanr/CESM_tools/e3sm/v2/scripts/v2.SMYLE/
-# module load e4s
-# spack env activate gcc
-# spack load nco
-# module load cudatoolkit/11.5
-
-## FOSI alignment
-# 1958 = 0306
-# ...
-
-# 20230123.GMPAS-JRA1p4.TL319_EC30to60E2r2.anvil.mpaso.rst.0306-11-01_00000.nc
-# 20230123.GMPAS-JRA1p4.TL319_EC30to60E2r2.anvil.mpassi.rst.0306-11-01_00000.nc
-# /pscratch/sd/l/lvroekel/cycle6_monthly-restarts/restarts_monthly/
-
-
-#Remove xtime:
-#mv v2.LR.piControl.mpaso.rst.0501-01-01_00000.nc v2.LR.piControl.mpaso.rst.0501-01-01_00000.orig.nc
-#ncrename -v xtime,xtime.orig v2.LR.piControl.mpaso.rst.0501-01-01_00000.orig.nc v2.LR.piControl.mpaso.rst.0501-01-01_00000.nc
-#
-#mv v2.LR.piControl.mpassi.rst.0501-01-01_00000.nc v2.LR.piControl.mpassi.rst.0501-01-01_00000.orig.nc
-#ncrename -v xtime,xtime.orig v2.LR.piControl.mpassi.rst.0501-01-01_00000.orig.nc v2.LR.piControl.mpassi.rst.0501-01-01_00000.nc
-
-#foreach  year ( 1954 1964 1974 1984 1994 2004 )
-# set syr = 1970
-# set eyr = 1975
-# set syr = 1976
-# set eyr = 1980
-# set syr = 1981
-# set eyr = 2000
-#set syr = 2010
-#set eyr = 2016
-#set syr = 1959
-#set eyr = 2009
-#set syr = 2017
-#set eyr = 2019
-set syr = 2022
+set syr = 2023
 set eyr = 2023
+set date = 20240803
 
 @ ib = $syr
 @ ie = $eyr
@@ -62,11 +28,12 @@ if ($doThis99 == 1) then
 # atm, lnd initial conditions
 set atmcase = eami.HICCUP-ERA5-CATALYST
 set lndcase = v21.LR.I20TRELM_CRUNCEP_TRENDY
+set lndcase = v21.LR.I20TRELM_CRUNCEP_TRENDY_2023
 
 # names
 set atmfname = ${atmcase}.${year}-${mon}-01.ne30np4.L72.c20230203.nc
 # 2023
-set atmfname = ${atmcase}.${year}-${mon}-01.ne30np4.L72.c20250823.nc
+set atmfname = ${atmcase}.${year}-${mon}-01.ne30np4.L72.c${date}.nc
 set lndfname = ${lndcase}.elm.r.${year}-${mon}-01-00000.nc
 set roffname = ${lndcase}.mosart.r.${year}-${mon}-01-00000.nc
 
@@ -75,7 +42,8 @@ set atmdir = /global/cfs/cdirs/mp9/E3SMv2.1-SMYLE/initial_conditions/atm/M${mon}
 #set lnddir = /pscratch/sd/s/sglanvil/archive/s2sLandRun_ICRUELM_final/rest/${year}-${mon}-01-00000/
 #set lnddir = /pscratch/sd/n/nanr/v21.SMYLE/v21.LR.I20TRELM_CRUNCEP/archive/rest/${year}-${mon}-01-00000/
 #set lnddir = /global/cfs/cdirs/mp9/E3SMv2.1-SMYLE/v21.LR.I20TRELM_CRUNCEP/archive/rest/${year}-${mon}-01-00000/
-set lnddir = /pscratch/sd/n/nanr/v21.LR.I20TRELM_CRUNCEP_TRENDY/archive/rest/${year}-${mon}-01-00000/
+#set lnddir = /pscratch/sd/n/nanr/v21.LR.I20TRELM_CRUNCEP_TRENDY/archive/rest/${year}-${mon}-01-00000/
+set lnddir = /pscratch/sd/n/nanr/v21.LR.I20TRELM_CRUNCEP_TRENDY_2023/archive/rest/${year}-${mon}-01-00000/
 
 # rename atm, land IC files
 set atmfout = ${case}.eam.i.${year}-${mon}-01-00000.nc

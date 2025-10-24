@@ -8,8 +8,8 @@
 # Bash coding style inspired by:
 # http://kfirlavi.herokuapp.com/blog/2012/11/14/defensive-bash-programming
 
+#array=( 001 002 003 004 005 006 007 008 009 010 )
 array=( 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 )
-#array=( 19 20 )
 for imbr in "${array[@]}"
 do
 
@@ -30,9 +30,8 @@ fi
 # For debugging, uncomment libe below
 #set -x
 
-## Rerunning: 1989-2018
-useyear=2016
-usemonth=02
+useyear=2021
+usemonth=05
 
 
 # --- Configuration flags ----
@@ -43,15 +42,14 @@ MACHINE=pm-cpu
 PROJECT="mp9"
 
 # Simulation
-#COMPSET="WCYCLSSP370" # SSP370 transient
+COMPSET="WCYCLSSP370" # SSP370 transient
 #COMPSET="WCYCL20TR" # 20th century transient
-COMPSET="WCYCLSSP370" # 
 RESOLUTION="ne30pg2_EC30to60E2r2"
-CASE_NAME="v21.LR.BSMYLE_v2.${useyear}-${usemonth}.${mbr}"
+CASE_NAME="v21.LR.BSMYLE_xOMIP.${useyear}-${usemonth}.${mbr}"
 if [[ ${imbr} -eq "1" ]]
 then
   #MAIN_CASE_NAME="v21.LR.BSMYLE-MYTEST.${useyear}-${usemonth}.${mbr}"
-  MAIN_CASE_NAME="v21.LR.BSMYLE_v2.${useyear}-${usemonth}.${mbr}"
+  MAIN_CASE_NAME="v21.LR.BSMYLE_xOMIP.${useyear}-${usemonth}.${mbr}"
 fi
 CASE_GROUP="v21.LR"
 
@@ -66,8 +64,8 @@ MODEL_START_TYPE="hybrid"  # 'initial', 'continue', 'branch', 'hybrid'
 START_DATE="${useyear}-${usemonth}-01"
 
 GET_REFCASE=false
-RUN_REFDIR="/global/cfs/cdirs/mp9/E3SMv2.1-SMYLE/inputdata/e3sm_init/v21.LR.SMYLE_IC_TRENDY.${useyear}-${usemonth}.01/"
-RUN_REFCASE="v21.LR.SMYLE_IC_TRENDY.${useyear}-${usemonth}.01"
+RUN_REFDIR="/global/cfs/cdirs/mp9/E3SMv2.1-SMYLE/inputdata/e3sm_init/v21.LR.SMYLE_IC_xOMIP.${useyear}-${usemonth}.01/"
+RUN_REFCASE="v21.LR.SMYLE_IC_xOMIP.${useyear}-${usemonth}.01"
 RUN_REFDATE="${useyear}-${usemonth}-01"   # same as MODEL_START_DATE for 'branch', can be different for 'hybrid'
 
 
@@ -78,12 +76,12 @@ RUN_REFDATE="${useyear}-${usemonth}-01"   # same as MODEL_START_DATE for 'branch
 #CODE_ROOT="${MY_PATH}/e3sm_tags/E3SMv2.1/E3SM/"
 MY_PATH="/global/cfs/cdirs/mp9/"
 CODE_ROOT="${MY_PATH}/e3sm_tags/E3SMv2.1/"
-MAIN_CASE_ROOT="${SCRATCH}/v21.LR.BSMYLE_v2/${MAIN_CASE_NAME}"
-CASE_ROOT="${SCRATCH}/v21.LR.BSMYLE_v2/${MAIN_CASE_NAME}/"
+MAIN_CASE_ROOT="/pscratch/sd/n/${USER}/v21.LR.BSMYLE_xOMIP/${MAIN_CASE_NAME}"
+CASE_ROOT="/pscratch/sd/n/${USER}/v21.LR.BSMYLE_xOMIP/${MAIN_CASE_NAME}/"
 
 # Sub-directories
 #CASE_BUILD_DIR=${MAIN_CASE_ROOT}/build
-CASE_BUILD_DIR=$SCRATCH/v21.LR.BSMYLE_v2/exeroot/build
+CASE_BUILD_DIR=/pscratch/sd/n/nanr/v21.LR.BSMYLE_xOMIP/exeroot/build
 CASE_ARCHIVE_DIR=${MAIN_CASE_ROOT}/archive.${mbr}
 #CASE_ARCHIVE_DIR=/global/cfs/cdirs/mp9/archive/v21.LR.SMYLE/${MAIN_CASE_NAME}/archive.${mbr}
 
@@ -133,7 +131,7 @@ HIST_N="5"
 
 # Leave empty (unless you understand what it does)
 #OLD_EXECUTABLE=""
-OLD_EXECUTABLE="$SCRATCH/v21.LR.BSMYLE_v2/exeroot/build"
+OLD_EXECUTABLE="/pscratch/sd/n/nanr/v21.LR.BSMYLE_xOMIP/exeroot/build"
 #OLD_EXECUTABLE="${MAIN_CASE_ROOT}/build"
 
 # --- Toggle flags for what to do ----
@@ -383,14 +381,15 @@ case_setup() {
 
     # Lastly - copy Initial conditions
     echo "Here is the RUNDIR ${CASE_RUN_DIR}"
-    eamic="v21.LR.SMYLE_IC_TRENDY.${useyear}-${usemonth}.01.eam.i.${useyear}-${usemonth}-01-00000.nc"
-    perteamic="v21.LR.SMYLE_IC_TRENDY.pert.eam.i.${useyear}-${usemonth}-01-00000.nc"
-    ics="/global/cfs/cdirs/mp9/E3SMv2.1-SMYLE/inputdata/e3sm_init/v21.LR.SMYLE_IC_TRENDY.${useyear}-${usemonth}.01/"
+    eamic="v21.LR.SMYLE_IC_xOMIP.${useyear}-${usemonth}.01.eam.i.${useyear}-${usemonth}-01-00000.nc"
+    perteamic="v21.LR.SMYLE_IC_xOMIP.pert.eam.i.${useyear}-${usemonth}-01-00000.nc"
+    ics="/global/cfs/cdirs/mp9/E3SMv2.1-SMYLE/inputdata/e3sm_init/v21.LR.SMYLE_IC_xOMIP.${useyear}-${usemonth}.01/"
 
     ls ${CASE_RUN_DIR}
 
     # pre-stage ICs
     #cp /global/u2/n/nanr/CESM_tools/e3sm/v2/scripts/v2.SMYLE/env_mach/env_mach_specific.xml ${CASE_SCRIPTS_DIR}/
+    cp /pscratch/sd/n/nanr/v21.LR.BSMYLE_v2/v21.LR.BSMYLE_v2.2014-02.001/case_scripts.001/env_mach_specific.xml ${CASE_SCRIPTS_DIR}/
     cp ${ics}/${useyear}-${usemonth}-01/rpointer.* ${CASE_RUN_DIR}/
     ln -s ${ics}/${useyear}-${usemonth}-01/v21.* ${CASE_RUN_DIR}/
 

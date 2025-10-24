@@ -1,5 +1,5 @@
 #!/bin/bash 
-###!/bin/bash -fe
+####!/bin/bash -fe
 
 # E3SM Water Cycle v2 run_e3sm script template.
 #
@@ -9,7 +9,7 @@
 # http://kfirlavi.herokuapp.com/blog/2012/11/14/defensive-bash-programming
 
 array=( 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 )
-#array=( 19 20 )
+
 for imbr in "${array[@]}"
 do
 
@@ -27,70 +27,68 @@ else
 fi
 
 
+
 # For debugging, uncomment libe below
 #set -x
 
-## Rerunning: 1989-2018
-useyear=2016
-usemonth=02
-
+useyear=2023
+usemonth=05
 
 # --- Configuration flags ----
 
 # Machine and project
 MACHINE=pm-cpu
-#PROJECT="m4417"
 PROJECT="mp9"
 
 # Simulation
-#COMPSET="WCYCLSSP370" # SSP370 transient
-#COMPSET="WCYCL20TR" # 20th century transient
-COMPSET="WCYCLSSP370" # 
+COMPSET="WCYCLSSP370" # 20th century transient
 RESOLUTION="ne30pg2_EC30to60E2r2"
-CASE_NAME="v21.LR.BSMYLE_v2.${useyear}-${usemonth}.${mbr}"
+CASE_NAME="v21.LR.BSMYLE_v2_CANFIRE.${useyear}-${usemonth}.${mbr}"
+CASE_GROUP="v21.LR"
+
 if [[ ${imbr} -eq "1" ]]
 then
-  #MAIN_CASE_NAME="v21.LR.BSMYLE-MYTEST.${useyear}-${usemonth}.${mbr}"
-  MAIN_CASE_NAME="v21.LR.BSMYLE_v2.${useyear}-${usemonth}.${mbr}"
+  MAIN_CASE_NAME="v21.LR.BSMYLE_v2_CANFIRE.${useyear}-${usemonth}.001"
 fi
 CASE_GROUP="v21.LR"
+
 
 # Code and compilation
 CHECKOUT="20231020"
 BRANCH="maint-2.1" # master as of 2021-12-21
-CHERRY=( )
+CHERRY=(  )
 DEBUG_COMPILE=false
 
 # Run options
 MODEL_START_TYPE="hybrid"  # 'initial', 'continue', 'branch', 'hybrid'
 START_DATE="${useyear}-${usemonth}-01"
 
+# Additional options for 'branch' and 'hybrid'
 GET_REFCASE=false
 RUN_REFDIR="/global/cfs/cdirs/mp9/E3SMv2.1-SMYLE/inputdata/e3sm_init/v21.LR.SMYLE_IC_TRENDY.${useyear}-${usemonth}.01/"
 RUN_REFCASE="v21.LR.SMYLE_IC_TRENDY.${useyear}-${usemonth}.01"
 RUN_REFDATE="${useyear}-${usemonth}-01"   # same as MODEL_START_DATE for 'branch', can be different for 'hybrid'
 
-
-# Additional options for 'branch' and 'hybrid'
-
 # Set paths
-#MY_PATH="/global/cfs/cdirs/ccsm1/people/nanr"
-#CODE_ROOT="${MY_PATH}/e3sm_tags/E3SMv2.1/E3SM/"
+
 MY_PATH="/global/cfs/cdirs/mp9/"
 CODE_ROOT="${MY_PATH}/e3sm_tags/E3SMv2.1/"
-MAIN_CASE_ROOT="${SCRATCH}/v21.LR.BSMYLE_v2/${MAIN_CASE_NAME}"
-CASE_ROOT="${SCRATCH}/v21.LR.BSMYLE_v2/${MAIN_CASE_NAME}/"
+MAIN_CASE_ROOT="${SCRATCH}/v21.LR.BSMYLE_v2_CANFIRE/${MAIN_CASE_NAME}"
+CASE_ROOT="${SCRATCH}/v21.LR.BSMYLE_v2_CANFIRE/${MAIN_CASE_NAME}/"
 
 # Sub-directories
-#CASE_BUILD_DIR=${MAIN_CASE_ROOT}/build
-CASE_BUILD_DIR=$SCRATCH/v21.LR.BSMYLE_v2/exeroot/build
+CASE_BUILD_DIR=/pscratch/sd/n/nanr/v21.LR.BSMYLE_v2_CANFIRE/exeroot/build
 CASE_ARCHIVE_DIR=${MAIN_CASE_ROOT}/archive.${mbr}
-#CASE_ARCHIVE_DIR=/global/cfs/cdirs/mp9/archive/v21.LR.SMYLE/${MAIN_CASE_NAME}/archive.${mbr}
 
 # Define type of run
 #  short tests: 'XS_2x5_ndays', 'XS_1x10_ndays', 'S_1x10_ndays', 
 #               'M_1x10_ndays', 'M2_1x10_ndays', 'M80_1x10_ndays', 'L_1x10_ndays'
 #  or 'production' for full simulation
+#readonly run='S_1x10_ndays'
+#readonly run='S_1x1_nmonths'
+#readonly run='M_1x1_nmonths'
+#readonly run='L_1x1_nmonths'
+#readonly run='XL_1x1_nmonths'
 run='production'
 if [ "${run}" != "production" ]; then
 
@@ -101,12 +99,13 @@ if [ "${run}" != "production" ]; then
   resubmit=$(( ${tmp[1]%%x*} -1 ))
   length=${tmp[1]##*x}
 
-  CASE_SCRIPTS_DIR=${CASE_ROOT}/tests/${run}/case_scripts.${mbr}
-  CASE_RUN_DIR=${CASE_ROOT}/tests/${run}/run.${mbr}
-  PELAYOUT=${layout}
-  WALLTIME="2:00:00"
+  CASE_SCRIPTS_DIR=${CASE_ROOT}/tests/${run}/case_scripts
+  CASE_RUN_DIR=${CASE_ROOT}/tests/${run}/run
+  #PELAYOUT=${layout}
+  WALLTIME="12:00:00"
   STOP_OPTION=${units}
   STOP_N=${length}
+  STOP_DATE="-999"    # -999 or specify stop date as yyyyddmm without leading zeros
   REST_OPTION=${STOP_OPTION}
   REST_N=${STOP_N}
   RESUBMIT=${resubmit}
@@ -118,35 +117,37 @@ else
   CASE_SCRIPTS_DIR=${MAIN_CASE_ROOT}/case_scripts.${mbr}
   CASE_RUN_DIR=${MAIN_CASE_ROOT}/run.${mbr}
   #PELAYOUT="L"
-  WALLTIME="16:00:00"
+  WALLTIME="12:00:00"
   STOP_OPTION="nmonths"
-  STOP_N="28" # How often to stop the model, should be a multiple of REST_N
+  STOP_N="6" # How often to stop the model, should be a multiple of REST_N
+  STOP_DATE="20300101"    # -999 or specify stop date as yyyyddmm without leading zeros
   REST_OPTION="nmonths"
-  REST_N="28" # How often to write a restart file
+  REST_N="6" # How often to write a restart file
   RESUBMIT="0" # Submissions after initial one
-  DO_SHORT_TERM_ARCHIVING=true
+  DO_SHORT_TERM_ARCHIVING=false
 fi
 
 # Coupler history 
 HIST_OPTION="nyears"
-HIST_N="5"
+HIST_N="1"
 
 # Leave empty (unless you understand what it does)
-#OLD_EXECUTABLE=""
-OLD_EXECUTABLE="$SCRATCH/v21.LR.BSMYLE_v2/exeroot/build"
-#OLD_EXECUTABLE="${MAIN_CASE_ROOT}/build"
+OLD_EXECUTABLE=""
+#OLD_EXECUTABLE="/pscratch/sd/n/nanr/v21.LR.BSMYLE_CANFIRE/exeroot/build"
 
 # --- Toggle flags for what to do ----
 do_fetch_code=false
 do_create_newcase=true
 do_case_setup=true
+
 if [[ ${imbr} -eq "1" ]]
 then
-   do_case_build=false
+   do_case_build=true
 else
    do_case_build=false
 fi
 do_case_submit=true
+do_case_submit=false
 do_get_restarts=false
 
 # --- Now, do the work ---
@@ -204,15 +205,15 @@ cat << EOF >> user_nl_eam
  ! monthly (h6) I
  fincl7 = 'O3', 'PS', 'TROP_P'
 
- ext_frc_specifier              = 'SO2         -> /global/cfs/cdirs/ccsm1/people/nanr/e3sm/inputdata/atm/cam/chem/trop_mozart_aero/emis/CMIP6_SSP370_ne30-smoothed/cmip6_ssp370_mam4_smoothed_so2_elev_1850-2100_c221016.nc',
-         'SOAG        -> /global/cfs/cdirs/ccsm1/people/nanr/e3sm/inputdata/atm/cam/chem/trop_mozart_aero/emis/CMIP6_SSP370_ne30-smoothed/cmip6_ssp370_mam4_smoothed_soag_elev_1850-2100_c221016.nc',
-         'bc_a4       -> /global/cfs/cdirs/ccsm1/people/nanr/e3sm/inputdata/atm/cam/chem/trop_mozart_aero/emis/CMIP6_SSP370_ne30-smoothed/cmip6_ssp370_mam4_smoothed_bc_a4_elev_1850-2100_c221016.nc',
-         'num_a1      -> /global/cfs/cdirs/ccsm1/people/nanr/e3sm/inputdata/atm/cam/chem/trop_mozart_aero/emis/CMIP6_SSP370_ne30-smoothed/cmip6_ssp370_mam4_smoothed_num_a1_elev_1850-2100_c221016.nc',
-         'num_a2      -> /global/cfs/cdirs/e3sm/inputdata/atm/cam/chem/trop_mozart_aero/emis/CMIP6_SSP370_ne30/cmip6_ssp370_mam4_num_a2_elev_2015-2100_c210216.nc',
-         'num_a4      -> /global/cfs/cdirs/ccsm1/people/nanr/e3sm/inputdata/atm/cam/chem/trop_mozart_aero/emis/CMIP6_SSP370_ne30-smoothed/cmip6_ssp370_mam4_smoothed_num_a4_elev_1850-2100_c221016.nc',
-         'pom_a4      -> /global/cfs/cdirs/ccsm1/people/nanr/e3sm/inputdata/atm/cam/chem/trop_mozart_aero/emis/CMIP6_SSP370_ne30-smoothed/cmip6_ssp370_mam4_smoothed_pom_a4_elev_1850-2100_c221016.nc',
-         'so4_a1      -> /global/cfs/cdirs/ccsm1/people/nanr/e3sm/inputdata/atm/cam/chem/trop_mozart_aero/emis/CMIP6_SSP370_ne30-smoothed/cmip6_ssp370_mam4_smoothed_so4_a1_elev_1850-2100_c221016.nc',
-         'so4_a2      -> /global/cfs/cdirs/e3sm/inputdata/atm/cam/chem/trop_mozart_aero/emis/CMIP6_SSP370_ne30/cmip6_ssp370_mam4_so4_a2_elev_2015-2100_c210216.nc'
+ ext_frc_specifier = 'SO2  ->  /global/cfs/cdirs/mp9/E3SMv2.1-SMYLE/inputdata/atm/cam/chem/emissions_ssp370_smoothed-CANFIRE/cmip6_ssp370_mam4_smoothed_so2_elev_withQFED_2020-2024_c250821.cdf5.nc',
+    'bc_a4       -> /global/cfs/cdirs/mp9/E3SMv2.1-SMYLE/inputdata/atm/cam/chem/emissions_ssp370_smoothed-CANFIRE/cmip6_ssp370_mam4_smoothed_bc_a4_elev_withQFED_2020-2024_c250821.cdf5.nc',
+    'num_a1      -> /global/cfs/cdirs/mp9/E3SMv2.1-SMYLE/inputdata/atm/cam/chem/emissions_ssp370_smoothed-CANFIRE/cmip6_ssp370_mam4_smoothed_num_a1_elev_withQFED_2020-2024_c250821.cdf5.nc',
+    'num_a2      -> /global/cfs/cdirs/e3sm/inputdata/atm/cam/chem/trop_mozart_aero/emis/CMIP6_SSP370_ne30/cmip6_ssp370_mam4_num_a2_elev_2015-2100_c210216.nc',
+    'num_a4      -> /global/cfs/cdirs/mp9/E3SMv2.1-SMYLE/inputdata/atm/cam/chem/emissions_ssp370_smoothed-CANFIRE/cmip6_ssp370_mam4_smoothed_num_a4_elev_withQFED_2020-2024_c250821.cdf5.nc',
+    'pom_a4      -> /global/cfs/cdirs/mp9/E3SMv2.1-SMYLE/inputdata/atm/cam/chem/emissions_ssp370_smoothed-CANFIRE/cmip6_ssp370_mam4_smoothed_pom_a4_elev_withQFED_2020-2024_c250821.cdf5.nc',
+    'so4_a1      -> /global/cfs/cdirs/mp9/E3SMv2.1-SMYLE/inputdata/atm/cam/chem/emissions_ssp370_smoothed-CANFIRE/cmip6_ssp370_mam4_smoothed_so4_a1_elev_withQFED_2020-2024_c250821.cdf5.nc',
+    'so4_a2      -> /global/cfs/cdirs/e3sm/inputdata/atm/cam/chem/trop_mozart_aero/emis/CMIP6_SSP370_ne30/cmip6_ssp370_mam4_so4_a2_elev_2015-2100_c210216.nc',
+    'SOAG        -> /global/cfs/cdirs/mp9/E3SMv2.1-SMYLE/inputdata/atm/cam/chem/emissions_ssp370_smoothed-CANFIRE/cmip6_ssp370_mam4_smoothed_soag_elev_withQFED_2020-2024_c250821.cdf5.nc'
  ext_frc_type           = 'INTERP_MISSING_MONTHS'
 
 
@@ -249,18 +250,6 @@ patch_mpas_streams() {
 echo
 
 }
-
-# =====================================
-# Customize MPAS stream files if needed
-# =====================================
-
-patch_mpas_streams() {
-
-echo
-
-}
-
-
 
 ######################################################
 ### Most users won't need to change anything below ###
@@ -379,6 +368,8 @@ case_setup() {
     user_nl
 
     # Finally, run CIME case.setup
+
+    #cp /global/u2/n/nanr/CESM_tools/e3sm/v2/scripts/v2.CANFIRE/env_mach/env_mach_specific.xml ${CASE_SCRIPTS_DIR}/
     ./case.setup --reset
 
     # Lastly - copy Initial conditions
@@ -390,7 +381,7 @@ case_setup() {
     ls ${CASE_RUN_DIR}
 
     # pre-stage ICs
-    #cp /global/u2/n/nanr/CESM_tools/e3sm/v2/scripts/v2.SMYLE/env_mach/env_mach_specific.xml ${CASE_SCRIPTS_DIR}/
+    #cp /global/u2/n/nanr/CESM_tools/e3sm/v2/scripts/v2.CANFIRE/env_mach/env_mach_specific.xml ${CASE_SCRIPTS_DIR}/
     cp ${ics}/${useyear}-${usemonth}-01/rpointer.* ${CASE_RUN_DIR}/
     ln -s ${ics}/${useyear}-${usemonth}-01/v21.* ${CASE_RUN_DIR}/
 
@@ -404,7 +395,6 @@ case_setup() {
        ln -s ${ics}/pert.${shortmbr}/${perteamic} $MAIN_CASE_ROOT/run.${mbr}/${eamic}
     fi
 
-
     popd
 }
 
@@ -413,7 +403,7 @@ case_build() {
 
     pushd ${CASE_SCRIPTS_DIR}
 
-    #do_case_build = true
+    # do_case_build = false
     if [ "${do_case_build,,}" != "true" ]; then
 
         echo $'\n----- case_build -----\n'
@@ -433,7 +423,7 @@ case_build() {
                 cp -fp ${OLD_EXECUTABLE} ${CASE_BUILD_DIR}/
             else
                 echo 'ERROR: $OLD_EXECUTABLE = '$OLD_EXECUTABLE' does not exist or is not an executable file.'
-                exit 297
+                #exit 297
             fi
         fi
         echo 'WARNING: Setting BUILD_COMPLETE = TRUE.  This is a little risky, but trusting the user.'
@@ -454,10 +444,10 @@ case_build() {
 
     fi
 
-        # Some user_nl settings won't be updated to *_in files under the run directory
-        # Call preview_namelists to make sure *_in and user_nl files are consistent.
-        ./preview_namelists
-
+    # Some user_nl settings won't be updated to *_in files under the run directory
+    # Call preview_namelists to make sure *_in and user_nl files are consistent.
+    echo $'\n----- Preview namelists -----\n'
+    ./preview_namelists
 
     popd
 }
@@ -473,6 +463,9 @@ runtime_options() {
 
     # Segment length
     ./xmlchange STOP_OPTION=${STOP_OPTION,,},STOP_N=${STOP_N}
+
+    # End date
+    ./xmlchange STOP_DATE=${STOP_DATE}
 
     # Restart frequency
     ./xmlchange REST_OPTION=${REST_OPTION,,},REST_N=${REST_N}
@@ -501,14 +494,13 @@ runtime_options() {
     elif [ "${MODEL_START_TYPE,,}" == "branch" ] || [ "${MODEL_START_TYPE,,}" == "hybrid" ]; then
         ./xmlchange RUN_TYPE=${MODEL_START_TYPE,,}
         ./xmlchange GET_REFCASE=${GET_REFCASE}
-	./xmlchange RUN_REFDIR=${RUN_REFDIR}
+        ./xmlchange RUN_REFDIR=${RUN_REFDIR}
         ./xmlchange RUN_REFCASE=${RUN_REFCASE}
         ./xmlchange RUN_REFDATE=${RUN_REFDATE}
         echo 'Warning: $MODEL_START_TYPE = '${MODEL_START_TYPE} 
-	echo '$RUN_REFDIR = '${RUN_REFDIR}
-	echo '$RUN_REFCASE = '${RUN_REFCASE}
-	echo '$RUN_REFDATE = '${START_DATE}
- 
+        echo '$RUN_REFDIR = '${RUN_REFDIR}
+        echo '$RUN_REFCASE = '${RUN_REFCASE}
+        echo '$RUN_REFDATE = '${START_DATE}
     else
         echo 'ERROR: $MODEL_START_TYPE = '${MODEL_START_TYPE}' is unrecognized. Exiting.'
         exit 380

@@ -8,8 +8,8 @@
 # Bash coding style inspired by:
 # http://kfirlavi.herokuapp.com/blog/2012/11/14/defensive-bash-programming
 
+#array=( 001 002 003 004 005 006 007 008 009 010 )
 array=( 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 )
-#array=( 19 20 )
 for imbr in "${array[@]}"
 do
 
@@ -30,8 +30,7 @@ fi
 # For debugging, uncomment libe below
 #set -x
 
-## Rerunning: 1989-2018
-useyear=2016
+useyear=2014
 usemonth=02
 
 
@@ -39,13 +38,11 @@ usemonth=02
 
 # Machine and project
 MACHINE=pm-cpu
-#PROJECT="m4417"
 PROJECT="mp9"
 
 # Simulation
-#COMPSET="WCYCLSSP370" # SSP370 transient
+COMPSET="WCYCLSSP370" # SSP370 transient
 #COMPSET="WCYCL20TR" # 20th century transient
-COMPSET="WCYCLSSP370" # 
 RESOLUTION="ne30pg2_EC30to60E2r2"
 CASE_NAME="v21.LR.BSMYLE_v2.${useyear}-${usemonth}.${mbr}"
 if [[ ${imbr} -eq "1" ]]
@@ -78,12 +75,12 @@ RUN_REFDATE="${useyear}-${usemonth}-01"   # same as MODEL_START_DATE for 'branch
 #CODE_ROOT="${MY_PATH}/e3sm_tags/E3SMv2.1/E3SM/"
 MY_PATH="/global/cfs/cdirs/mp9/"
 CODE_ROOT="${MY_PATH}/e3sm_tags/E3SMv2.1/"
-MAIN_CASE_ROOT="${SCRATCH}/v21.LR.BSMYLE_v2/${MAIN_CASE_NAME}"
-CASE_ROOT="${SCRATCH}/v21.LR.BSMYLE_v2/${MAIN_CASE_NAME}/"
+MAIN_CASE_ROOT="/pscratch/sd/n/${USER}/v21.LR.BSMYLE_v2/${MAIN_CASE_NAME}"
+CASE_ROOT="/pscratch/sd/n/${USER}/v21.LR.BSMYLE_v2/${MAIN_CASE_NAME}/"
 
 # Sub-directories
 #CASE_BUILD_DIR=${MAIN_CASE_ROOT}/build
-CASE_BUILD_DIR=$SCRATCH/v21.LR.BSMYLE_v2/exeroot/build
+CASE_BUILD_DIR=/pscratch/sd/n/nanr/v21.LR.BSMYLE_v2/exeroot/build
 CASE_ARCHIVE_DIR=${MAIN_CASE_ROOT}/archive.${mbr}
 #CASE_ARCHIVE_DIR=/global/cfs/cdirs/mp9/archive/v21.LR.SMYLE/${MAIN_CASE_NAME}/archive.${mbr}
 
@@ -132,8 +129,8 @@ HIST_OPTION="nyears"
 HIST_N="5"
 
 # Leave empty (unless you understand what it does)
-#OLD_EXECUTABLE=""
-OLD_EXECUTABLE="$SCRATCH/v21.LR.BSMYLE_v2/exeroot/build"
+OLD_EXECUTABLE=""
+#OLD_EXECUTABLE="/pscratch/sd/n/nanr/v21.LR.SMYLE/exeroot/build"
 #OLD_EXECUTABLE="${MAIN_CASE_ROOT}/build"
 
 # --- Toggle flags for what to do ----
@@ -146,7 +143,7 @@ then
 else
    do_case_build=false
 fi
-do_case_submit=true
+do_case_submit=false
 do_get_restarts=false
 
 # --- Now, do the work ---
@@ -214,6 +211,9 @@ cat << EOF >> user_nl_eam
          'so4_a1      -> /global/cfs/cdirs/ccsm1/people/nanr/e3sm/inputdata/atm/cam/chem/trop_mozart_aero/emis/CMIP6_SSP370_ne30-smoothed/cmip6_ssp370_mam4_smoothed_so4_a1_elev_1850-2100_c221016.nc',
          'so4_a2      -> /global/cfs/cdirs/e3sm/inputdata/atm/cam/chem/trop_mozart_aero/emis/CMIP6_SSP370_ne30/cmip6_ssp370_mam4_so4_a2_elev_2015-2100_c210216.nc'
  ext_frc_type           = 'INTERP_MISSING_MONTHS'
+
+!! See README file: /global/cfs/cdirs/mp9/E3SMv2.1-SMYLE/inputdata/atm/cam/ggas/README.GHG_CMIP_SSP370
+bndtvghg = '/global/cfs/cdirs/mp9/E3SMv2.1-SMYLE/inputdata/atm/cam/ggas/GHG_CMIP_SSP370-1-2-1_Annual_Global_0000-2500_c20210509.cdf5.nc'
 
 
 EOF

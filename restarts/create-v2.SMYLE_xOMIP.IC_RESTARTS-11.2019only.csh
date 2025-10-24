@@ -1,6 +1,6 @@
 #! /bin/csh -fxv 
 
-setenv TOOLS_ROOT /global/u2/n/nanr/CESM_tools/e3sm/v2/scripts/v2.SMYLE/
+setenv TOOLS_ROOT /pscratch/sd/n/nanr/CESM_tools/v21.LR.SMYLE/
 # module load e4s
 # spack env activate gcc
 # spack load nco
@@ -27,23 +27,21 @@ setenv TOOLS_ROOT /global/u2/n/nanr/CESM_tools/e3sm/v2/scripts/v2.SMYLE/
 # set eyr = 1975
 # set syr = 1976
 # set eyr = 1980
-# set syr = 1981
-# set eyr = 2000
+set syr = 2019
+set eyr = 2019
 set cdate = c20230203  
 
-set syr = 2020
-set eyr = 2020
-set cdate = c20240326
+#set syr = 2020
+#set eyr = 2020
+#set cdate = c20240326
 
-set syr = 2021
-set eyr = 2021
-set cdate = c20240803
+#set syr = 2021
+#set eyr = 2021
+#set cdate = c20240803
 
-set syr = 2022
-set eyr = 2022
-set syr = 2022
-set eyr = 2023
-set cdate = c20250902
+#set syr = 2022
+#set eyr = 2022
+#set cdate = c20250902
 
 
 @ ib = $syr
@@ -55,7 +53,7 @@ foreach year ( `seq $ib $ie` )
 #foreach mon ( 02 )
 foreach mon ( 11 )
 
-set case = v21.LR.SMYLE_IC.${year}-${mon}.01
+set case = v21.LR.SMYLE_IC_xOMIP.${year}-${mon}.01
 
 set Picdir = /global/cfs/cdirs/mp9/E3SMv2.1-SMYLE/inputdata/e3sm_init/${case}/
 set icdir  = /global/cfs/cdirs/mp9/E3SMv2.1-SMYLE/inputdata/e3sm_init/${case}/${year}-${mon}-01
@@ -72,7 +70,8 @@ if ($doThis99 == 1) then
 
 # atm, lnd initial conditions
 set atmcase = eami.HICCUP-ERA5-CATALYST
-set lndcase = v21.LR.I20TRELM_CRUNCEP-daily
+set lndcase = v21.LR.I20TRELM_CRUNCEP
+#set lndcase = v21.LR.I20TRELM_CRUNCEP-daily
 
 # names
 set atmfname = ${atmcase}.${year}-${mon}-01.ne30np4.L72.${cdate}.nc
@@ -83,7 +82,8 @@ set roffname = ${lndcase}.mosart.r.${year}-${mon}-01-00000.nc
 set atmdir = /global/cfs/cdirs/mp9/E3SMv2.1-SMYLE/initial_conditions/atm/M${mon}/
 #set lnddir = /pscratch/sd/s/sglanvil/archive/s2sLandRun_ICRUELM_final/rest/${year}-${mon}-01-00000/
 #set lnddir = /pscratch/sd/n/nanr/v21.SMYLE/v21.LR.I20TRELM_CRUNCEP/archive/rest/${year}-${mon}-01-00000/
-set lnddir = /global/cfs/cdirs/mp9/E3SMv2.1-SMYLE/v21.LR.I20TRELM_CRUNCEP-daily/archive/rest/${year}-${mon}-01-00000/
+#set lnddir = /global/cfs/cdirs/mp9/E3SMv2.1-SMYLE/v21.LR.I20TRELM_CRUNCEP-daily/archive/rest/${year}-${mon}-01-00000/
+set lnddir = /global/cfs/cdirs/mp9/E3SMv2.1-SMYLE/v21.LR.I20TRELM_CRUNCEP/archive/rest/${year}-${mon}-01-00000/
 
 # rename atm, land IC files
 set atmfout = ${case}.eam.i.${year}-${mon}-01-00000.nc
@@ -95,10 +95,10 @@ echo $atmfout
 set doThis = 1
 
 if ($doThis == 1) then
-cp $atmdir/${atmfname} $icdir/$atmfout
+#cp $atmdir/${atmfname} $icdir/$atmfout
 cp $lnddir/${lndfname} $icdir/$lndfout
 cp $lnddir/${roffname} $icdir/$roffout
-ncatted -a OriginalFile,global,a,c,$atmfname $icdir/$atmfout
+#ncatted -a OriginalFile,global,a,c,$atmfname $icdir/$atmfout
 ncatted -a OriginalFile,global,a,c,$lndfname $icdir/$lndfout
 ncatted -a OriginalFile,global,a,c,$roffname $icdir/$roffout
 
@@ -111,13 +111,14 @@ endif
 # ...
 #1988 = 0336
 
-set doThis = 1
+set doThis = 0
 if ($doThis == 1) then
 
 #set ocncase = 20230123.GMPAS-JRA1p4.TL319_EC30to60E2r2.anvil
-set ocncase = 20230123.GMPAS4.TL319_EC30to60E2r2.chry
+#set ocncase = 20230123.GMPAS4.TL319_EC30to60E2r2.chry
+set ocncase = 20240603_EC30to60_cycle6_daily_restarts_anvil
 set first_rest_year = 1958
-set ocean_base_year = 306
+set ocean_base_year = 1
 
 
 # Comment:  year translation:  if ($year == 2018 ) set ocnyr = 0366
@@ -125,11 +126,12 @@ set ocean_base_year = 306
 # atmyr 1958 = ocnyr 306
 @ offset = $first_rest_year - $ocean_base_year 
 @ ocnyr   = $year - $offset
-set ocndir = /pscratch/sd/l/lvroekel/cycle6_monthly-restarts/restarts_monthly/
-set ocndir = /global/cfs/cdirs/mp9/E3SMv2.1-SMYLE/cycle6_monthly-restarts/restarts_monthly/
 
-set icefname   = ${ocncase}.mpassi.rst.0${ocnyr}-${mon}-01_00000.nc 
-set poprfname  = ${ocncase}.mpaso.rst.0${ocnyr}-${mon}-01_00000.nc  
+#set ocndir = /pscratch/sd/l/lvroekel/cycle6_monthly-restarts/restarts_monthly/
+set ocndir = /global/cfs/cdirs/mp9/E3SMv2.1-SMYLE/cycle6_monthly-restarts/restarts-daily/rest/00${ocnyr}-${mon}-01-00000/
+
+set icefname   = ${ocncase}.mpassi.rst.00${ocnyr}-${mon}-01_00000.nc 
+set poprfname  = ${ocncase}.mpaso.rst.00${ocnyr}-${mon}-01_00000.nc  
 
 set icefout   = ${case}.mpassi.rst.${year}-${mon}-01_00000.nc
 set poprfout  = ${case}.mpaso.rst.${year}-${mon}-01_00000.nc

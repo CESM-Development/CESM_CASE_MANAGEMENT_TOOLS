@@ -6,8 +6,9 @@
 #module load cudatoolkit/11.5
 #module load python
 
-for year in {2013..2013}; do
+for year in {2014..2014}; do
 for pert in {01..20}; do
+#for pert in {39..39}; do
   mon=02
   case=v21.LR.SMYLE_IC_TRENDY.${year}-${mon}.01
   eamfile=v21.LR.SMYLE_IC_TRENDY.pert.eam.i.$year-${mon}-01-00000.nc

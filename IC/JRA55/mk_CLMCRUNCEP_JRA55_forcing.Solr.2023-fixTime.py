@@ -11,47 +11,47 @@ def calculate_running_totals(days_in_month):
     return running_totals
 
 def process_files(path1, prefix_file1, path2, prefix_file2, output_prefix, variables, start_year, end_year, script_name):
-    """Process CRUNCEP files for a series of years and replace valid values with Trendy data."""
+    """Process JRA55 files for a series of years and replace valid values with Trendy data."""
     # Days in each month (non-leap year)
     days_in_month = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
-
+    
     # Calculate running totals
     running_totals = calculate_running_totals(days_in_month)
-
+    
     # Process each year
     for year in range(start_year, end_year + 1):
         trendy_path = f"{path1}/{prefix_file1.replace('YYYY', str(year))}"
         print(f"Processing Trendy file: {trendy_path}")
-
+    
         # Open File1 (Trendy)
         trendy = xr.open_dataset(trendy_path)
 
         # Process each month
         for month in range(1, 13):  # Months from 1 to 12
-            #cruncep_file = f"{path2}/{prefix_file2.replace('YYYY', str(year)).replace('MM', f'{month:02d}') }"
-            # use 2016 as template for 2017-2020 because we don't have those years for CRUNCEP
             cruncep_file = f"{path2}/{prefix_file2.replace('MM', f'{month:02d}') }"
-            print(f"Processing CRUNCEP file: {cruncep_file}")
+            print(f"Processing JRA55 file: {cruncep_file}")
 
-            # Open the corresponding File2-YYYY-MM (CRUNCEP)
+            # Open the corresponding File2-YYYY-MM (JRA55)
             cruncep = xr.open_dataset(cruncep_file)
 
-
-            # Generate corrected time values
+            # 🔑 Generate corrected fractional day time values
             num_timesteps = len(cruncep['time'])
-            corrected_time = xr.DataArray(
-                [0.125 + i * 0.25 for i in range(num_timesteps)],  # Generate time values
-                dims=['time'],
-                coords={'time': [0.125 + i * 0.25 for i in range(num_timesteps)]}
-            )
+            corrected_time_values = [0.125 + i * 0.25 for i in range(num_timesteps)]
+            cruncep = cruncep.assign_coords(time=("time", corrected_time_values))
 
-            # Replace CRUNCEP time with corrected values
-            cruncep = cruncep.assign_coords(time=corrected_time)
+            # Ensure correct time metadata
+            time_units = f"days since {year}-{month:02d}-01 00:00:00"
+            time_calendar = "gregorian"
 
-            # Ensure correct time attributes
-            cruncep['time'].encoding.pop('units', None)  # Remove 'units' from encoding if it exists
-            cruncep['time'].attrs['units'] = f"days since {year}-{month:02d}-01 00:00:00"
-            cruncep['time'].attrs['calendar'] = 'gregorian'  # Optional but recommended
+            cruncep['time'].attrs = {
+                "units": time_units,
+                "calendar": time_calendar
+            }
+
+            cruncep['time'].encoding = {
+                "units": time_units,
+                "calendar": time_calendar
+            }
 
             # Determine the start and end indices for the current month in Trendy
             start_idx = running_totals[month - 1]
@@ -60,9 +60,12 @@ def process_files(path1, prefix_file1, path2, prefix_file2, output_prefix, varia
             # Select the time slice for the current month in Trendy
             trendy_month = trendy.isel(time=slice(start_idx, end_idx))
 
+            # 🔑 Regrid Trendy to JRA55 grid (interpolates lat/lon)
+            trendy_month = trendy_month.interp(lat=cruncep.lat, lon=cruncep.lon)
+
             # Process each variable
             for var in variables:
-                if var in trendy.variables and var in cruncep.variables:
+                if var in trendy_month.variables and var in cruncep.variables:
                     # Select the variable data
                     trendy_var = trendy_month[var]
                     cruncep_var = cruncep[var]
@@ -71,10 +74,10 @@ def process_files(path1, prefix_file1, path2, prefix_file2, output_prefix, varia
                     if 'time' in cruncep_var.dims:
                         trendy_var = trendy_var.assign_coords(time=cruncep_var.time)
 
-                    # Replace valid CRUNCEP values with valid Trendy values
+                    # Replace valid JRA55 values with valid Trendy values
                     updated_var = cruncep_var.where(trendy_var.isnull(), trendy_var)
 
-                    # Update the CRUNCEP dataset with the modified variable
+                    # Update the JRA55 dataset with the modified variable
                     cruncep[var] = updated_var
 
             # Add global attributes for history
@@ -82,10 +85,11 @@ def process_files(path1, prefix_file1, path2, prefix_file2, output_prefix, varia
             output_file = f"{path1}/{output_prefix.replace('YYYY', str(year)).replace('MM', f'{month:02d}') }"
             cruncep.attrs["history"] = (
                 f"File created by nanr@ucar.edu {script_name} on {today}. "
-                f"CRUNCEP Input file: {cruncep_file}, TRENDY input file: {trendy_path} "
-                "Description: Overwrite the CRUNCEP land values with valid land TRENDY values in order to "
-                "force ELM with TRENDY. Missing values in TRENDY are ignored."
-                "Missing values over water in Trendy are ignored."
+                f"JRA55 Input file: {cruncep_file}, TRENDY input file: {trendy_path} "
+                "Description: Overwrite the JRA55 land values with valid land TRENDY values in order to "
+                "force ELM with TRENDY. Missing values in TRENDY are ignored. "
+                "Missing values over water in TRENDY are ignored."
+                "Original data:JRA55 3-Hourly Atmospheric Forcing."
             )
 
             # Save the updated File2-YYYY-MM back to disk
@@ -97,15 +101,16 @@ def main():
     # Hardcoded paths and prefixes
     path1 = "/pscratch/sd/n/nanr/TRENDY"
 #   prefix_file1 = "clmforc.TRENDY.c2023_0.5x0.5.Prec.YYYY.nc"
-    prefix_file1 = "clmforc.JRA55.c2021.0.56x0.56.Prec.YYYY.nc"
-    path2 = "/global/cfs/cdirs/mp9/E3SMv2.1-SMYLE/inputdata/atm/datm7/Precip6Hrly/"
+    prefix_file1 = "clmforc.JRA55.c2021.0.56x0.56.Solr.YYYY.nc"
+    path2 = "/global/cfs/cdirs/mp9/E3SMv2.1-SMYLE/inputdata/atm/datm7/Solar6Hrly/"
     #prefix_file2 = "clmforc.cruncep.V8.c2017.0.5d.Prec.YYYY-MM.nc"
-    prefix_file2 = "clmforc.cruncep.V8.c2017.0.5d.Prec.2016-MM.nc"
-    output_prefix = "clmforc.TRENDY_qianFilled.c2023.0.5d.Prec.YYYY-MM.nc"
+    prefix_file2 = "clmforc.cruncep.V8.c2017.0.5d.Solr.2016-MM.nc"
+    output_prefix = "clmforc.JRA55_qianFilled.c2025.0.5d.Solr.YYYY-MM.nc"
 
     # Parameters
     #variables = ["PSRF", "TBOT", "WIND", "QBOT", "FLDS"]
-    variables = ["PRECTmms"]
+    #variables = ["PRECTmms"]
+    variables = ["FSDS"]
     start_year = 2023
     end_year = 2023
 

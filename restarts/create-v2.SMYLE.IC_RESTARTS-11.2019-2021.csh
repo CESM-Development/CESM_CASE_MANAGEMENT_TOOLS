@@ -29,30 +29,13 @@ setenv TOOLS_ROOT /global/u2/n/nanr/CESM_tools/e3sm/v2/scripts/v2.SMYLE/
 # set eyr = 1980
 # set syr = 1981
 # set eyr = 2000
-set cdate = c20230203  
-
 set syr = 2020
 set eyr = 2020
-set cdate = c20240326
-
-set syr = 2021
-set eyr = 2021
-set cdate = c20240803
-
-set syr = 2022
-set eyr = 2022
-set syr = 2022
-set eyr = 2023
-set cdate = c20250902
-
 
 @ ib = $syr
 @ ie = $eyr
 
 foreach year ( `seq $ib $ie` )
-#foreach mon ( 05 )
-#foreach mon ( 08 )
-#foreach mon ( 02 )
 foreach mon ( 11 )
 
 set case = v21.LR.SMYLE_IC.${year}-${mon}.01
@@ -72,18 +55,18 @@ if ($doThis99 == 1) then
 
 # atm, lnd initial conditions
 set atmcase = eami.HICCUP-ERA5-CATALYST
-set lndcase = v21.LR.I20TRELM_CRUNCEP-daily
+set lndcase = v21.LR.I20TRELM_CRUNCEP
 
 # names
-set atmfname = ${atmcase}.${year}-${mon}-01.ne30np4.L72.${cdate}.nc
+set atmfname = ${atmcase}.${year}-${mon}-01.ne30np4.L72.c20230203.nc
 set lndfname = ${lndcase}.elm.r.${year}-${mon}-01-00000.nc
 set roffname = ${lndcase}.mosart.r.${year}-${mon}-01-00000.nc
 
 # directories
-set atmdir = /global/cfs/cdirs/mp9/E3SMv2.1-SMYLE/initial_conditions/atm/M${mon}/
+set atmdir = /global/cfs/cdirs/mp9/E3SMv2.1-SMYLE/initial_conditions/atm/M11/
 #set lnddir = /pscratch/sd/s/sglanvil/archive/s2sLandRun_ICRUELM_final/rest/${year}-${mon}-01-00000/
 #set lnddir = /pscratch/sd/n/nanr/v21.SMYLE/v21.LR.I20TRELM_CRUNCEP/archive/rest/${year}-${mon}-01-00000/
-set lnddir = /global/cfs/cdirs/mp9/E3SMv2.1-SMYLE/v21.LR.I20TRELM_CRUNCEP-daily/archive/rest/${year}-${mon}-01-00000/
+set lnddir = /global/cfs/cdirs/mp9/E3SMv2.1-SMYLE/v21.LR.I20TRELM_CRUNCEP/archive/rest/${year}-${mon}-01-00000/
 
 # rename atm, land IC files
 set atmfout = ${case}.eam.i.${year}-${mon}-01-00000.nc
@@ -114,8 +97,7 @@ endif
 set doThis = 1
 if ($doThis == 1) then
 
-#set ocncase = 20230123.GMPAS-JRA1p4.TL319_EC30to60E2r2.anvil
-set ocncase = 20230123.GMPAS4.TL319_EC30to60E2r2.chry
+set ocncase = 20230123.GMPAS-JRA1p4.TL319_EC30to60E2r2.anvil
 set first_rest_year = 1958
 set ocean_base_year = 306
 
@@ -126,7 +108,6 @@ set ocean_base_year = 306
 @ offset = $first_rest_year - $ocean_base_year 
 @ ocnyr   = $year - $offset
 set ocndir = /pscratch/sd/l/lvroekel/cycle6_monthly-restarts/restarts_monthly/
-set ocndir = /global/cfs/cdirs/mp9/E3SMv2.1-SMYLE/cycle6_monthly-restarts/restarts_monthly/
 
 set icefname   = ${ocncase}.mpassi.rst.0${ocnyr}-${mon}-01_00000.nc 
 set poprfname  = ${ocncase}.mpaso.rst.0${ocnyr}-${mon}-01_00000.nc  
