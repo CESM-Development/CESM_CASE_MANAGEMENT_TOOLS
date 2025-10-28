@@ -1,0 +1,4 @@
+cori11:archive/ocn/hist>ls -Fl v2.LR.SSP370_0111.mpaso.hist.am.timeSeriesStatsMonthly.202* | egrep -v "4066581028"
+-rwxr-xr-- 1 nanr mp9 3080454144 Jun 30  2022 v2.LR.SSP370_0111.mpaso.hist.am.timeSeriesStatsMonthly.2021-07-01.nc*
+-rwxr-xr-- 1 nanr mp9 3016228864 Jun 30  2022 v2.LR.SSP370_0111.mpaso.hist.am.timeSeriesStatsMonthly.2022-11-01.nc*
+-rwxr-xr-- 1 nanr mp9 3328966656 Jun 30  2022 v2.LR.SSP370_0111.mpaso.hist.am.timeSeriesStatsMonthly.2022-12-01.nc*

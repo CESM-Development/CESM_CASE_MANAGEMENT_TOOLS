@@ -1,0 +1,5 @@
+Please change to the following:
+
+ !!                 h0, h1, h2, h3, h4, h5,h6
+ nhtfrq          =   0,-24, -6, -6, -3,-24, 0
+ mfilt           =   1,365,146,292,292, 73, 1

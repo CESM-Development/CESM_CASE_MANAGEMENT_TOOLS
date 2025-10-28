@@ -1,0 +1,14 @@
+FROM: /global/u2/n/nanr/CESM_tools/e3sm/v2/scripts/v2.SMYLE/restarts
+RUN: ncflint -O -C -v time_bnds,lev,ilev,hyai,hybi,hyam,hybm,U,V,T,Q,PS -w 0.15,1.0 /global/cfs/cdirs/mp9/E3SMv2.1-SMYLE/S2S_perts_DIFF/05/v2.LR.historical_daily-cami_0241.eam.i.M05.diff.571.nc /global/cfs/cdirs/mp9/E3SMv2.1-SMYLE/inputdata/e3sm_init/v21.LR.SMYLE_IC.2019-05.01/2019-05-01/v21.LR.SMYLE_IC.2019-05.01.eam.i.2019-05-01-00000.nc /global/cfs/cdirs/mp9/E3SMv2.1-SMYLE/inputdata/e3sm_init/v21.LR.SMYLE_IC.2019-05.01/pert.01/v21.LR.SMYLE_IC.pert.eam.i.2019-05-01-tmp.nc
+FROM: /global/u2/n/nanr/CESM_tools/e3sm/v2/scripts/v2.SMYLE/restarts
+  stat: 1
+
+  errput: ncflint: ERROR file "/global/cfs/cdirs/mp9/E3SMv2.1-SMYLE/S2S_perts_DIFF/05/v2.LR.historical_daily-cami_0241.eam.i.M05.diff.000.nc" not found. It does not exist on the local filesystem, nor does it match remote filename patterns (e.g., http://foo or foo.bar.edu:file).
+ncflint: HINT file-not-found errors usually arise from filename typos, incorrect paths, missing files, or capricious gods. Please verify spelling and location of requested file. If the file resides on a High Performance Storage System (HPSS) accessible via the 'hsi' command, then add the --hpss option and re-try command.
+
+  stat: 1
+
+  errput: ncflint: ERROR file "/global/cfs/cdirs/mp9/E3SMv2.1-SMYLE/S2S_perts_DIFF/05/v2.LR.historical_daily-cami_0241.eam.i.M05.diff.000.nc" not found. It does not exist on the local filesystem, nor does it match remote filename patterns (e.g., http://foo or foo.bar.edu:file).
+ncflint: HINT file-not-found errors usually arise from filename typos, incorrect paths, missing files, or capricious gods. Please verify spelling and location of requested file. If the file resides on a High Performance Storage System (HPSS) accessible via the 'hsi' command, then add the --hpss option and re-try command.
+
+

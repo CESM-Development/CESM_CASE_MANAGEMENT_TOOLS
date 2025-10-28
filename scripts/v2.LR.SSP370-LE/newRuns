@@ -1,0 +1,98 @@
+0131
+
+----- Skipping fetch_code -----
+
+
+----- Starting create_newcase -----
+
+Compset longname is SSP370SOI_EAM%CMIP6_ELM%SPBC_MPASSI_MPASO_MOSART_SGLC_SWAV
+Compset specification file is /global/project/projectdirs/ccsm1/people/nanr/e3sm_tags/E3SMv2/E3SM/cime_config/allactive/config_compsets.xml
+Automatically adding SIAC to compset
+Automatically adding SESP to compset
+Compset forcing is 
+ATM component is cam5 physics:EAM with complete set of E3SM atmospheric mods for V1 (72 layers model) and ACES4BGC SOAG emissions- CMIP6-DECK:
+LND component is clm4.5 physics:clm4.5 Satellite phenology:clm4.5 Satellite phenology with black carbon deposition:
+ICE component is MPAS seaice:
+OCN component is mpas ocean default:
+ROF component is MOSART:
+GLC component is Stub glacier (land ice) component
+WAV component is Stub wave component
+IAC component is Stub iac component
+ESP component is Stub external system processing (ESP) component
+Pes     specification file is /global/project/projectdirs/ccsm1/people/nanr/e3sm_tags/E3SMv2/E3SM/cime_config/allactive/config_pesall.xml
+Compset specific settings: name is RUN_STARTDATE and value is 2015-01-01
+Machine is cori-knl
+Pes setting: grid match    is a%ne30np4.pg.+_oi%EC30to60E2r2 
+Pes setting: machine match is cori-knl 
+Pes setting: compset_match is .*EAM.+ELM.+MPASSI.+MPASO.+MOSART.+ 
+Pes setting: pesize match  is L 
+Pes setting: grid          is a%ne30np4.pg2_l%ne30np4.pg2_oi%EC30to60E2r2_r%r05_g%null_w%null_z%null_m%EC30to60E2r2 
+Pes setting: compset       is SSP370SOI_EAM%CMIP6_ELM%SPBC_MPASSI_MPASO_MOSART_SGLC_SWAV_SIAC_SESP 
+Pes setting: tasks       is {'NTASKS_ATM': 5440, 'NTASKS_LND': 192, 'NTASKS_ROF': 128, 'NTASKS_ICE': 5120, 'NTASKS_OCN': 1024, 'NTASKS_CPL': 5440} 
+Pes setting: threads     is {'NTHRDS_ATM': 1, 'NTHRDS_LND': 1, 'NTHRDS_ROF': 1, 'NTHRDS_ICE': 1, 'NTHRDS_OCN': 1, 'NTHRDS_CPL': 1} 
+Pes setting: rootpe      is {'ROOTPE_ATM': 0, 'ROOTPE_LND': 5120, 'ROOTPE_ROF': 5312, 'ROOTPE_ICE': 0, 'ROOTPE_OCN': 5440, 'ROOTPE_CPL': 0} 
+Pes setting: pstrid      is {} 
+Pes other settings: {'MAX_MPITASKS_PER_NODE': '64', 'MAX_TASKS_PER_NODE': '272'}
+Pes comments:  -compset A_WCYCL* -res ne30pg*EC30to60* v2LR 101 nodes n101a64x1b  ~6.8 sypd 
+setting additional fields from config_pes: {'MAX_MPITASKS_PER_NODE': '64', 'MAX_TASKS_PER_NODE': '272'}
+ Compset is: SSP370SOI_EAM%CMIP6_ELM%SPBC_MPASSI_MPASO_MOSART_SGLC_SWAV_SIAC_SESP 
+ Grid is: a%ne30np4.pg2_l%ne30np4.pg2_oi%EC30to60E2r2_r%r05_g%null_w%null_z%null_m%EC30to60E2r2 
+ Components in compset are: ['eam', 'elm', 'mpassi', 'mpaso', 'mosart', 'sglc', 'swav', 'siac', 'sesp'] 
+No charge_account info available, using value from PROJECT
+e3sm model version found: b80567211d
+Batch_system_type is nersc_slurm
+job is case.run USER_REQUESTED_WALLTIME 48:00:00 USER_REQUESTED_QUEUE None WALLTIME_FORMAT %H:%M:%S
+job is case.st_archive USER_REQUESTED_WALLTIME None USER_REQUESTED_QUEUE None WALLTIME_FORMAT %H:%M:%S
+ Creating Case directory /global/cscratch1/sd/nanr/E3SMv2/v2.LR.SSP370_0131/case_scripts
+
+----- Starting case_setup -----
+
+
+Configuring E3SM to use the COSP simulator
+
+Successfully cleaned env_mach_specific.xml
+job is case.run USER_REQUESTED_WALLTIME 48:00:00 USER_REQUESTED_QUEUE None WALLTIME_FORMAT %H:%M:%S
+Creating batch scripts
+Writing case.run script from input template /global/project/projectdirs/ccsm1/people/nanr/e3sm_tags/E3SMv2/E3SM/cime_config/machines/template.case.run
+Creating file .case.run
+Writing case.st_archive script from input template /global/project/projectdirs/ccsm1/people/nanr/e3sm_tags/E3SMv2/E3SM/cime_config/machines/template.st_archive
+Creating file case.st_archive
+Creating file .case.run.sh
+Creating user_nl_xxx files for components and cpl
+If an old case build already exists, might want to run 'case.build --clean' before building
+Generating component namelists as part of setup
+  2022-06-14 07:21:19 atm 
+Create namelist for component eam
+   Calling /global/project/projectdirs/ccsm1/people/nanr/e3sm_tags/E3SMv2/E3SM/components/eam//cime_config/buildnml
+  2022-06-14 07:21:20 lnd 
+Create namelist for component elm
+   Calling /global/project/projectdirs/ccsm1/people/nanr/e3sm_tags/E3SMv2/E3SM/components/elm//cime_config/buildnml
+  2022-06-14 07:21:21 ice 
+Create namelist for component mpassi
+   Calling /global/project/projectdirs/ccsm1/people/nanr/e3sm_tags/E3SMv2/E3SM/components/mpas-seaice/cime_config/buildnml
+  2022-06-14 07:21:21 ocn 
+Create namelist for component mpaso
+   Calling /global/project/projectdirs/ccsm1/people/nanr/e3sm_tags/E3SMv2/E3SM/components/mpas-ocean/cime_config/buildnml
+  2022-06-14 07:21:22 rof 
+Create namelist for component mosart
+   Calling /global/project/projectdirs/ccsm1/people/nanr/e3sm_tags/E3SMv2/E3SM/components/mosart//cime_config/buildnml
+  2022-06-14 07:21:22 glc 
+Create namelist for component sglc
+   Calling /global/project/projectdirs/ccsm1/people/nanr/e3sm_tags/E3SMv2/E3SM/components/stub_comps/sglc/cime_config/buildnml
+  2022-06-14 07:21:22 wav 
+Create namelist for component swav
+   Calling /global/project/projectdirs/ccsm1/people/nanr/e3sm_tags/E3SMv2/E3SM/components/stub_comps/swav/cime_config/buildnml
+  2022-06-14 07:21:22 iac 
+Create namelist for component siac
+   Calling /global/project/projectdirs/ccsm1/people/nanr/e3sm_tags/E3SMv2/E3SM/components/stub_comps/siac/cime_config/buildnml
+  2022-06-14 07:21:22 esp 
+Create namelist for component sesp
+   Calling /global/project/projectdirs/ccsm1/people/nanr/e3sm_tags/E3SMv2/E3SM/components/stub_comps/sesp/cime_config/buildnml
+  2022-06-14 07:21:22 cpl 
+Create namelist for component drv
+   Calling /global/project/projectdirs/ccsm1/people/nanr/e3sm_tags/E3SMv2/E3SM/driver-mct/cime_config/buildnml
+You can now run './preview_run' to get more info on how your case will be run
+
+----- case_build -----
+
+ERROR: $OLD_EXECUTABLE = /global/cscratch1/sd/nanr/E3SMv2/EXEROOT/build/e3sm.exe does not exist or is not an executable file.

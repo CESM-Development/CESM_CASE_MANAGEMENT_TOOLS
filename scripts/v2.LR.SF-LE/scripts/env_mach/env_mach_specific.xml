@@ -1,0 +1,87 @@
+<?xml version="1.0"?>
+<file id="env_mach_specific.xml" version="2.0">
+  <header>
+    These variables control the machine dependent environment including
+    the paths to compilers and libraries external to cime such as netcdf,
+    environment variables for use in the running job should also be set	here.
+    </header>
+  <group id="compliant_values">
+    <entry id="run_exe" value="${EXEROOT}/e3sm.exe ">
+      <type>char</type>
+      <desc>executable name</desc>
+    </entry>
+    <entry id="run_misc_suffix" value=" &gt;&gt; e3sm.log.$LID 2&gt;&amp;1 ">
+      <type>char</type>
+      <desc>redirect for job output</desc>
+    </entry>
+  </group>
+  <module_system allow_error="true" type="module">
+    <init_path lang="perl">/usr/share/lmod/8.3.1/init/perl</init_path>
+    <init_path lang="python">/usr/share/lmod/8.3.1/init/python</init_path>
+    <init_path lang="sh">/usr/share/lmod/8.3.1/init/sh</init_path>
+    <init_path lang="csh">/usr/share/lmod/8.3.1/init/csh</init_path>
+    <cmd_path lang="perl">/usr/share/lmod/lmod/libexec/lmod perl</cmd_path>
+    <cmd_path lang="python">/usr/share/lmod/lmod/libexec/lmod python</cmd_path>
+    <cmd_path lang="sh">module</cmd_path>
+    <cmd_path lang="csh">module</cmd_path>
+    <modules>
+      <command name="unload">cray-hdf5-parallel</command>
+      <command name="unload">cray-netcdf-hdf5parallel</command>
+      <command name="unload">cray-parallel-netcdf</command>
+      <command name="unload">PrgEnv-gnu</command>
+      <command name="unload">PrgEnv-nvidia</command>
+      <command name="unload">cudatoolkit</command>
+      <command name="unload">craype-accel-nvidia80</command>
+      <command name="unload">craype-accel-host</command>
+      <command name="unload">perftools-base</command>
+      <command name="unload">perftools</command>
+      <command name="unload">darshan</command>
+    </modules>
+    <modules compiler="gnu">
+      <command name="load">PrgEnv-gnu/8.3.3</command>
+      <command name="load">gcc/11.2.0</command>
+    </modules>
+    <modules compiler="nvidia">
+      <command name="load">PrgEnv-nvidia</command>
+      <command name="load">nvidia/22.5</command>
+    </modules>
+    <modules compiler="amdclang">
+      <command name="load">PrgEnv-aocc</command>
+      <command name="load">aocc/3.2.0</command>
+    </modules>
+    <modules>
+      <command name="load">craype-accel-host</command>
+      <command name="load">cray-libsci</command>
+      <command name="load">craype</command>
+      <command name="load">cray-mpich/8.1.27</command>
+      <command name="load">cray-hdf5-parallel/1.12.2.7</command>
+      <command name="load">cray-netcdf-hdf5parallel/4.9.0.7</command>
+      <command name="load">cray-parallel-netcdf/1.12.3.7</command>
+      <command name="load">cmake/3.22.0</command>
+    </modules>
+  </module_system>
+  <environment_variables>
+    <env name="MPICH_ENV_DISPLAY">1</env>
+    <env name="MPICH_VERSION_DISPLAY">1</env>
+    <env name="OMP_STACKSIZE">128M</env>
+    <env name="OMP_PROC_BIND">spread</env>
+    <env name="OMP_PLACES">threads</env>
+    <env name="HDF5_USE_FILE_LOCKING">FALSE</env>
+    <env name="PERL5LIB">/global/cfs/cdirs/e3sm/perl/lib/perl5-only-switch</env>
+    <env name="FI_CXI_RX_MATCH_MODE">software</env>
+    <env name="MPICH_COLL_SYNC">MPI_Bcast</env>
+  </environment_variables>
+  <resource_limits>
+    <resource name="RLIMIT_STACK">-1</resource>
+  </resource_limits>
+  <mpirun mpilib="default">
+    <executable>srun</executable>
+    <arguments>
+      <arg name="label"> --label</arg>
+      <arg name="num_tasks"> -n {{ total_tasks }} -N {{ num_nodes }}</arg>
+      <arg name="thread_count">-c $SHELL{echo 256/`./xmlquery --value MAX_MPITASKS_PER_NODE`|bc}</arg>
+      <arg name="binding"> $SHELL{if [ 128 -ge `./xmlquery --value MAX_MPITASKS_PER_NODE` ]; then echo "--cpu_bind=cores"; else echo "--cpu_bind=threads";fi;} </arg>
+      <arg name="placement"> -m plane=$SHELL{echo `./xmlquery --value MAX_MPITASKS_PER_NODE`}</arg>
+    </arguments>
+  </mpirun>
+</file>

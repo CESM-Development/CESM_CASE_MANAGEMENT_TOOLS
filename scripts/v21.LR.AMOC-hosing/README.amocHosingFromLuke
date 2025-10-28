@@ -1,0 +1,24 @@
+Hi Aixue and Nan,
+
+  I do remember chatting about this previously Aixue and from our AMOC group this could be very beneficial to our project as well.  I've forgotten the details of this experiment, is it a fixed in time forcing or monthly varying?  Is it applied as a freshwater condition or virtual salt flux?  Since I don't remember I'll try outline what we would do for each case
+
+
+Freshwater flux, fixed in time
+If easy for distribution to be specified in code (e.g. lat/lon bounds) this is trivial, we could just add on to some freshwater flux in ocn_comp_mct.F
+If we need a file, we could potentially read in a freshwaterflux and add it to what is applied.  Again not a difficult change
+Freshwater flux, monthly varying
+Trickier, but we have the pieces in place.  It would take more time but we could get there.
+
+
+Virtual salt fluxes would likely be easier, for fixed in time we could do tracer restoring, for monthly varying it would be similar to salinity restoring.
+
+
+Kind of a long way around, but all definitely doable.
+
+
+
+I'd really like to help but am not sure I can commit the time.  I wonder if perhaps Mat Maltrud and I could tag team this to get it in and passed on to you.  I think if we shared the load we could get this done.  I know I've spoken with Mat on this before so I'm guessing we can both be counted in, but I'll confirm with him.
+
+
+
+Regards,

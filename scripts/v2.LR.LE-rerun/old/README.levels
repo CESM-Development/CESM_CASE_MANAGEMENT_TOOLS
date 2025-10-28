@@ -1,0 +1,46 @@
+bash
+module load cray-hdf5
+module load cray-netcdf
+module load e4s
+spack env activate gcc
+spack load nco
+module load cudatoolkit/11.5
+module load python
+
+
+ncks -v lat_vertices,lon_vertices,time_bnds v21.LR.SMYLE_IC.1971-11.01.eam.i.1971-11-01-00000.nc eam.vars.nc
+
+        double time_bnds(time, nbnd) ;
+                time_bnds:_FillValue = NaN ;
+                time_bnds:long_name = "time interval endpoints" ;
+        double lat_vertices(ncol, nv) ;
+                lat_vertices:_FillValue = NaN ;
+                lat_vertices:long_name = "Gridcell latitude vertices" ;
+                lat_vertices:coordinates = "lon lat" ;
+        double lon_vertices(ncol, nv) ;
+                lon_vertices:_FillValue = NaN ;
+                lon_vertices:long_name = "Gridcell longitude vertices" ;
+                lon_vertices:coordinates = "lon lat" ;
+
+Original:
+netcdf v21.LR.SMYLE_IC.1971-11.01.eam.i.1971-11-01-00000 {
+dimensions:
+        time = 1 ;
+        ncol = 48602 ;
+        lev = 72 ;
+        ilev = 73 ;
+        nv = 1 ;
+        nbnd = 2 ;
+
+Perturbed
+netcdf v21.LR.SMYLE_IC.1971-11.01.eam.i.1971-11-01-00000 {
+dimensions:
+        time = UNLIMITED ; // (1 currently)
+        ncol_d = 48602 ;
+        lev = 72 ;
+        ilev = 73 ;
+
+		:history = "Thu Jul 13 10:44:31 2023: ncflint -O -C -v lev,ilev,hyai,hybi,hyam,hybm,U,V,T,Q,PS -w 0.15,1.0 /global/cfs/cdirs/mp9/E3SMv2.1-SMYLE/S2S_perts_DIFF/11/v2.LR.historical_daily-cami_0241.eam.i.M11.diff.762.nc /global/cfs/cdirs/mp9/E3SMv2.1-SMYLE/inputdata/e3sm_init/v21.LR.SMYLE_IC.1971-11.01/1971-11-01/v21.LR.SMYLE_IC.1971-11.01.eam.i.1971-11-01-00000.nc /global/cfs/cdirs/mp9/E3SMv2.1-SMYLE/inputdata/e3sm_init/v21.LR.SMYLE_IC.1971-11.01/pert.03/v21.LR.SMYLE_IC.pert.eam.i.1971-11-01-tmp.nc\n",
+			"Wed May 24 11:27:41 2023: ncdiff /global/cfs/cdirs/mp9/SMYLE/S2S_perts/11//v2.LR.historical_daily-cami_0241.eam.i.1992-11-11-00000.nc /global/cfs/cdirs/mp9/SMYLE/S2S_perts/11//v2.LR.historical_daily-cami_0241.eam.i.2006-11-07-00000.nc /global/cfs/cdirs/mp9/SMYLE/S2S_perts_DIFF/11//v2.LR.historical_daily-cami_0241.eam.i.M11.diff.762.nc\n",
+			"created on 02/19/23 15:32:29" ;
+

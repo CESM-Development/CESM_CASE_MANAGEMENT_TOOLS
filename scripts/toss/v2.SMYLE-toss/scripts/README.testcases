@@ -1,0 +1,4 @@
+./create_newcase --case $SCRATCH/testBcase.20TR --compset=WCYCL20TR --res=ne30pg2_EC30to60E2r2 --machine=pm-cpu
+
+./create_newcase --case $SCRATCH/testBcase --compset=WCYCLSSP370 --res=ne30pg2_EC30to60E2r2 --machine=pm-cpu
+./create_newcase --case $SCRATCH/testBcase2 --compset=WCYCLSSP370 --res=ne30pg2_EC30to60E2r2 --machine=pm-cpu

@@ -1,0 +1,15 @@
+#!/bin/csh 
+### set env variables
+
+foreach mbr ( 0111 0121 0131 0141 0161 0171 0181 0191 0211 0221 0231 0241 0261 0271 0281 0291 )
+
+set CASEROOT = /global/cscratch1/sd/nanr/E3SMv2/v2.LR.SSP370_${mbr}/case_scripts
+
+cd $CASEROOT/
+./xmlchange CONTINUE_RUN=FALSE
+./xmlchange DOUT_S=FALSE
+
+end             # mbr loop
+
+exit
+

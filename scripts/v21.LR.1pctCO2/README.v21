@@ -1,0 +1,6 @@
+v21 1PCT run
+/home/g/golaz/E3SMv2_1/v2_1.LR.1pctCO2_0101
+
+bash
+source /global/common/software/e3sm/anaconda_envs/load_latest_e3sm_unified_pm-cpu.sh
+zstash extract --hpss=/home/g/golaz/E3SMv2_1/v2_1.LR.1pctCO2_0101 "archive/rest/0151-01-01-00000/*"
