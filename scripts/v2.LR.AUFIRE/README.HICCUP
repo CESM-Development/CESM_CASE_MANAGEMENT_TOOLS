@@ -1,0 +1,80 @@
+What I've done:
+
+git clone https://github.com/E3SM-Project/HICCUP ./HICCUP
+
+## This zip file was attached to Walter's August 21, 2023 email:
+	scp cheyenne.ucar.edu:/glade/scratch/nanr/catalyst_hiccup.zip .
+
+bash
+
+From README.MD
+~~ --------------------------
+module load e4s
+spack env activate gcc
+spack load nco
+module load cudatoolkit/11.7
+module load python
+
+conda activate hiccup_env3
+./setup.py install
+
+~~ --------------------------
+# First, need to get API for data download:
+# Look for api on website:  ECMWF 
+https://cds.climate.copernicus.eu/api-how-to
+
+# set up this file to download ERA5 data
+/global/homes/n/nanr/.cdsapirc
+
+# Get Data (edit time periods and month!)
+./get_hindcast_data.ERA5.py		
+
+# process Data (edit time periods and month!)
+sbatch 2023-CATALYST.batch.py
+~~ --------------------------
+# pick up data Walter shared for me
+cd /pscratch/sd/n/nanr/data_IC/data_ERA5
+take -u whannah 
+take -u whannah -a 
+~~ --------------------------
+
+# From Walter Hannah:
+
+
+
+
+~~ --------------------------
+conda create --name hiccup_env3 -c conda-forge xarray dask
+(nersc-python) nanr@perlmutter:login11:~> conda activate hiccup_env3
+conda install -c conda-forge pandas numpy scipy netcdf4 pynio hdf5
+conda install -c conda-forge cdsapi tempest-remap nco
+~~ --------------------------
+
+/global/u2/n/nanr/CESM_tools/e3sm/v2/scripts/v2.AUFIRE/HICCUP/catalyst_hiccup
+2023-CATALYST.batch.py
+
+Got help from JimEdwards:  Added script from 2023-CATALYST.batch.sh to the top of 2023-CATALYST.batch.py and changed from --partition to -qos regular.
+Then submitted:
+
+sbatch 2023-CATALYST.batch.py
+
+
+
+=======================================
+From Walter Hannah:  August 21, 2023
+The first step is to grab the HICCUP package from here => https://github.com/E3SM-Project/HICCUP
+After cloning that you need to follow the set up instructions to create a new conda env and run “./setup.py install”
+
+Afterwards you can extract the scripts in the attached zip archive, which contains these files:
+
+2023-CATALYST.batch.py
+2023-CATALYST.batch.sh
+2023-CATALYST.create_IC_from_obs.py
+get_hindcast_data.ERA5.py
+
+get_hindcast_data.ERA5.py is for aquiring the ERA5 data that will be turned into the initial condition (IC) files. Each IC needs both vertically resolved and surface data, which end up coming in separate files.
+2023-CATALYST.create_IC_from_obs.py is where all the action happens, but for various reasons it can only process/create a single IC file at a time, so…
+I created 2023-CATALYST.batch.py to loop through all the hindcast dates and call the previous script.
+However, You might not want to run this on a login node, so if that’s the case then you can use 2023-CATALYST.batch.sh to run it as a batch job.
+Make sure you go through all the scripts and adjust the various paths before calling them. You’ll also likely need to adjust the batch job parameters to change the project account and whatnot.
+Feel free to hit me with any questions.

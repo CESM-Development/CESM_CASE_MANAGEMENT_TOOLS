@@ -1,0 +1,22 @@
+atm:  /global/cscratch1/sd/sglanvil/SMYLE_atm
+
+OCN restarts (2018, and 1958-1965; see README) - Luke Van Roekel:
+Glade: /glade/p/datashare/yeager/CATALYST/ocean_ice_ic_JRA_cycle1/
+Cori: /global/cscratch1/sd/sglanvil/SMYLE_ocn
+2018 = 0061
+1958 = 0062
+1959 = 0063
+1960 = 0064
+1961 = 0065
+1962 = 0066
+1963 = 0067
+1964 = 0068
+1965 = 0069
+(lets rename at some point)
+
+PERTURBATIONS (001-999):
+Nan Rosenbloom AMIP daily-IC run 1991-2015: /global/cfs/cdirs/mp9/archive/E3SMv2-SMYLE/initial_conditions/CAMI/
+Sasha Glanville make random perts: /global/homes/s/sglanvil/S2S/make_random_diffs.sh 
+Saved random perts: /global/homes/s/sglanvil/S2S/save_perts 
+Final pert files:: /global/cscratch1/sd/sglanvil/S2S_perts_DIFF
+
