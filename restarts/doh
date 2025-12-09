@@ -1,0 +1,177 @@
+
+
+
+set syr = 1994
+set syr = 1994
+set eyr = 2001
+set eyr = 2001
+set eyr = 1994
+set eyr = 1994
+
+
+
+
+@ ib = $syr
+@ ib = 1994
+@ ie = $eyr
+@ ie = 1994
+
+foreach year ( `seq $ib $ie` )
+foreach year ( `seq $ib $ie` )
+seq 1994 1994
+
+@ yearm1 = $year - 1
+@ yearm1 = 1994 - 1
+set incase = b.e11.BDP_IC.f09_g16.${yearm1}-11.01
+set incase = b.e11.BDP_IC.f09_g16.1993-11.01
+set incasepop = g.e11_LENS.GECOIAF.T62_g16.009.noSPNA
+set incasepop = g.e11_LENS.GECOIAF.T62_g16.009.noSPNA
+set outname = b.e11.BDP_IC_noSPNA.f09_g16.${yearm1}-11.01
+set outname = b.e11.BDP_IC_noSPNA.f09_g16.1993-11.01
+
+
+set srcdir = /glade/scratch/nanr/DP/ccsm4_init/b.e11.BDP_IC.f09_g16.${yearm1}-11.01/${yearm1}-11-01
+set srcdir = /glade/scratch/nanr/DP/ccsm4_init/b.e11.BDP_IC.f09_g16.1993-11.01/1993-11-01
+set srcdirpop = /glade/work/whokim/cesm_forcing/noSPNA_ICs/rest/
+set srcdirpop = /glade/work/whokim/cesm_forcing/noSPNA_ICs/rest/
+
+
+set outdir = /glade/scratch/nanr/DP/ccsm4_init/{$outname}/${yearm1}-11-01
+set outdir = /glade/scratch/nanr/DP/ccsm4_init/{b.e11.BDP_IC_noSPNA.f09_g16.1993-11.01}/1993-11-01
+
+if ( ! -d ${outdir} ) then
+if ( ! -d /glade/scratch/nanr/DP/ccsm4_init/b.e11.BDP_IC_noSPNA.f09_g16.1993-11.01/1993-11-01 ) then
+
+
+
+set atmfname = ${incase}.cam.i.${yearm1}-11-01-00000.nc
+set atmfname = b.e11.BDP_IC.f09_g16.1993-11.01.cam.i.1993-11-01-00000.nc
+set lndfname = ${incase}.clm2.r.${yearm1}-11-01-00000.nc
+set lndfname = b.e11.BDP_IC.f09_g16.1993-11.01.clm2.r.1993-11-01-00000.nc
+set rtmfname = ${incase}.rtm.r.${yearm1}-11-01-00000.nc
+set rtmfname = b.e11.BDP_IC.f09_g16.1993-11.01.rtm.r.1993-11-01-00000.nc
+set icefname = ${incase}.cice.r.${yearm1}-11-01-00000.clim.nc
+set icefname = b.e11.BDP_IC.f09_g16.1993-11.01.cice.r.1993-11-01-00000.clim.nc
+
+
+set atmfout1 = ${outname}.cam.i.${yearm1}-11-01-00000.nc
+set atmfout1 = b.e11.BDP_IC_noSPNA.f09_g16.1993-11.01.cam.i.1993-11-01-00000.nc
+set lndfout1 = ${outname}.clm2.r.${yearm1}-11-01-00000.nc
+set lndfout1 = b.e11.BDP_IC_noSPNA.f09_g16.1993-11.01.clm2.r.1993-11-01-00000.nc
+set rtmfout1 = ${outname}.rtm.r.${yearm1}-11-01-00000.nc
+set rtmfout1 = b.e11.BDP_IC_noSPNA.f09_g16.1993-11.01.rtm.r.1993-11-01-00000.nc
+set icefout1 = ${outname}.cice.r.${yearm1}-11-01-00000.nc
+set icefout1 = b.e11.BDP_IC_noSPNA.f09_g16.1993-11.01.cice.r.1993-11-01-00000.nc
+
+
+cp $srcdir/${atmfname} $outdir/$atmfout1
+cp /glade/scratch/nanr/DP/ccsm4_init/b.e11.BDP_IC.f09_g16.1993-11.01/1993-11-01/b.e11.BDP_IC.f09_g16.1993-11.01.cam.i.1993-11-01-00000.nc /glade/scratch/nanr/DP/ccsm4_init/b.e11.BDP_IC_noSPNA.f09_g16.1993-11.01/1993-11-01/b.e11.BDP_IC_noSPNA.f09_g16.1993-11.01.cam.i.1993-11-01-00000.nc
+cp $srcdir/${lndfname} $outdir/$lndfout1
+cp /glade/scratch/nanr/DP/ccsm4_init/b.e11.BDP_IC.f09_g16.1993-11.01/1993-11-01/b.e11.BDP_IC.f09_g16.1993-11.01.clm2.r.1993-11-01-00000.nc /glade/scratch/nanr/DP/ccsm4_init/b.e11.BDP_IC_noSPNA.f09_g16.1993-11.01/1993-11-01/b.e11.BDP_IC_noSPNA.f09_g16.1993-11.01.clm2.r.1993-11-01-00000.nc
+cp $srcdir/${rtmfname} $outdir/$rtmfout1
+cp /glade/scratch/nanr/DP/ccsm4_init/b.e11.BDP_IC.f09_g16.1993-11.01/1993-11-01/b.e11.BDP_IC.f09_g16.1993-11.01.rtm.r.1993-11-01-00000.nc /glade/scratch/nanr/DP/ccsm4_init/b.e11.BDP_IC_noSPNA.f09_g16.1993-11.01/1993-11-01/b.e11.BDP_IC_noSPNA.f09_g16.1993-11.01.rtm.r.1993-11-01-00000.nc
+cp $srcdir/${icefname} $outdir/$icefout1
+cp /glade/scratch/nanr/DP/ccsm4_init/b.e11.BDP_IC.f09_g16.1993-11.01/1993-11-01/b.e11.BDP_IC.f09_g16.1993-11.01.cice.r.1993-11-01-00000.clim.nc /glade/scratch/nanr/DP/ccsm4_init/b.e11.BDP_IC_noSPNA.f09_g16.1993-11.01/1993-11-01/b.e11.BDP_IC_noSPNA.f09_g16.1993-11.01.cice.r.1993-11-01-00000.nc
+cp: cannot stat '/glade/scratch/nanr/DP/ccsm4_init/b.e11.BDP_IC.f09_g16.1993-11.01/1993-11-01/b.e11.BDP_IC.f09_g16.1993-11.01.cice.r.1993-11-01-00000.clim.nc': No such file or directory
+
+
+
+
+
+
+
+
+set ocndir = /glade/work/whokim/cesm_forcing/noSPNA_ICs/rest/
+set ocndir = /glade/work/whokim/cesm_forcing/noSPNA_ICs/rest/
+set ocncase = g.e11_LENS.GECOIAF.T62_g16.009.noSPNA
+set ocncase = g.e11_LENS.GECOIAF.T62_g16.009.noSPNA
+set first_rest_year = 1954
+set first_rest_year = 1954
+set ocean_base_year = 255
+set ocean_base_year = 255
+
+
+
+
+
+@ offset = $first_rest_year - $ocean_base_year + 1
+@ offset = 1954 - 255 + 1
+
+@ ocnyr = $year - $offset
+@ ocnyr = 1994 - 1700
+
+echo "ocnyr = " $ocnyr
+echo ocnyr =  294
+ocnyr =  294
+set inpoprfname = ${ocncase}.pop.r.0${ocnyr}-11-01-00000.nc
+set inpoprfname = g.e11_LENS.GECOIAF.T62_g16.009.noSPNA.pop.r.0294-11-01-00000.nc
+set inpoprofname = ${ocncase}.pop.ro.0${ocnyr}-11-01-00000
+set inpoprofname = g.e11_LENS.GECOIAF.T62_g16.009.noSPNA.pop.ro.0294-11-01-00000
+set inpoprhfname = ${ocncase}.pop.rh.ecosys.nyear1.0${ocnyr}-11-01-00000.nc
+set inpoprhfname = g.e11_LENS.GECOIAF.T62_g16.009.noSPNA.pop.rh.ecosys.nyear1.0294-11-01-00000.nc
+
+set poprfout = ${outname}.pop.r.${yearm1}-11-01-00000.nc
+set poprfout = b.e11.BDP_IC_noSPNA.f09_g16.1993-11.01.pop.r.1993-11-01-00000.nc
+set poprofout = ${outname}.pop.ro.${yearm1}-11-01-00000
+set poprofout = b.e11.BDP_IC_noSPNA.f09_g16.1993-11.01.pop.ro.1993-11-01-00000
+set poprhfout = ${outname}.pop.rh.ecosys.nyear1.${yearm1}-11-01-00000.nc
+set poprhfout = b.e11.BDP_IC_noSPNA.f09_g16.1993-11.01.pop.rh.ecosys.nyear1.1993-11-01-00000.nc
+
+cp $ocndir/${inpoprfname} $outdir/${poprfout}
+cp /glade/work/whokim/cesm_forcing/noSPNA_ICs/rest//g.e11_LENS.GECOIAF.T62_g16.009.noSPNA.pop.r.0294-11-01-00000.nc /glade/scratch/nanr/DP/ccsm4_init/b.e11.BDP_IC_noSPNA.f09_g16.1993-11.01/1993-11-01/b.e11.BDP_IC_noSPNA.f09_g16.1993-11.01.pop.r.1993-11-01-00000.nc
+cp $ocndir/${inpoprofname} $outdir/${poprofout}
+cp /glade/work/whokim/cesm_forcing/noSPNA_ICs/rest//g.e11_LENS.GECOIAF.T62_g16.009.noSPNA.pop.ro.0294-11-01-00000 /glade/scratch/nanr/DP/ccsm4_init/b.e11.BDP_IC_noSPNA.f09_g16.1993-11.01/1993-11-01/b.e11.BDP_IC_noSPNA.f09_g16.1993-11.01.pop.ro.1993-11-01-00000
+cp: cannot stat '/glade/work/whokim/cesm_forcing/noSPNA_ICs/rest//g.e11_LENS.GECOIAF.T62_g16.009.noSPNA.pop.ro.0294-11-01-00000': No such file or directory
+cp $ocndir/${inpoprhfname} $outdir/${poprhfout}
+cp /glade/work/whokim/cesm_forcing/noSPNA_ICs/rest//g.e11_LENS.GECOIAF.T62_g16.009.noSPNA.pop.rh.ecosys.nyear1.0294-11-01-00000.nc /glade/scratch/nanr/DP/ccsm4_init/b.e11.BDP_IC_noSPNA.f09_g16.1993-11.01/1993-11-01/b.e11.BDP_IC_noSPNA.f09_g16.1993-11.01.pop.rh.ecosys.nyear1.1993-11-01-00000.nc
+cp: cannot stat '/glade/work/whokim/cesm_forcing/noSPNA_ICs/rest//g.e11_LENS.GECOIAF.T62_g16.009.noSPNA.pop.rh.ecosys.nyear1.0294-11-01-00000.nc': No such file or directory
+
+
+
+
+
+
+ncatted -a OriginalFile,global,a,c,$inpoprfname $outdir/$poprfout
+ncatted -a OriginalFile,global,a,c,g.e11_LENS.GECOIAF.T62_g16.009.noSPNA.pop.r.0294-11-01-00000.nc /glade/scratch/nanr/DP/ccsm4_init/b.e11.BDP_IC_noSPNA.f09_g16.1993-11.01/1993-11-01/b.e11.BDP_IC_noSPNA.f09_g16.1993-11.01.pop.r.1993-11-01-00000.nc
+ncatted -a OriginalFile,global,a,c,$inpoprhfname $outdir/$poprhfout
+ncatted -a OriginalFile,global,a,c,g.e11_LENS.GECOIAF.T62_g16.009.noSPNA.pop.rh.ecosys.nyear1.0294-11-01-00000.nc /glade/scratch/nanr/DP/ccsm4_init/b.e11.BDP_IC_noSPNA.f09_g16.1993-11.01/1993-11-01/b.e11.BDP_IC_noSPNA.f09_g16.1993-11.01.pop.rh.ecosys.nyear1.1993-11-01-00000.nc
+ncatted: ERROR file /glade/scratch/nanr/DP/ccsm4_init/b.e11.BDP_IC_noSPNA.f09_g16.1993-11.01/1993-11-01/b.e11.BDP_IC_noSPNA.f09_g16.1993-11.01.pop.rh.ecosys.nyear1.1993-11-01-00000.nc not found. It does not exist on the local filesystem, nor does it match remote filename patterns (e.g., http://foo or foo.bar.edu:file).
+ncatted: HINT file-not-found errors usually arise from filename typos, incorrect paths, missing files, or capricious gods. Please verify spelling and location of requested file. If the file resides on a High Performance Storage System (HPSS) accessible via the 'hsi' command, then add the --hpss option and re-try command.
+
+
+
+echo "$outname.cice.r.$yearm1-11-01-00000.nc" > ${outdir}/rpointer.ice
+echo b.e11.BDP_IC_noSPNA.f09_g16.1993-11.01.cice.r.1993-11-01-00000.nc
+echo "./$outname.pop.ro.$yearm1-11-01-00000" > ${outdir}/rpointer.ocn.ovf
+echo ./b.e11.BDP_IC_noSPNA.f09_g16.1993-11.01.pop.ro.1993-11-01-00000
+echo "$outname.cam.r.$yearm1-11-01-00000.nc" > ${outdir}/rpointer.atm
+echo b.e11.BDP_IC_noSPNA.f09_g16.1993-11.01.cam.r.1993-11-01-00000.nc
+echo "$outname.cpl.r.$yearm1-11-01-00000.nc" > ${outdir}/rpointer.drv
+echo b.e11.BDP_IC_noSPNA.f09_g16.1993-11.01.cpl.r.1993-11-01-00000.nc
+echo "$outname.clm2.r.$yearm1-11-01-00000.nc" > ${outdir}/rpointer.clm
+echo b.e11.BDP_IC_noSPNA.f09_g16.1993-11.01.clm2.r.1993-11-01-00000.nc
+echo "$outname.rtm.r.$yearm1-11-01-00000.nc" > ${outdir}/rpointer.rof
+echo b.e11.BDP_IC_noSPNA.f09_g16.1993-11.01.rtm.r.1993-11-01-00000.nc
+echo "$outname.pop.rh.ecosys.nyear1.$yearm1-11-01-00000.nc" > ${outdir}/rpointer.ocn.tavg.5
+echo b.e11.BDP_IC_noSPNA.f09_g16.1993-11.01.pop.rh.ecosys.nyear1.1993-11-01-00000.nc
+
+if ( -e ${outdir}/rpointer.ocn.restart ) then
+if ( -e /glade/scratch/nanr/DP/ccsm4_init/b.e11.BDP_IC_noSPNA.f09_g16.1993-11.01/1993-11-01/rpointer.ocn.restart ) then
+rm ${outdir}/rpointer.ocn.restart
+rm /glade/scratch/nanr/DP/ccsm4_init/b.e11.BDP_IC_noSPNA.f09_g16.1993-11.01/1993-11-01/rpointer.ocn.restart
+endif
+endif
+echo "./$outname.pop.r.$yearm1-11-01-00000.nc" >> ${outdir}/rpointer.ocn.restart
+echo ./b.e11.BDP_IC_noSPNA.f09_g16.1993-11.01.pop.r.1993-11-01-00000.nc
+echo "RESTART_FMT=nc" >> ${outdir}/rpointer.ocn.restart
+echo RESTART_FMT=nc
+
+
+
+
+
+end
+end
+
+exit
+exit

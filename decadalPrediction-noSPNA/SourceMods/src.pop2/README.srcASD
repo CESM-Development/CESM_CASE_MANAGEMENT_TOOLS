@@ -1,0 +1,23 @@
+cp /glade/u/home/klindsay/dp_asd/SourceMods/src.pop2/* .
+
+
+Nan,
+
+In order to reduce the volume of ocean model output in the ASD DP runs as Steve, Matt, and I have discussed,
+please copy the following 4 files from /glade/u/home/klindsay/dp_asd/SourceMods/src.pop
+ocn.base.tavg.csh
+ocn.cfc.tavg.csh
+ocn.ecosys.tavg.csh
+ocn.iage.tavg.csh
+to $CASEROOT/SourceMods/src.pop2
+
+These mods
+1) reduce the frequency of ocean daily output, base and ecosys, to 5 days
+2) remove from BGC ann mean output the tracer budget terms, except for O2, whose terms are retained
+3) remove tracer budget terms for CFC11, CFC12, and IAGE
+
+The ocn.ecosys.tavg.csh includes the mods that I previously provided to Nan for the DP runs that were done at NERSC.
+These mods removed 8 BGC vars related to carbonate chemistry from the ocean monthly output.
+
+A complication with the 5-day means is that POP's handling of having multiple time slices per file doesn't play friendly with submissions starting and stopping on non-file boundaries. When POP restarts, it always starts a new multi-time slice file, even if the restart date is not a a file boundary. If the restart date is mid-time averaging period, POP will correctly compute the 5 day mean from tavg restarts, but the restarted mean will always go into a new file. POP won't reopen an incomplete file and add more time slices. With the ASD DP runs not starting on 1 Jan, lining up multiple slices of 5-day means with anticipated model restart dates is tricky. So to avoid uneven number of time slices per file, I've simply set up the scripts to write a single time slice to each file.
+

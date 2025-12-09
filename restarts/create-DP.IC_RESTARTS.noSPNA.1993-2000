@@ -1,0 +1,107 @@
+#! /bin/csh -fxv 
+
+#foreach  year ( 1954 1964 1974 1984 1994 2004 )
+set syr = 1994
+set eyr = 2001
+
+# 2) noSPNA:   Use normal DPLE restart files for years 1993-2000 in all respects EXCEPT:
+# substitute ocean IC from Who Kim: g.e11_LENS.GECOIAF.T62_g16.009.noSPNA
+
+@ ib = $syr
+@ ie = $eyr
+
+foreach year ( `seq $ib $ie` )
+
+@ yearm1 = $year - 1
+set incase  = b.e11.BDP_IC.f09_g16.${yearm1}-11.01
+set incasepop  = g.e11_LENS.GECOIAF.T62_g16.009.noSPNA
+set outname    = b.e11.BDP_IC_noSPNA.f09_g16.${yearm1}-11.01
+
+# src ICs
+set srcdir      = /glade/scratch/nanr/DP/ccsm4_init/b.e11.BDP_IC.f09_g16.${yearm1}-11.01/${yearm1}-11-01
+set srcdirpop   = /glade/work/whokim/cesm_forcing/noSPNA_ICs/rest/
+
+# create new restart IC directories
+set outdir = /glade/scratch/nanr/DP/ccsm4_init/{$outname}/${yearm1}-11-01
+
+if (! -d ${outdir}) then
+ mkdir -p  ${outdir}
+endif
+
+# atm, lnd initial conditions
+
+set atmfname = ${incase}.cam.i.${yearm1}-11-01-00000.nc
+set lndfname = ${incase}.clm2.r.${yearm1}-11-01-00000.nc
+set rtmfname = ${incase}.rtm.r.${yearm1}-11-01-00000.nc
+set icefname = ${incase}.cice.r.${yearm1}-11-01-00000.nc
+set poprofname = ${incase}.pop.ro.${yearm1}-11-01-00000
+set poprhfname = ${incase}.pop.rh.ecosys.nyear1.${yearm1}-11-01-00000.nc
+
+# rename atm, land IC files
+set atmfout1 = ${outname}.cam.i.${yearm1}-11-01-00000.nc
+set lndfout1 = ${outname}.clm2.r.${yearm1}-11-01-00000.nc
+set rtmfout1 = ${outname}.rtm.r.${yearm1}-11-01-00000.nc
+set icefout1 = ${outname}.cice.r.${yearm1}-11-01-00000.nc
+set poprofout1 = ${outname}.pop.ro.${yearm1}-11-01-00000
+set poprhfout1 = ${outname}.pop.rh.ecosys.nyear1.${yearm1}-11-01-00000.nc
+
+cp $srcdir/${atmfname}    $outdir/$atmfout1
+cp $srcdir/${lndfname}    $outdir/$lndfout1
+cp $srcdir/${rtmfname}    $outdir/$rtmfout1
+cp $srcdir/${icefname}    $outdir/$icefout1
+
+## Using DPLE ro and rh.ecosys files
+cp $srcdir/${poprofname}  $outdir/${poprofout1}
+cp $srcdir/${poprhfname}  $outdir/${poprhfout1}
+
+#ncatted -a OriginalFile,global,a,c,$atmfname $outdir/$atmfout1
+#ncatted -a OriginalFile,global,a,c,$lndfname $icdirnoSPNA/$lndfout1
+#ncatted -a OriginalFile,global,a,c,$icefnamenoSPNA $icdirnoSPNA/$icefout1
+#ncatted -a OriginalFile,global,a,c,$rtmfname $icdirnoSPNA/$rtmfout1
+#ncatted -a OriginalFile,global,a,c,$nyearfname $icdirnoSPNA/$nyearfout1
+
+set ocndir = /glade/work/whokim/cesm_forcing/noSPNA_ICs/rest/
+set ocncase = g.e11_LENS.GECOIAF.T62_g16.009.noSPNA		#Years 1955-2009
+set first_rest_year = 1954
+set ocean_base_year = 255
+
+# Comment:  year translation:  if ($year == 2014 ) set ocnyr = 0247
+# atmyr 1954 = ocnyr 255
+@ offset = $first_rest_year - $ocean_base_year + 1
+# @ ocnyr   = $year - 1699
+@ ocnyr   = $year - $offset
+
+echo "ocnyr = " $ocnyr
+set inpoprfname  = ${ocncase}.pop.r.0${ocnyr}-11-01-00000.nc  
+set poprfout     = ${outname}.pop.r.${yearm1}-11-01-00000.nc
+cp $ocndir/${inpoprfname}  $outdir/${poprfout}
+ ncatted -a OriginalFile,global,a,c,$inpoprfname  $outdir/$poprfout
+#
+# create rpointer files
+
+echo "$outname.cice.r.$yearm1-11-01-00000.nc"  > ${outdir}/rpointer.ice
+echo "./$outname.pop.ro.$yearm1-11-01-00000"   > ${outdir}/rpointer.ocn.ovf
+echo "$outname.cam.r.$yearm1-11-01-00000.nc"   > ${outdir}/rpointer.atm
+echo "$outname.cpl.r.$yearm1-11-01-00000.nc"   > ${outdir}/rpointer.drv
+echo "$outname.clm2.r.$yearm1-11-01-00000.nc"  > ${outdir}/rpointer.clm
+echo "$outname.rtm.r.$yearm1-11-01-00000.nc"   > ${outdir}/rpointer.rof
+echo "$outname.pop.rh.ecosys.nyear1.$yearm1-11-01-00000.nc"   > ${outdir}/rpointer.ocn.tavg.5
+
+if (-e ${outdir}/rpointer.ocn.restart) then
+	rm ${outdir}/rpointer.ocn.restart
+endif
+echo "./$outname.pop.r.$yearm1-11-01-00000.nc"    >> ${outdir}/rpointer.ocn.restart
+echo "RESTART_FMT=nc"                           >> ${outdir}/rpointer.ocn.restart
+
+
+
+#!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+end
+
+exit
+ 
+ 
+
+
+

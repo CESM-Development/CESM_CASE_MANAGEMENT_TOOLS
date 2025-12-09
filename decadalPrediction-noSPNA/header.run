@@ -1,0 +1,11 @@
+#!/bin/csh -f
+#PBS -A CESM0015
+#PBS -N DOH
+#PBS -q regular
+#PBS -l select=28:ncpus=36:mpiprocs=18:ompthreads=2
+#PBS -l walltime=12:00:00
+#PBS -j oe
+#PBS -m ae
+#PBS -M nanr@ucar.edu
+#PBS -S /bin/csh -V
+
