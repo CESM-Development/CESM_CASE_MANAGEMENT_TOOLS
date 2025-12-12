@@ -5,8 +5,8 @@
 setenv DOUT  /pscratch/sd/n/nanr/v21.LR.BSMYLE_v2
 
 # ...
-set syr = 2014
-set eyr = 2014
+set syr = 2016
+set eyr = 2016
 
 @ ib = $syr
 @ ie = $eyr
@@ -15,8 +15,8 @@ foreach year ( `seq $ib $ie` )
 foreach mon ( 02 )
 
 # case name counter
-set smbr =  1
-set embr =  18
+set smbr =  3
+set embr =  20
 
 @ mb = $smbr
 @ me = $embr

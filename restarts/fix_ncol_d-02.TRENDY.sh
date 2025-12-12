@@ -6,7 +6,7 @@
 #module load cudatoolkit/11.5
 #module load python
 
-for year in {2014..2014}; do
+for year in {2019..2021}; do
 for pert in {01..20}; do
 #for pert in {39..39}; do
   mon=02

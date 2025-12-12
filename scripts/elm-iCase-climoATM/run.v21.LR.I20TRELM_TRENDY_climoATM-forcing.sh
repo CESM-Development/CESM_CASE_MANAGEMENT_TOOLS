@@ -27,7 +27,7 @@ TOOLS="/pscratch/sd/n/nanr/CESM_tools/v21.LR.SMYLE/"
 COMPSET="20TR_DATM%CRU_ELM%SP_SICE_SOCN_MOSART_SGLC_SWAV_SIAC_SESP"
 RESOLUTION="ne30pg2_EC30to60E2r2"
 #CASE_NAME="v21.LR.I20TRELM_CRUNCEP_TRENDY_DLY"
-CASE_NAME="v21.LR.I20TRELM_CRUNCEP_TRENDY"
+CASE_NAME="v21.LR.I20TRELM_CRUNCEP_TRENDY_climoATM"
 CASE_GROUP="v21.LR"
 
 # Code and compilation
@@ -38,7 +38,7 @@ DEBUG_COMPILE=false
 
 # Run options
 MODEL_START_TYPE="hybrid"  # 'initial', 'continue', 'branch', 'hybrid'
-START_DATE="1958-01-01"
+START_DATE="1999-01-01"
 
 # Additional options for 'branch' and 'hybrid'
 GET_REFCASE=true
@@ -157,10 +157,10 @@ check_dynpft_consistency = .false.
 
 EOF
 
-cp -fp ${TOOLS}/user_nl_files/I20TRELM_CRUNCEP.TRENDY/user_datm.streams.txt.TRENDY.Precip ${CASE_SCRIPTS_DIR}/
-cp -fp ${TOOLS}/user_nl_files/I20TRELM_CRUNCEP.TRENDY/user_datm.streams.txt.TRENDY.Solar ${CASE_SCRIPTS_DIR}/
-cp -fp ${TOOLS}/user_nl_files/I20TRELM_CRUNCEP.TRENDY/user_datm.streams.txt.TRENDY.TPQW ${CASE_SCRIPTS_DIR}/
-cp -fp ${TOOLS}/user_nl_files/I20TRELM_CRUNCEP.TRENDY/user_datm.streams.txt.co2tseries.20tr ${CASE_SCRIPTS_DIR}/
+cp -fp ${TOOLS}/user_nl_files/I20TRELM_CRUNCEP.TRENDY-climoATM/user_datm.streams.txt.TRENDY.Precip ${CASE_SCRIPTS_DIR}/
+cp -fp ${TOOLS}/user_nl_files/I20TRELM_CRUNCEP.TRENDY-climoATM/user_datm.streams.txt.TRENDY.Solar ${CASE_SCRIPTS_DIR}/
+cp -fp ${TOOLS}/user_nl_files/I20TRELM_CRUNCEP.TRENDY-climoATM/user_datm.streams.txt.TRENDY.TPQW ${CASE_SCRIPTS_DIR}/
+cp -fp ${TOOLS}/user_nl_files/I20TRELM_CRUNCEP.TRENDY-climoATM/user_datm.streams.txt.co2tseries.20tr ${CASE_SCRIPTS_DIR}/
 
 cd $CASE_SCRIPTS_DIR
 ln -s user_datm.streams.txt.TRENDY.Precip ./user_datm.streams.txt.CLMCRUNCEP.Precip
@@ -283,6 +283,9 @@ case_setup() {
     # Short term archiving
     ./xmlchange DOUT_S=${DO_SHORT_TERM_ARCHIVING^^}
     ./xmlchange DOUT_S_ROOT=${CASE_ARCHIVE_DIR}
+    ./xmlchange DATM_CLMNCEP_YR_ALIGN=1991
+    ./xmlchange DATM_CLMNCEP_YR_START=1991
+    ./xmlchange DATM_CLMNCEP_YR_END=1991
 
     # Build with COSP, except for a data atmosphere (datm)
     if [ `./xmlquery --value COMP_ATM` == "datm"  ]; then 
@@ -365,9 +368,9 @@ runtime_options() {
 
     # Set simulation start date
     ./xmlchange RUN_STARTDATE=${START_DATE}
-    ./xmlchange DATM_CLMNCEP_YR_ALIGN=1958
-    ./xmlchange DATM_CLMNCEP_YR_START=1958
-    ./xmlchange DATM_CLMNCEP_YR_END=2019
+    ./xmlchange DATM_CLMNCEP_YR_ALIGN=1999
+    ./xmlchange DATM_CLMNCEP_YR_START=1999
+    ./xmlchange DATM_CLMNCEP_YR_END=2020
 
     # Segment length
     ./xmlchange STOP_OPTION=${STOP_OPTION,,},STOP_N=${STOP_N}

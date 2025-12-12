@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<file id="stream" version="1.0">
+<dataSource>
+   GENERIC
+</dataSource>
+<domainInfo>
+  <variableNames>
+     time    time
+        xc      lon
+        yc      lat
+        area    area
+        mask    mask
+  </variableNames>
+  <filePath>
+     /global/cfs/cdirs/e3sm/inputdata/share/domains/domain.clm
+  </filePath>
+  <fileNames>
+     domain.lnd.360x720.130305.nc
+  </fileNames>
+</domainInfo>
+<fieldInfo>
+   <variableNames>
+     PRECTmms precn
+   </variableNames>
+   <filePath>
+     /global/cfs/cdirs/mp9/E3SMv2.1-SMYLE/datm_TRENDY_climo1999-2020/
+   </filePath>
+   <fileNames>
+clmforc.TRENDY_qianFilled_climo1999-2020.c2017.0.5d.Prec.1999-01.nc
+clmforc.TRENDY_qianFilled_climo1999-2020.c2017.0.5d.Prec.1999-02.nc
+clmforc.TRENDY_qianFilled_climo1999-2020.c2017.0.5d.Prec.1999-03.nc
+clmforc.TRENDY_qianFilled_climo1999-2020.c2017.0.5d.Prec.1999-04.nc
+clmforc.TRENDY_qianFilled_climo1999-2020.c2017.0.5d.Prec.1999-05.nc
+clmforc.TRENDY_qianFilled_climo1999-2020.c2017.0.5d.Prec.1999-06.nc
+clmforc.TRENDY_qianFilled_climo1999-2020.c2017.0.5d.Prec.1999-07.nc
+clmforc.TRENDY_qianFilled_climo1999-2020.c2017.0.5d.Prec.1999-08.nc
+clmforc.TRENDY_qianFilled_climo1999-2020.c2017.0.5d.Prec.1999-09.nc
+clmforc.TRENDY_qianFilled_climo1999-2020.c2017.0.5d.Prec.1999-10.nc
+clmforc.TRENDY_qianFilled_climo1999-2020.c2017.0.5d.Prec.1999-11.nc
+clmforc.TRENDY_qianFilled_climo1999-2020.c2017.0.5d.Prec.1999-12.nc
+   </fileNames>
+   <offset>
+      0
+   </offset>
+</fieldInfo>
+</file>

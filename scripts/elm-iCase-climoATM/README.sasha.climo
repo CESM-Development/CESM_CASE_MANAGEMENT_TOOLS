@@ -1,0 +1,4 @@
+Hi Nan, I made the climo DATM files for ELM, one for each month: /global/cfs/cdirs/mp9/E3SMv2.1-SMYLE/datm_TRENDY_clim ...Can you use these as-is? Or, do you want me to make the fake files? ...Either your one year idea, maybe just 1999 or whatever, or the full 1999-2020. Yours sounds better :))
+
+
+the script is also in that dir ---  make_TRENDY_clim.sh

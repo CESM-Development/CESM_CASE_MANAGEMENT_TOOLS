@@ -27,13 +27,17 @@ setenv TOOLS_ROOT /pscratch/sd/n/nanr/CESM_tools/v21.LR.SMYLE/
 # set eyr = 1975
 # set syr = 1976
 # set eyr = 1980
+# set syr = 1981
+# set eyr = 2000
+set cdate = c20230203  
+
 set syr = 2019
 set eyr = 2019
-set cdate = c20230203  
+set cdate = c20240402
 
 set syr = 2020
 set eyr = 2020
-set cdate = c20240326
+set cdate = c20240402
 
 set syr = 2021
 set eyr = 2021
@@ -48,12 +52,12 @@ set cdate = c20240803
 @ ie = $eyr
 
 foreach year ( `seq $ib $ie` )
-foreach mon ( 05 )
+#foreach mon ( 05 )
 #foreach mon ( 08 )
-#foreach mon ( 02 )
+foreach mon ( 02 )
 #foreach mon ( 11 )
 
-set case = v21.LR.SMYLE_IC_xOMIP.${year}-${mon}.01
+set case = v21.LR.SMYLE_IC_TRENDY.${year}-${mon}.01
 
 set Picdir = /global/cfs/cdirs/mp9/E3SMv2.1-SMYLE/inputdata/e3sm_init/${case}/
 set icdir  = /global/cfs/cdirs/mp9/E3SMv2.1-SMYLE/inputdata/e3sm_init/${case}/${year}-${mon}-01
@@ -70,8 +74,7 @@ if ($doThis99 == 1) then
 
 # atm, lnd initial conditions
 set atmcase = eami.HICCUP-ERA5-CATALYST
-set lndcase = v21.LR.I20TRELM_CRUNCEP
-set lndcase = v21.LR.I20TRELM_CRUNCEP-daily
+set lndcase = v21.LR.I20TRELM_CRUNCEP_TRENDY
 
 # names
 set atmfname = ${atmcase}.${year}-${mon}-01.ne30np4.L72.${cdate}.nc
@@ -82,8 +85,8 @@ set roffname = ${lndcase}.mosart.r.${year}-${mon}-01-00000.nc
 set atmdir = /global/cfs/cdirs/mp9/E3SMv2.1-SMYLE/initial_conditions/atm/M${mon}/
 #set lnddir = /pscratch/sd/s/sglanvil/archive/s2sLandRun_ICRUELM_final/rest/${year}-${mon}-01-00000/
 #set lnddir = /pscratch/sd/n/nanr/v21.SMYLE/v21.LR.I20TRELM_CRUNCEP/archive/rest/${year}-${mon}-01-00000/
-set lnddir = /global/cfs/cdirs/mp9/E3SMv2.1-SMYLE/v21.LR.I20TRELM_CRUNCEP-daily/archive/rest/${year}-${mon}-01-00000/
-#set lnddir = /global/cfs/cdirs/mp9/E3SMv2.1-SMYLE/v21.LR.I20TRELM_CRUNCEP/archive/rest/${year}-${mon}-01-00000/
+#set lnddir = /global/cfs/cdirs/mp9/E3SMv2.1-SMYLE/v21.LR.I20TRELM_CRUNCEP-daily/archive/rest/${year}-${mon}-01-00000/
+set lnddir = /global/cfs/cdirs/mp9/E3SMv2.1-SMYLE/v21.LR.I20TRELM_CRUNCEP_TRENDY/archive/rest/${year}-${mon}-01-00000/
 
 # rename atm, land IC files
 set atmfout = ${case}.eam.i.${year}-${mon}-01-00000.nc
@@ -98,7 +101,7 @@ if ($doThis == 1) then
 cp $atmdir/${atmfname} $icdir/$atmfout
 cp $lnddir/${lndfname} $icdir/$lndfout
 cp $lnddir/${roffname} $icdir/$roffout
-#ncatted -a OriginalFile,global,a,c,$atmfname $icdir/$atmfout
+ncatted -a OriginalFile,global,a,c,$atmfname $icdir/$atmfout
 ncatted -a OriginalFile,global,a,c,$lndfname $icdir/$lndfout
 ncatted -a OriginalFile,global,a,c,$roffname $icdir/$roffout
 
@@ -115,7 +118,13 @@ set doThis = 1
 if ($doThis == 1) then
 
 #set ocncase = 20230123.GMPAS-JRA1p4.TL319_EC30to60E2r2.anvil
+## Also extended correctly using the JRA atm forcing. I used these for TRENDY_IC May and Nov 2022 and 2023.
+## they were run on Chrysallis and won't be B4B but are forced correctly
+#/global/cfs/cdirs/mp9/E3SMv2.1-SMYLE/cycle6_monthly-restarts/restarts-monthly-JonWolfe-JRA
 #set ocncase = 20230123.GMPAS4.TL319_EC30to60E2r2.chry
+#set first_rest_year = 1958
+#set ocean_base_year = 306
+
 # Luke Email: June 13, 2024
 # I've finished the redo of cycle 6 with daily restarts.  It should be years 1-66 (1958-2023).  
 # zstash extract --hpss=/home/l/lvroekel/E3SMv2/20240603_EC30to60_cycle6_daily_restarts_anvil
@@ -123,10 +132,6 @@ set ocncase = 20240603_EC30to60_cycle6_daily_restarts_anvil
 set first_rest_year = 1958
 set ocean_base_year = 1
 
-
-# Comment:  year translation:  if ($year == 2018 ) set ocnyr = 0366
-# years used for ICs:   0306 (1958) - 0366 (2018)
-# atmyr 1958 = ocnyr 306
 @ offset = $first_rest_year - $ocean_base_year 
 @ ocnyr   = $year - $offset
 
@@ -138,6 +143,9 @@ set poprfname  = ${ocncase}.mpaso.rst.00${ocnyr}-${mon}-01_00000.nc
 
 set icefout   = ${case}.mpassi.rst.${year}-${mon}-01_00000.nc
 set poprfout  = ${case}.mpaso.rst.${year}-${mon}-01_00000.nc
+
+
+
 
 
 echo $icefname

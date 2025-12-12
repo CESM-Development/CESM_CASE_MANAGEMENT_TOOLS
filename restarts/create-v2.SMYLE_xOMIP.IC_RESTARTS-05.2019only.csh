@@ -116,6 +116,9 @@ if ($doThis == 1) then
 
 #set ocncase = 20230123.GMPAS-JRA1p4.TL319_EC30to60E2r2.anvil
 #set ocncase = 20230123.GMPAS4.TL319_EC30to60E2r2.chry
+# Luke Email: June 13, 2024
+# I've finished the redo of cycle 6 with daily restarts.  It should be years 1-66 (1958-2023).  
+# zstash extract --hpss=/home/l/lvroekel/E3SMv2/20240603_EC30to60_cycle6_daily_restarts_anvil
 set ocncase = 20240603_EC30to60_cycle6_daily_restarts_anvil
 set first_rest_year = 1958
 set ocean_base_year = 1
@@ -128,7 +131,7 @@ set ocean_base_year = 1
 @ ocnyr   = $year - $offset
 
 #set ocndir = /pscratch/sd/l/lvroekel/cycle6_monthly-restarts/restarts_monthly/
-set ocndir = /global/cfs/cdirs/mp9/E3SMv2.1-SMYLE/cycle6_monthly-restarts/restarts-daily/rest/00${ocnyr}-${mon}-01-00000/
+set ocndir = /global/cfs/cdirs/mp9/E3SMv2.1-SMYLE/cycle6_monthly-restarts/cycle6_daily_restarts/rest/00${ocnyr}-${mon}-01-00000/
 
 set icefname   = ${ocncase}.mpassi.rst.00${ocnyr}-${mon}-01_00000.nc 
 set poprfname  = ${ocncase}.mpaso.rst.00${ocnyr}-${mon}-01_00000.nc  
