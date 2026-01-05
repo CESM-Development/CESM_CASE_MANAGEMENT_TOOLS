@@ -1,19 +1,19 @@
 #!/bin/bash
 
 
-# Years, months, variables
+# Years, mbr, variables
 #years=$(seq 1990 2023)
-#months=$(seq -w 01 10)   # pads with zero: 01–10
+#mbr=$(seq -w 01 10)   # pads with zero: 01–10
 #vars="rest rof lnd"
-years=$(seq 1990 1990)
-months=$(seq -w 01 03)   # pads with zero: 01–10
+years=$(seq 2000 2000)
+mbr=$(seq -w 01 10)   # pads with zero: 01–10
 vars="rest rof lnd"
 
 # Base HPSS path (without year)
 hpss_base="/home/c/ccsm/E3SMv2.1-SMYLEsmbb/v21.LR.BSMYLEsmbb"
 
 for Y in $years; do
-  for M in $months; do
+  for M in $mbr; do
     for VAR in $vars; do
 
       hpss_dir="${hpss_base}.${Y}-11.001"

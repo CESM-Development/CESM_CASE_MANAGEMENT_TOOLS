@@ -2,28 +2,26 @@
 ### set env variables
 ### module load ncl nco
 
-setenv DOUT  /pscratch/sd/n/nanr/v21.LR.BSMYLE_v2_CANFIRE
-setenv DOUT  /pscratch/sd/n/nanr/v21.LR.BSMYLE_v2_CANFIRE_ALLFIRE
+setenv DOUT  /pscratch/sd/n/nanr/v21.LR.BSMYLEsmbb_DP
 
 # ...
-set syr = 2023
-set eyr = 2023
+set syr = 1995
+set eyr = 1995
 
 @ ib = $syr
 @ ie = $eyr
 
 foreach year ( `seq $ib $ie` )
-foreach mon ( 05 )
+foreach mon ( 11 )
 
 # case name counter
 set smbr =  1
-set embr =  20
+set embr =  10
 
 @ mb = $smbr
 @ me = $embr
 
-#set CASE = v21.LR.BSMYLE_v2_CANFIRE.${year}-${mon}.001
-set CASE = v21.LR.BSMYLE_v2_CANFIRE_ALLFIRE.${year}-${mon}.001
+set CASE = v21.LR.BSMYLEsmbb.${year}-11.001
 
 foreach mbr ( `seq $mb $me` )
 if ($mbr < 10) then
@@ -37,7 +35,6 @@ echo "==================================    "
 #echo $CASE 
     cd $DOUT/$CASE/$CASEDIR
     ./case.st_archive
-
 
 end             # member loop
 end             # member loop

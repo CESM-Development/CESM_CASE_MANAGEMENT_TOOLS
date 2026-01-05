@@ -1,8 +1,8 @@
 #!/bin/bash
 
 # Loop ranges
-years=$(seq 1991 1991)
-months=$(seq -w 01 10)
+years=$(seq 1993 1993)
+mbr=$(seq -w 01 10)
 #vars="rest rof lnd"
 vars="rest rof lnd"
 
@@ -10,7 +10,7 @@ vars="rest rof lnd"
 hpss_base="/home/c/ccsm/E3SMv2.1-SMYLEsmbb/v21.LR.BSMYLEsmbb"
 
 for Y in $years; do
-  for M in $months; do
+  for M in $mbr; do
     for VAR in $vars; do
 
       hpss_dir="${hpss_base}.${Y}-11.001"
