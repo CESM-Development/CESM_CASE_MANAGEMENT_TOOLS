@@ -1,0 +1,7 @@
+ sfwf_data_type = 'shr_stream'
+ sfwf_formulation = 'hosing'
+ sfwf_hosing_shr_stream_year_first = 1850
+ sfwf_hosing_shr_stream_year_last = 2050
+ sfwf_hosing_shr_stream_year_align = 1
+ sfwf_hosing_shr_stream_file = 'AntarcticHosingNoCompensation_65SSouth_01Sv200yr-xtime.nc'
+
