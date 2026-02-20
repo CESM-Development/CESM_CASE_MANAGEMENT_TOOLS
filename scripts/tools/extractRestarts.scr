@@ -1,0 +1,27 @@
+#!/bin/bash -fe
+
+# E3SM Water Cycle v2 run_e3sm script template.
+#
+# Inspired by v1 run_e3sm script as well as SCREAM group simplified run script.
+#
+# Bash coding style inspired by:
+# http://kfirlavi.herokuapp.com/blog/2012/11/14/defensive-bash-programming
+
+#bash
+#source /global/common/software/e3sm/anaconda_envs/load_latest_e3sm_unified_pm-cpu.sh
+
+#array=( 0101 0151 )
+array=( 0151 )
+
+
+for mbr in "${array[@]}"
+do
+
+echo ${mbr}
+
+mkdir /pscratch/sd/n/nanr/e3sm_restarts/hist.$mbr
+cd /pscratch/sd/n/nanr/e3sm_restarts/hist.$mbr
+zstash extract --hpss=/home/f/forsyth/E3SMv2/v2.LR.historical_$mbr "archive/rest/1990-01-01*" &
+zstash extract --hpss=/home/f/forsyth/E3SMv2/v2.LR.historical_$mbr "archive/rest/1950-01-01*" &
+
+done

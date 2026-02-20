@@ -5,8 +5,8 @@
 setenv DOUT  $SCRATCH/v21.LR.BSMYLEsmbb_DP
 
 # ...
-set syr = 2021
-set eyr = 2021
+set syr = 2001
+set eyr = 2001
 
 @ nextyr = $syr + 2
 echo $nextyr
@@ -19,14 +19,13 @@ foreach year ( `seq $ib $ie` )
 foreach mon ( 11 )
 
 # case name counter
-set smbr =  1
+set smbr =  3
 set embr =  10
 
 @ mb = $smbr
 @ me = $embr
 
-#set CASE = v21.LR.BSMYLEsmbb.${year}-11.001
-set CASE = v21.LR.BSMYLE_xOMIP.${year}-11.001
+set CASE = v21.LR.BSMYLEsmbb.${year}-11.001
 
 foreach mbr ( `seq $mb $me` )
 if ($mbr < 10) then
@@ -35,7 +34,8 @@ else
         set CASEDIR = case_scripts.0${mbr}
 endif
 
-cd $DOUT/$CASE/$CASEDIR/
+cd $DOUT/$CASE/$CASEDIR
+./xmlchange EXEROOT=/pscratch/sd/d/dsanders/v21.LR.BSMYLEsmbb_DP/v21.LR.BSMYLEsmbb.${year}-11.001/bld/
 ./case.submit
 
 

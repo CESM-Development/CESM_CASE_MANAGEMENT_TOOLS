@@ -5,14 +5,12 @@
 #BASE_DIR="/pscratch/sd/n/nanr/v21.LR.BSMYLE_xOMIP/v21.LR.BSMYLE_xOMIP.2019-11.001/"
 #BASE_DIR="/pscratch/sd/n/nanr/v21.LR.BSMYLE_xOMIP/v21.LR.BSMYLE_xOMIP.2021-11.001/"
 #BASE_DIR="/pscratch/sd/n/nanr/v21.LR.BSMYLE_xOMIP/v21.LR.BSMYLE_xOMIP.2020-11.001/"
-#BASE_DIR="/pscratch/sd/n/nanr/v21.LR.BSMYLE_xOMIP/v21.LR.BSMYLE_xOMIP.2020-05.001/"
-#BASE_DIR="/pscratch/sd/n/nanr/v21.LR.BSMYLE_xOMIP/v21.LR.BSMYLE_xOMIP.2019-05.001/"
-#BASE_DIR="/pscratch/sd/n/nanr/v21.LR.BSMYLE_xOMIP/v21.LR.BSMYLE_xOMIP.2020-05.001/run.019"
-BASE_DIR="/pscratch/sd/n/nanr/archive/v21.LR.BSMYLE_xOMIP.2021-11.001/"
+#BASE_DIR="/pscratch/sd/n/nanr/v2.LR.BMB-SF/v2.LR.hist-BMB_0171/"
+BASE_DIR="/global/cfs/cdirs/mp9/v2.LR.SMBB-SF/v2.LR.hist-SMBB_0161/"
 
 # Old and new name patterns
-NEW="v21.LR.BSMYLE_xOMIP"
-OLD="v21.LR.BSMYLEsmbb"
+OLD="v2.LR.hist-SMBB_0161"
+NEW="v2.LR.hist-BMB-SF_0161"
 
 # Dry run mode (set to false to actually rename)
 DRYRUN=true

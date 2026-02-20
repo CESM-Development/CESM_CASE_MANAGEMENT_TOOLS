@@ -2,7 +2,7 @@
 
 
 # Years, mbrs, variables
-years=$(seq 1998 1998)
+years=$(seq 2010 2010)
 mbrs=$(seq -w 01 10)   # pads with zero: 01–10
 vars="rest rof lnd"
 

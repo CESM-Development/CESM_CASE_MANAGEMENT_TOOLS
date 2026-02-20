@@ -8,7 +8,9 @@
 #BASE_DIR="/pscratch/sd/n/nanr/v21.LR.BSMYLE_xOMIP/v21.LR.BSMYLE_xOMIP.2020-05.001/"
 #BASE_DIR="/pscratch/sd/n/nanr/v21.LR.BSMYLE_xOMIP/v21.LR.BSMYLE_xOMIP.2019-05.001/"
 #BASE_DIR="/pscratch/sd/n/nanr/v21.LR.BSMYLE_xOMIP/v21.LR.BSMYLE_xOMIP.2020-05.001/run.019"
-BASE_DIR="/pscratch/sd/n/nanr/archive/v21.LR.BSMYLE_xOMIP.2021-11.001/"
+#BASE_DIR="/pscratch/sd/n/nanr/archive/v21.LR.BSMYLE_xOMIP.2021-11.001/"
+#BASE_DIR="/pscratch/sd/n/nanr/archive/v21.LR.BSMYLE_xOMIP.2020-11.001/"
+BASE_DIR="/pscratch/sd/n/nanr/archive/v21.LR.BSMYLE_xOMIP.2019-11.001/"
 
 # Old and new name patterns
 NEW="v21.LR.BSMYLE_xOMIP"

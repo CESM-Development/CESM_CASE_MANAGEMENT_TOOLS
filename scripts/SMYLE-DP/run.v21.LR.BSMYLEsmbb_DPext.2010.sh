@@ -9,8 +9,8 @@
 # http://kfirlavi.herokuapp.com/blog/2012/11/14/defensive-bash-programming
 
 #array=( 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 )
-#array=( 1 2 3 4 5 6 7 8 9 10 )
-array=( 1 )
+array=( 1 2 3 4 5 6 7 8 9 10 )
+#array=( 1 )
 #array=( 4 5 6 7 8 9 10 )
 for imbr in "${array[@]}"
 do
@@ -33,7 +33,7 @@ fi
 #set -x
 
 ## Rerunning: 1989-2018
-useyear=1991
+useyear=2010
 usemonth=11
 
 twoyear=$((useyear + 2))
@@ -96,8 +96,7 @@ CASE_ROOT="/${SCRATCH}/v21.LR.BSMYLEsmbb_DP/${MAIN_CASE_NAME}/"
 
 # Sub-directories
 #CASE_BUILD_DIR=${MAIN_CASE_ROOT}/build
-#CASE_BUILD_DIR=/${SCRATCH}/v21.LR.BSMYLEsmbb_DP/exeroot/build
-CASE_BUILD_DIR=/${SCRATCH}/v21.LR.BSMYLEsmbb_DP/EXEROOT/bld
+CASE_BUILD_DIR=/${SCRATCH}/v21.LR.BSMYLEsmbb_DP/EXEROOT/bld/
 CASE_ARCHIVE_DIR=${MAIN_CASE_ROOT}/archive.${mbr}
 #CASE_ARCHIVE_DIR=/global/cfs/cdirs/mp9/archive/v21.LR.SMYLE/${MAIN_CASE_NAME}/archive.${mbr}
 
@@ -132,12 +131,12 @@ else
   CASE_SCRIPTS_DIR=${MAIN_CASE_ROOT}/case_scripts.${mbr}
   CASE_RUN_DIR=${MAIN_CASE_ROOT}/run.${mbr}
   #PELAYOUT="L"
-  WALLTIME="24:00:00"
+  WALLTIME="16:00:00"
   STOP_OPTION="nmonths"
-  STOP_N="47" # How often to stop the model, should be a multiple of REST_N
+  STOP_N="22" # How often to stop the model, should be a multiple of REST_N
   REST_OPTION="nmonths"
-  REST_N="47" # How often to write a restart file
-  RESUBMIT="1" # Submissions after initial one
+  REST_N="22" # How often to write a restart file
+  RESUBMIT="0" # Submissions after initial one
   DO_SHORT_TERM_ARCHIVING=false
   CONTINUE_RUN=TRUE
 fi
@@ -147,8 +146,8 @@ HIST_OPTION="nyears"
 HIST_N="5"
 
 # Leave empty (unless you understand what it does)
-OLD_EXECUTABLE=""
-#OLD_EXECUTABLE="/pscratch/sd/n/nanr/v21.LR.SMYLE/exeroot/build"
+#OLD_EXECUTABLE=""
+OLD_EXECUTABLE="/${SCRATCH}/v21.LR.BSMYLEsmbb_DP/EXEROOT/bld/"
 #OLD_EXECUTABLE="${MAIN_CASE_ROOT}/build"
 
 # --- Toggle flags for what to do ----
@@ -157,7 +156,7 @@ do_create_newcase=true
 do_case_setup=true
 if [[ ${imbr} -eq "1" ]]
 then
-   do_case_build=true
+   do_case_build=false
 else
    do_case_build=false
 fi

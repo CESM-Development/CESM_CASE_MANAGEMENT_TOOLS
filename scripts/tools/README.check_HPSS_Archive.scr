@@ -1,0 +1,12 @@
+hsi -q "ls -l /home/c/ccsm/E3SMv2.1-SMYLEsmbb_DP/v21.LR.BSMYLEsmbb.1991-11.001" \
+  | awk '{sum += $5} END {printf "%.2f TB\n", sum/1024/1024/1024/1024}'
+
+hsi -q "ls -lR /home/c/ccsm/E3SMv2.1-SMYLEsmbb_DP/v21.LR.BSMYLEsmbb.1991-11.001" | awk '{sum+=$5} END {print sum/1024^4, "TB"}'
+hsi -q "ls -lR /home/c/ccsm/E3SMv2.1-SMYLEsmbb_DP/v21.LR.BSMYLEsmbb.1991-11.001" | awk '{sum += $5} END {printf "%.3f TB\n", sum/(1024*1024*1024*1024)}'
+
+
+hsi -q "ls -l /home/c/ccsm/E3SMv2.1-SMYLEsmbb_DP/v21.LR.BSMYLEsmbb.1991-11.001" | awk '{print "FIELD5=" $5, "FIELD6=" $6, "LINE=" $0}'
+
+
+hsi -q "ls -l /home/c/ccsm/E3SMv2.1-SMYLEsmbb_DP/v21.LR.BSMYLEsmbb.1991-11.001" >& $SCRATCH/1991.list
+cat $SCRATCH/1991.list | awk '{sum+=$5} END {print sum/1024^4, "TB"}'

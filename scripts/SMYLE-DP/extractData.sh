@@ -2,10 +2,7 @@
 
 
 # Years, mbr, variables
-#years=$(seq 1990 2023)
-#mbr=$(seq -w 01 10)   # pads with zero: 01–10
-#vars="rest rof lnd"
-years=$(seq 2000 2000)
+years=$(seq 2011 2015)
 mbr=$(seq -w 01 10)   # pads with zero: 01–10
 vars="rest rof lnd"
 
