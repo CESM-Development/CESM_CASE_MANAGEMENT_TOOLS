@@ -13,11 +13,11 @@
 #refarray=( 1991 1991 1991 1991 1991 1990 1990 1990 1990 1990 )
 #array=( 0111 0121 0131 0141 0161 0171 0181 0191 0211 0221 0231 0241 0261 0271 0281 0291 )
 #array=( 0111 )
-array=( 0171 )
+#array=( 0171 )
 #array=( 0121 )
 #array=( 0131 )
 #array=( 0141 )
-#array=( 0161 )
+array=( 0161 )
 #array=( 0131 0141 0161 0171 0181 0191 0211 0221 0231 0241 0261 0271 0281 0291 )
 
 set ctr=0
@@ -61,7 +61,7 @@ MODEL_START_TYPE="hybrid"  # 'initial', 'continue', 'branch', 'hybrid'
 START_DATE="1850-01-01"
 
 # Additional options for 'branch' and 'hybrid'
-GET_REFCASE=TRUE
+GET_REFCASE=FALSE
 REFYEAR=${iyr}
 RUN_REFDIR="/pscratch/sd/n/nanr/archive/v2.LR.piControl/archive/rest/${REFYEAR}-01-01-00000"
 #RUN_REFDIR="/pscratch/sd/n/nanr/archive/v2.LR.piControl/rest/archive/rest/${REFYEAR}-01-01-00000"
@@ -76,10 +76,12 @@ MY_PATH="/global/cfs/cdirs/mp9"
 #readonly CODE_ROOT="${HOME}/E3SMv2/code/${CHECKOUT}"
 #readonly CASE_ROOT="${MY_PATH}/cases/e3smv2/${CASE_NAME}"
 CODE_ROOT="${MY_PATH}/e3sm_tags/E3SMv2/E3SM/"
+CODE_ROOT="${MY_PATH}/e3sm_tags/E3SMv2.0/"
 CASE_ROOT="/pscratch/sd/n/nanr/v2.LR.GHG-SF/${CASE_NAME}"
+MAIN_ROOT="/pscratch/sd/n/nanr/v2.LR.GHG-SF/"
 
 # Sub-directories
-CASE_BUILD_DIR=${CASE_ROOT}/build
+CASE_BUILD_DIR=${MAIN_ROOT}/EXEROOT43/
 CASE_ARCHIVE_DIR=${CASE_ROOT}/archive
 #readonly CASE_BUILD_DIR=/global/cscratch1/sd/nanr/E3SMv2/v2.LR.SSP370_0111/build/
 #readonly CASE_BUILD_DIR=$SCRATCH/$CASE_NAME/bld
@@ -149,8 +151,8 @@ OLD_EXECUTABLE="/pscratch/sd/n/nanr/v2.LR.GHG-SF/EXEROOT/build/e3sm.exe"
 do_fetch_code=false
 do_create_newcase=true
 do_case_setup=true
-do_case_build=false
-do_case_submit=true
+do_case_build=true
+do_case_submit=false
 
 # --- Now, do the work ---
 

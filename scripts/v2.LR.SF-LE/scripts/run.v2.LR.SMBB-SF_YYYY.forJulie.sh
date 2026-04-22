@@ -1,4 +1,5 @@
-#!/bin/bash -fe
+#!/bin/bash 
+###!/bin/bash -fe
 
 # E3SM Water Cycle v2 run_e3sm script template.
 #
@@ -7,10 +8,10 @@
 # Bash coding style inspired by:
 # http://kfirlavi.herokuapp.com/blog/2012/11/14/defensive-bash-programming
 
-array=( 0111 )
-#array=( 0111 0121 0131 0141 0161 0171 0181 0191 0211 0221 0231 0241 0261 0271 0281 0291 0101 0151 0201 0251 0301 )
-#array=( 0111 0121 0131 0141 0161 0171 0181 0191 0211 0221 0231 0241 0261 0271 0281 0291 )
-#array=( 0131 0141 0161 0171 0181 0191 0211 0221 0231 0241 0261 0271 0281 0291 )
+array=( 0171 )
+
+set ctr=0
+
 for iyr in "${array[@]}"
 do
 
@@ -23,54 +24,47 @@ main() {
 # Year array YYYY:  
 
 echo ${iyr}
+ctr=$((ctr+1))
 
 # --- Configuration flags ----
 
 # Machine and project
-# MACHINE=cori-knl
 MACHINE=pm-cpu
 PROJECT="mp9"
-#readonly YYYY="0141"
-#readonly YYYY=${iyr}
 
 # Simulation
-COMPSET="WCYCLSSP370" # 20th century transient
 COMPSET="WCYCL20TR" # 20th century transient
 RESOLUTION="ne30pg2_EC30to60E2r2"
-CASE_NAME="v2.LR.SMYLE-TEST_jul13.${iyr}"
+CASE_NAME="v2.LR.hist-SMBB_${iyr}"
 CASE_GROUP="v2.LR"
 
 # Code and compilation
-CHECKOUT="20230602"
+CHECKOUT="20220412"
 BRANCH="maint-2.0" # master as of 2021-12-21
 CHERRY=(  )
 DEBUG_COMPILE=false
 
 # Run options
 MODEL_START_TYPE="hybrid"  # 'initial', 'continue', 'branch', 'hybrid'
-START_DATE="1972-01-01"
+START_DATE="1850-01-01"
 
 # Additional options for 'branch' and 'hybrid'
-GET_REFCASE=FALSE
-#RUN_REFDIR="/global/cscratch1/sd/nanr/archive/v2.LR.historical_${iyr}/archive/rest/2015-01-01-00000"
-#RUN_REFDIR="/global/cfs/cdirs/mp9/archive/E3SMv2/v2.LR.SSP370_${iyr}/archive/rest/archive/rest/2019-01-01-00000"
-RUN_REFDIR="/pscratch/sd/n/nanr/archive/v2.LR.SSP370_0111/rest/2019-01-01-00000/"
-RUN_REFCASE="v2.LR.SSP370_${iyr}"
-RUN_REFDATE="2019-01-01"   # same as MODEL_START_DATE for 'branch', can be different for 'hybrid'
+GET_REFCASE=TRUE
+REFYEAR=${iyr}
+RUN_REFDIR="/pscratch/sd/n/nanr/archive/v2.LR.piControl/rest/${REFYEAR}-01-01-00000"
+RUN_REFCASE="v2.LR.piControl"
+RUN_REFDATE="${REFYEAR}-01-01"   # same as MODEL_START_DATE for 'branch', can be different for 'hybrid'
 
 # Set paths
-MY_PATH="/global/cfs/cdirs/ccsm1/people/nanr"
-#readonly CODE_ROOT="${HOME}/E3SMv2/code/${CHECKOUT}"
-#readonly CASE_ROOT="${MY_PATH}/cases/e3smv2/${CASE_NAME}"
+#MY_PATH="/global/cfs/cdirs/ccsm1/people/nanr"
+#MY_PATH="/global/cfs/cdirs/mp9"
+MY_PATH="${SCRATCH}/e3sm_tags/E3SMv2/"
 CODE_ROOT="${MY_PATH}/e3sm_tags/E3SMv2/E3SM/"
-CASE_ROOT="${SCRATCH}/E3SMv2/${CASE_NAME}"
+CASE_ROOT="/pscratch/sd/n/nanr/v2.LR.SMBB-SF/${CASE_NAME}"
 
 # Sub-directories
 CASE_BUILD_DIR=${CASE_ROOT}/build
 CASE_ARCHIVE_DIR=${CASE_ROOT}/archive
-#readonly CASE_BUILD_DIR=/global/cscratch1/sd/nanr/E3SMv2/v2.LR.SSP370_0111/build/
-#readonly CASE_BUILD_DIR=$SCRATCH/$CASE_NAME/bld
-#readonly CASE_ARCHIVE_DIR=$SCRATCH/archive/$CASE_NAME/
 
 # Define type of run
 #  short tests: 'XS_2x5_ndays', 'XS_1x10_ndays', 'S_1x10_ndays', 
@@ -108,18 +102,13 @@ else
   # Production simulation
   CASE_SCRIPTS_DIR=${CASE_ROOT}/case_scripts
   CASE_RUN_DIR=${CASE_ROOT}/run
-  # nanr changes
-  #readonly CASE_SCRIPTS_DIR=${CASE_ROOT}/
-  #readonly CASE_RUN_DIR=${SCRATCH}/${CASE_NAME}/run
-  # end nanr
-  PELAYOUT="L"
-  WALLTIME="12:00:00"
-  STOP_OPTION="nmonths"
-  STOP_N="18" # How often to stop the model, should be a multiple of REST_N
-  STOP_DATE="20190701"    # -999 or specify stop date as yyyyddmm without leading zeros
-  REST_OPTION="nmonths"
+  WALLTIME="24:00:00"
+  STOP_OPTION="nyears"
+  STOP_N="5" # How often to stop the model, should be a multiple of REST_N
+  STOP_DATE="20150101"    # -999 or specify stop date as yyyyddmm without leading zeros
+  REST_OPTION="nyears"
   REST_N="1" # How often to write a restart file
-  RESUBMIT="0" # Submissions after initial one
+  RESUBMIT="10" # Submissions after initial one
   DO_SHORT_TERM_ARCHIVING=false
 fi
 
@@ -129,13 +118,12 @@ HIST_N="1"
 
 # Leave empty (unless you understand what it does)
 OLD_EXECUTABLE=""
-#OLD_EXECUTABLE="/pscratch/sd/n/nanr/E3SMv2/EXEROOT/build/e3sm.exe"
 
 # --- Toggle flags for what to do ----
-do_fetch_code=false
+do_fetch_code=true
 do_create_newcase=true
 do_case_setup=true
-do_case_build=true
+do_case_build=false
 do_case_submit=false
 
 # --- Now, do the work ---
@@ -196,30 +184,92 @@ cat << EOF >> user_nl_eam
  ! monthly (h6) I
  fincl7 = 'O3', 'PS', 'TROP_P'
 
- ext_frc_specifier              = 
-         'bc_a4       -> /global/cfs/cdirs/ccsm1/people/nanr/v2.AUFIRE/forcingFiles/cmip6_ssp370_mam4_smoothed_bc_a4_elev_2018-202007_c230612.nc'
+! Historical, vs single forcing configurations
+
+! | Configuration      | GHGs      | Aerosols and | Ozone     | Solar     | Volcanoes | Land use
+! |                    |           | precursors   |           |           |           |         
+! -----------------------------------------------------------------------------------------------
+! | historical         | varying   | varying      | varying   | varying   | varying   | varying
+! | hist-GHG           | varying   | 1850         | 1850      | 1850      | 1850      | 1850
+! | hist-aer           | 1850      | varying      | 1850      | 1850      | 1850      | 1850
+! | hist-all-xGHG-xaer | 1850      | 1850         | varying   | varying   | varying   | varying
+
+! (1) GHGs settings
+
+ bndtvghg               = ' '
+ ch4vmr         = 808.249e-9
+ co2vmr         = 284.317000e-6
+ f11vmr         = 32.1102e-12
+ f12vmr         = 0.0
+ flbc_list              = ' '
+ n2ovmr         = 273.0211e-9
+ scenario_ghg           = 'FIXED'
+
+
+! (2) aeorosols and precursors
+
+!! cycling non-BB aerosols @ 1850 values; transient BB
+ ext_frc_specifier              = 'SO2 -> /global/cfs/cdirs/mp9/E3SMv2-SF/BMB-forcing/cmip6_ssp370_mam4_smoothed_so2_elev_1850-2100_c221016_1850const.20250206.nc',
+         'SOAG  -> /global/cfs/cdirs/mp9/E3SMv2-SF/BMB-forcing/cmip6_ssp370_mam4_smoothed_soag_elev_1850-2100_c221016_1850const.20250207.nc',
+         'bc_a4 -> /global/cfs/cdirs/ccsm1/people/nanr/e3sm/inputdata/atm/cam/chem/trop_mozart_aero/emis/CMIP6_SSP370_ne30-smoothed/cmip6_ssp370_mam4_smoothed_bc_a4_elev_1850-2100_c221016.nc',
+         'num_a1 -> /global/cfs/cdirs/mp9/E3SMv2-SF/BMB-forcing/cmip6_ssp370_mam4_smoothed_num_a1_elev_1850-2100_c221016_1850const.20250206.nc',
+         'num_a2 -> /global/cfs/cdirs/e3sm/inputdata/atm/cam/chem/trop_mozart_aero/emis/DECK_ne30/cmip6_mam4_num_a2_elev_1850-2014_c180205.nc',
+         'num_a4 -> /global/cfs/cdirs/ccsm1/people/nanr/e3sm/inputdata/atm/cam/chem/trop_mozart_aero/emis/CMIP6_SSP370_ne30-smoothed/cmip6_ssp370_mam4_smoothed_num_a4_elev_1850-2100_c221016.nc',
+         'pom_a4 -> /global/cfs/cdirs/ccsm1/people/nanr/e3sm/inputdata/atm/cam/chem/trop_mozart_aero/emis/CMIP6_SSP370_ne30-smoothed/cmip6_ssp370_mam4_smoothed_pom_a4_elev_1850-2100_c221016.nc',
+         'so4_a1 -> /global/cfs/cdirs/mp9/E3SMv2-SF/BMB-forcing/cmip6_ssp370_mam4_smoothed_so4_a1_elev_1850-2100_c221016_1850const.20250206.nc',
+         'so4_a2 -> /global/cfs/cdirs/e3sm/inputdata/atm/cam/chem/trop_mozart_aero/emis/DECK_ne30/cmip6_mam4_so4_a2_elev_1850-2014_c180205.nc'
  ext_frc_type           = 'INTERP_MISSING_MONTHS'
 
+ srf_emis_cycle_yr              = 1850
+ srf_emis_specifier             = 'DMS       -> /global/cfs/cdirs/e3sm/inputdata/atm/cam/chem/trop_mozart_aero/emis/DMSflux.1850.1deg_latlon_conserv.POPmonthlyClimFromACES4BGC_c20160416.nc',
+         'SO2       -> /global/cfs/cdirs/e3sm/inputdata/atm/cam/chem/trop_mozart_aero/emis/DECK_ne30/cmip6_mam4_so2_surf_1850-2014_c180205.nc',
+         'bc_a4     -> /global/cfs/cdirs/e3sm/inputdata/atm/cam/chem/trop_mozart_aero/emis/DECK_ne30/cmip6_mam4_bc_a4_surf_1850-2014_c180205.nc',
+         'num_a1    -> /global/cfs/cdirs/e3sm/inputdata/atm/cam/chem/trop_mozart_aero/emis/DECK_ne30/cmip6_mam4_num_a1_surf_1850-2014_c180205.nc',
+         'num_a2    -> /global/cfs/cdirs/e3sm/inputdata/atm/cam/chem/trop_mozart_aero/emis/DECK_ne30/cmip6_mam4_num_a2_surf_1850-2014_c180205.nc',
+         'num_a4    -> /global/cfs/cdirs/e3sm/inputdata/atm/cam/chem/trop_mozart_aero/emis/DECK_ne30/cmip6_mam4_num_a4_surf_1850-2014_c180205.nc',
+         'pom_a4    -> /global/cfs/cdirs/e3sm/inputdata/atm/cam/chem/trop_mozart_aero/emis/DECK_ne30/cmip6_mam4_pom_a4_surf_1850-2014_c180205.nc',
+         'so4_a1    -> /global/cfs/cdirs/e3sm/inputdata/atm/cam/chem/trop_mozart_aero/emis/DECK_ne30/cmip6_mam4_so4_a1_surf_1850-2014_c180205.nc',
+         'so4_a2    -> /global/cfs/cdirs/e3sm/inputdata/atm/cam/chem/trop_mozart_aero/emis/DECK_ne30/cmip6_mam4_so4_a2_surf_1850-2014_c180205.nc'
+ srf_emis_type          = 'CYCLICAL'
+
+ tracer_cnst_cycle_yr           = 1849
+ tracer_cnst_type               = 'CYCLICAL'
+
+! (3) ozone
+
+ chlorine_loading_fixed_ymd             = 18500101
+ chlorine_loading_type          = 'FIXED'
+
+ linoz_data_cycle_yr            = 1850
+ linoz_data_type                = 'CYCLICAL'
+
+! (4) solar
+
+ solar_data_file                = '/global/cfs/cdirs/e3sm/inputdata/atm/cam/solar/Solar_1850control_input4MIPS_c20181106.nc'
+ solar_data_type                = 'FIXED'
+ solar_data_ymd         = 18500101
+ solar_htng_spctrl_scl          = .true.
 
 
+! (5) volcanoes
 
+ prescribed_volcaero_cycle_yr           = 1
+ prescribed_volcaero_file               = 'CMIP_DOE-ACME_radiation_average_1850-2014_v3_c20171204.nc'
+ prescribed_volcaero_type               = 'CYCLICAL'
 
 EOF
 
 cat << EOF >> user_nl_elm
-! Pointing to new simyr2015 file per Jim Benedict
- fsurdat = '/global/cfs/cdirs/e3sm/inputdata/lnd/clm2/surfdata_map/surfdata_ne30np4.pg2_SSP3_RCP70_simyr2015_c220420.nc'
-
  hist_dov2xy = .true.,.true.
  hist_fincl2 = 'H2OSNO', 'FSNO', 'QRUNOFF', 'QSNOMELT', 'FSNO_EFF', 'SNORDSL', 'SNOW', 'FSDS', 'FSR', 'FLDS', 'FIRE', 'FIRA'
  hist_mfilt = 1,365
  hist_nhtfrq = 0,-24
  hist_avgflag_pertape = 'A','A'
 
-! Override - updated after EAM/ELM fixes
- check_finidat_fsurdat_consistency = .false.
- check_finidat_pct_consistency = .true.
- check_finidat_year_consistency = .true.
+! (6) Land use and cover
+
+ do_transient_pfts = .false.
+ flanduse_timeseries = ''
 
 EOF
 
@@ -310,8 +360,7 @@ create_newcase() {
         --res ${RESOLUTION} \
         --machine ${MACHINE} \
         --project ${PROJECT} \
-        --walltime ${WALLTIME} \
-        --pecount ${PELAYOUT}
+        --walltime ${WALLTIME}
 
     if [ $? != 0 ]; then
       echo $'\nNote: if create_newcase failed because sub-directory already exists:'
@@ -337,47 +386,12 @@ case_setup() {
     ./xmlchange CIME_OUTPUT_ROOT=${CASE_RUN_DIR}
     ./xmlchange EXEROOT=${CASE_BUILD_DIR}
     ./xmlchange RUNDIR=${CASE_RUN_DIR}
-    ./xmlchange RUN_TYPE=${MODEL_START_TYPE,,}
-    ./xmlchange GET_REFCASE=${GET_REFCASE}
-    ./xmlchange RUN_REFDIR=${RUN_REFDIR}
-    ./xmlchange RUN_REFCASE=${RUN_REFCASE}
-    ./xmlchange RUN_REFDATE=${RUN_REFDATE}
-
     # nanr changes
-    #./xmlchange EXEROOT=/global/cscratch1/sd/nanr/E3SMv2/v2.LR.SSP370_0111/build/
+    #./xmlchange EXEROOT=/pscratch/sd/n/nanr/v2.LR.SMBB-SF/EXEROOT/build/
+    #./xmlchange EXEROOT=/pscratch/sd/n/nanr/v2.LR.GHG-SF/EXEROOT/build/
+    #./xmlchange JOB_QUEUE=debug
+    #./xmlchange JOB_WALLCLOCK_TIME=00:30:00 
 
-    # cp ${RUN_REFDIR}/* ${CASE_RUN_DIR}
-    mkdir -p ${CASE_RUN_DIR}
-    # cp ${RUN_REFDIR}/rpointer.atm ${CASE_RUN_DIR}
-    # ln -s ${RUN_REFDIR}/v2.* ${CASE_RUN_DIR}
-
-    cp /pscratch/sd/n/nanr/archive/v2.LR.SSP370_0111/rest/2019-01-01-00000/rpointer.atm ${CASE_RUN_DIR}
-    cp /pscratch/sd/n/nanr/archive/v2.LR.SSP370_0111/rest/2019-01-01-00000/rpointer.drv ${CASE_RUN_DIR}
-    cp /pscratch/sd/n/nanr/archive/v2.LR.SSP370_0111/rest/2019-01-01-00000/rpointer.ice ${CASE_RUN_DIR}
-    cp /pscratch/sd/n/nanr/archive/v2.LR.SSP370_0111/rest/2019-01-01-00000/rpointer.lnd ${CASE_RUN_DIR}
-    cp /pscratch/sd/n/nanr/archive/v2.LR.SSP370_0111/rest/2019-01-01-00000/rpointer.ocn ${CASE_RUN_DIR}
-    cp /pscratch/sd/n/nanr/archive/v2.LR.SSP370_0111/rest/2019-01-01-00000/rpointer.rof ${CASE_RUN_DIR}
-    ln -s /pscratch/sd/n/nanr/archive/v2.LR.SSP370_0111/rest/2019-01-01-00000/v2.LR.SSP370_0111.cpl.r.2019-01-01-00000.nc ${CASE_RUN_DIR}
-    ln -s /pscratch/sd/n/nanr/archive/v2.LR.SSP370_0111/rest/2019-01-01-00000/v2.LR.SSP370_0111.eam.h0.2018-12.nc ${CASE_RUN_DIR}
-    ln -s /pscratch/sd/n/nanr/archive/v2.LR.SSP370_0111/rest/2019-01-01-00000/v2.LR.SSP370_0111.eam.h1.2018-12-12-00000.nc ${CASE_RUN_DIR}
-    ln -s /pscratch/sd/n/nanr/archive/v2.LR.SSP370_0111/rest/2019-01-01-00000/v2.LR.SSP370_0111.eam.h2.2018-12-12-00000.nc ${CASE_RUN_DIR}
-    ln -s /pscratch/sd/n/nanr/archive/v2.LR.SSP370_0111/rest/2019-01-01-00000/v2.LR.SSP370_0111.eam.h3.2018-12-12-00000.nc ${CASE_RUN_DIR}
-    ln -s /pscratch/sd/n/nanr/archive/v2.LR.SSP370_0111/rest/2019-01-01-00000/v2.LR.SSP370_0111.eam.h4.2018-12-12-00000.nc ${CASE_RUN_DIR}
-    ln -s /pscratch/sd/n/nanr/archive/v2.LR.SSP370_0111/rest/2019-01-01-00000/v2.LR.SSP370_0111.eam.h5.2018-12-12-00000.nc ${CASE_RUN_DIR}
-    ln -s /pscratch/sd/n/nanr/archive/v2.LR.SSP370_0111/rest/2019-01-01-00000/v2.LR.SSP370_0111.eam.h6.2018-12.nc ${CASE_RUN_DIR}
-    ln -s /pscratch/sd/n/nanr/archive/v2.LR.SSP370_0111/rest/2019-01-01-00000/v2.LR.SSP370_0111.eam.i.2019-01-01-00000.nc ${CASE_RUN_DIR}
-    ln -s /pscratch/sd/n/nanr/archive/v2.LR.SSP370_0111/rest/2019-01-01-00000/v2.LR.SSP370_0111.eam.r.2019-01-01-00000.nc ${CASE_RUN_DIR}
-    ln -s /pscratch/sd/n/nanr/archive/v2.LR.SSP370_0111/rest/2019-01-01-00000/v2.LR.SSP370_0111.eam.rs.2019-01-01-00000.nc ${CASE_RUN_DIR}
-    ln -s /pscratch/sd/n/nanr/archive/v2.LR.SSP370_0111/rest/2019-01-01-00000/v2.LR.SSP370_0111.elm.h0.2018-12.nc ${CASE_RUN_DIR}
-    ln -s /pscratch/sd/n/nanr/archive/v2.LR.SSP370_0111/rest/2019-01-01-00000/v2.LR.SSP370_0111.elm.h1.2019-01-01-00000.nc ${CASE_RUN_DIR}
-    ln -s /pscratch/sd/n/nanr/archive/v2.LR.SSP370_0111/rest/2019-01-01-00000/v2.LR.SSP370_0111.elm.r.2019-01-01-00000.nc ${CASE_RUN_DIR}
-    ln -s /pscratch/sd/n/nanr/archive/v2.LR.SSP370_0111/rest/2019-01-01-00000/v2.LR.SSP370_0111.elm.rh0.2019-01-01-00000.nc ${CASE_RUN_DIR}
-    ln -s /pscratch/sd/n/nanr/archive/v2.LR.SSP370_0111/rest/2019-01-01-00000/v2.LR.SSP370_0111.elm.rh1.2019-01-01-00000.nc ${CASE_RUN_DIR}
-    ln -s /pscratch/sd/n/nanr/archive/v2.LR.SSP370_0111/rest/2019-01-01-00000/v2.LR.SSP370_0111.mosart.r.2019-01-01-00000.nc ${CASE_RUN_DIR}
-    ln -s /pscratch/sd/n/nanr/archive/v2.LR.SSP370_0111/rest/2019-01-01-00000/v2.LR.SSP370_0111.mosart.rh0.2019-01-01-00000.nc ${CASE_RUN_DIR}
-    ln -s /pscratch/sd/n/nanr/archive/v2.LR.SSP370_0111/rest/2019-01-01-00000/v2.LR.SSP370_0111.mosart.rh1.2019-01-01-00000.nc ${CASE_RUN_DIR}
-    ln -s /pscratch/sd/n/nanr/archive/v2.LR.SSP370_0111/rest/2019-01-01-00000/v2.LR.SSP370_0111.mpaso.rst.2019-01-01_00000.nc ${CASE_RUN_DIR}
-    ln -s /pscratch/sd/n/nanr/archive/v2.LR.SSP370_0111/rest/2019-01-01-00000/v2.LR.SSP370_0111.mpassi.rst.2019-01-01_00000.nc ${CASE_RUN_DIR}
     # Short term archiving
     ./xmlchange DOUT_S=${DO_SHORT_TERM_ARCHIVING}
     ./xmlchange DOUT_S_ROOT=${CASE_ARCHIVE_DIR}
@@ -397,8 +411,10 @@ case_setup() {
     user_nl
 
     # Finally, run CIME case.setup
+    #cp /global/u2/n/nanr/CESM_tools/e3sm/v2/scripts/v2.SF-LE/env_mach/env_mach_specific.xml ${CASE_SCRIPTS_DIR}/
     ./case.setup --reset
 
+    #cp /global/u2/n/nanr/CESM_tools/e3sm/v2/scripts/v2.SF-LE/env_mach/env_mach_specific.xml ${CASE_SCRIPTS_DIR}/
 
     popd
 }
@@ -419,7 +435,7 @@ case_build() {
                 echo 'Skipping build because $do_case_build = '${do_case_build}
             else
                 echo 'ERROR: $do_case_build = '${do_case_build}' but no executable exists for this case.'
-                exit 297
+                #exit 297
             fi
         else
             # If absolute pathname exists and is executable, reuse pre-exiting executable
@@ -428,7 +444,7 @@ case_build() {
                 cp -fp ${OLD_EXECUTABLE} ${CASE_BUILD_DIR}/
             else
                 echo 'ERROR: $OLD_EXECUTABLE = '$OLD_EXECUTABLE' does not exist or is not an executable file.'
-                exit 297
+                #exit 297
             fi
         fi
         echo 'WARNING: Setting BUILD_COMPLETE = TRUE.  This is a little risky, but trusting the user.'

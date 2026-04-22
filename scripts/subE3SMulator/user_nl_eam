@@ -1,0 +1,25 @@
+fincl 3 = U, V, Q, T
+
+TS PS PRECT TREFHT, Z500, 'OMEGA500','OMEGA200','OMEGA850',
+TAUX TAUY U10 FSNTOA, FSNT, FLNT, FSNS FLNS SHFLX LHFLX QFLUX CLDTOT,
+
+FLDS FSDSC FSNTOAC FSUTOA FSNTC FLNSC FLNTC FLUTC
+SWCF LWCF
+
+
+
+SOILWATER_10CM
+sea_surface_temperature (SST)
+sea_surface_salinity
+
+ocean_mixed_layer_thickness_defined_by_sigma_t
+iceVolumeCell
+SNOWDP (m)
+npp = GPP/1000-AR/1000
+tlai = LAISHA + LAISUN
+TSOI
+SOILICE
+SOILLIQ
+QRUNOFF
+AEROD_v
+TGCLDCWP
