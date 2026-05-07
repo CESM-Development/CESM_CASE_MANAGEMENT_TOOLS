@@ -3,15 +3,16 @@
 
 set syr = 1991
 set eyr = 1991
+set gcase = g111
 
 @ ib = $syr
 @ ie = $eyr
 
 foreach year ( `seq $ib $ie` )
-foreach mon ( 08 )
+foreach mon ( 02 05 08 )
 
 ##  This will be the RUN_REFCASE  (all files will be renamed to this name):
-set case = b.e30.SMYLE_IC.ne30pg3_t232_wg37.${year}-${mon}.01
+set case = b.e30.SMYLE_IC_${gcase}.ne30pg3_t232_wg37.${year}-${mon}.01
 
 ##  The initial conditions will be stored here:
 set Picdir = /glade/campaign/cesm/development/espwg/CESM3_ERA5_IC/inputdata/cesm3_init/{$case}/
@@ -58,12 +59,13 @@ ncatted -a OriginalFile,global,a,c,$roffname $icdir/$roffout
 
 ## CHECK the OCEAN OFFSET!!!!
 ## ocn/ice
-set ocncase = g.e30_b06.GJRAv4.TL319_t232_wgx3_hycom1_N75.2025.081
+### set ocncase = g.e30_b06.GJRAv4.TL319_t232_wgx3_hycom1_N75.2025.081
+set ocncase = g.e30_a07_dev.GJRAv4.TL319_t232_wgx3_hycom1_N75.2025.111
 
 ## CHECK the OCEAN OFFSET!!!!
 #  1958-01-01 = 0062-01-01
 set first_rest_year = 1958
-set ocean_base_year = 62
+set ocean_base_year = 1
 
 ## CHECK the OCEAN OFFSET!!!!
 # Comment:  year translation:  if ($year == 1997 ) set ocnyr = 0101
@@ -72,7 +74,8 @@ set ocean_base_year = 62
 @ offset = $first_rest_year - $ocean_base_year 
 @ ocnyr   = $year - $offset
 set pocnyr = `printf "%04d" $ocnyr`
-set ocndir = /glade/derecho/scratch/gmarques/archive/g.e30_b06.GJRAv4.TL319_t232_wgx3_hycom1_N75.2025.081/rest/${pocnyr}-${mon}-01-00000/
+#set ocndir = /glade/derecho/scratch/gmarques/archive/g.e30_b06.GJRAv4.TL319_t232_wgx3_hycom1_N75.2025.081/rest/${pocnyr}-${mon}-01-00000/
+set ocndir = /glade/derecho/scratch/gmarques/archive/${ocncase}/rest/${pocnyr}-${mon}-01-00000/
 
 echo $ocndir
 
