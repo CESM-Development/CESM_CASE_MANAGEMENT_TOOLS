@@ -1,0 +1,28 @@
+!----------------------------------------------------------------------------------
+! Settings from output_base_highfreq
+!----------------------------------------------------------------------------------
+
+! h1 stream (6-hourly average, gridcell-level)
+! 6hr, E6hr, CF6hr
+! 6hr requires QRUNOFF for time mean, and SOILWATER_10CM, TSKIN for time point (I)
+! CF6hr requires QFLX_SOLIDEVAP_FROM_TOP_LAYER for time point (I)
+hist_mfilt(2) = 2920
+hist_dov2xy(2) = .true.
+hist_nhtfrq(2) = -6
+hist_type1d_pertape(2) = ' '
+hist_fincl2 += 'NPP','TLAI','SOILWATER_10CM:I','TSOI','SOILLIQ','SOILICE','QRUNOFF','H2OSNO'
+
+
+!----------------------------------------------------------------------------------
+! Settings from cmip6_carbon_isotopes
+!----------------------------------------------------------------------------------
+
+use_c13 = .true.
+use_c14 = .true.
+use_c13_timeseries = .true.
+use_c14_bombspike = .true.
+
+! h0 stream (monthly average, gridcell-level)
+hist_fexcl1 += 'C14_SOILC_vr'
+! h3 stream (yearly average, gridcell-level)
+hist_fincl4 += 'C14_SOILC_vr'
