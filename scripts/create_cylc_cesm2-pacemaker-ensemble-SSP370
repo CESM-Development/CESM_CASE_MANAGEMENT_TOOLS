@@ -45,8 +45,8 @@ CLM_RUN = False
 FV2_RUN = False
 
 # Set ensemble start and finish
-ensemble_start = 1
-ensemble_end = 5
+ensemble_start = 6
+ensemble_end = 10
 
 # Add a specific queue to use.  Set to None if you want the default.  Set to 'queue name' if you want a specific queue.
 queue = 'None'
@@ -55,8 +55,8 @@ queue = 'None'
 # Add/Revove/Modify any of the CESM xml variables you would like to set or change
 cesm_xml={
          'RESUBMIT': '1',
-         'STOP_N': '2',
-         'STOP_OPTION': 'nyears',
+         'STOP_N': '30',
+         'STOP_OPTION': 'nmonths',
          'DOUT_S': 'TRUE'
          }
 

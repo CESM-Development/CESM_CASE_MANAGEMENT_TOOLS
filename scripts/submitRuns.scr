@@ -1,0 +1,31 @@
+#!/bin/csh -fx
+### set env variables
+
+setenv CESM2_TOOLS_ROOT /glade/work/nanr/cesm_tags/CASE_tools/cesm2-historicalPacemaker/
+set PATH = /glade/work/nanr/CESM2-PACEMAKER/
+set PATH = /glade/work/nanr/CESM2-pacemaker/cases/
+
+# case name counter
+set smbr =  3
+set embr =  10
+
+@ mb = $smbr
+@ me = $embr
+
+# reference name counter
+
+foreach mbr ( `seq -f "%03g" $mb  $me` )
+
+set CASE = b.e21.BSSP370cmip6.f09_g17.pacemaker_pacific_xtnd.$mbr
+set CASEROOT = ${PATH}/$CASE
+
+ 
+  cd $CASEROOT
+  ./xmlchange EXEROOT=/glade/derecho/scratch/nanr/b.e21.BSSP370cmip6.f09_g17.pacemaker_pacific_xtnd.001/bld
+  ./xmlchange BUILD_COMPLETE=TRUE
+  ./case.submit
+
+end             # member loop
+
+exit
+
