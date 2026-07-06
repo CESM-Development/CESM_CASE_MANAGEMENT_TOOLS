@@ -1,0 +1,32 @@
+      <dataSource>
+         GENERIC
+      </dataSource>
+      <domainInfo>
+         <variableNames>
+            time    time
+            xc      lon
+            yc      lat
+            area    area
+            mask    mask
+         </variableNames>
+         <filePath>
+           /glade/p/cesmdata/cseg/inputdata/ocn/docn7 
+         </filePath>
+         <fileNames>
+            domain.ocn.1x1.111007.nc
+         </fileNames>
+      </domainInfo>
+      <fieldInfo>
+         <variableNames>
+            SST_cpl    t
+         </variableNames>
+         <filePath>
+           /glade/p/cesmdata/cseg/inputdata/atm/cam/sst 
+         </filePath>
+         <fileNames>
+            sst_LENS_0402-1510_1x1_clim_c140307.nc
+         </fileNames>
+         <offset>
+            86400
+         </offset>
+      </fieldInfo>

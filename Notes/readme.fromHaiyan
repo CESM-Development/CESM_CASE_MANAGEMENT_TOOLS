@@ -1,0 +1,74 @@
+1. This file contains the instruction to 
+run prescribed soil moisture experiments with CAM5 with the same setups as in Teng et al. 2019
+
+2. tag:
+I used cesm1_1_2_LENS_n16, but sorry I can't find this tag from cseg/collections any more.
+The source code that I used (/glade/p/cgd/ccr/people/hteng/CAM5.ctrl/model/cesm1_1_2_LENS_n16) was deleted. Fortunately,
+I can find a copy from /glade/p/cgd/cas/asphilli/cesm_tags/cesm1_1_2_LENS_n16. 
+To avoid losing it again, i made a copy at /glade/work/hteng/hteng/soil/cesm1_1_2_LENS_n16.tar.
+
+
+3. workflow
+3a: extend the control run: f.e11.F1850C5CN.f09_f09.001
+(http://www.cesm.ucar.edu/experiments/cesm1.1/LE/)
+(hpss: http://www.cesm.ucar.edu/experiments/cesm1.1/LE/)
+
+
+two purposes:
+i. we need 100 restart files. e.g. if you want to start your ensemble on 11-01, you'll need to extend the control from 01-01 to the end of oct.
+ii. the original f.e11.F1850C5CN.f09_f09.001 doesn't provide daily U/V/T/Z etc.  that you will look at. 
+
+(sorry I didn't save my 05-01, 06-01, 07-01, 08-01, 11-01, etc. restart files.)
+but for your reference, you can look at my script:
+/glade/work/hteng/hteng/soil/bin/rerunctrl.csh
+
+a small tip: I usually write the script to set up member01, compile it, then make a soft link for other 99 cases to save time
+
+
+3b: prescribed soil moisture runs
+use /glade/work/hteng/hteng/soil/bin/PJun0_lev1-2_1mon.csh 
+as an example (deplete soil water in the Great plains box) 
+
+
+step0: setup member01  
+you can follow /glade/work/hteng/hteng/soil/bin/PJun0_lev1-2_1mon.csh,just run member01.
+run the command mannually till "./cesm_setup".
+then copy the restart files.
+
+the sourcemods are located at /glade/work/hteng/hteng/soil/sourcemods, you can ignore
+*.F90.old, *.F90.corrected, *.F90.nopres and *.F90.liqonly
+  
+step1:   
+create the soil moisture climo file with the ncl /glade/work/hteng/hteng/soil/ncl/new/P0_lev1-2.ncl.
+the domain is defined by blat, elat, blon and elon
+it creates a mask file /glade/work/hteng/hteng/soil/forcing/P0_lev1-2.nc
+inside blat,blon,elat,elon, 
+h2osoi_liq(ff,:,idomain)  =  0.0000001,
+h2osoi_ice(ff,:,idomain)  =  0.0000001
+or you can set it to a prescribed value.
+
+step2:
+edit user_nl_clm at caseroot: 
+/glade/work/hteng/hteng/soil/dom21/PJun0_lev1-2_1mon-01/user_nl_clm 
+copy user_nl_cam, user_nl_cice
+
+for reference, you can look at PJun0_lev1-2_1mon.csh:
+cp {$myhome}/namelist/user_nl_clm_P0_lev1-2  ${caseroot}/user_nl_clm 
+cp {$myhome}/namelist/user_nl_cam ${caseroot}
+cp {$myhome}/namelist/user_nl_cice $caseroot
+rm -f {$caseroot}/CaseDocs/docn.streams.txt.prescribed
+chmod 664 {$caseroot}/Buildconf/docnconf/docn.streams.txt.prescribed  
+cp $myhome/namelist/user_docn.streams.txt.prescribed $caseroot 
+
+
+step3
+./*.build, build the case interactively
+
+
+step4
+run member01
+
+step5
+if member01 is successful, create member02,03,...100, use a softlink for the executable to avoid compiling each case.
+
+

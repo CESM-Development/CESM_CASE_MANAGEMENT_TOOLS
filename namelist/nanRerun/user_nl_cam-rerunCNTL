@@ -1,0 +1,49 @@
+! Users should add all user specific namelist changes below in the form of 
+! namelist_var = new_namelist_value
+! These are specific changes to CAM for the LENS experiment 
+ inithist='MONTHLY' 
+ cldfrc_rhminl = 0.8925D0
+ nhtfrq=0,-24,-6
+ mfilt=1,5,20
+ empty_htapes=.true.
+!h0 - monthly
+ fincl1='ABSORB:A','ANRAIN:A','ANSNOW:A','AODDUST1:A','AODDUST2:A','AODDUST3:A',
+  'AODVIS:A','AQRAIN:A','AQSNOW:A','AREI:A','AREL:A','AWNC:A','AWNI:A','CDNUMC:A',
+  'CLDHGH:A','CLDICE:A','CLDLIQ:A','CLDLOW:A','CLDMED:A','CLDTOT:A','CLOUD:A',
+  'DCQ:A','DTCOND:A','DTV:A','FICE:A','FLDS:A','FLNS:A','FLNSC:A','FLNT:A',
+  'FLNTC:A','FLUT:A','FLUTC:A','FREQI:A','FREQL:A','FREQR:A','FREQS:A','FSDS:A',
+  'FSDSC:A','FSNS:A','FSNSC:A','FSNT:A','FSNTC:A','FSNTOA:A','FSNTOAC:A',
+  'ICEFRAC:A','ICIMR:A','ICWMR:A','IWC:A','LANDFRAC:A','LHFLX:A','LWCF:A',
+  'NUMICE:A','NUMLIQ:A','OCNFRAC:A','OMEGA:A','OMEGAT:A','PBLH:A','PRECC:A',
+  'PRECL:A','PRECSC:A','PRECSL:A','PS:A','PSL:A','Q:A','QFLX:A','QRL:A','QRS:A',
+  'RELHUM:A','SHFLX:A','SNOWHICE:A','SNOWHLND:A','SOLIN:A','SRFRAD:A','SWCF:A',
+  'T:A','TAUX:A','TAUY:A','TGCLDIWP:A','TGCLDLWP:A','TMQ:A','TREFHT:A','TS:A',
+  'U:A','U10:A','UU:A','V:A','VD01:A','VQ:A','VT:A','VU:A','VV:A','WSUB:A','Z3:A',
+  'CCN3:A','UQ:A','WGUSTD:X','WSPDSRFMX:A','TSMX:X','TSMN:M','TREFHTMX:X','TREFHTMN:M',
+  'bc_a1_SRF:A','dst_a1_SRF:A','dst_a3_SRF:A','pom_a1_SRF:A','so4_a1_SRF:A',
+  'so4_a2_SRF:A','so4_a3_SRF:A','soa_a1_SRF:A','soa_a2_SRF:A','BURDENSO4:A',
+  'BURDENBC:A','BURDENPOM:A','BURDENSOA:A','BURDENDUST:A','BURDENSEASALT:A',
+  'AODABS:A','EXTINCT:A','PHIS:A','TROP_P:A','TROP_T:A','TOT_CLD_VISTAU:A',
+  'ICLDIWP:A','ICLDTWP:A'
+
+!h1 - Daily
+ fincl2='PSL:A','TREFHT:A','TREFHTMN:M','TREFHTMX:X','PRECT:A','LHFLX:A','SHFLX:A','FSNS:A','FLNS:A',
+   'U:A','V:A','T:A','Z3:A','Q:A','PS:A','PHIS:A'
+
+!h2 - 6hrly
+ fincl3='TREFHTMN:M','TREFHTMX:X'
+
+
+!! LENS output
+!fincl2='PSL:A','TS:A','TREFHT:A','TREFHTMN:M','TREFHTMX:X','PRECT:A','PRECL:A',
+! 'PRECSL:A','PRECSC:A','PRECTMX:A','TMQ:A','Z500:A','T500:A','Q500:A','U500:A',
+! 'V500:A','WSPDSRFAV:A','U200:A','V200:A','T200:A','Q200:A','U850:A','V850:A',
+! 'T850:A','Q850:A','UBOT:A','VBOT:A','QBOT:A','Z050:A','T010:A','U010:A',
+! 'FSNTOA:A','FLUT:A','LHFLX:A','SHFLX:A','FSNS:A','FLNS:A','FSNSC:A','FLNSC:A',
+! 'TAUX:A','TAUY:A','ICEFRAC:A','bc_a1_SRF:X','dst_a1_SRF:X','dst_a3_SRF:X','pom_a1_SRF:X',
+! 'so4_a1_SRF:X','so4_a2_SRF:X','so4_a3_SRF:X','soa_a1_SRF:X','soa_a2_SRF:X'
+
+!fincl3='T:I','Q:I','U:I','V:I','Z3:I','PSL:I','TREFHT:I','QREFHT:I','TS:I','PS:I',
+! 'TROP_P:I','TROP_T:I','FSNS:A','FLNS:A','FSDS:A','FLDS:A','TOT_CLD_VISTAU:A',
+! 'CLOUD:A','CLDTOT:A','CLDLOW:A','CLDMED:A','CLDHGH:A','TGCLDLWP:A','TGCLDIWP:A',
+! 'PRECT:A'

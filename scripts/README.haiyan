@@ -1,0 +1,31 @@
+/glade/work/hteng/hteng/soil/bin/PMay0.csh
+
+Model version
+I used CESM1 large ensemble tag (cesm1_1_2_LENS_n16/)
+I save a copy of the source code at /glade/work/hteng/hteng/soil.
+
+IC
+I took 100 ICs from /ccsm/csm/f.e11.F1850C5CN.f09_f09.001 They are five years apart.
+Those ICs were saved on Jan 1st. I had to run branch runs to create May 1st ICs… According to my script, the ICs were 
+saved at /glade/p/cgd/ccr/people/hteng/CAM5.ctrl/may/CAM5.ctrl-{$member}.tar
+But that directory does not exist anymore. I probably lost the May 1st ICs that I produced..and I can’t find them at hpss.
+
+If I can’t find them, you’ll have to create the ICs yourself from f.e11.F1850C5CN.f09_f09.001.
+All my scripts are saved at /glade/work/hteng/hteng/soil/.
+
+Control run:
+Continue from control branch:  Jan 1-August
+
+I have the scripts to create and run 100 members at
+/glade/work/hteng/hteng/soil/bin
+PMay0.csh (remove the entire column soil water)	(SourceMods require reading input file)
+
+!! Another option is to run this: (so the response isn't too strong)
+PMay0_lev1-2.csh (remove top 2 layers’ soil water)
+
+A student at UIUC is running similar experiments for the amazon. I wrote an instruction for her:
+/glade/u/home/hteng/for_chuchun/readme
+
+ 
+
+ 
