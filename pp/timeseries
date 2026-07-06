@@ -1,12 +1,12 @@
 #!/bin/bash
 
-#PBS -N tc2
+#PBS -N tPPE1
 #PBS -q regular
 #PBS -l select=32:ncpus=4:mpiprocs=4
 #PBS -l walltime=12:00:00
 #PBS -A P04010022
 
-CASE=b.e21.BHISTsmbb.f09_g17.LE2-1251.020-ENSO-BB-la1cntl.002
+CASE=PPE_220_ensemble_HIST-mbr1.220
 
 source /etc/profile.d/modules.sh
 

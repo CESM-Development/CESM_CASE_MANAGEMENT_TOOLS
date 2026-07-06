@@ -1,0 +1,96 @@
+#!/bin/csh -fx
+
+module rm python
+module load conda
+conda activate /glade/work/jedwards/conda/cheyenne
+
+set MACHINE = cheyenne
+setenv TOOLS_ROOT /glade/work/nanr/cesm_tags/CASE_tools/cesm2-PPE-CAM/
+
+set CESMROOT = '/glade/work/nanr/cesm_tags/cesm2_3_beta06/'
+set basecasename = "PPE_220_ensemble_HIST"
+set baseroot = "/glade/work/nanr/cam_dev/ppe_cases/${basecasename}/"
+set res = f09_g17
+set COMPSET = BHIST
+set paramfile = "/glade/work/fasullo/CESM2PPE/parameter_212_220_w_control.nc"
+
+
+setenv MYROOT  /glade/work/nanr/cam_dev/ppe_cases/PPE_220_ensemble_HIST/
+setenv ARCHDIR /glade/scratch/nanr/archive/
+setenv SCRATCH /glade/scratch/nanr/
+setenv RESTDIR /glade/scratch/nanr/archive/
+setenv RUNROOT /glade/scratch/nanr/
+
+set COMPSET = BHIST
+set REFCOMPSET = BHISTsmbb
+set EXPERIMENT = NoPinatubo
+
+set RESOLN = f09_g17
+set RESUBMIT = 30
+set STOP_N=5
+set STOP_OPTION=nyears
+
+# Do not change; smbr/embr identify the RUN_REFCASES.
+set smbr =  2
+set embr =  3
+
+set CLONECASE = PPE_220_ensemble_HIST.220
+set REFCASE = PPE_220_ensemble_1850.220
+set REFDATE = 1305
+
+@ mb = $smbr
+@ me = $embr
+
+# ls /glade/work/nanr/cam_dev/ppe_cases/PPE_220_ensemble_HIST/PPE_220_ensemble_HIST.220/
+
+# case counter
+foreach mbr ( `seq $mb $me` )
+
+if    ($mbr < 10) then
+        setenv CASENAME PPE_220_ensemble_HIST.220.00${mbr}
+else if ($mbr >= 10 && $mbr < 100) then
+        setenv CASENAME PPE_220_ensemble_HIST.220.0${mbr}
+endif
+
+echo $CASENAME
+
+setenv CASEROOT $MYROOT/$CASENAME
+
+echo $CASEROOT
+  $CESMROOT/cime/scripts/create_clone --case $CASEROOT --clone $CLONECASE  --mach $MACHINE -keepexe 
+  cd $CASEROOT
+  
+  ./case.setup
+  ./preview_namelists
+  if ($MACHINE == cheyenne) then
+  	echo $RESTDIR/$REFCASE/rest/${STARTDATE}-00000/rpointer* $RUNROOT/$CASENAME/run/
+  	cp $RESTDIR/$REFCASE/rest/${STARTDATE}-00000/rpointer* $RUNROOT/$CASENAME/run/
+  	ln -s $RESTDIR/$REFCASE/rest/${STARTDATE}-00000/b.* $RUNROOT/$CASENAME/run/
+  endif
+
+
+
+  # =========================
+  # add pertlim perturbation to micro members 2 .. N 
+  # =========================
+if ($mbr != 1) then
+cat >> head.${mbr} << EOF
+! micro-member perturbation
+pertlim = ${mbr}.d-14
+  
+EOF
+  
+  mv user_nl_cam tmp.cam
+  cat head.${mbr} tmp.cam  > user_nl_cam
+  rm tmp.cam head.${mbr}
+  
+endif
+  # =========================
+  # END - pertlim 
+  # =========================
+
+
+end             # member loop
+
+
+

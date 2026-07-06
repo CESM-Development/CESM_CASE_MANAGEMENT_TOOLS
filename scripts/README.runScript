@@ -1,0 +1,5 @@
+module rm python
+module load conda
+conda activate /glade/work/jedwards/conda/cheyenne
+python build_ppe_CAM_Bcases_4xCO2_ag1run.py
+

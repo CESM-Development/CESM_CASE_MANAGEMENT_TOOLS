@@ -1,0 +1,20 @@
+June 24, 2022
+Project:  PPE-cam for John Fasullo
+
+!! Matching the previous code base:
+/glade/u/home/trude/src/cam6_3_026_ppe/
+
+ 1012 cheyenne6:/glade/u/home/trude/src/cam6_3_026_ppe > git status
+HEAD detached at cam6_3_026
+nothing to commit, working tree clean
+
+!! Clean checkout so I am using the closest tag with the close cam tag:
+
+git clone -b cesm2_3_beta06 https://github.com/ESCOMP/CESM.git cesm2_3_beta06
+cd cesm2_3_beta06
+./manage_externals/checkout_externals
+cd components/cam
+
+ 1016 cheyenne6:/glade/work/nanr/cesm_tags/cesm2_3_beta06/components/cam > git status
+HEAD detached at cam6_3_027
+nothing to commit, working tree clean
