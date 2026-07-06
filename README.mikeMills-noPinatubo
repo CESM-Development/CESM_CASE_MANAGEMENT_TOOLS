@@ -1,0 +1,24 @@
+The new file is ready.
+
+Here are the settings for the stratospheric sulfate aerosol without Pinatubo:
+
+ prescribed_strataero_datapath = '/glade/p/acom/acom-climate/cesm2/inputdata/atm/cam/ozone_strataero'
+ prescribed_strataero_file = 'ozone_strataero_WACCM_L70_zm5day_18500101-20150103_noPinatubo_c20220807.nc'
+
+You might also want to run with stratospheric ozone from the WACCM run without Pinatubo, in which case you would add these settings:
+
+ prescribed_ozone_datapath = '/glade/p/acom/acom-climate/cesm2/inputdata/atm/cam/ozone_strataero'
+ prescribed_ozone_file = 'ozone_strataero_WACCM_L70_zm5day_18500101-20150103_noPinatubo_c20220807.nc'
+
+These are both in the same forcing file. 
+
+There are other forcings that I have not generated from the WACCM run without Pinatubo (tropospheric oxidants, methane oxidation, and nitrogen deposition). I don't think these are likely to be very important. But let me know if you want me to create those as well.
+
+
+Okay. I can do the oxidants and methane oxidation files. I will need to ask Keith Lindsey to do the ocean Ndep, and Keith Oleson or Erik Kluzek to do the land Ndep.
+
+The effects of the eruption on these forcings are likely to be minor, especially given the way they are set up as decadal seasonal cycles. So we could stick with the defaults for these. In that case, the only thing we are waiting for is the ocean Ndep file from Keith Lindsey.
+
+Thank you for all your efforts. I think sticking with the defaults would be fine.
+
+ndep_shr_stream_file = '/glade/p/cesmdata/cseg/inputdata/ocn/pop/gx1v6/forcing/ndep_ocn_historical_noPinatubo_w_nhx_emis_gx1v6_c220825.nc'

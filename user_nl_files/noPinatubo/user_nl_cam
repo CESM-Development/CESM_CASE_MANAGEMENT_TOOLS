@@ -1,0 +1,13 @@
+! Users should add all user specific namelist changes below in the form of 
+! namelist_var = new_namelist_value 
+
+!! =====================
+!! No Pinatubo settings
+!! from Mike Mills
+!! =====================
+
+ prescribed_strataero_datapath = '/glade/p/acom/acom-climate/cesm2/inputdata/atm/cam/ozone_strataero'
+ prescribed_strataero_file = 'ozone_strataero_WACCM_L70_zm5day_18500101-20150103_noPinatubo_c20220807.nc'
+
+ prescribed_ozone_datapath = '/glade/p/acom/acom-climate/cesm2/inputdata/atm/cam/ozone_strataero'
+ prescribed_ozone_file = 'ozone_strataero_WACCM_L70_zm5day_18500101-20150103_noPinatubo_c20220807.nc'

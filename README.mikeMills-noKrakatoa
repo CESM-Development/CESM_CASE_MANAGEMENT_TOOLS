@@ -1,0 +1,15 @@
+The "no Krakatau" forcing file is created, checked, and ready to use.
+
+user_nl_cam:
+ prescribed_strataero_datapath = '/glade/p/acom/acom-climate/cesm2/inputdata/atm/cam/ozone_strataero'
+ prescribed_strataero_file = 'ozone_strataero_WACCM_L70_zm5day_18500101-20150103_noKrakatau1883_c20230309.nc'
+
+ prescribed_ozone_datapath = '/glade/p/acom/acom-climate/cesm2/inputdata/atm/cam/ozone_strataero'
+ prescribed_ozone_file = 'ozone_strataero_WACCM_L70_zm5day_18500101-20150103_noKrakatau1883_c20230309.nc'
+ 
+
+data_summary = "Removed eruptions Krakatau (1883-08-27) and Okataina (1886-06-10) from original forcing file\n",
+ "Merged data from dates 18830717=18830826 with data 5 years previous\n",
+ "Replaced data from 18830831-18880826 with 18780831-18830826\n",
+ "Replaced data from 18880831-18921119 with 18780831-18821119\n",
+ "Merged data from dates 18921124=18930103 with dates 10 years previous" ;

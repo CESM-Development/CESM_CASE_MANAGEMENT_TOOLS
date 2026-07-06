@@ -1,0 +1,107 @@
+#!/bin/csh -fx
+### set env variables
+### https://docs.google.com/spreadsheets/d/1ohxzI3tFpTqvVT6bKdWie6OJdpRRvY5q9uAw7V-w514/edit#gid=781669921
+
+set MACHINE = derecho
+
+#setenv CESMROOT /glade/work/nanr/cesm_tags/cesm2.1.4-rc.10
+setenv CESMROOT /glade/work/nanr/cesm_tags/sandbox/cesm2.1-alphabranch
+setenv TOOLS_ROOT /glade/work/nanr/cesm_tags/CASE_tools/cesm2-NoPinatubo/
+setenv MYROOT  /glade/work/nanr/CESM2-noKrakatoa
+setenv ARCHDIR /glade/derecho/scratch/nanr/archive/
+setenv SCRATCH /glade/derecho/scratch/nanr/
+setenv RESTDIR /glade/campaign/cesm/collections/CESM2-LE/restarts/
+setenv RUNROOT /glade/derecho/scratch/nanr/
+
+set COMPSET = BHISTcmip6
+set REFCOMPSET = BHISTcmip6
+set EXPERIMENT = noKrakatoa-derecho
+
+set RESOLN = f09_g17
+set RESUBMIT = 2
+set STOP_N=5
+set STOP_OPTION=nyears
+
+# Do not change; smbr/embr identify the RUN_REFCASES.
+set smbr =  1
+set embr =  1
+
+set USE_REFDATE = 1231
+#set USE_REFDATE = 1251
+#set USE_REFDATE = 1301
+#set USE_REFDATE = 1281
+#set USE_MEMBER  = 3
+
+#foreach USE_REFDATE ( 1251 1281 1301 )
+#foreach USE_REFDATE ( 1231 1251 1281 1301 )
+#foreach USE_MEMBER ( 1 2 3 4 5 6 7 8 9 10 )
+#foreach USE_MEMBER ( 1 2 3 4 5 6 7 8 9 10 )
+foreach USE_MEMBER ( 5 6 7 8 9 10 )
+
+set USE_STARTYEAR = 1880
+set STARTDATE=${USE_STARTYEAR}-01-01
+if    ($USE_MEMBER < 10) then
+	set USE_MEMBER  = 00${USE_MEMBER}
+else
+	set USE_MEMBER  = 0${USE_MEMBER}
+endif
+
+setenv CASENAME b.e21.${COMPSET}.${RESOLN}.LE2-${USE_REFDATE}.${USE_MEMBER}-${EXPERIMENT}.${USE_MEMBER}
+setenv REFCASE  b.e21.${COMPSET}.f09_g17.LE2-${USE_REFDATE}.${USE_MEMBER}
+
+echo $CASENAME
+
+setenv CASEROOT $MYROOT/$CASENAME
+
+echo $CASEROOT
+  $CESMROOT/cime/scripts/create_newcase --case $CASEROOT --res $RESOLN  --mach $MACHINE --compset $COMPSET 
+  cd $CASEROOT
+  
+  cp $TOOLS_ROOT/user_nl_files/noKrakatoa/* $CASEROOT/
+  cp $TOOLS_ROOT/pelayout/* $CASEROOT/
+
+  #cp -r $TOOLS_ROOT/SourceMods/src.clm/* $CASEROOT/SourceMods/src.clm/
+  #cp -r $TOOLS_ROOT/SourceMods/src.cam/* $CASEROOT/SourceMods/src.cam/
+  #cp $TOOLS_ROOT/SourceMods/src.pop/* $CASEROOT/SourceMods/src.pop/
+ 
+  ./xmlchange RUN_REFCASE=$REFCASE
+  ./xmlchange RUN_REFDATE=$STARTDATE
+  ./xmlchange RUN_STARTDATE=$STARTDATE
+  ./xmlchange STOP_N=$STOP_N
+  ./xmlchange STOP_OPTION=$STOP_OPTION
+  ./xmlchange RESUBMIT=$RESUBMIT
+ #./xmlchange DOUT_S_ROOT=/mnt/lustre/share/CESM/archive/$CASENAME
+  ./xmlchange DOUT_S_ROOT=$ARCHDIR/$CASENAME
+  ./xmlchange GET_REFCASE=FALSE
+  ./xmlchange PROJECT=CESM0019
+  ./xmlchange EXEROOT=/glade/derecho/scratch/nanr/b.e21.BHISTcmip6.f09_g17.LE2-1231.001-noKrakatoa.001/bld
+  ./xmlchange BUILD_COMPLETE=TRUE
+  #./xmlchange JOB_QUEUE=economy --subgroup case.run
+
+#if ($MACHINE == cheyenne) then
+  #./xmlchange NTASKS_ICE=36
+  #./xmlchange NTASKS_LND=504
+  #./xmlchange ROOTPE_ICE=504
+#endif
+
+
+  if (! -d $RUNROOT/$CASENAME/run) then
+	mkdir -p $RUNROOT/$CASENAME/run
+  endif
+  
+  echo $RESTDIR/$REFCASE/rest/${STARTDATE}-00000/rpointer* $RUNROOT/$CASENAME/run/
+  cp   $RESTDIR/$REFCASE/rest/${STARTDATE}-00000/rpointer* $RUNROOT/$CASENAME/run/
+  ln -s $RESTDIR/$REFCASE/rest/${STARTDATE}-00000/b.* $RUNROOT/$CASENAME/run/
+
+  ./case.setup
+  ./preview_namelists
+  ./case.submit
+  #qcmd -- ./case.build >& bld.`date +%m%d-%H%M`
+  #$POSTPROCESS_PATH/cesm-env2/bin/create_postprocess --caseroot $CASEROOT 
+
+
+end             # member loop
+#end             # case loop
+
+
+

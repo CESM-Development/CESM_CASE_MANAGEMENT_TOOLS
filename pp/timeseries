@@ -1,12 +1,12 @@
 #!/bin/bash
 
-#PBS -N tc2
+#PBS -N tnoKra12
 #PBS -q regular
-#PBS -l select=32:ncpus=4:mpiprocs=4
+#PBS -l select=16:ncpus=9:mpiprocs=9
 #PBS -l walltime=12:00:00
-#PBS -A P04010022
+#PBS -A P93300313
 
-CASE=b.e21.BHISTsmbb.f09_g17.LE2-1251.020-ENSO-BB-la1cntl.002
+CASE=b.e21.BHISTsmbb.f09_g17.LE2-1301.012-noKrakatoa.012
 
 source /etc/profile.d/modules.sh
 

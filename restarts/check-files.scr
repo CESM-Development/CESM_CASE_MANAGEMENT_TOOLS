@@ -1,0 +1,38 @@
+#!/bin/csh 
+### set env variables
+module load ncl nco
+
+# ...
+
+foreach syr ( 1231 1251 1281 1301 )
+
+# case name counter
+set smbr =  1
+set embr =  20
+
+@ mb = $smbr
+@ me = $embr
+
+foreach mbr ( `seq $mb $me` )
+   if ($mbr <= 10) then 
+      set rtype = cmip6
+   else
+      set rtype = smbb
+   endif
+
+if ($mbr < 10) then
+        set CASE = b.e21.BHIST${rtype}.f09_g17.LE2-${syr}.00${mbr}
+        set ARCHDIR = /glade/scratch/$USER/archive/$CASE/1880-01-01-00000/
+else
+        set CASE = b.e21.BHIST${rtype}.f09_g17.LE2-${syr}.0${mbr}
+        set ARCHDIR = /glade/scratch/$USER/archive/$CASE/1880-01-01-00000/
+endif
+
+echo $CASE
+ls -1 $ARCHDIR/* | wc
+
+end             # member loop
+end             # member loop
+
+exit
+
