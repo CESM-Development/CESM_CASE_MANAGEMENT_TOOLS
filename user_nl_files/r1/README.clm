@@ -1,0 +1,6 @@
+From Keith Oleson:
+
+cd /glade/u/home/oleson/run_hist_1850_files/BGC
+cp original_user_nl_clm_ctsm5.3.0  /glade/work/nanr/cesm_tags/CASE_tools/CMIP7_workflow/user_nl_files/r1/user_nl_clm-ctsm5.3.0
+cat user_nl_clm_histdaily_ctsm >> /glade/work/nanr/cesm_tags/CASE_tools/CMIP7_workflow/user_nl_files/r1/user_nl_clm-ctsm5.3.0
+cat user_nl_clm_histsubdaily_ctsm >> /glade/work/nanr/cesm_tags/CASE_tools/CMIP7_workflow/user_nl_files/r1/user_nl_clm-ctsm5.3.0

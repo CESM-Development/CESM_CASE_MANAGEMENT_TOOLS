@@ -1,0 +1,8 @@
+        float CMFMC_DP(time, ilev, ncol) ;
+        float PINT(time, ilev, ncol) ;
+        float WPTHLP_CLUBB(time, ilev, ncol) ;
+        float WPRTP_CLUBB(time, ilev, ncol) ;
+
+
+        float CMEIOUT(time, trop_cld_lev, ncol) ;
+        float EVAPSNOW(time, trop_cld_lev, ncol) ;

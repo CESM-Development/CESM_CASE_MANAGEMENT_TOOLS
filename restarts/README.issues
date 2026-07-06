@@ -1,0 +1,10 @@
+
+
+dec0051.hsn.de.hpc.ucar.edu 1102:  READ_DYN_FIELD_2D: Could not find lat_d field on input datafile
+dec0637.hsn.de.hpc.ucar.edu 5320:  READ_DYN_FIELD_2D: Could not find lat_d field on input datafile
+dec0645.hsn.de.hpc.ucar.edu 5384: cesm.exe           00000000037590C6  shr_abort_abort           110  shr_abort_mod.F90
+
+  1076	20:03	ncflint -O -C -v U,V,T,Q,PS -w -0.15,1.0 /glade/derecho/scratch/nanr/pert_0205rn.nc /glade/campaign/cesm/development/espwg/CESM3-SMYLE/inputdata/cesm3_init/b.e30.SMYLE_IC.ne30np4_L93_t233_wgx3.2007-05.01/2007-05-01/b.e30.SMYLE_IC.ne30np4_L93_t233_wgx3.2007-05.01.cam.i.2007-05-01-00000.nc /glade/campaign/cesm/development/espwg/CESM3-SMYLE/inputdata/cesm3_init/b.e30.SMYLE_IC.ne30np4_L93_t233_wgx3.2007-05.01/pert.10/b.e30.SMYLE_IC.pert.ne30np4_L93_t233_wgx3.cam.i.2007-05-01-tmp.nc
+  1077	20:03	nh pert.10/b.e30.SMYLE_IC.pert.ne30np4_L93_t233_wgx3.cam.i.2007-05-01-tmp.nc | less
+  1078	20:04	ncks -A -v lon,lat,lev,ilev,hyai,hybi,hyam,hybm,PHIS,W,P_00,area /glade/campaign/cesm/development/espwg/CESM3-SMYLE/inputdata/cesm3_init/b.e30.SMYLE_IC.ne30np4_L93_t233_wgx3.2007-05.01/2007-05-01/b.e30.SMYLE_IC.ne30np4_L93_t233_wgx3.2007-05.01.cam.i.2007-05-01-00000.nc /glade/campaign/cesm/development/espwg/CESM3-SMYLE/inputdata/cesm3_init/b.e30.SMYLE_IC.ne30np4_L93_t233_wgx3.2007-05.01/pert.10/b.e30.SMYLE_IC.pert.ne30np4_L93_t233_wgx3.cam.i.2007-05-01-tmp.nc
+

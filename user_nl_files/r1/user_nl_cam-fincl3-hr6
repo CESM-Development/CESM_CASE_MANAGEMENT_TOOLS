@@ -1,0 +1,4 @@
+
+
+! 6 hourly
+fincl3 = 'PRECT', 'PRECC', 'FLUT', 'U850', 'U200', 'V850', 'V200', 'OMEGA500', 'TS', 'SST', 'PSL', 'Z500','Z3'
