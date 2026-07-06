@@ -1,0 +1,96 @@
+#!/bin/csh -fx
+### set env variables
+setenv CESM2_TOOLS_ROOT /glade/work/nanr/cesm_tags/CASE_tools/cesm2-historicalPacemaker/
+#setenv CESMROOT /glade/work/nanr/cesm_tags/cesm2.1.4-exp03
+#setenv CESMROOT /glade/work/nanr/cesm_tags/cesm2.1.4-rc.07
+setenv CESMROOT /glade/work/nanr/cesm_tags/sandbox/cesm2.1-alphabranch
+
+set COMPSET = BSSP585cmip6
+set MACHINE = derecho
+set RESOLN = f09_g17
+set RESUBMIT = 1
+set STOP_N=3
+set STOP_OPTION=nyears
+set PROJECT=P93300313
+
+setenv SCENARIO HIST-PAC_15d50m.derecho
+setenv REFDATE  2015-01-01
+setenv BASEROOT /glade/work/nanr/CESM2-PACEMAKER/
+setenv RUNROOT  /glade/derecho/scratch/nanr/
+
+# case name counter
+set smbr =  1
+set embr =  10
+
+@ mb = $smbr
+@ me = $embr
+
+# reference name counter
+
+foreach mbr ( `seq $mb  $me` )
+
+  set padded_mbr = `printf "%03d" $mbr`
+
+  setenv REFCASE  b.e21.BHISTcmip6.f09_g17.HIST-PAC_15d50m.derecho.${padded_mbr}
+  setenv CASENAME b.e21.${COMPSET}.${RESOLN}.${SCENARIO}.${padded_mbr}
+
+  setenv CASEROOT  $BASEROOT$CASENAME
+  setenv REFROOT  /glade/derecho/scratch/nanr/archive/$REFCASE/
+
+  cd $CESMROOT/cime/scripts/
+  ./create_newcase --case $CASEROOT --res $RESOLN  --compset $COMPSET --project $PROJECT
+ 
+  cd $CASEROOT
+
+  ./xmlchange RUN_REFCASE=$REFCASE
+  ./xmlchange RUN_REFDATE=$REFDATE
+  ./xmlchange RUN_STARTDATE=2015-01-01
+  ./xmlchange GET_REFCASE=FALSE
+  ./xmlchange PROJECT=P93300313
+
+
+  #cp -r /glade/work/nanr/cesm_tags/CASE_tools/cesm2-smyle-PACEMAKER/user_mods/cesm2smyle.base/SourceMods $CASEROOT/
+  #cp /glade/work/nanr/cesm_tags/CASE_tools/cesm2-smyle-PACEMAKER/user_mods/cesm2smyle.base/user_nl_* $CASEROOT/
+
+  #cp $CESM2_TOOLS_ROOT/peLayout/env_mach_pes.xml $CASEROOT/
+
+  cp $CESM2_TOOLS_ROOT/SourceMods/src.cam/* $CASEROOT/SourceMods/src.cam/
+  cp $CESM2_TOOLS_ROOT/SourceMods/src.clm/* $CASEROOT/SourceMods/src.clm/
+  cp $CESM2_TOOLS_ROOT/SourceMods/src.pop/* $CASEROOT/SourceMods/src.pop/
+
+  cp $CESM2_TOOLS_ROOT/user_nl_files/user_nl_* $CASEROOT/
+  cp $CESM2_TOOLS_ROOT/user_nl_files/$SCENARIO/user_nl_pop $CASEROOT/
+
+  ./case.setup
+
+  ./xmlchange STOP_N=$STOP_N
+  ./xmlchange STOP_OPTION=$STOP_OPTION
+  ./xmlchange RESUBMIT=$RESUBMIT
+  #./xmlchange JOB_QUEUE=regular --subgroup case.run
+  #./xmlchange JOB_PRIORITY=economy
+  #./xmlchange JOB_QUEUE=economy --subgroup case.run
+  ./xmlchange JOB_WALLCLOCK_TIME=12:00:00 --subgroup case.run
+  ./xmlchange OCN_TRACER_MODULES="iage cfc ecosys"
+
+  cp    $REFROOT/rest/$REFDATE-00000/rpointer* $RUNROOT/$CASENAME/run/
+  ln -s $REFROOT/rest/$REFDATE-00000/b.e21*    $RUNROOT/$CASENAME/run/
+
+   ./case.setup --reset
+   ./xmlchange EXEROOT=/glade/derecho/scratch/nanr/PAC-EXEROOT-SSP/bld/
+   ./xmlchange BUILD_COMPLETE=TRUE
+
+   #if (${mbr} == $smbr) then
+      #./case.setup --reset
+      #qcmd -A P93300313 -- ./case.build
+      #set masterroot = $CASENAME
+   #else
+      #./case.setup --reset
+      #./xmlchange EXEROOT=/glade/scratch/nanr/PAC-EXEROOT/bld/
+      #./xmlchange BUILD_COMPLETE=TRUE
+   #endif
+   ./case.submit
+
+end             # member loop
+
+exit
+

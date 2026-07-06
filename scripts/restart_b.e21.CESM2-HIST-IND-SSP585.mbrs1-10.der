@@ -1,0 +1,72 @@
+#!/bin/csh -fx
+### set env variables
+setenv CESM2_TOOLS_ROOT /glade/work/nanr/cesm_tags/CASE_tools/cesm2-historicalPacemaker/
+#setenv CESMROOT /glade/work/nanr/cesm_tags/cesm2.1.4-exp03
+#setenv CESMROOT /glade/work/nanr/cesm_tags/cesm2.1.4-rc.07
+setenv CESMROOT /glade/work/nanr/cesm_tags/sandbox/cesm2.1-alphabranch
+
+set COMPSET = BSSP585cmip6
+set MACHINE = derecho
+set RESOLN = f09_g17
+set STOP_OPTION=nyears
+set PROJECT=P93300313
+
+#setenv SCENARIO HIST-ATL_15d50m.derecho
+#setenv USEEXEROOT  ATL-EXEROOT-SSP
+#setenv SCENARIO HIST-IND_15d50m.derecho
+#setenv USEEXEROOT  IND-EXEROOT-SSP
+setenv SCENARIO HIST-PAC_15d50m.derecho
+setenv USEEXEROOT  PAC-EXEROOT-SSP
+setenv REFDATE  2021-01-01
+setenv BASEROOT /glade/work/nanr/CESM2-PACEMAKER/
+setenv RUNROOT  /glade/derecho/scratch/nanr/
+
+# case name counter
+set bmbr =  1
+set smbr =  1
+set embr =  10
+
+@ mb = $smbr
+@ me = $embr
+
+# reference name counter
+
+foreach mbr ( `seq $mb  $me` )
+
+  set padded_mbr = `printf "%03d" $mbr`
+
+  setenv CASENAME b.e21.${COMPSET}.${RESOLN}.${SCENARIO}.${padded_mbr}
+
+  setenv CASEROOT  $BASEROOT$CASENAME
+  setenv REFROOT  /glade/campaign/cgd/ccr/AMOC/cesm2/restarts/$CASENAME/
+
+  mkdir -p $RUNROOT/$CASENAME/run/
+  cd $RUNROOT/$CASENAME/run/
+  cp $REFROOT/$CASENAME*2021-01*.tar .
+  tar -xvf $CASENAME*2021-01*.tar
+  mv 2021-01-01-00000/* .
+  #rm *.tar
+
+  cd $CASEROOT
+
+  ./xmlchange STOP_N=1
+  ./xmlchange REST_N=1
+  ./xmlchange RESUBMIT=0
+
+   if (${mbr} == 1) then
+      ./xmlchange EXEROOT=/glade/derecho/scratch/nanr/$USEEXEROOT/bld/
+      #./case.setup --reset
+      qcmd -A P93300313 -- ./case.build
+   else
+      #./case.setup --reset
+      ./xmlchange EXEROOT=/glade/derecho/scratch/nanr/$USEEXEROOT/bld/
+      #./xmlchange BUILD_COMPLETE=TRUE
+   endif
+
+
+   ./case.submit
+
+end             # member loop
+
+exit
+

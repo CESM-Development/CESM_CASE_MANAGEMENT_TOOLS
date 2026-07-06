@@ -1,0 +1,148 @@
+#!/bin/csh -fx
+### set env variables
+setenv CESM2_TOOLS_ROOT /glade/work/nanr/cesm_tags/CASE_tools/cesm2-historicalPacemaker/
+#setenv CESMROOT /glade/work/nanr/cesm_tags/cesm2.1.4-exp03
+#setenv CESMROOT /glade/work/nanr/cesm_tags/cesm2.1.4-rc.07
+setenv CESMROOT /glade/work/nanr/cesm_tags/sandbox/cesm2.1-alphabranch
+
+set COMPSET = BHISTcmip6
+set MACHINE = derecho
+set RESOLN = f09_g17
+set RESUBMIT = 12
+set STOP_N=3
+set STOP_OPTION=nyears
+set PROJECT=P93300313
+
+setenv SCENARIO HIST-ATL_15d50m.derecho
+setenv REFDATE  1880-01-01
+setenv BASEROOT /glade/work/nanr/CESM2-PACEMAKER/
+setenv RUNROOT  /glade/derecho/scratch/nanr/
+
+# case name counter
+set smbr =  1
+set embr =  10
+
+@ mb = $smbr
+@ me = $embr
+
+# reference name counter
+
+foreach mbr ( `seq $mb  $me` )
+
+setenv REFDATE  1880
+
+  if ($mbr == 1) then
+        setenv REFCASE  b.e21.BHISTcmip6.f09_g17.LE2-1001.001
+	setenv CASENAME b.e21.${COMPSET}.${RESOLN}.${SCENARIO}.00${mbr}
+  endif
+  if ($mbr == 2) then
+        setenv REFCASE  b.e21.BHISTcmip6.f09_g17.LE2-1021.002
+	setenv CASENAME b.e21.${COMPSET}.${RESOLN}.${SCENARIO}.00${mbr}
+  endif
+  if ($mbr == 3) then
+        setenv REFCASE  b.e21.BHISTcmip6.f09_g17.LE2-1041.003
+	setenv CASENAME b.e21.${COMPSET}.${RESOLN}.${SCENARIO}.00${mbr}
+  endif
+  if ($mbr == 4) then
+        setenv REFCASE  b.e21.BHISTcmip6.f09_g17.LE2-1061.004
+	setenv CASENAME b.e21.${COMPSET}.${RESOLN}.${SCENARIO}.00${mbr}
+  endif
+  if ($mbr == 5 ) then
+        setenv REFCASE  b.e21.BHISTcmip6.f09_g17.LE2-1081.005
+	setenv CASENAME b.e21.${COMPSET}.${RESOLN}.${SCENARIO}.00${mbr}
+  endif
+  if ($mbr == 6 ) then
+        setenv REFCASE  b.e21.BHISTcmip6.f09_g17.LE2-1101.006
+	setenv CASENAME b.e21.${COMPSET}.${RESOLN}.${SCENARIO}.00${mbr}
+  endif
+  if ($mbr == 7) then
+        setenv REFCASE  b.e21.BHISTcmip6.f09_g17.LE2-1121.007
+	setenv CASENAME b.e21.${COMPSET}.${RESOLN}.${SCENARIO}.00${mbr}
+  endif
+  if ($mbr == 8) then
+        setenv REFCASE  b.e21.BHISTcmip6.f09_g17.LE2-1141.008
+	setenv CASENAME b.e21.${COMPSET}.${RESOLN}.${SCENARIO}.00${mbr}
+  endif
+  if ($mbr == 9) then
+        setenv REFCASE  b.e21.BHISTcmip6.f09_g17.LE2-1161.009
+	setenv CASENAME b.e21.${COMPSET}.${RESOLN}.${SCENARIO}.00${mbr}
+  endif
+  if ($mbr == 10) then
+        setenv REFCASE  b.e21.BHISTcmip6.f09_g17.LE2-1181.010
+	setenv CASENAME b.e21.${COMPSET}.${RESOLN}.${SCENARIO}.0${mbr}
+  endif
+
+  setenv CASEROOT  $BASEROOT$CASENAME
+  setenv REFROOT  /glade/campaign/cgd/cesm/CESM2-LE/restarts/$REFCASE/
+
+  cd $CESMROOT/cime/scripts/
+  ./create_newcase --case $CASEROOT --res $RESOLN  --compset $COMPSET --project $PROJECT
+ 
+  cd $CASEROOT
+
+  ./xmlchange RUN_REFCASE=$REFCASE
+  ./xmlchange RUN_REFDATE=$REFDATE-01-01
+  ./xmlchange RUN_STARTDATE=1880-01-01
+  ./xmlchange GET_REFCASE=FALSE
+  ./xmlchange PROJECT=P93300313
+  #./xmlchange JOB_QUEUE=economy --subgroup case.run
+  ./xmlchange JOB_PRIORITY=economy
+
+  #./xmlchange NTASKS_ICE=36
+  #./xmlchange NTASKS_LND=504
+  #./xmlchange ROOTPE_ICE=504
+
+  #./xmlchange NTASKS_CPL=1152
+  #./xmlchange NTASKS_ATM=1152
+  #./xmlchange NTASKS_LND=792
+  #./xmlchange NTASKS_ICE=360
+  #./xmlchange ROOTPE_ICE=792
+  #./xmlchange NTASKS_OCN=512
+  #./xmlchange ROOTPE_OCN=1152
+  #./xmlchange NTASKS_GLC=1152
+  #./xmlchange NTASKS_ROF=792
+  #./xmlchange NTASKS_WAV=28
+  #./xmlchange ROOTPE_WAV=1664
+  #./xmlchange NTHRDS=3
+  #./xmlchange NTHRDS_ESP=1
+
+  #cp -r /glade/work/nanr/cesm_tags/CASE_tools/cesm2-smyle-PACEMAKER/user_mods/cesm2smyle.base/SourceMods $CASEROOT/
+  #cp /glade/work/nanr/cesm_tags/CASE_tools/cesm2-smyle-PACEMAKER/user_mods/cesm2smyle.base/user_nl_* $CASEROOT/
+
+  cp $CESM2_TOOLS_ROOT/peLayout/env_mach_pes.xml $CASEROOT/
+
+  cp $CESM2_TOOLS_ROOT/SourceMods/src.cam/* $CASEROOT/SourceMods/src.cam/
+  cp $CESM2_TOOLS_ROOT/SourceMods/src.clm/* $CASEROOT/SourceMods/src.clm/
+  cp $CESM2_TOOLS_ROOT/SourceMods/src.pop/* $CASEROOT/SourceMods/src.pop/
+
+  cp $CESM2_TOOLS_ROOT/user_nl_files/user_nl_* $CASEROOT/
+  cp $CESM2_TOOLS_ROOT/user_nl_files/$SCENARIO/user_nl_pop $CASEROOT/
+
+  ./case.setup
+
+  ./xmlchange STOP_N=$STOP_N
+  ./xmlchange STOP_OPTION=$STOP_OPTION
+  ./xmlchange RESUBMIT=$RESUBMIT
+  ./xmlchange JOB_QUEUE=regular --subgroup case.run
+
+   cp    $REFROOT/rest/$REFDATE-01-01-00000/rpointer* $RUNROOT/$CASENAME/run/
+   ln -s $REFROOT/rest/$REFDATE-01-01-00000/b.e21*    $RUNROOT/$CASENAME/run/
+
+   #./case.setup --reset
+   ./xmlchange EXEROOT=/glade/derecho/scratch/nanr/ATL-EXEROOT/bld/
+   ./xmlchange BUILD_COMPLETE=TRUE
+
+   #if (${mbr} == $smbr) then
+      #./case.setup --reset
+      #qcmd -A P93300313 -- ./case.build
+      #set masterroot = $CASENAME
+   #else
+      #./case.setup --reset
+      ./xmlchange EXEROOT=/glade/derecho/scratch/nanr/ATL-EXEROOT/bld/
+      ./xmlchange BUILD_COMPLETE=TRUE
+   #endif
+
+end             # member loop
+
+exit
+

@@ -1,0 +1,29 @@
+#!/bin/csh -fx
+### set env variables
+
+setenv CESM2_TOOLS_ROOT /glade/work/nanr/cesm_tags/CASE_tools/cesm2-historicalPacemaker/
+set PATH = /glade/work/nanr/CESM2-PACEMAKER/
+
+# case name counter
+set smbr =  2
+set embr =  10
+
+@ mb = $smbr
+@ me = $embr
+
+# reference name counter
+
+foreach mbr ( `seq -f "%03g" $mb  $me` )
+
+#set CASE = b.e21.BSSP585cmip6.f09_g17.HIST-ATL_15d50m.derecho.$mbr
+set CASE = b.e21.BSSP585cmip6.f09_g17.HIST-PAC_15d50m.derecho.$mbr
+set CASEROOT = ${PATH}/$CASE
+
+ 
+  cd $CASEROOT
+  ./case.st_archive
+
+end             # member loop
+
+exit
+

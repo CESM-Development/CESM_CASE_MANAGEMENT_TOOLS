@@ -1,0 +1,47 @@
+#!/bin/csh -fx
+### set env variables
+
+setenv CESM2_TOOLS_ROOT /glade/work/nanr/cesm_tags/CASE_tools/cesm2-historicalPacemaker/
+set PATH = /glade/work/nanr/CESM2-PACEMAKER/
+
+# case name counter
+set smbr =  1
+set embr =  10
+
+@ mb = $smbr
+@ me = $embr
+
+# reference name counter
+
+foreach mbr ( `seq -f "%03g" $mb  $me` )
+
+#set REFCASE = b.e21.BHISTcmip6.f09_g17.HIST-ATL_15d50m.derecho.$mbr
+#set REFCASE = b.e21.BHISTcmip6.f09_g17.HIST-PAC_15d50m.derecho.$mbr
+#set CASE = b.e21.BHISTcmip6.f09_g17.HIST-IND_15d50m.derecho.$mbr
+#set CASE = b.e21.BHISTcmip6.f09_g17.HIST-PAC_15d50m.derecho.$mbr
+#set CASE = b.e21.BSSP585cmip6.f09_g17.HIST-ATL_15d50m.derecho.$mbr
+#set CASE = b.e21.BSSP585cmip6.f09_g17.HIST-PAC_15d50m.derecho.$mbr
+set CASE = b.e21.BSSP585cmip6.f09_g17.HIST-IND_15d50m.derecho.$mbr
+set CASEROOT = ${PATH}/$CASE
+
+ 
+  cd $CASEROOT
+  #cp $CESM2_TOOLS_ROOT/peLayout/env_mach_pes.xml $CASEROOT/
+  #cp /glade/derecho/scratch/nanr/archive/$REFCASE/rest/2015-01-01-00000/rpointer.* $SCRATCH/$CASE/run/
+  #./xmlchange CONTINUE_RUN=FALSE
+  ./xmlchange OCN_TRACER_MODULES="iage cfc ecosys"
+  #./case.setup --reset
+  #./xmlchange STOP_N=3,REST_N=3
+  #./xmlchange RESUBMIT=50
+  #./xmlchange BUILD_COMPLETE=TRUE
+  #./xmlchange EXEROOT=/glade/derecho/scratch/nanr/b.e21.BSSP585cmip6.f09_g17.HIST-IND_15d50m.derecho.001/bld/
+  #./xmlchange EXEROOT=/glade/derecho/scratch/nanr/IND-EXEROOT/bld/
+  ./xmlchange EXEROOT=/glade/derecho/scratch/nanr/b.e21.BSSP585cmip6.f09_g17.HIST-ATL_15d50m.derecho.001/bld/
+  #./case.st_archive
+  #./xmlchange DOUT_S=FALSE
+  ./case.submit
+
+end             # member loop
+
+exit
+
