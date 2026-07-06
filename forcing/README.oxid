@@ -1,0 +1,37 @@
+cp /glade/u/home/bundy/cam/case/lens/oxid_1920.nc  .
+mv oxid_1920.nc oxid_1.9x2.5_L26_1915_c091123_170829.nc
+
+model unhappy with date:
+ date = 19150115,   // date(1)
+    19150215,   // date(2)
+    19150315,   // date(3)
+    19150415,   // date(4)
+    19150515,   // date(5)
+    19150615,   // date(6)
+    19150715,   // date(7)
+    19150815,   // date(8)
+    19150915,   // date(9)
+    19151015,   // date(10)
+    19151115,   // date(11)
+    19151215;  // date(12)
+    }
+
+fixed date and renamed file using fix_oxid.ncl
+
+ date = 19200115,   // date(1)
+    19200215,   // date(2)
+    19200315,   // date(3)
+    19200415,   // date(4)
+    19200515,   // date(5)
+    19200615,   // date(6)
+    19200715,   // date(7)
+    19200815,   // date(8)
+    19200915,   // date(9)
+    19201015,   // date(10)
+    19201115,   // date(11)
+    19201215;  // date(12)
+    }
+
+
+
+

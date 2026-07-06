@@ -1,0 +1,10 @@
+
+REFCASE for LENS:  b.e11.B20TRC5CNBDRD.f09_g16.001
+Branched from PI control:
+<entry id="RUN_REFCASE"   value="b.e11.B1850C5CN.f09_g16.005"  />    
+<entry id="RUN_REFDATE"   value="0402-01-01"  />    
+
+Restarts:  
+/glade/campaign/cesm/collections/cesmLE/restarts/b.e11.B1850C5CN.f09_g16.005/b.e11.B1850C5CN.f09_g16.005.rest.0402-01-01-00000.tar
+
+

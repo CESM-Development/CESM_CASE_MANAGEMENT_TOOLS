@@ -1,0 +1,19 @@
+first join files (1850-2005 + 2006---)
+
+use the rcp26 file (either check that 1920 is identical, or just extract it an impose it on the new file.
+
+/glade/p/cesmdata/cseg/inputdata/lnd/clm2/surfdata/surfdata.pftdyn_0.9x1.25_simyr1850-2005_c091008.nc
+
+0) WKDIR::/glade/u/home/nanr/cases/cesm11/LENS-SF-Clara/forcing/xlulc
+  SCRIPT:  check_pftdyn.xlulc.ncl
+  DESCRIPTION: I compare the values of the original forcing file against the RCP2.6 extension.  Since they are the same,
+  I just use the 2.6 file as a template, trimming it from 1920-2020.  I will then fill it will 1920 repeating values for the constant lulc simulation
+  	ifile = "/glade/p/cesmdata/cseg/inputdata/lnd/clm2/surfdata/surfdata.pftdyn_0.9x1.25_simyr1850-2005_c091008.nc"
+  	tfile = "/glade/p/cesmdata/cseg/inputdata/lnd/clm2/surfdata/surfdata.pftdyn_0.9x1.25_rcp2.6_simyr1850-2100_c100323.nc"
+
+1)  Trim trim the rcp2.6 file as a template 
+ ncks -d time,70,170 /glade/p/cesmdata/cseg/inputdata/lnd/clm2/surfdata/surfdata.pftdyn_0.9x1.25_rcp2.6_simyr1850-2100_c100323.nc /glade/p/cesm/cvwg/inputdata/lnd/clm2/surfdata/surfdata.pftdyn_0.9x1.25_simyr1920-2020_rcp2.6_c180521.nc
+ncatted -a history,global,a,c,'Created by nanr; see README.xlulc', /glade/p/cesm/cvwg/inputdata/lnd/clm2/surfdata/surfdata.pftdyn_0.9x1.25_simyr1920-2020_rcp2.6_c180521.nc
+
+2) Set to 1920 values: fix_pftdyn.xlulc.ncl
+

@@ -1,0 +1,20 @@
+
+ ext_frc_specifier              = 
+d 'SO2         -> /glade/p/cesm/cvwg/inputdata/atm/cam/chem/trop_mozart_aero/emis/xaer/RCP85_mam3_so2_elev_19100115-21000115_xaer_c170919.nc',
+n 'bc_a1       -> /glade/p/cesm/cvwg/inputdata/atm/cam/chem/trop_mozart_aero/emis/RCP85_mam3_bc_elev_19100115-21000115_c170919.nc',
+d 'num_a1      -> /glade/p/cesm/cvwg/inputdata/atm/cam/chem/trop_mozart_aero/emis/xaer/RCP85_mam3_num_a1_elev_19100115-21000115_xaer_ci170919.nc',
+n 'num_a2      -> /glade/p/cesm/cvwg/inputdata/atm/cam/chem/trop_mozart_aero/emis/RCP85_mam3_num_a2_elev_19100115-21000115_c170919.nc',
+n 'pom_a1      -> /glade/p/cesm/cvwg/inputdata/atm/cam/chem/trop_mozart_aero/emis/RCP85_mam3_oc_elev_19100115-21000115_c170919.nc',
+d 'so4_a1      -> /glade/p/cesm/cvwg/inputdata/atm/cam/chem/trop_mozart_aero/emis/xaer/RCP85_mam3_so4_a1_elev_19100115-21000115_xaer_c170919.nc',
+n 'so4_a2      -> /glade/p/cesm/cvwg/inputdata/atm/cam/chem/trop_mozart_aero/emis/RCP85_mam3_so4_a2_elev_19100115-21000115_c170919.nc'
+
+ srf_emis_specifier             = 
+n 'DMS       -> /glade/p/cesmdata/cseg/inputdata/atm/cam/chem/trop_mozart_aero/emis/aerocom_mam3_dms_surf_1849-2300_c120214.nc
+d 'SO2       -> /glade/p/cesm/cvwg/inputdata/atm/cam/chem/trop_mozart_aero/emis/xaer/RCP85_mam3_so2_surf_19100115-21000115_xaer_c170919.nc',
+d 'SOAG      -> /glade/p/cesm/cvwg/inputdata/atm/cam/chem/trop_mozart_aero/emis/xaer/RCP85_soag_1.5_surf_19100115-21000115_xaer_c170919.nc',
+d 'bc_a1     -> /glade/p/cesm/cvwg/inputdata/atm/cam/chem/trop_mozart_aero/emis/xaer/RCP85_mam3_bc_surf_19100115-21000115_xaer_c170919.nc',
+d 'num_a1    -> /glade/p/cesm/cvwg/inputdata/atm/cam/chem/trop_mozart_aero/emis/xaer/RCP85_mam3_num_a1_surf_19100115-21000115_xaer_c170919.nc',
+d 'num_a2    -> /glade/p/cesm/cvwg/inputdata/atm/cam/chem/trop_mozart_aero/emis/xaer/RCP85_mam3_num_a2_surf_19100115-21000115_xaer_c170919.nc',
+d 'pom_a1    -> /glade/p/cesm/cvwg/inputdata/atm/cam/chem/trop_mozart_aero/emis/xaer/RCP85_mam3_oc_surf_19100115-21000115_xaer_c170919.nc',
+d 'so4_a1    -> /glade/p/cesm/cvwg/inputdata/atm/cam/chem/trop_mozart_aero/emis/xaer/RCP85_mam3_so4_a1_surf_19100115-21000115_xaer_c170919.nc',
+d 'so4_a2    -> /glade/p/cesm/cvwg/inputdata/atm/cam/chem/trop_mozart_aero/emis/RCP85_mam3_so4_a2_surf_19100115-21000115_xaer_c170919.nc'

@@ -1,0 +1,21 @@
+
+ ext_frc_specifier              = 
+d 'SO2         -> /glade/p/cesm/cvwg/inputdata/atm/cam/chem/trop_mozart_aero/emis/ar5_mam3_so2_elev_1920_c090804_170830.nc',
+x 'bc_a1       -> /glade/p/cesm/cvwg/inputdata/atm/cam/chem/trop_mozart_aero/emis/ar5_mam3_bc_elev_1920_c090804_170830.nc',
+d 'num_a1      -> /glade/p/cesm/cvwg/inputdata/atm/cam/chem/trop_mozart_aero/emis/ar5_mam3_num_a1_elev_1920_c090804_170830.nc',
+x 'num_a2      -> /glade/p/cesm/cvwg/inputdata/atm/cam/chem/trop_mozart_aero/emis/ar5_mam3_num_a2_elev_1920_c090804_170830.nc',
+x 'pom_a1      -> /glade/p/cesm/cvwg/inputdata/atm/cam/chem/trop_mozart_aero/emis/ar5_mam3_oc_elev_1920_c090804_170830.nc',
+d 'so4_a1      -> /glade/p/cesm/cvwg/inputdata/atm/cam/chem/trop_mozart_aero/emis/ar5_mam3_so4_a1_elev_1920_c090804_170917.nc',
+x 'so4_a2      -> /glade/p/cesm/cvwg/inputdata/atm/cam/chem/trop_mozart_aero/emis/ar5_mam3_so4_a2_elev_1920_c090804_170830.nc'
+
+ srf_emis_specifier             = 
+x 'DMS       -> /glade/p/cesm/cvwg/inputdata/atm/cam/chem/trop_mozart_aero/emis/aerocom_mam3_dms_surf_1920_c090804_170829.nc',
+d 'SO2       -> /glade/p/cesm/cvwg/inputdata/atm/cam/chem/trop_mozart_aero/emis/ar5_mam3_so2_surf_1920_c090804_170830.nc',
+d 'SOAG      -> /glade/p/cesm/cvwg/inputdata/atm/cam/chem/trop_mozart_aero/emis/ar5_mam3_soag_1.5_surf_1920_c100429_170830.nc',
+  'bc_a1     -> /glade/p/cesm/cvwg/inputdata/atm/cam/chem/trop_mozart_aero/emis/ar5_mam3_bc_surf_1920_c090804_170830.nc',
+d 'num_a1    -> /glade/p/cesm/cvwg/inputdata/atm/cam/chem/trop_mozart_aero/emis/ar5_mam3_num_a1_surf_1920_c090804_170830.nc',
+d 'num_a2    -> /glade/p/cesm/cvwg/inputdata/atm/cam/chem/trop_mozart_aero/emis/ar5_mam3_num_a2_surf_1920_c090804_170830.nc',
+d 'pom_a1    -> /glade/p/cesm/cvwg/inputdata/atm/cam/chem/trop_mozart_aero/emis/ar5_mam3_oc_surf_1920_c090804_170830.nc',
+  'so4_a1    -> /glade/p/cesm/cvwg/inputdata/atm/cam/chem/trop_mozart_aero/emis/ar5_mam3_so4_a1_surf_1920_c090804_170830.nc',
+  'so4_a2    -> /glade/p/cesm/cvwg/inputdata/atm/cam/chem/trop_mozart_aero/emis/ar5_mam3_so4_a2_surf_1920_c090804_170830.nc'
+
