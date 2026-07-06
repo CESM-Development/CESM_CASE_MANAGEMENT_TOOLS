@@ -1,0 +1,15 @@
+cd /glade/work/nanr/cases/cmip6/ihesp-HiRes/inputdata/atm/cam/chem/trop_mozart_aero/emis/
+ncks -d time,0,11 RCP85_mam3_so2_elev_19500115-20601215_c190517.nc RCP85_mam3_so2_elev_1950_c190517.nc
+ncks -d time,0,11 RCP85_mam3_bc_elev_19500115-20601215_c190517.nc RCP85_mam3_bc_elev_1950_c190517.nc
+ncks -d time,0,11 RCP85_mam3_num_a1_elev_19500115-20601215_c190517.nc RCP85_mam3_num_a1_elev_1950_c190517.nc
+ncks -d time,0,11 RCP85_mam3_num_a2_elev_19500115-20601215_c190517.nc RCP85_mam3_num_a2_elev_1950_c190517.nc
+ncks -d time,0,11 RCP85_mam3_oc_elev_19500115-20601215_c190517.nc RCP85_mam3_oc_elev_1950_c190517.nc
+ncks -d time,0,11 RCP85_mam3_so4_a1_elev_19500115-20601215_c190517.nc RCP85_mam3_so4_a1_elev_1950_c190517.nc
+ncks -d time,0,11 RCP85_mam3_so4_a2_elev_19500115-20601215_c190517.nc RCP85_mam3_so4_a2_elev_1950_c190517.nc
+
+cd /glade/work/nanr/cases/cmip6/ihesp-HiRes/inputdata/atm/cam/chem/trop_mozart_aero/oxid/
+ncks -d time,0,11 oxid_rcp85_v1_1.9x2.5_L26_19450115-20551215_c190517.nc oxid_rcp85_v1_1.9x2.5_L26_1945_c190517.nc
+
+cd /glade/work/nanr/cases/cmip6/ihesp-HiRes/inputdata/atm/cam/chem/ozone/
+ncks -d time,0,11 ozone_rcp85_v1_1.9x2.5_L66_19500115-20551215_c190517.nc ozone_rcp85_v1_1.9x2.5_L66_1950_c190517.nc
+

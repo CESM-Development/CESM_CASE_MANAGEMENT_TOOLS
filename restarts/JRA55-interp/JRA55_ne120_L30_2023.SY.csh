@@ -39,9 +39,9 @@ setenv REF_DATE     19580101
 
 # Years/Months
 
-setenv YEAR_START            2022
-setenv YEAR_END              2022
-setenv MONTH_START             11
+setenv YEAR_START            2023
+setenv YEAR_END              2023
+setenv MONTH_START              1
 setenv MONTH_END               12
 
 setenv DYCORE                  se       # Dycore ("eul", "fv", or "se" are the current choices)

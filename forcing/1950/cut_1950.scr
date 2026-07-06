@@ -1,0 +1,10 @@
+cd /glade/work/nanr/cases/cmip6/ihesp-HiRes/inputdata/atm/cam/chem/trop_mozart_aero/emis/
+ncks -d time,0,11 RCP85_mam3_so2_surf_19500115-20601215_c190517.nc RCP85_mam3_so2_surf_1950_c190517.nc
+ncks -d time,0,11 RCP85_soag_1.5_surf_19500115-20601215_c190517.nc RCP85_soag_1.5_surf_1950_c190517.nc
+ncks -d time,0,11 RCP85_mam3_bc_surf_19500115-20601215_c190517.nc RCP85_mam3_bc_surf_1950_c190517.nc
+ncks -d time,0,11 RCP85_mam3_num_a1_surf_19500115-20601215_c190517.nc RCP85_mam3_num_a1_surf_1950_c190517.nc
+ncks -d time,0,11 RCP85_mam3_num_a2_surf_19500115-20601215_c190517.nc RCP85_mam3_num_a2_surf_1950_c190517.nc
+ncks -d time,0,11 RCP85_mam3_oc_surf_19500115-20601215_c190517.nc RCP85_mam3_oc_surf_1950_c190517.nc
+ncks -d time,0,11 RCP85_mam3_so4_a1_surf_19500115-20601215_c190517.nc RCP85_mam3_so4_a1_surf_1950_c190517.nc
+ncks -d time,0,11 RCP85_mam3_so4_a2_surf_19500115-20601215_c190517.nc RCP85_mam3_so4_a2_surf_1950_c190517.nc
+

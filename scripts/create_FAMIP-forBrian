@@ -1,0 +1,109 @@
+#!/bin/csh -f
+
+set MACHINE = derecho
+
+set COMPSET = FAMIPC5
+set EXPERIMENT = FAMIP
+set RESOLN  = ne120_ne120_mt12
+set DESCR   = my_run
+set TAG     = cesm-ihesp-hires1.0.46
+
+set RESUBMIT = 0
+set STOP_OPTION=nmonths
+set STOP_N=12
+
+set smbr =  1
+set embr =  1
+
+@ mb = $smbr
+@ me = $embr
+
+foreach mbr  ( `seq $mb  $me` )
+
+if ($mbr < 10) then
+	setenv CASE f.e13.${COMPSET}.${RESOLN}.${DESCR}.00${mbr}
+else
+	setenv CASE f.e13.${COMPSET}.${RESOLN}.${DESCR}.0${mbr}
+endif
+setenv REFCASE B.E.13.B1950C5.ne120_t12.cesm-ihesp-1950cntl.011
+
+if ($MACHINE == derecho ) then
+	set PATH      = /glade/work/nanr/
+	set RUNDIR    = /glade/derecho/scratch/$USER/$CASE/run
+	set BLDDIR    = /glade/derecho/scratch/$USER/$CASE/bld
+	setenv CASEROOT /glade/work/$USER/ihesp-HiRes/cases/ne120_ne120_mt12/$CASE
+        set TOOLSROOT = /glade/work/nanr/cesm_tags/CASE_tools/ihesp-tools/
+        set REFROOT   = /glade/derecho/scratch/nanr/archive/
+endif
+
+setenv CESMROOT ${PATH}/cesm_tags/${TAG}/
+
+
+$CESMROOT/cime/scripts/create_newcase --case $CASEROOT --res $RESOLN  --compset $COMPSET --pecount L --run-unsupported
+
+cd $CASEROOT
+
+if ($MACHINE == derecho ) then  
+   #./xmlchange NTASKS=-7200
+   #./xmlchange NTASKS=14400  --> not sure what to put here
+endif
+
+./xmlchange RESUBMIT=$RESUBMIT
+./xmlchange STOP_OPTION=$STOP_OPTION
+./xmlchange RUN_TYPE=hybrid
+./xmlchange RUN_STARTDATE=1950-01-01
+./xmlchange RUN_REFCASE=${REFCASE}
+./xmlchange RUN_REFDATE=0055-01-01
+./xmlchange GET_REFCASE=FALSE
+./xmlchange ICE_DOMAIN_FILE=domain.ocn.ne120np4_tx0.1v2.191122.nc
+./xmlchange OCN_DOMAIN_FILE=domain.ocn.ne120np4_tx0.1v2.191122.nc
+
+./xmlchange SSTICE_YEAR_ALIGN=1950
+./xmlchange SSTICE_YEAR_START=1950
+./xmlchange SSTICE_YEAR_END=2050
+
+
+./xmlchange PROJECT=XXXXX
+./xmlchange STOP_N=12
+./xmlchange SSTICE_GRID_FILENAME=/glade/work/nanr/ihesp-HiRes/SST-highres/domain/domain.ocn.0.25x0.25_mask.181109.nc
+cp $TOOLSROOT/user_nl_files/forBDobbinsHR/user_* $CASEROOT/*
+
+## I don't think you need these unless you are trying to replicate the output.
+#cp $TOOLSROOT/SourceMods/src.cam/*F90  $CASEROOT/SourceMods/src.cam/
+
+# =========================
+# add pertlim perturbation to micro members 2 .. N 
+# =========================
+if ($mbr != 1) then
+
+cat >> head.${mbr} << EOF
+
+! add micro-member perturbation
+pertlim = ${mbr}.d-14
+
+EOF
+
+mv user_nl_cam tmp.cam
+cat head.${mbr} tmp.cam  > user_nl_cam
+rm tmp.cam head.${mbr}
+
+endif
+# =========================
+# END - pertlim 
+# =========================
+#
+
+
+echo "================="
+echo $REFROOT/$REFCASE/
+echo "================="
+
+./case.setup
+
+cp    $REFROOT/$REFCASE/0055-01-01/rpoint* $RUNDIR
+ln -s $REFROOT/$REFCASE/0055-01-01/B.E.* $RUNDIR
+
+./case.setup --reset
+qcmd -- ./case.build
+
+end

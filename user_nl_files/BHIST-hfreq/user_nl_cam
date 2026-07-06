@@ -1,0 +1,18 @@
+phys_loadbalance=0
+
+!! matching SUNWAY settings for BHIS
+ cldfrc_rhminl          = 0.92
+
+!!       h0,   h1,    h2,  h3,   h4,   h5,   h6
+nhtfrq =  0,  -24,    -6,  -6,   -6,   -3,   -1
+mfilt   = 1,  365,   146,  73,  146,  292,  876
+
+! SL instantaneous 1hr (h6)
+fincl7 = 'Z500:I','PSL:I','U10:I','Z250:I','PRECT:A','PRECC:A','uIVT:I','vIVT:I','U850:I','U200:I','V850:I','V200:I','Q850:I','T850:I','FLUT:I'
+
+! exclude these variables (from h0)
+fexcl1 = 'RFL_PARASOL','CFAD_SR532_CAL','MOL532_CAL','MEANTB_ISCCP','MEANTBCLR_ISCCP'
+
+cosp_llidar_sim = .true.
+cosp_lisccp_sim = .true.
+

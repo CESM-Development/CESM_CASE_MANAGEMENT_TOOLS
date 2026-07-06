@@ -1,0 +1,289 @@
+Warning: no access to tty (Inappropriate ioctl for device).
+Thus no job control in this shell.
+stty: 'standard input': Inappropriate ioctl for device
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+set echo
+set echo
+
+setenv CASE JRA55_ne120_L30
+setenv CASE JRA55_ne120_L30
+
+setenv TOOLDIR /glade/campaign/cesm/development/espwg/JRA55_regridded_to_CAM/tools
+setenv TOOLDIR /glade/campaign/cesm/development/espwg/JRA55_regridded_to_CAM/tools
+setenv MYTMPDIR /glade/derecho/scratch/$LOGNAME/inputIC_${CASE}
+setenv MYTMPDIR /glade/derecho/scratch/nanr/inputIC_JRA55_ne120_L30
+setenv MYTMPDIRO /glade/derecho/scratch/$LOGNAME/tmp_workdir.$$
+setenv MYTMPDIRO /glade/derecho/scratch/nanr/tmp_workdir.123091
+setenv ARCHIVE_DIR /glade/derecho/scratch/$LOGNAME/analyses_output_ne120
+setenv ARCHIVE_DIR /glade/derecho/scratch/nanr/analyses_output_ne120
+
+setenv ANALYSIS_REPOSITORY /glade/campaign/collections/rda/data/ds628.0/
+setenv ANALYSIS_REPOSITORY /glade/campaign/collections/rda/data/ds628.0/
+
+mkdir -p $MYTMPDIR
+mkdir -p /glade/derecho/scratch/nanr/inputIC_JRA55_ne120_L30
+mkdir -p $MYTMPDIRO
+mkdir -p /glade/derecho/scratch/nanr/tmp_workdir.123091
+mkdir -p $ARCHIVE_DIR
+mkdir -p /glade/derecho/scratch/nanr/analyses_output_ne120
+cd $MYTMPDIRO
+chdir /glade/derecho/scratch/nanr/tmp_workdir.123091
+set prompt= ! dec0499:/glade/derecho/scratch/nanr/tmp_workdir.123091 > 
+cp -p $TOOLDIR/regrid_dir/* . || goto end0
+cp -p /glade/campaign/cesm/development/espwg/JRA55_regridded_to_CAM/tools/regrid_dir/create_SE_dyn_grid_descriptor_file.drv /glade/campaign/cesm/development/espwg/JRA55_regridded_to_CAM/tools/regrid_dir/create_SE_dyn_grid_descriptor_file.ncl /glade/campaign/cesm/development/espwg/JRA55_regridded_to_CAM/tools/regrid_dir/makeIC_Create_field_Master_List.ncl /glade/campaign/cesm/development/espwg/JRA55_regridded_to_CAM/tools/regrid_dir/makeIC.drv /glade/campaign/cesm/development/espwg/JRA55_regridded_to_CAM/tools/regrid_dir/makeIC_extract_analyses_info.ncl /glade/campaign/cesm/development/espwg/JRA55_regridded_to_CAM/tools/regrid_dir/MAKEIC.f90 /glade/campaign/cesm/development/espwg/JRA55_regridded_to_CAM/tools/regrid_dir/makeIC.ncl /glade/campaign/cesm/development/espwg/JRA55_regridded_to_CAM/tools/regrid_dir/makeIC_procedures.ncl /glade/campaign/cesm/development/espwg/JRA55_regridded_to_CAM/tools/regrid_dir/MAKEIC.stub /glade/campaign/cesm/development/espwg/JRA55_regridded_to_CAM/tools/regrid_dir/name_construct /glade/campaign/cesm/development/espwg/JRA55_regridded_to_CAM/tools/regrid_dir/name_construct_orig /glade/campaign/cesm/development/espwg/JRA55_regridded_to_CAM/tools/regrid_dir/phys_2_dyn_grid.ncl .
+WRAPIT MAKEIC.stub MAKEIC.f90 || goto end0
+WRAPIT MAKEIC.stub MAKEIC.f90
+ 
+WRAPIT Version: 120209
+COMPILING MAKEIC.f90
+LINKING
+END WRAPIT
+ 
+
+
+
+setenv REF_DATE 19580101
+setenv REF_DATE 19580101
+
+
+
+setenv YEAR_START 2023
+setenv YEAR_START 2023
+setenv YEAR_END 2023
+setenv YEAR_END 2023
+setenv MONTH_START 1
+setenv MONTH_START 1
+setenv MONTH_END 12
+setenv MONTH_END 12
+
+setenv DYCORE se
+setenv DYCORE se
+setenv PRECISION float
+setenv PRECISION float
+setenv PTRM -1
+setenv PTRM -1
+setenv PTRN -1
+setenv PTRN -1
+setenv PTRK -1
+setenv PTRK -1
+setenv PLAT 192
+setenv PLAT 192
+setenv PLON 288
+setenv PLON 288
+setenv CAM_UNSTRUCT_NCOLS 48602
+setenv CAM_UNSTRUCT_NCOLS 48602
+setenv CAM_UNSTRUCT_NCOLS 777602
+setenv CAM_UNSTRUCT_NCOLS 777602
+setenv PLEV 30
+setenv PLEV 30
+
+setenv BIN_FACTOR_SMOOTHING 64
+setenv BIN_FACTOR_SMOOTHING 64
+setenv BIN_FACTOR_SMOOTHING -1
+setenv BIN_FACTOR_SMOOTHING -1
+
+setenv BIN_FACTOR_SMOOTHING 1
+setenv BIN_FACTOR_SMOOTHING 1
+
+
+
+
+setenv FNAME_lev_info $TOOLDIR/f.e13.FAMIPC5.ne120_ne120_mt12.cesm-ihesp-1950-2050.001.cam.i.1982-01-01-00000.nc
+setenv FNAME_lev_info /glade/campaign/cesm/development/espwg/JRA55_regridded_to_CAM/tools/f.e13.FAMIPC5.ne120_ne120_mt12.cesm-ihesp-1950-2050.001.cam.i.1982-01-01-00000.nc
+
+@ YEAR = ${YEAR_START}
+@ YEAR = 2023
+
+while ( ${YEAR} < = ${YEAR_END} )
+while ( 2023 < = 2023 )
+
+@ MONTH = ${MONTH_START}
+@ MONTH = 1
+
+while ( ${MONTH} < = ${MONTH_END} )
+while ( 1 < = 12 )
+
+setenv YEAR_STR ${YEAR}
+setenv YEAR_STR 2023
+setenv MONTH_STR ${MONTH}
+setenv MONTH_STR 1
+if ( $MONTH < 10 ) then
+if ( 1 < 10 ) then
+setenv MONTH_STR 0${MONTH}
+setenv MONTH_STR 01
+endif
+endif
+
+
+
+
+setenv FNAME0 ${ANALYSIS_REPOSITORY}/anl_mdl/${YEAR_STR}/anl_mdl.033_ugrd.reg_tl319.${YEAR_STR}${MONTH_STR}0100_${YEAR_STR}${MONTH_STR}1018
+setenv FNAME0 /glade/campaign/collections/rda/data/ds628.0//anl_mdl/2023/anl_mdl.033_ugrd.reg_tl319.2023010100_2023011018
+setenv FNAME1 ${ANALYSIS_REPOSITORY}/anl_mdl/${YEAR_STR}/anl_mdl.034_vgrd.reg_tl319.${YEAR_STR}${MONTH_STR}0100_${YEAR_STR}${MONTH_STR}1018
+setenv FNAME1 /glade/campaign/collections/rda/data/ds628.0//anl_mdl/2023/anl_mdl.034_vgrd.reg_tl319.2023010100_2023011018
+setenv FNAME2 ${ANALYSIS_REPOSITORY}/anl_mdl/${YEAR_STR}/anl_mdl.011_tmp.reg_tl319.${YEAR_STR}${MONTH_STR}0100_${YEAR_STR}${MONTH_STR}1018
+setenv FNAME2 /glade/campaign/collections/rda/data/ds628.0//anl_mdl/2023/anl_mdl.011_tmp.reg_tl319.2023010100_2023011018
+setenv FNAME3 ${ANALYSIS_REPOSITORY}/anl_mdl/${YEAR_STR}/anl_mdl.051_spfh.reg_tl319.${YEAR_STR}${MONTH_STR}0100_${YEAR_STR}${MONTH_STR}1018
+setenv FNAME3 /glade/campaign/collections/rda/data/ds628.0//anl_mdl/2023/anl_mdl.051_spfh.reg_tl319.2023010100_2023011018
+setenv FNAME4 `ls ${ANALYSIS_REPOSITORY}/anl_surf/${YEAR_STR}/anl_surf.001_pres.reg_tl319.${YEAR_STR}${MONTH_STR}01*`
+setenv FNAME4 `ls ${ANALYSIS_REPOSITORY}/anl_surf/${YEAR_STR}/anl_surf.001_pres.reg_tl319.${YEAR_STR}${MONTH_STR}01*`
+ls -CF /glade/campaign/collections/rda/data/ds628.0//anl_surf/2023/anl_surf.001_pres.reg_tl319.2023010100_2023013118
+setenv FNAME5 $TOOLDIR/PHIS_model_and_JRA55_analysis_ne120.nc
+setenv FNAME5 /glade/campaign/cesm/development/espwg/JRA55_regridded_to_CAM/tools/PHIS_model_and_JRA55_analysis_ne120.nc
+
+
+
+setenv REGRID_ALL False
+setenv REGRID_ALL False
+
+
+setenv DATE_CUR ${YEAR_STR}${MONTH_STR}0100000
+setenv DATE_CUR 2023010100000
+setenv FDATE ${DATE_CUR},${DATE_CUR},${DATE_CUR},${DATE_CUR},${DATE_CUR},0
+setenv FDATE 2023010100000,2023010100000,2023010100000,2023010100000,2023010100000,0
+
+
+
+
+
+setenv FIELDS U,V,T,Q,PS,PHIS_analysis,PHIS
+setenv FIELDS U,V,T,Q,PS,PHIS_analysis,PHIS
+
+
+
+setenv SOURCE_FILES 0,1,2,3,4,5,5
+setenv SOURCE_FILES 0,1,2,3,4,5,5
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+setenv FTYPE JRA_55,JRA_55,JRA_55,JRA_55,JRA_55,CAM
+setenv FTYPE JRA_55,JRA_55,JRA_55,JRA_55,JRA_55,CAM
+
+
+
+setenv VORT_DIV_TO_UV False
+setenv VORT_DIV_TO_UV False
+setenv OUTPUT_PHIS True
+setenv OUTPUT_PHIS True
+setenv ATM_FILE_OUT $CASE.cam2.i.${YEAR_STR}-${MONTH_STR}-01-00000.nc
+setenv ATM_FILE_OUT JRA55_ne120_L30.cam2.i.2023-01-01-00000.nc
+setenv FNAME $FNAME0,$FNAME1,$FNAME2,$FNAME3,$FNAME4,$FNAME5
+setenv FNAME /glade/campaign/collections/rda/data/ds628.0//anl_mdl/2023/anl_mdl.033_ugrd.reg_tl319.2023010100_2023011018,/glade/campaign/collections/rda/data/ds628.0//anl_mdl/2023/anl_mdl.034_vgrd.reg_tl319.2023010100_2023011018,/glade/campaign/collections/rda/data/ds628.0//anl_mdl/2023/anl_mdl.011_tmp.reg_tl319.2023010100_2023011018,/glade/campaign/collections/rda/data/ds628.0//anl_mdl/2023/anl_mdl.051_spfh.reg_tl319.2023010100_2023011018,/glade/campaign/collections/rda/data/ds628.0//anl_surf/2023/anl_surf.001_pres.reg_tl319.2023010100_2023013118,/glade/campaign/cesm/development/espwg/JRA55_regridded_to_CAM/tools/PHIS_model_and_JRA55_analysis_ne120.nc
+
+/bin/rm done
+/bin/rm done
+/bin/rm: cannot remove 'done': No such file or directory
+ncl ./makeIC.ncl || goto end0
+ncl ./makeIC.ncl
+ls: cannot access '/glade/derecho/scratch/nanr/inputIC_JRA55_ne120_L30/anl_mdl.033_ugrd.reg_tl319.2023010100_2023011018': No such file or directory
+ls: cannot access '/glade/derecho/scratch/nanr/inputIC_JRA55_ne120_L30/anl_mdl.034_vgrd.reg_tl319.2023010100_2023011018': No such file or directory
+ls: cannot access '/glade/derecho/scratch/nanr/inputIC_JRA55_ne120_L30/anl_mdl.011_tmp.reg_tl319.2023010100_2023011018': No such file or directory
+ls: cannot access '/glade/derecho/scratch/nanr/inputIC_JRA55_ne120_L30/anl_mdl.051_spfh.reg_tl319.2023010100_2023011018': No such file or directory
+ls: cannot access '/glade/derecho/scratch/nanr/inputIC_JRA55_ne120_L30/anl_surf.001_pres.reg_tl319.2023010100_2023013118': No such file or directory
+ls: cannot access '/glade/derecho/scratch/nanr/inputIC_JRA55_ne120_L30/PHIS_model_and_JRA55_analysis_ne120.nc': No such file or directory
+ls: cannot access '/glade/derecho/scratch/nanr/inputIC_JRA55_ne120_L30/f.e13.FAMIPC5.ne120_ne120_mt12.cesm-ihesp-1950-2050.001.cam.i.1982-01-01-00000.nc': No such file or directory
+ls: cannot access '/glade/derecho/scratch/nanr/inputIC_JRA55_ne120_L30/descriptor_ne120np4_CAM.nc': No such file or directory
+/bin/cp: cannot stat '/glade/p/cesm/espwg/JRA55_regridded_to_CAM/tools/descriptor_files/descriptor_ne120np4_CAM.nc': No such file or directory
+ Copyright (C) 1995-2019 - All Rights Reserved
+ University Corporation for Atmospheric Research
+ NCAR Command Language Version 6.6.2
+ The use of this software is governed by a License Agreement.
+ See http://www.ncl.ucar.edu/ for more details.
+(0)	/bin/mkdir -p /glade/derecho/scratch/nanr/inputIC_JRA55_ne120_L30
+(0)	/bin/mkdir -p /glade/derecho/scratch/nanr/tmp_workdir.123091
+(0)	/bin/rm    -f /glade/derecho/scratch/nanr/tmp_workdir.123091/JRA55_ne120_L30.cam2.i.2023-01-01-00000.nc
+(0)	 
+(0)	Initialize /glade/derecho/scratch/nanr/tmp_workdir.123091/JRA55_ne120_L30.cam2.i.2023-01-01-00000.nc
+(0)	   (file will be 'float' precision)
+(0)	 
+(0)	
+(0)	Stage all input files to work directory
+(0)	
+(0)	------------------------------------------------------------
+(0)	 /bin/cp -i /glade/campaign/collections/rda/data/ds628.0//anl_mdl/2023/anl_mdl.033_ugrd.reg_tl319.2023010100_2023011018 /glade/derecho/scratch/nanr/inputIC_JRA55_ne120_L30/anl_mdl.033_ugrd.reg_tl319.2023010100_2023011018
+(0)	------------------------------------------------------------
+(0)	 
+(0)	------------------------------------------------------------
+(0)	 /bin/cp -i /glade/campaign/collections/rda/data/ds628.0//anl_mdl/2023/anl_mdl.034_vgrd.reg_tl319.2023010100_2023011018 /glade/derecho/scratch/nanr/inputIC_JRA55_ne120_L30/anl_mdl.034_vgrd.reg_tl319.2023010100_2023011018
+(0)	------------------------------------------------------------
+(0)	 
+(0)	------------------------------------------------------------
+(0)	 /bin/cp -i /glade/campaign/collections/rda/data/ds628.0//anl_mdl/2023/anl_mdl.011_tmp.reg_tl319.2023010100_2023011018 /glade/derecho/scratch/nanr/inputIC_JRA55_ne120_L30/anl_mdl.011_tmp.reg_tl319.2023010100_2023011018
+(0)	------------------------------------------------------------
+(0)	 
+(0)	------------------------------------------------------------
+(0)	 /bin/cp -i /glade/campaign/collections/rda/data/ds628.0//anl_mdl/2023/anl_mdl.051_spfh.reg_tl319.2023010100_2023011018 /glade/derecho/scratch/nanr/inputIC_JRA55_ne120_L30/anl_mdl.051_spfh.reg_tl319.2023010100_2023011018
+(0)	------------------------------------------------------------
+(0)	 
+(0)	------------------------------------------------------------
+(0)	 /bin/cp -i /glade/campaign/collections/rda/data/ds628.0//anl_surf/2023/anl_surf.001_pres.reg_tl319.2023010100_2023013118 /glade/derecho/scratch/nanr/inputIC_JRA55_ne120_L30/anl_surf.001_pres.reg_tl319.2023010100_2023013118
+(0)	------------------------------------------------------------
+(0)	 
+(0)	------------------------------------------------------------
+(0)	 /bin/cp -i /glade/campaign/cesm/development/espwg/JRA55_regridded_to_CAM/tools/PHIS_model_and_JRA55_analysis_ne120.nc /glade/derecho/scratch/nanr/inputIC_JRA55_ne120_L30/PHIS_model_and_JRA55_analysis_ne120.nc
+(0)	------------------------------------------------------------
+(0)	 
+(0)	------------------------------------------------------------
+(0)	 /bin/cp -i /glade/campaign/cesm/development/espwg/JRA55_regridded_to_CAM/tools/f.e13.FAMIPC5.ne120_ne120_mt12.cesm-ihesp-1950-2050.001.cam.i.1982-01-01-00000.nc /glade/derecho/scratch/nanr/inputIC_JRA55_ne120_L30/f.e13.FAMIPC5.ne120_ne120_mt12.cesm-ihesp-1950-2050.001.cam.i.1982-01-01-00000.nc
+(0)	------------------------------------------------------------
+(0)	 
+(0)	Opening file anl_mdl.033_ugrd.reg_tl319.2023010100_2023011018
+(0)	Opening file anl_mdl.034_vgrd.reg_tl319.2023010100_2023011018
+(0)	Opening file anl_mdl.011_tmp.reg_tl319.2023010100_2023011018
+(0)	Opening file anl_mdl.051_spfh.reg_tl319.2023010100_2023011018
+(0)	Opening file anl_surf.001_pres.reg_tl319.2023010100_2023013118
+(0)	Opening file PHIS_model_and_JRA55_analysis_ne120.nc
+(0)	Opening file f.e13.FAMIPC5.ne120_ne120_mt12.cesm-ihesp-1950-2050.001.cam.i.1982-01-01-00000.nc
+(0)	       Descriptor file /glade/derecho/scratch/nanr/inputIC_JRA55_ne120_L30/descriptor_ne120np4_CAM.nc not found on work directory.  Getting file from disk.
+(0)	------------------------------------------------------------
+(0)	 /bin/cp /glade/p/cesm/espwg/JRA55_regridded_to_CAM/tools/descriptor_files/descriptor_ne120np4_CAM.nc /glade/derecho/scratch/nanr/inputIC_JRA55_ne120_L30
+(0)	------------------------------------------------------------
+warning:_NclOpenFile: cannot open file </glade/derecho/scratch/nanr/inputIC_JRA55_ne120_L30/descriptor_ne120np4_CAM.nc>; No such file or directory
+
+fatal:file (data_desc) isn't defined
+fatal:["Execute.c":8637]:Execute: Error occurred at or near line 2615 in file ./makeIC_procedures.ncl
+
+fatal:["Execute.c":8637]:Execute: Error occurred at or near line 297 in file ./makeIC.ncl
+
+if ( ! ( -e done ) ) goto end0
+if ( ! ( -e done ) ) goto end0
+goto end0
+
+exit
+exit

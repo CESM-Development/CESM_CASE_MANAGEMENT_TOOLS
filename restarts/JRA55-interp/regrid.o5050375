@@ -1,0 +1,782 @@
+Warning: no access to tty (Inappropriate ioctl for device).
+Thus no job control in this shell.
+stty: 'standard input': Inappropriate ioctl for device
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+set echo
+set echo
+
+setenv CASE JRA55_ne120_L30
+setenv CASE JRA55_ne120_L30
+
+setenv TOOLDIR /glade/campaign/cesm/development/espwg/JRA55_regridded_to_CAM/tools
+setenv TOOLDIR /glade/campaign/cesm/development/espwg/JRA55_regridded_to_CAM/tools
+setenv MYTMPDIR /glade/derecho/scratch/$LOGNAME/inputIC_${CASE}
+setenv MYTMPDIR /glade/derecho/scratch/nanr/inputIC_JRA55_ne120_L30
+setenv MYTMPDIRO /glade/derecho/scratch/$LOGNAME/tmp_workdir.$$
+setenv MYTMPDIRO /glade/derecho/scratch/nanr/tmp_workdir.236744
+setenv ARCHIVE_DIR /glade/derecho/scratch/$LOGNAME/analyses_output_ne120
+setenv ARCHIVE_DIR /glade/derecho/scratch/nanr/analyses_output_ne120
+
+setenv ANALYSIS_REPOSITORY /glade/campaign/collections/rda/data/ds628.0/
+setenv ANALYSIS_REPOSITORY /glade/campaign/collections/rda/data/ds628.0/
+
+mkdir -p $MYTMPDIR
+mkdir -p /glade/derecho/scratch/nanr/inputIC_JRA55_ne120_L30
+mkdir -p $MYTMPDIRO
+mkdir -p /glade/derecho/scratch/nanr/tmp_workdir.236744
+mkdir -p $ARCHIVE_DIR
+mkdir -p /glade/derecho/scratch/nanr/analyses_output_ne120
+cd $MYTMPDIRO
+chdir /glade/derecho/scratch/nanr/tmp_workdir.236744
+set prompt= ! dec2451:/glade/derecho/scratch/nanr/tmp_workdir.236744 > 
+cp -p $TOOLDIR/regrid_dir/* . || goto end0
+cp -p /glade/campaign/cesm/development/espwg/JRA55_regridded_to_CAM/tools/regrid_dir/create_SE_dyn_grid_descriptor_file.drv /glade/campaign/cesm/development/espwg/JRA55_regridded_to_CAM/tools/regrid_dir/create_SE_dyn_grid_descriptor_file.ncl /glade/campaign/cesm/development/espwg/JRA55_regridded_to_CAM/tools/regrid_dir/makeIC_Create_field_Master_List.ncl /glade/campaign/cesm/development/espwg/JRA55_regridded_to_CAM/tools/regrid_dir/makeIC.drv /glade/campaign/cesm/development/espwg/JRA55_regridded_to_CAM/tools/regrid_dir/makeIC_extract_analyses_info.ncl /glade/campaign/cesm/development/espwg/JRA55_regridded_to_CAM/tools/regrid_dir/MAKEIC.f90 /glade/campaign/cesm/development/espwg/JRA55_regridded_to_CAM/tools/regrid_dir/makeIC.ncl /glade/campaign/cesm/development/espwg/JRA55_regridded_to_CAM/tools/regrid_dir/makeIC.ncl-orig /glade/campaign/cesm/development/espwg/JRA55_regridded_to_CAM/tools/regrid_dir/makeIC_procedures.ncl /glade/campaign/cesm/development/espwg/JRA55_regridded_to_CAM/tools/regrid_dir/makeIC_procedures.ncl-orig /glade/campaign/cesm/development/espwg/JRA55_regridded_to_CAM/tools/regrid_dir/MAKEIC.stub /glade/campaign/cesm/development/espwg/JRA55_regridded_to_CAM/tools/regrid_dir/name_construct /glade/campaign/cesm/development/espwg/JRA55_regridded_to_CAM/tools/regrid_dir/name_construct_orig /glade/campaign/cesm/development/espwg/JRA55_regridded_to_CAM/tools/regrid_dir/phys_2_dyn_grid.ncl .
+WRAPIT MAKEIC.stub MAKEIC.f90 || goto end0
+WRAPIT MAKEIC.stub MAKEIC.f90
+ 
+WRAPIT Version: 120209
+COMPILING MAKEIC.f90
+LINKING
+END WRAPIT
+ 
+
+
+
+setenv REF_DATE 19580101
+setenv REF_DATE 19580101
+
+
+
+setenv YEAR_START 2022
+setenv YEAR_START 2022
+setenv YEAR_END 2022
+setenv YEAR_END 2022
+setenv MONTH_START 11
+setenv MONTH_START 11
+setenv MONTH_END 12
+setenv MONTH_END 12
+
+setenv DYCORE se
+setenv DYCORE se
+setenv PRECISION float
+setenv PRECISION float
+setenv PTRM -1
+setenv PTRM -1
+setenv PTRN -1
+setenv PTRN -1
+setenv PTRK -1
+setenv PTRK -1
+setenv PLAT 192
+setenv PLAT 192
+setenv PLON 288
+setenv PLON 288
+setenv CAM_UNSTRUCT_NCOLS 48602
+setenv CAM_UNSTRUCT_NCOLS 48602
+setenv CAM_UNSTRUCT_NCOLS 777602
+setenv CAM_UNSTRUCT_NCOLS 777602
+setenv PLEV 30
+setenv PLEV 30
+
+setenv BIN_FACTOR_SMOOTHING 64
+setenv BIN_FACTOR_SMOOTHING 64
+setenv BIN_FACTOR_SMOOTHING -1
+setenv BIN_FACTOR_SMOOTHING -1
+
+setenv BIN_FACTOR_SMOOTHING 1
+setenv BIN_FACTOR_SMOOTHING 1
+
+
+
+
+setenv FNAME_lev_info $TOOLDIR/f.e13.FAMIPC5.ne120_ne120_mt12.cesm-ihesp-1950-2050.001.cam.i.1982-01-01-00000.nc
+setenv FNAME_lev_info /glade/campaign/cesm/development/espwg/JRA55_regridded_to_CAM/tools/f.e13.FAMIPC5.ne120_ne120_mt12.cesm-ihesp-1950-2050.001.cam.i.1982-01-01-00000.nc
+
+@ YEAR = ${YEAR_START}
+@ YEAR = 2022
+
+while ( ${YEAR} < = ${YEAR_END} )
+while ( 2022 < = 2022 )
+
+@ MONTH = ${MONTH_START}
+@ MONTH = 11
+
+while ( ${MONTH} < = ${MONTH_END} )
+while ( 11 < = 12 )
+
+setenv YEAR_STR ${YEAR}
+setenv YEAR_STR 2022
+setenv MONTH_STR ${MONTH}
+setenv MONTH_STR 11
+if ( $MONTH < 10 ) then
+if ( 11 < 10 ) then
+
+
+
+
+setenv FNAME0 ${ANALYSIS_REPOSITORY}/anl_mdl/${YEAR_STR}/anl_mdl.033_ugrd.reg_tl319.${YEAR_STR}${MONTH_STR}0100_${YEAR_STR}${MONTH_STR}1018
+setenv FNAME0 /glade/campaign/collections/rda/data/ds628.0//anl_mdl/2022/anl_mdl.033_ugrd.reg_tl319.2022110100_2022111018
+setenv FNAME1 ${ANALYSIS_REPOSITORY}/anl_mdl/${YEAR_STR}/anl_mdl.034_vgrd.reg_tl319.${YEAR_STR}${MONTH_STR}0100_${YEAR_STR}${MONTH_STR}1018
+setenv FNAME1 /glade/campaign/collections/rda/data/ds628.0//anl_mdl/2022/anl_mdl.034_vgrd.reg_tl319.2022110100_2022111018
+setenv FNAME2 ${ANALYSIS_REPOSITORY}/anl_mdl/${YEAR_STR}/anl_mdl.011_tmp.reg_tl319.${YEAR_STR}${MONTH_STR}0100_${YEAR_STR}${MONTH_STR}1018
+setenv FNAME2 /glade/campaign/collections/rda/data/ds628.0//anl_mdl/2022/anl_mdl.011_tmp.reg_tl319.2022110100_2022111018
+setenv FNAME3 ${ANALYSIS_REPOSITORY}/anl_mdl/${YEAR_STR}/anl_mdl.051_spfh.reg_tl319.${YEAR_STR}${MONTH_STR}0100_${YEAR_STR}${MONTH_STR}1018
+setenv FNAME3 /glade/campaign/collections/rda/data/ds628.0//anl_mdl/2022/anl_mdl.051_spfh.reg_tl319.2022110100_2022111018
+setenv FNAME4 `ls ${ANALYSIS_REPOSITORY}/anl_surf/${YEAR_STR}/anl_surf.001_pres.reg_tl319.${YEAR_STR}${MONTH_STR}01*`
+setenv FNAME4 `ls ${ANALYSIS_REPOSITORY}/anl_surf/${YEAR_STR}/anl_surf.001_pres.reg_tl319.${YEAR_STR}${MONTH_STR}01*`
+ls -CF /glade/campaign/collections/rda/data/ds628.0//anl_surf/2022/anl_surf.001_pres.reg_tl319.2022110100_2022113018
+setenv FNAME5 $TOOLDIR/PHIS_model_and_JRA55_analysis_ne120.nc
+setenv FNAME5 /glade/campaign/cesm/development/espwg/JRA55_regridded_to_CAM/tools/PHIS_model_and_JRA55_analysis_ne120.nc
+
+
+
+setenv REGRID_ALL False
+setenv REGRID_ALL False
+
+
+setenv DATE_CUR ${YEAR_STR}${MONTH_STR}0100000
+setenv DATE_CUR 2022110100000
+setenv FDATE ${DATE_CUR},${DATE_CUR},${DATE_CUR},${DATE_CUR},${DATE_CUR},0
+setenv FDATE 2022110100000,2022110100000,2022110100000,2022110100000,2022110100000,0
+
+
+
+
+
+setenv FIELDS U,V,T,Q,PS,PHIS_analysis,PHIS
+setenv FIELDS U,V,T,Q,PS,PHIS_analysis,PHIS
+
+
+
+setenv SOURCE_FILES 0,1,2,3,4,5,5
+setenv SOURCE_FILES 0,1,2,3,4,5,5
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+setenv FTYPE JRA_55,JRA_55,JRA_55,JRA_55,JRA_55,CAM
+setenv FTYPE JRA_55,JRA_55,JRA_55,JRA_55,JRA_55,CAM
+
+
+
+setenv VORT_DIV_TO_UV False
+setenv VORT_DIV_TO_UV False
+setenv OUTPUT_PHIS True
+setenv OUTPUT_PHIS True
+setenv ATM_FILE_OUT $CASE.cam2.i.${YEAR_STR}-${MONTH_STR}-01-00000.nc
+setenv ATM_FILE_OUT JRA55_ne120_L30.cam2.i.2022-11-01-00000.nc
+setenv FNAME $FNAME0,$FNAME1,$FNAME2,$FNAME3,$FNAME4,$FNAME5
+setenv FNAME /glade/campaign/collections/rda/data/ds628.0//anl_mdl/2022/anl_mdl.033_ugrd.reg_tl319.2022110100_2022111018,/glade/campaign/collections/rda/data/ds628.0//anl_mdl/2022/anl_mdl.034_vgrd.reg_tl319.2022110100_2022111018,/glade/campaign/collections/rda/data/ds628.0//anl_mdl/2022/anl_mdl.011_tmp.reg_tl319.2022110100_2022111018,/glade/campaign/collections/rda/data/ds628.0//anl_mdl/2022/anl_mdl.051_spfh.reg_tl319.2022110100_2022111018,/glade/campaign/collections/rda/data/ds628.0//anl_surf/2022/anl_surf.001_pres.reg_tl319.2022110100_2022113018,/glade/campaign/cesm/development/espwg/JRA55_regridded_to_CAM/tools/PHIS_model_and_JRA55_analysis_ne120.nc
+
+/bin/rm done
+/bin/rm done
+/bin/rm: cannot remove 'done': No such file or directory
+ncl ./makeIC.ncl || goto end0
+ncl ./makeIC.ncl
+ls: cannot access '/glade/derecho/scratch/nanr/inputIC_JRA55_ne120_L30/anl_mdl.033_ugrd.reg_tl319.2022110100_2022111018': No such file or directory
+ls: cannot access '/glade/derecho/scratch/nanr/inputIC_JRA55_ne120_L30/anl_mdl.034_vgrd.reg_tl319.2022110100_2022111018': No such file or directory
+ls: cannot access '/glade/derecho/scratch/nanr/inputIC_JRA55_ne120_L30/anl_mdl.011_tmp.reg_tl319.2022110100_2022111018': No such file or directory
+ls: cannot access '/glade/derecho/scratch/nanr/inputIC_JRA55_ne120_L30/anl_mdl.051_spfh.reg_tl319.2022110100_2022111018': No such file or directory
+ls: cannot access '/glade/derecho/scratch/nanr/inputIC_JRA55_ne120_L30/anl_surf.001_pres.reg_tl319.2022110100_2022113018': No such file or directory
+ Copyright (C) 1995-2019 - All Rights Reserved
+ University Corporation for Atmospheric Research
+ NCAR Command Language Version 6.6.2
+ The use of this software is governed by a License Agreement.
+ See http://www.ncl.ucar.edu/ for more details.
+(0)	/bin/mkdir -p /glade/derecho/scratch/nanr/inputIC_JRA55_ne120_L30
+(0)	/bin/mkdir -p /glade/derecho/scratch/nanr/tmp_workdir.236744
+(0)	/bin/rm    -f /glade/derecho/scratch/nanr/tmp_workdir.236744/JRA55_ne120_L30.cam2.i.2022-11-01-00000.nc
+(0)	 
+(0)	Initialize /glade/derecho/scratch/nanr/tmp_workdir.236744/JRA55_ne120_L30.cam2.i.2022-11-01-00000.nc
+(0)	   (file will be 'float' precision)
+(0)	 
+(0)	
+(0)	Stage all input files to work directory
+(0)	
+(0)	------------------------------------------------------------
+(0)	 /bin/cp -i /glade/campaign/collections/rda/data/ds628.0//anl_mdl/2022/anl_mdl.033_ugrd.reg_tl319.2022110100_2022111018 /glade/derecho/scratch/nanr/inputIC_JRA55_ne120_L30/anl_mdl.033_ugrd.reg_tl319.2022110100_2022111018
+(0)	------------------------------------------------------------
+(0)	 
+(0)	------------------------------------------------------------
+(0)	 /bin/cp -i /glade/campaign/collections/rda/data/ds628.0//anl_mdl/2022/anl_mdl.034_vgrd.reg_tl319.2022110100_2022111018 /glade/derecho/scratch/nanr/inputIC_JRA55_ne120_L30/anl_mdl.034_vgrd.reg_tl319.2022110100_2022111018
+(0)	------------------------------------------------------------
+(0)	 
+(0)	------------------------------------------------------------
+(0)	 /bin/cp -i /glade/campaign/collections/rda/data/ds628.0//anl_mdl/2022/anl_mdl.011_tmp.reg_tl319.2022110100_2022111018 /glade/derecho/scratch/nanr/inputIC_JRA55_ne120_L30/anl_mdl.011_tmp.reg_tl319.2022110100_2022111018
+(0)	------------------------------------------------------------
+(0)	 
+(0)	------------------------------------------------------------
+(0)	 /bin/cp -i /glade/campaign/collections/rda/data/ds628.0//anl_mdl/2022/anl_mdl.051_spfh.reg_tl319.2022110100_2022111018 /glade/derecho/scratch/nanr/inputIC_JRA55_ne120_L30/anl_mdl.051_spfh.reg_tl319.2022110100_2022111018
+(0)	------------------------------------------------------------
+(0)	 
+(0)	------------------------------------------------------------
+(0)	 /bin/cp -i /glade/campaign/collections/rda/data/ds628.0//anl_surf/2022/anl_surf.001_pres.reg_tl319.2022110100_2022113018 /glade/derecho/scratch/nanr/inputIC_JRA55_ne120_L30/anl_surf.001_pres.reg_tl319.2022110100_2022113018
+(0)	------------------------------------------------------------
+(0)	 
+(0)	 Copy not done; file /glade/derecho/scratch/nanr/inputIC_JRA55_ne120_L30/PHIS_model_and_JRA55_analysis_ne120.nc already exists
+(0)	 
+(0)	 Copy not done; file /glade/derecho/scratch/nanr/inputIC_JRA55_ne120_L30/f.e13.FAMIPC5.ne120_ne120_mt12.cesm-ihesp-1950-2050.001.cam.i.1982-01-01-00000.nc already exists
+(0)	 
+(0)	Opening file anl_mdl.033_ugrd.reg_tl319.2022110100_2022111018
+(0)	Opening file anl_mdl.034_vgrd.reg_tl319.2022110100_2022111018
+(0)	Opening file anl_mdl.011_tmp.reg_tl319.2022110100_2022111018
+(0)	Opening file anl_mdl.051_spfh.reg_tl319.2022110100_2022111018
+(0)	Opening file anl_surf.001_pres.reg_tl319.2022110100_2022113018
+(0)	Opening file PHIS_model_and_JRA55_analysis_ne120.nc
+(0)	Opening file f.e13.FAMIPC5.ne120_ne120_mt12.cesm-ihesp-1950-2050.001.cam.i.1982-01-01-00000.nc
+(0)	       Descriptor file /glade/derecho/scratch/nanr/inputIC_JRA55_ne120_L30/descriptor_ne120np4_CAM.nc found on work directory.
+(0)	   Declare space for output field:  U (field 1 of 6)
+(0)	   Declare space for output field:  V (field 2 of 6)
+(0)	   Declare space for output field:  T (field 3 of 6)
+(0)	   Declare space for output field:  Q (field 4 of 6)
+(0)	   Declare space for output field:  PS (field 5 of 6)
+(0)	   Declare space for output field:  PHIS (field 6 of 6)
+(0)	
+(0)	OUTPUT levels based on file /glade/campaign/cesm/development/espwg/JRA55_regridded_to_CAM/tools/f.e13.FAMIPC5.ne120_ne120_mt12.cesm-ihesp-1950-2050.001.cam.i.1982-01-01-00000.nc
+warning:FileReadVarAtt: (_FillValue) is not an attribute of (hyam)
+warning:FileReadVarAtt: (_FillValue) is not an attribute of (hybm)
+warning:FileReadVarAtt: (_FillValue) is not an attribute of (hyai)
+warning:FileReadVarAtt: (_FillValue) is not an attribute of (hybi)
+warning:FileReadVarAtt: (_FillValue) is not an attribute of (lev)
+warning:FileReadVarAtt: (_FillValue) is not an attribute of (ilev)
+(0)	
+(0)	Checking date for /glade/derecho/scratch/nanr/inputIC_JRA55_ne120_L30/anl_mdl.033_ugrd.reg_tl319.2022110100_2022111018
+(0)	date = 20221101; 0Z; time slice pointer = 0
+(0)	
+(0)	
+(0)	----------------------------------------------------------------------- 
+(0)	OUTPUT file time info:
+(0)	
+(0)	    time    = 23664
+(0)	    ndbase  = 0
+(0)	    nsbase  = 0
+(0)	    nbdate  = 19580101
+(0)	    nbsec   = 0
+(0)	    ndcur   = 23664
+(0)	    nscur   = 0
+(0)	    date    = 20221101
+(0)	    datesec = 0
+(0)	
+(0)	----------------------------------------------------------------------- 
+(0)	
+(0)	Checking date for /glade/derecho/scratch/nanr/inputIC_JRA55_ne120_L30/anl_mdl.034_vgrd.reg_tl319.2022110100_2022111018
+(0)	date = 20221101; 0Z; time slice pointer = 0
+(0)	
+(0)	Checking date for /glade/derecho/scratch/nanr/inputIC_JRA55_ne120_L30/anl_mdl.011_tmp.reg_tl319.2022110100_2022111018
+(0)	date = 20221101; 0Z; time slice pointer = 0
+(0)	
+(0)	Checking date for /glade/derecho/scratch/nanr/inputIC_JRA55_ne120_L30/anl_mdl.051_spfh.reg_tl319.2022110100_2022111018
+(0)	date = 20221101; 0Z; time slice pointer = 0
+(0)	
+(0)	Checking date for /glade/derecho/scratch/nanr/inputIC_JRA55_ne120_L30/anl_surf.001_pres.reg_tl319.2022110100_2022113018
+(0)	date = 20221101; 0Z; time slice pointer = 0
+(0)	
+(0)	Checking date for /glade/derecho/scratch/nanr/inputIC_JRA55_ne120_L30/PHIS_model_and_JRA55_analysis_ne120.nc
+(0)	date = 20081101; 900Z; time slice pointer = 0
+(0)	
+(0)	 
+(0)	Begin processing PS from file /glade/derecho/scratch/nanr/inputIC_JRA55_ne120_L30/anl_surf.001_pres.reg_tl319.2022110100_2022113018
+(0)	 
+(0)	   Reading input field:  PRES_GDS4_SFC
+(0)	     flip latitudes to run S --> N
+(0)	     Converting field from 2-D to 1-D in horizontal for processing purposes
+(0)	     Converting field from Ps to log(Ps) prior to interpolation
+(0)	     Binning grid boxes.  Bin factor = 1
+(0)	       Descriptor file /glade/derecho/scratch/nanr/inputIC_JRA55_ne120_L30/descriptor_JRA_55_320x640_gaussian_A-grid.nc found on disk.
+(0)	       Descriptor file /glade/derecho/scratch/nanr/inputIC_JRA55_ne120_L30/descriptor_ne120np4_CAM.nc found on work directory.
+(0)	       Weight file /glade/derecho/scratch/nanr/inputIC_JRA55_ne120_L30/map_JRA_55_320x640_gaussian_A-grid_to_ne120np4_CAM_conserve.nc found on disk.
+(0)	     Converting field from log(Ps) to Ps post interpolation
+(0)	 
+(0)	Input PHIS_analysis from file /glade/derecho/scratch/nanr/inputIC_JRA55_ne120_L30/PHIS_model_and_JRA55_analysis_ne120.nc for later processing
+(0)	 
+(0)	   Reading input field:  PHIS_analysis
+(0)	     Binning grid boxes.  Bin factor = 1
+(0)	       Descriptor file /glade/derecho/scratch/nanr/inputIC_JRA55_ne120_L30/descriptor_ne120np4_CAM.nc found on work directory.
+(0)	       Descriptor file /glade/derecho/scratch/nanr/inputIC_JRA55_ne120_L30/descriptor_ne120np4_CAM.nc found on work directory.
+(0)	       Weight file /glade/derecho/scratch/nanr/inputIC_JRA55_ne120_L30/map_ne120np4_CAM_to_ne120np4_CAM_conserve.nc found on disk.
+(0)	 
+(0)	Begin processing PHIS from file /glade/derecho/scratch/nanr/inputIC_JRA55_ne120_L30/PHIS_model_and_JRA55_analysis_ne120.nc
+(0)	 
+(0)	   Reading input field:  PHIS
+(0)	     Output field PHIS completed (field 1 of 6)
+(0)	
+(0)	 
+(0)	Begin processing T from file /glade/derecho/scratch/nanr/inputIC_JRA55_ne120_L30/anl_mdl.011_tmp.reg_tl319.2022110100_2022111018
+(0)	 
+(0)	   Reading input field:  TMP_GDS4_HYBL
+(0)	     flip latitudes to run S --> N
+(0)	     flip levels to run Top --> Bot
+(0)	     Converting field from 2-D to 1-D in horizontal for processing purposes
+(0)	     Binning grid boxes.  Bin factor = 1
+(0)	       Descriptor file /glade/derecho/scratch/nanr/inputIC_JRA55_ne120_L30/descriptor_JRA_55_320x640_gaussian_A-grid.nc found on disk.
+(0)	       Descriptor file /glade/derecho/scratch/nanr/inputIC_JRA55_ne120_L30/descriptor_ne120np4_CAM.nc found on work directory.
+(0)	       Weight file /glade/derecho/scratch/nanr/inputIC_JRA55_ne120_L30/map_JRA_55_320x640_gaussian_A-grid_to_ne120np4_CAM_conserve.nc found on disk.
+(0)	 
+(0)	Begin processing Q from file /glade/derecho/scratch/nanr/inputIC_JRA55_ne120_L30/anl_mdl.051_spfh.reg_tl319.2022110100_2022111018
+(0)	 
+(0)	   Reading input field:  SPFH_GDS4_HYBL
+(0)	     flip latitudes to run S --> N
+(0)	     flip levels to run Top --> Bot
+(0)	     Converting field from 2-D to 1-D in horizontal for processing purposes
+(0)	     Binning grid boxes.  Bin factor = 1
+(0)	       Descriptor file /glade/derecho/scratch/nanr/inputIC_JRA55_ne120_L30/descriptor_JRA_55_320x640_gaussian_A-grid.nc found on disk.
+(0)	       Descriptor file /glade/derecho/scratch/nanr/inputIC_JRA55_ne120_L30/descriptor_ne120np4_CAM.nc found on work directory.
+(0)	       Weight file /glade/derecho/scratch/nanr/inputIC_JRA55_ne120_L30/map_JRA_55_320x640_gaussian_A-grid_to_ne120np4_CAM_conserve.nc found on disk.
+(0)	     Adjusting Q to eliminate RH < 0. or > 1.
+(0)	     Adjusting PS
+(0)	     Vertical interpolation of T
+(0)	     QUADRATIC (in log pressure) vertical interpolation for this field (OPTION 1)
+(0)	     Vertical interpolation of Q
+(0)	     LINEAR (in pressure) vertical interpolation for this field (OPTION 1)
+(0)	     Adjusting Q to eliminate RH < 0. or > 1.
+(0)	     Output field PS completed (field 2 of 6)
+(0)	
+(0)	     Output field T completed (field 3 of 6)
+(0)	
+(0)	     Output field Q completed (field 4 of 6)
+(0)	
+(0)	Begin processing U from file /glade/derecho/scratch/nanr/inputIC_JRA55_ne120_L30/anl_mdl.033_ugrd.reg_tl319.2022110100_2022111018
+(0)	Begin processing V from file /glade/derecho/scratch/nanr/inputIC_JRA55_ne120_L30/anl_mdl.034_vgrd.reg_tl319.2022110100_2022111018
+(0)	 
+(0)	   Reading input field:  UGRD_GDS4_HYBL
+(0)	     flip latitudes to run S --> N
+(0)	     flip levels to run Top --> Bot
+(0)	     Converting field from 2-D to 1-D in horizontal for processing purposes
+(0)	   Reading input field:  VGRD_GDS4_HYBL
+(0)	     flip latitudes to run S --> N
+(0)	     flip levels to run Top --> Bot
+(0)	     Converting field from 2-D to 1-D in horizontal for processing purposes
+(0)	     Binning grid boxes.  Bin factor = 1
+(0)	       Descriptor file /glade/derecho/scratch/nanr/inputIC_JRA55_ne120_L30/descriptor_JRA_55_320x640_gaussian_A-grid.nc found on disk.
+(0)	       Descriptor file /glade/derecho/scratch/nanr/inputIC_JRA55_ne120_L30/descriptor_ne120np4_CAM.nc found on work directory.
+(0)	       Weight file /glade/derecho/scratch/nanr/inputIC_JRA55_ne120_L30/map_JRA_55_320x640_gaussian_A-grid_to_ne120np4_CAM_conserve.nc found on disk.
+(0)	     Binning grid boxes.  Bin factor = 1
+(0)	       Descriptor file /glade/derecho/scratch/nanr/inputIC_JRA55_ne120_L30/descriptor_JRA_55_320x640_gaussian_A-grid.nc found on disk.
+(0)	       Descriptor file /glade/derecho/scratch/nanr/inputIC_JRA55_ne120_L30/descriptor_ne120np4_CAM.nc found on work directory.
+(0)	       Weight file /glade/derecho/scratch/nanr/inputIC_JRA55_ne120_L30/map_JRA_55_320x640_gaussian_A-grid_to_ne120np4_CAM_conserve.nc found on disk.
+(0)	     LINEAR (in log pressure) vertical interpolation for this field (OPTION 2)
+(0)	     LINEAR (in log pressure) vertical interpolation for this field (OPTION 2)
+(0)	     Output field U completed (field 5 of 6)
+(0)	
+(0)	     Output field V completed (field 6 of 6)
+(0)	
+(0)	 
+(0)	Begin processing fields from file /glade/derecho/scratch/nanr/inputIC_JRA55_ne120_L30/anl_mdl.033_ugrd.reg_tl319.2022110100_2022111018
+(0)	 
+(0)	 
+(0)	Begin processing fields from file /glade/derecho/scratch/nanr/inputIC_JRA55_ne120_L30/anl_mdl.034_vgrd.reg_tl319.2022110100_2022111018
+(0)	 
+(0)	 
+(0)	Begin processing fields from file /glade/derecho/scratch/nanr/inputIC_JRA55_ne120_L30/anl_mdl.011_tmp.reg_tl319.2022110100_2022111018
+(0)	 
+(0)	 
+(0)	Begin processing fields from file /glade/derecho/scratch/nanr/inputIC_JRA55_ne120_L30/anl_mdl.051_spfh.reg_tl319.2022110100_2022111018
+(0)	 
+(0)	 
+(0)	Begin processing fields from file /glade/derecho/scratch/nanr/inputIC_JRA55_ne120_L30/anl_surf.001_pres.reg_tl319.2022110100_2022113018
+(0)	 
+(0)	 
+(0)	Begin processing fields from file /glade/derecho/scratch/nanr/inputIC_JRA55_ne120_L30/PHIS_model_and_JRA55_analysis_ne120.nc
+(0)	 
+(0)	 
+(0)	 
+(0)	SUCCESSFULLY COMPLETED PROCESSING
+(0)	 
+(0)	 
+  
+  
+ Maximum RH =    108.95779% at i,k =   248808      43
+ Minimum RH =      0.00000% at i,k =   224797      45
+ WARNING in Q2RH:      331032 points (out of   46656120 (     0.70951%) ) were  .gt. 1.   All were set to 1
+  
+  
+  
+  
+ Maximum RH =    145.30644% at i,k =   446347       9
+ Minimum RH =      0.00001% at i,k =   157619      23
+ WARNING in Q2RH:      335567 points (out of   23328060 (     1.43847%) ) were  .gt. 1.   All were set to 1
+  
+  
+if ( ! ( -e done ) ) goto end0
+if ( ! ( -e done ) ) goto end0
+
+/bin/mv $MYTMPDIRO/$ATM_FILE_OUT $ARCHIVE_DIR || goto end0
+/bin/mv /glade/derecho/scratch/nanr/tmp_workdir.236744/JRA55_ne120_L30.cam2.i.2022-11-01-00000.nc /glade/derecho/scratch/nanr/analyses_output_ne120
+
+@ MONTH = ${MONTH} + 1
+@ MONTH = 11 + 1
+end
+end
+while ( ${MONTH} < = ${MONTH_END} )
+while ( 12 < = 12 )
+
+setenv YEAR_STR ${YEAR}
+setenv YEAR_STR 2022
+setenv MONTH_STR ${MONTH}
+setenv MONTH_STR 12
+if ( $MONTH < 10 ) then
+if ( 12 < 10 ) then
+
+
+
+
+setenv FNAME0 ${ANALYSIS_REPOSITORY}/anl_mdl/${YEAR_STR}/anl_mdl.033_ugrd.reg_tl319.${YEAR_STR}${MONTH_STR}0100_${YEAR_STR}${MONTH_STR}1018
+setenv FNAME0 /glade/campaign/collections/rda/data/ds628.0//anl_mdl/2022/anl_mdl.033_ugrd.reg_tl319.2022120100_2022121018
+setenv FNAME1 ${ANALYSIS_REPOSITORY}/anl_mdl/${YEAR_STR}/anl_mdl.034_vgrd.reg_tl319.${YEAR_STR}${MONTH_STR}0100_${YEAR_STR}${MONTH_STR}1018
+setenv FNAME1 /glade/campaign/collections/rda/data/ds628.0//anl_mdl/2022/anl_mdl.034_vgrd.reg_tl319.2022120100_2022121018
+setenv FNAME2 ${ANALYSIS_REPOSITORY}/anl_mdl/${YEAR_STR}/anl_mdl.011_tmp.reg_tl319.${YEAR_STR}${MONTH_STR}0100_${YEAR_STR}${MONTH_STR}1018
+setenv FNAME2 /glade/campaign/collections/rda/data/ds628.0//anl_mdl/2022/anl_mdl.011_tmp.reg_tl319.2022120100_2022121018
+setenv FNAME3 ${ANALYSIS_REPOSITORY}/anl_mdl/${YEAR_STR}/anl_mdl.051_spfh.reg_tl319.${YEAR_STR}${MONTH_STR}0100_${YEAR_STR}${MONTH_STR}1018
+setenv FNAME3 /glade/campaign/collections/rda/data/ds628.0//anl_mdl/2022/anl_mdl.051_spfh.reg_tl319.2022120100_2022121018
+setenv FNAME4 `ls ${ANALYSIS_REPOSITORY}/anl_surf/${YEAR_STR}/anl_surf.001_pres.reg_tl319.${YEAR_STR}${MONTH_STR}01*`
+setenv FNAME4 `ls ${ANALYSIS_REPOSITORY}/anl_surf/${YEAR_STR}/anl_surf.001_pres.reg_tl319.${YEAR_STR}${MONTH_STR}01*`
+ls -CF /glade/campaign/collections/rda/data/ds628.0//anl_surf/2022/anl_surf.001_pres.reg_tl319.2022120100_2022123118
+setenv FNAME5 $TOOLDIR/PHIS_model_and_JRA55_analysis_ne120.nc
+setenv FNAME5 /glade/campaign/cesm/development/espwg/JRA55_regridded_to_CAM/tools/PHIS_model_and_JRA55_analysis_ne120.nc
+
+
+
+setenv REGRID_ALL False
+setenv REGRID_ALL False
+
+
+setenv DATE_CUR ${YEAR_STR}${MONTH_STR}0100000
+setenv DATE_CUR 2022120100000
+setenv FDATE ${DATE_CUR},${DATE_CUR},${DATE_CUR},${DATE_CUR},${DATE_CUR},0
+setenv FDATE 2022120100000,2022120100000,2022120100000,2022120100000,2022120100000,0
+
+
+
+
+
+setenv FIELDS U,V,T,Q,PS,PHIS_analysis,PHIS
+setenv FIELDS U,V,T,Q,PS,PHIS_analysis,PHIS
+
+
+
+setenv SOURCE_FILES 0,1,2,3,4,5,5
+setenv SOURCE_FILES 0,1,2,3,4,5,5
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+setenv FTYPE JRA_55,JRA_55,JRA_55,JRA_55,JRA_55,CAM
+setenv FTYPE JRA_55,JRA_55,JRA_55,JRA_55,JRA_55,CAM
+
+
+
+setenv VORT_DIV_TO_UV False
+setenv VORT_DIV_TO_UV False
+setenv OUTPUT_PHIS True
+setenv OUTPUT_PHIS True
+setenv ATM_FILE_OUT $CASE.cam2.i.${YEAR_STR}-${MONTH_STR}-01-00000.nc
+setenv ATM_FILE_OUT JRA55_ne120_L30.cam2.i.2022-12-01-00000.nc
+setenv FNAME $FNAME0,$FNAME1,$FNAME2,$FNAME3,$FNAME4,$FNAME5
+setenv FNAME /glade/campaign/collections/rda/data/ds628.0//anl_mdl/2022/anl_mdl.033_ugrd.reg_tl319.2022120100_2022121018,/glade/campaign/collections/rda/data/ds628.0//anl_mdl/2022/anl_mdl.034_vgrd.reg_tl319.2022120100_2022121018,/glade/campaign/collections/rda/data/ds628.0//anl_mdl/2022/anl_mdl.011_tmp.reg_tl319.2022120100_2022121018,/glade/campaign/collections/rda/data/ds628.0//anl_mdl/2022/anl_mdl.051_spfh.reg_tl319.2022120100_2022121018,/glade/campaign/collections/rda/data/ds628.0//anl_surf/2022/anl_surf.001_pres.reg_tl319.2022120100_2022123118,/glade/campaign/cesm/development/espwg/JRA55_regridded_to_CAM/tools/PHIS_model_and_JRA55_analysis_ne120.nc
+
+/bin/rm done
+/bin/rm done
+ncl ./makeIC.ncl || goto end0
+ncl ./makeIC.ncl
+ls: cannot access '/glade/derecho/scratch/nanr/inputIC_JRA55_ne120_L30/anl_mdl.033_ugrd.reg_tl319.2022120100_2022121018': No such file or directory
+ls: cannot access '/glade/derecho/scratch/nanr/inputIC_JRA55_ne120_L30/anl_mdl.034_vgrd.reg_tl319.2022120100_2022121018': No such file or directory
+ls: cannot access '/glade/derecho/scratch/nanr/inputIC_JRA55_ne120_L30/anl_mdl.011_tmp.reg_tl319.2022120100_2022121018': No such file or directory
+ls: cannot access '/glade/derecho/scratch/nanr/inputIC_JRA55_ne120_L30/anl_mdl.051_spfh.reg_tl319.2022120100_2022121018': No such file or directory
+ls: cannot access '/glade/derecho/scratch/nanr/inputIC_JRA55_ne120_L30/anl_surf.001_pres.reg_tl319.2022120100_2022123118': No such file or directory
+ Copyright (C) 1995-2019 - All Rights Reserved
+ University Corporation for Atmospheric Research
+ NCAR Command Language Version 6.6.2
+ The use of this software is governed by a License Agreement.
+ See http://www.ncl.ucar.edu/ for more details.
+(0)	/bin/mkdir -p /glade/derecho/scratch/nanr/inputIC_JRA55_ne120_L30
+(0)	/bin/mkdir -p /glade/derecho/scratch/nanr/tmp_workdir.236744
+(0)	/bin/rm    -f /glade/derecho/scratch/nanr/tmp_workdir.236744/JRA55_ne120_L30.cam2.i.2022-12-01-00000.nc
+(0)	 
+(0)	Initialize /glade/derecho/scratch/nanr/tmp_workdir.236744/JRA55_ne120_L30.cam2.i.2022-12-01-00000.nc
+(0)	   (file will be 'float' precision)
+(0)	 
+(0)	
+(0)	Stage all input files to work directory
+(0)	
+(0)	------------------------------------------------------------
+(0)	 /bin/cp -i /glade/campaign/collections/rda/data/ds628.0//anl_mdl/2022/anl_mdl.033_ugrd.reg_tl319.2022120100_2022121018 /glade/derecho/scratch/nanr/inputIC_JRA55_ne120_L30/anl_mdl.033_ugrd.reg_tl319.2022120100_2022121018
+(0)	------------------------------------------------------------
+(0)	 
+(0)	------------------------------------------------------------
+(0)	 /bin/cp -i /glade/campaign/collections/rda/data/ds628.0//anl_mdl/2022/anl_mdl.034_vgrd.reg_tl319.2022120100_2022121018 /glade/derecho/scratch/nanr/inputIC_JRA55_ne120_L30/anl_mdl.034_vgrd.reg_tl319.2022120100_2022121018
+(0)	------------------------------------------------------------
+(0)	 
+(0)	------------------------------------------------------------
+(0)	 /bin/cp -i /glade/campaign/collections/rda/data/ds628.0//anl_mdl/2022/anl_mdl.011_tmp.reg_tl319.2022120100_2022121018 /glade/derecho/scratch/nanr/inputIC_JRA55_ne120_L30/anl_mdl.011_tmp.reg_tl319.2022120100_2022121018
+(0)	------------------------------------------------------------
+(0)	 
+(0)	------------------------------------------------------------
+(0)	 /bin/cp -i /glade/campaign/collections/rda/data/ds628.0//anl_mdl/2022/anl_mdl.051_spfh.reg_tl319.2022120100_2022121018 /glade/derecho/scratch/nanr/inputIC_JRA55_ne120_L30/anl_mdl.051_spfh.reg_tl319.2022120100_2022121018
+(0)	------------------------------------------------------------
+(0)	 
+(0)	------------------------------------------------------------
+(0)	 /bin/cp -i /glade/campaign/collections/rda/data/ds628.0//anl_surf/2022/anl_surf.001_pres.reg_tl319.2022120100_2022123118 /glade/derecho/scratch/nanr/inputIC_JRA55_ne120_L30/anl_surf.001_pres.reg_tl319.2022120100_2022123118
+(0)	------------------------------------------------------------
+(0)	 
+(0)	 Copy not done; file /glade/derecho/scratch/nanr/inputIC_JRA55_ne120_L30/PHIS_model_and_JRA55_analysis_ne120.nc already exists
+(0)	 
+(0)	 Copy not done; file /glade/derecho/scratch/nanr/inputIC_JRA55_ne120_L30/f.e13.FAMIPC5.ne120_ne120_mt12.cesm-ihesp-1950-2050.001.cam.i.1982-01-01-00000.nc already exists
+(0)	 
+(0)	Opening file anl_mdl.033_ugrd.reg_tl319.2022120100_2022121018
+(0)	Opening file anl_mdl.034_vgrd.reg_tl319.2022120100_2022121018
+(0)	Opening file anl_mdl.011_tmp.reg_tl319.2022120100_2022121018
+(0)	Opening file anl_mdl.051_spfh.reg_tl319.2022120100_2022121018
+(0)	Opening file anl_surf.001_pres.reg_tl319.2022120100_2022123118
+(0)	Opening file PHIS_model_and_JRA55_analysis_ne120.nc
+(0)	Opening file f.e13.FAMIPC5.ne120_ne120_mt12.cesm-ihesp-1950-2050.001.cam.i.1982-01-01-00000.nc
+(0)	       Descriptor file /glade/derecho/scratch/nanr/inputIC_JRA55_ne120_L30/descriptor_ne120np4_CAM.nc found on work directory.
+(0)	   Declare space for output field:  U (field 1 of 6)
+(0)	   Declare space for output field:  V (field 2 of 6)
+(0)	   Declare space for output field:  T (field 3 of 6)
+(0)	   Declare space for output field:  Q (field 4 of 6)
+(0)	   Declare space for output field:  PS (field 5 of 6)
+(0)	   Declare space for output field:  PHIS (field 6 of 6)
+(0)	
+(0)	OUTPUT levels based on file /glade/campaign/cesm/development/espwg/JRA55_regridded_to_CAM/tools/f.e13.FAMIPC5.ne120_ne120_mt12.cesm-ihesp-1950-2050.001.cam.i.1982-01-01-00000.nc
+warning:FileReadVarAtt: (_FillValue) is not an attribute of (hyam)
+warning:FileReadVarAtt: (_FillValue) is not an attribute of (hybm)
+warning:FileReadVarAtt: (_FillValue) is not an attribute of (hyai)
+warning:FileReadVarAtt: (_FillValue) is not an attribute of (hybi)
+warning:FileReadVarAtt: (_FillValue) is not an attribute of (lev)
+warning:FileReadVarAtt: (_FillValue) is not an attribute of (ilev)
+(0)	
+(0)	Checking date for /glade/derecho/scratch/nanr/inputIC_JRA55_ne120_L30/anl_mdl.033_ugrd.reg_tl319.2022120100_2022121018
+(0)	date = 20221201; 0Z; time slice pointer = 0
+(0)	
+(0)	
+(0)	----------------------------------------------------------------------- 
+(0)	OUTPUT file time info:
+(0)	
+(0)	    time    = 23694
+(0)	    ndbase  = 0
+(0)	    nsbase  = 0
+(0)	    nbdate  = 19580101
+(0)	    nbsec   = 0
+(0)	    ndcur   = 23694
+(0)	    nscur   = 0
+(0)	    date    = 20221201
+(0)	    datesec = 0
+(0)	
+(0)	----------------------------------------------------------------------- 
+(0)	
+(0)	Checking date for /glade/derecho/scratch/nanr/inputIC_JRA55_ne120_L30/anl_mdl.034_vgrd.reg_tl319.2022120100_2022121018
+(0)	date = 20221201; 0Z; time slice pointer = 0
+(0)	
+(0)	Checking date for /glade/derecho/scratch/nanr/inputIC_JRA55_ne120_L30/anl_mdl.011_tmp.reg_tl319.2022120100_2022121018
+(0)	date = 20221201; 0Z; time slice pointer = 0
+(0)	
+(0)	Checking date for /glade/derecho/scratch/nanr/inputIC_JRA55_ne120_L30/anl_mdl.051_spfh.reg_tl319.2022120100_2022121018
+(0)	date = 20221201; 0Z; time slice pointer = 0
+(0)	
+(0)	Checking date for /glade/derecho/scratch/nanr/inputIC_JRA55_ne120_L30/anl_surf.001_pres.reg_tl319.2022120100_2022123118
+(0)	date = 20221201; 0Z; time slice pointer = 0
+(0)	
+(0)	Checking date for /glade/derecho/scratch/nanr/inputIC_JRA55_ne120_L30/PHIS_model_and_JRA55_analysis_ne120.nc
+(0)	date = 20081101; 900Z; time slice pointer = 0
+(0)	
+(0)	 
+(0)	Begin processing PS from file /glade/derecho/scratch/nanr/inputIC_JRA55_ne120_L30/anl_surf.001_pres.reg_tl319.2022120100_2022123118
+(0)	 
+(0)	   Reading input field:  PRES_GDS4_SFC
+(0)	     flip latitudes to run S --> N
+(0)	     Converting field from 2-D to 1-D in horizontal for processing purposes
+(0)	     Converting field from Ps to log(Ps) prior to interpolation
+(0)	     Binning grid boxes.  Bin factor = 1
+(0)	       Descriptor file /glade/derecho/scratch/nanr/inputIC_JRA55_ne120_L30/descriptor_JRA_55_320x640_gaussian_A-grid.nc found on disk.
+(0)	       Descriptor file /glade/derecho/scratch/nanr/inputIC_JRA55_ne120_L30/descriptor_ne120np4_CAM.nc found on work directory.
+(0)	       Weight file /glade/derecho/scratch/nanr/inputIC_JRA55_ne120_L30/map_JRA_55_320x640_gaussian_A-grid_to_ne120np4_CAM_conserve.nc found on disk.
+(0)	     Converting field from log(Ps) to Ps post interpolation
+(0)	 
+(0)	Input PHIS_analysis from file /glade/derecho/scratch/nanr/inputIC_JRA55_ne120_L30/PHIS_model_and_JRA55_analysis_ne120.nc for later processing
+(0)	 
+(0)	   Reading input field:  PHIS_analysis
+(0)	     Binning grid boxes.  Bin factor = 1
+(0)	       Descriptor file /glade/derecho/scratch/nanr/inputIC_JRA55_ne120_L30/descriptor_ne120np4_CAM.nc found on work directory.
+(0)	       Descriptor file /glade/derecho/scratch/nanr/inputIC_JRA55_ne120_L30/descriptor_ne120np4_CAM.nc found on work directory.
+(0)	       Weight file /glade/derecho/scratch/nanr/inputIC_JRA55_ne120_L30/map_ne120np4_CAM_to_ne120np4_CAM_conserve.nc found on disk.
+(0)	 
+(0)	Begin processing PHIS from file /glade/derecho/scratch/nanr/inputIC_JRA55_ne120_L30/PHIS_model_and_JRA55_analysis_ne120.nc
+(0)	 
+(0)	   Reading input field:  PHIS
+(0)	     Output field PHIS completed (field 1 of 6)
+(0)	
+(0)	 
+(0)	Begin processing T from file /glade/derecho/scratch/nanr/inputIC_JRA55_ne120_L30/anl_mdl.011_tmp.reg_tl319.2022120100_2022121018
+(0)	 
+(0)	   Reading input field:  TMP_GDS4_HYBL
+(0)	     flip latitudes to run S --> N
+(0)	     flip levels to run Top --> Bot
+(0)	     Converting field from 2-D to 1-D in horizontal for processing purposes
+(0)	     Binning grid boxes.  Bin factor = 1
+(0)	       Descriptor file /glade/derecho/scratch/nanr/inputIC_JRA55_ne120_L30/descriptor_JRA_55_320x640_gaussian_A-grid.nc found on disk.
+(0)	       Descriptor file /glade/derecho/scratch/nanr/inputIC_JRA55_ne120_L30/descriptor_ne120np4_CAM.nc found on work directory.
+(0)	       Weight file /glade/derecho/scratch/nanr/inputIC_JRA55_ne120_L30/map_JRA_55_320x640_gaussian_A-grid_to_ne120np4_CAM_conserve.nc found on disk.
+(0)	 
+(0)	Begin processing Q from file /glade/derecho/scratch/nanr/inputIC_JRA55_ne120_L30/anl_mdl.051_spfh.reg_tl319.2022120100_2022121018
+(0)	 
+(0)	   Reading input field:  SPFH_GDS4_HYBL
+(0)	     flip latitudes to run S --> N
+(0)	     flip levels to run Top --> Bot
+(0)	     Converting field from 2-D to 1-D in horizontal for processing purposes
+(0)	     Binning grid boxes.  Bin factor = 1
+(0)	       Descriptor file /glade/derecho/scratch/nanr/inputIC_JRA55_ne120_L30/descriptor_JRA_55_320x640_gaussian_A-grid.nc found on disk.
+(0)	       Descriptor file /glade/derecho/scratch/nanr/inputIC_JRA55_ne120_L30/descriptor_ne120np4_CAM.nc found on work directory.
+(0)	       Weight file /glade/derecho/scratch/nanr/inputIC_JRA55_ne120_L30/map_JRA_55_320x640_gaussian_A-grid_to_ne120np4_CAM_conserve.nc found on disk.
+(0)	     Adjusting Q to eliminate RH < 0. or > 1.
+(0)	     Adjusting PS
+(0)	     Vertical interpolation of T
+(0)	     QUADRATIC (in log pressure) vertical interpolation for this field (OPTION 1)
+(0)	     Vertical interpolation of Q
+(0)	     LINEAR (in pressure) vertical interpolation for this field (OPTION 1)
+(0)	     Adjusting Q to eliminate RH < 0. or > 1.
+(0)	     Output field PS completed (field 2 of 6)
+(0)	
+(0)	     Output field T completed (field 3 of 6)
+(0)	
+(0)	     Output field Q completed (field 4 of 6)
+(0)	
+(0)	Begin processing U from file /glade/derecho/scratch/nanr/inputIC_JRA55_ne120_L30/anl_mdl.033_ugrd.reg_tl319.2022120100_2022121018
+(0)	Begin processing V from file /glade/derecho/scratch/nanr/inputIC_JRA55_ne120_L30/anl_mdl.034_vgrd.reg_tl319.2022120100_2022121018
+(0)	 
+(0)	   Reading input field:  UGRD_GDS4_HYBL
+(0)	     flip latitudes to run S --> N
+(0)	     flip levels to run Top --> Bot
+(0)	     Converting field from 2-D to 1-D in horizontal for processing purposes
+(0)	   Reading input field:  VGRD_GDS4_HYBL
+(0)	     flip latitudes to run S --> N
+(0)	     flip levels to run Top --> Bot
+(0)	     Converting field from 2-D to 1-D in horizontal for processing purposes
+(0)	     Binning grid boxes.  Bin factor = 1
+(0)	       Descriptor file /glade/derecho/scratch/nanr/inputIC_JRA55_ne120_L30/descriptor_JRA_55_320x640_gaussian_A-grid.nc found on disk.
+(0)	       Descriptor file /glade/derecho/scratch/nanr/inputIC_JRA55_ne120_L30/descriptor_ne120np4_CAM.nc found on work directory.
+(0)	       Weight file /glade/derecho/scratch/nanr/inputIC_JRA55_ne120_L30/map_JRA_55_320x640_gaussian_A-grid_to_ne120np4_CAM_conserve.nc found on disk.
+(0)	     Binning grid boxes.  Bin factor = 1
+(0)	       Descriptor file /glade/derecho/scratch/nanr/inputIC_JRA55_ne120_L30/descriptor_JRA_55_320x640_gaussian_A-grid.nc found on disk.
+(0)	       Descriptor file /glade/derecho/scratch/nanr/inputIC_JRA55_ne120_L30/descriptor_ne120np4_CAM.nc found on work directory.
+(0)	       Weight file /glade/derecho/scratch/nanr/inputIC_JRA55_ne120_L30/map_JRA_55_320x640_gaussian_A-grid_to_ne120np4_CAM_conserve.nc found on disk.
+(0)	     LINEAR (in log pressure) vertical interpolation for this field (OPTION 2)
+(0)	     LINEAR (in log pressure) vertical interpolation for this field (OPTION 2)
+(0)	     Output field U completed (field 5 of 6)
+(0)	
+(0)	     Output field V completed (field 6 of 6)
+(0)	
+(0)	 
+(0)	Begin processing fields from file /glade/derecho/scratch/nanr/inputIC_JRA55_ne120_L30/anl_mdl.033_ugrd.reg_tl319.2022120100_2022121018
+(0)	 
+(0)	 
+(0)	Begin processing fields from file /glade/derecho/scratch/nanr/inputIC_JRA55_ne120_L30/anl_mdl.034_vgrd.reg_tl319.2022120100_2022121018
+(0)	 
+(0)	 
+(0)	Begin processing fields from file /glade/derecho/scratch/nanr/inputIC_JRA55_ne120_L30/anl_mdl.011_tmp.reg_tl319.2022120100_2022121018
+(0)	 
+(0)	 
+(0)	Begin processing fields from file /glade/derecho/scratch/nanr/inputIC_JRA55_ne120_L30/anl_mdl.051_spfh.reg_tl319.2022120100_2022121018
+(0)	 
+(0)	 
+(0)	Begin processing fields from file /glade/derecho/scratch/nanr/inputIC_JRA55_ne120_L30/anl_surf.001_pres.reg_tl319.2022120100_2022123118
+(0)	 
+(0)	 
+(0)	Begin processing fields from file /glade/derecho/scratch/nanr/inputIC_JRA55_ne120_L30/PHIS_model_and_JRA55_analysis_ne120.nc
+(0)	 
+(0)	 
+(0)	 
+(0)	SUCCESSFULLY COMPLETED PROCESSING
+(0)	 
+(0)	 
+  
+  
+ Maximum RH =    114.48802% at i,k =   750672      59
+ Minimum RH =      0.00000% at i,k =   352752      47
+ WARNING in Q2RH:      322341 points (out of   46656120 (     0.69089%) ) were  .gt. 1.   All were set to 1
+  
+  
+  
+  
+ Maximum RH =    150.13420% at i,k =   321199       9
+ Minimum RH =      0.00001% at i,k =    24010      23
+ WARNING in Q2RH:      349439 points (out of   23328060 (     1.49793%) ) were  .gt. 1.   All were set to 1
+  
+  
+if ( ! ( -e done ) ) goto end0
+if ( ! ( -e done ) ) goto end0
+
+/bin/mv $MYTMPDIRO/$ATM_FILE_OUT $ARCHIVE_DIR || goto end0
+/bin/mv /glade/derecho/scratch/nanr/tmp_workdir.236744/JRA55_ne120_L30.cam2.i.2022-12-01-00000.nc /glade/derecho/scratch/nanr/analyses_output_ne120
+
+@ MONTH = ${MONTH} + 1
+@ MONTH = 12 + 1
+end
+end
+while ( ${MONTH} < = ${MONTH_END} )
+while ( 13 < = 12 )
+
+@ YEAR = ${YEAR} + 1
+@ YEAR = 2022 + 1
+end
+end
+while ( ${YEAR} < = ${YEAR_END} )
+while ( 2023 < = 2022 )
+
+end0:
+end0:
+
+exit
+exit
