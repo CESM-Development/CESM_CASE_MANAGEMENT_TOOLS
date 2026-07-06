@@ -1,0 +1,3 @@
+
+ncremap -m /glade/work/nanr/mapfiles/map_ne120_to_0.23x0.31_bilinear.nc -i /glade/derecho/scratch/jiangzhu/archive/b.e13.B1850C5.ne120_t12.icesm13_ihesp.eocene_06x.002/atm/hist/b.e13.B1850C5.ne120_t12.icesm13_ihesp.eocene_06x.002.cam.h0.0001-01.nc -o /glade/derecho/scratch/nanr/paleo/b.e13.B1850C5.ne120_t12.icesm13_ihesp.eocene_06x.002/b.e13.B1850C5.ne120_t12.icesm13_ihesp.eocene_06x.002.cam.h0.ADRAIN.0001-01.FV.nc
+

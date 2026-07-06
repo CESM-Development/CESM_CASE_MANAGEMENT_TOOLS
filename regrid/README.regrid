@@ -1,0 +1,11 @@
+Steps for Regridding:
+	ls -1 <files_to_regrid> > inFiles.list
+	./create_regrid.ne120-paleo.pl <inFiles> > doIt.scr
+	chmod u+x doIt.scr
+        ./doIt.scr
+
+softlink the FV file to the original name to keep it simple for ADF:
+Note:  I think I did this in the actual regrid directory: e.g., /glade/derecho/scratch/nanr/ADF/b.e13.B1850C5.ne120_t12.icesm13_ihesp.eocene_03x.002/atm/hist
+	Script:  renameFiles.pl < ifiles > doRename
+        chmod u+x doRename
+        ./doRename
