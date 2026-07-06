@@ -103,5 +103,6 @@ fincl7 =
 history_dust                   = .true. 
 do_circulation_diags           = .true. 
 
-co2flux_fuel_file  = '/glade/p/cesm/cseg/inputdata/atm/cam/ggas/emissions-cmip6_CO2_anthro_surface_ScenarioMIP_IAMC-AIM-ssp370_201401-210112_fv_0.9x1.25_c20190207.nc'
-aircraft_specifier = 'ac_CO2 -> emissions-cmip6_CO2_anthro_ac_ssp370_201401-210112_fv_0.9x1.25_c20190207.txt'
+!! co2flux_fuel_file              = '/glade/p/cesmdata/cseg/inputdata/atm/cam/ggas/emissions-cmip6_CO2_anthro_surface_175001-201512_fv_0.9x1.25_c20181011.nc'
+!! aircraft_specifier             = 'ac_CO2 -> ac_CO2_filelist_175001-201512_fv_0.9x1.25_c20181011.txt'
+
