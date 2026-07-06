@@ -1,0 +1,65 @@
+24Nov2020:
+Found error in original user_nl_cam:
+
+BAD:   'num_a3   -> /glade/p/cesm/chwg_dev/emmons/emissions_covid/cesm_cutSSP245_V4/emissions-cmip6-cutSSP245-TwoYearBlip_num_so4_a2_anthro-res_surface_mol_201501-210012_0.9x1.25_c20200731.nc',
+GOOD:  'num_a2   -> /glade/p/cesm/chwg_dev/emmons/emissions_covid/cesm_cutSSP245_V4/emissions-cmip6-cutSSP245-TwoYearBlip_num_so4_a2_anthro-res_surface_mol_201501-210012_0.9x1.25_c20200731.nc',
+---
+
+=======================================================================
+
+The anthropogenic emissions provided by Lamboll and Forster (adjusted SSP245), and ready for use in CESM are in:
+/glade/p/cesm/chwg_dev/emmons/emissions_covid/cesm_cutSSP245_V4/
+
+I'm not sure which scenario you want.  Probably "TwoYearBlip".  More details of the scenarios at:
+https://climateactiontracker.org/publications/addressing-the-climate-and-post-covid-19-economic-crises/
+
+The original files came from:
+https://github.com/Rlamboll/modify_COVID19_netCDF_Emissions/
+
+
+Dave Lawrence - sep 8
+The protocol for the short runs is for the 2-year blip emission scenario.
+
+
+Louisa:  Sep 15: Copy the contents of 
+/glade/p/cesm/chwg_dev/emmons/emissions_covid/nl_emis_cam_TwoYearBlip
+into your user_nl_cam.
+
+
+
+/glade/p/cesm/chwg_dev/emmons/emissions_covid/cesm_cutSSP245_V4/emissions-cmip6-cutSSP245-TwoYearBlip_bc_a4_anthro_surface_mol_201501-210012_0.9x1.25_c20200731.nc
+/glade/p/cesm/chwg_dev/emmons/emissions_covid/cesm_cutSSP245_V4/emissions-cmip6-cutSSP245-TwoYearBlip_BENZENE_anthro_surface_mol_201501-210012_0.9x1.25_c20200731.nc
+/glade/p/cesm/chwg_dev/emmons/emissions_covid/cesm_cutSSP245_V4/emissions-cmip6-cutSSP245-TwoYearBlip_BIGALK_anthro_surface_mol_201501-210012_0.9x1.25_c20200731.nc
+/glade/p/cesm/chwg_dev/emmons/emissions_covid/cesm_cutSSP245_V4/emissions-cmip6-cutSSP245-TwoYearBlip_BIGENE_anthro_surface_mol_201501-210012_0.9x1.25_c20200731.nc
+/glade/p/cesm/chwg_dev/emmons/emissions_covid/cesm_cutSSP245_V4/emissions-cmip6-cutSSP245-TwoYearBlip_C2H2_anthro_surface_mol_201501-210012_0.9x1.25_c20200731.nc
+/glade/p/cesm/chwg_dev/emmons/emissions_covid/cesm_cutSSP245_V4/emissions-cmip6-cutSSP245-TwoYearBlip_C2H4_anthro_surface_mol_201501-210012_0.9x1.25_c20200731.nc
+/glade/p/cesm/chwg_dev/emmons/emissions_covid/cesm_cutSSP245_V4/emissions-cmip6-cutSSP245-TwoYearBlip_C2H5OH_anthro_surface_mol_201501-210012_0.9x1.25_c20200731.nc
+/glade/p/cesm/chwg_dev/emmons/emissions_covid/cesm_cutSSP245_V4/emissions-cmip6-cutSSP245-TwoYearBlip_C2H6_anthro_surface_mol_201501-210012_0.9x1.25_c20200731.nc
+/glade/p/cesm/chwg_dev/emmons/emissions_covid/cesm_cutSSP245_V4/emissions-cmip6-cutSSP245-TwoYearBlip_C3H6_anthro_surface_mol_201501-210012_0.9x1.25_c20200731.nc
+/glade/p/cesm/chwg_dev/emmons/emissions_covid/cesm_cutSSP245_V4/emissions-cmip6-cutSSP245-TwoYearBlip_C3H8_anthro_surface_mol_201501-210012_0.9x1.25_c20200731.nc
+/glade/p/cesm/chwg_dev/emmons/emissions_covid/cesm_cutSSP245_V4/emissions-cmip6-cutSSP245-TwoYearBlip_CH2O_anthro_surface_mol_201501-210012_0.9x1.25_c20200731.nc
+/glade/p/cesm/chwg_dev/emmons/emissions_covid/cesm_cutSSP245_V4/emissions-cmip6-cutSSP245-TwoYearBlip_CH3CHO_anthro_surface_mol_201501-210012_0.9x1.25_c20200731.nc
+/glade/p/cesm/chwg_dev/emmons/emissions_covid/cesm_cutSSP245_V4/emissions-cmip6-cutSSP245-TwoYearBlip_CH3COCH3_anthro_surface_mol_201501-210012_0.9x1.25_c20200731.nc
+/glade/p/cesm/chwg_dev/emmons/emissions_covid/cesm_cutSSP245_V4/emissions-cmip6-cutSSP245-TwoYearBlip_CH3COOH_anthro_surface_mol_201501-210012_0.9x1.25_c20200731.nc
+/glade/p/cesm/chwg_dev/emmons/emissions_covid/cesm_cutSSP245_V4/emissions-cmip6-cutSSP245-TwoYearBlip_CH3OH_anthro_surface_mol_201501-210012_0.9x1.25_c20200731.nc
+/glade/p/cesm/chwg_dev/emmons/emissions_covid/cesm_cutSSP245_V4/emissions-cmip6-cutSSP245-TwoYearBlip_CO_anthro_surface_mol_201501-210012_0.9x1.25_c20200731.nc
+/glade/p/cesm/chwg_dev/emmons/emissions_covid/cesm_cutSSP245_V4/emissions-cmip6-cutSSP245-TwoYearBlip_HCOOH_anthro_surface_mol_201501-210012_0.9x1.25_c20200731.nc
+/glade/p/cesm/chwg_dev/emmons/emissions_covid/cesm_cutSSP245_V4/emissions-cmip6-cutSSP245-TwoYearBlip_IVOC_anthro_surface_mol_201501-210012_0.9x1.25_c20200731.nc
+/glade/p/cesm/chwg_dev/emmons/emissions_covid/cesm_cutSSP245_V4/emissions-cmip6-cutSSP245-TwoYearBlip_MEK_anthro_surface_mol_201501-210012_0.9x1.25_c20200731.nc
+/glade/p/cesm/chwg_dev/emmons/emissions_covid/cesm_cutSSP245_V4/emissions-cmip6-cutSSP245-TwoYearBlip_NH3_anthro_surface_mol_201501-210012_0.9x1.25_c20200731.nc
+/glade/p/cesm/chwg_dev/emmons/emissions_covid/cesm_cutSSP245_V4/emissions-cmip6-cutSSP245-TwoYearBlip_NO_anthro_surface_mol_201501-210012_0.9x1.25_c20200731.nc
+/glade/p/cesm/chwg_dev/emmons/emissions_covid/cesm_cutSSP245_V4/emissions-cmip6-cutSSP245-TwoYearBlip_num_bc_a4_anthro_surface_mol_201501-210012_0.9x1.25_c20200731.nc
+/glade/p/cesm/chwg_dev/emmons/emissions_covid/cesm_cutSSP245_V4/emissions-cmip6-cutSSP245-TwoYearBlip_num_pom_a4_anthro_surface_mol_201501-210012_0.9x1.25_c20200731.nc
+/glade/p/cesm/chwg_dev/emmons/emissions_covid/cesm_cutSSP245_V4/emissions-cmip6-cutSSP245-TwoYearBlip_num_so4_a1_anthro-ag-ship_surface_mol_201501-210012_0.9x1.25_c20200731.nc
+/glade/p/cesm/chwg_dev/emmons/emissions_covid/cesm_cutSSP245_V4/emissions-cmip6-cutSSP245-TwoYearBlip_num_so4_a1_anthro-ene_vertical_mol_201501-210012_0.9x1.25_c20200731.nc
+/glade/p/cesm/chwg_dev/emmons/emissions_covid/cesm_cutSSP245_V4/emissions-cmip6-cutSSP245-TwoYearBlip_num_so4_a2_anthro-res_surface_mol_201501-210012_0.9x1.25_c20200731.nc
+/glade/p/cesm/chwg_dev/emmons/emissions_covid/cesm_cutSSP245_V4/emissions-cmip6-cutSSP245-TwoYearBlip_pom_a4_anthro_surface_mol_201501-210012_0.9x1.25_c20200731.nc
+/glade/p/cesm/chwg_dev/emmons/emissions_covid/cesm_cutSSP245_V4/emissions-cmip6-cutSSP245-TwoYearBlip_SO2_anthro-ag-ship-res_surface_mol_201501-210012_0.9x1.25_c20200731.nc
+/glade/p/cesm/chwg_dev/emmons/emissions_covid/cesm_cutSSP245_V4/emissions-cmip6-cutSSP245-TwoYearBlip_SO2_anthro-ene_surface_mol_201501-210012_0.9x1.25_c20200731.nc
+/glade/p/cesm/chwg_dev/emmons/emissions_covid/cesm_cutSSP245_V4/emissions-cmip6-cutSSP245-TwoYearBlip_SO2_anthro-ene_vertical_mol_201501-210012_0.9x1.25_c20200731.nc
+/glade/p/cesm/chwg_dev/emmons/emissions_covid/cesm_cutSSP245_V4/emissions-cmip6-cutSSP245-TwoYearBlip_so4_a1_anthro-ag-ship_surface_mol_201501-210012_0.9x1.25_c20200731.nc
+/glade/p/cesm/chwg_dev/emmons/emissions_covid/cesm_cutSSP245_V4/emissions-cmip6-cutSSP245-TwoYearBlip_so4_a1_anthro-ene_vertical_mol_201501-210012_0.9x1.25_c20200731.nc
+/glade/p/cesm/chwg_dev/emmons/emissions_covid/cesm_cutSSP245_V4/emissions-cmip6-cutSSP245-TwoYearBlip_so4_a2_anthro-res_surface_mol_201501-210012_0.9x1.25_c20200731.nc
+/glade/p/cesm/chwg_dev/emmons/emissions_covid/cesm_cutSSP245_V4/emissions-cmip6-cutSSP245-TwoYearBlip_SVOC_anthro_surface_mol_201501-210012_0.9x1.25_c20200731.nc
+/glade/p/cesm/chwg_dev/emmons/emissions_covid/cesm_cutSSP245_V4/emissions-cmip6-cutSSP245-TwoYearBlip_TOLUENE_anthro_surface_mol_201501-210012_0.9x1.25_c20200731.nc
+/glade/p/cesm/chwg_dev/emmons/emissions_covid/cesm_cutSSP245_V4/emissions-cmip6-cutSSP245-TwoYearBlip_XYLENES_anthro_surface_mol_201501-210012_0.9x1.25_c20200731.nc

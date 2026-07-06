@@ -1,0 +1,115 @@
+#!/bin/csh -fx
+### set env variables
+setenv CESM2_LE_TOOLS_ROOT /glade/work/nanr/cesm_tags/CASE_tools/cesm2-covid/
+#setenv CESMROOT /glade/work/nanr/cesm_tags/release-cesm2.1.2/
+setenv CESMROOT /glade/work/nanr/cesm_tags/cesm2.1.5/
+
+set COMPSET = BSSP245cmip6
+set SIMULAT = COVID-cvd-aufire-shipping
+set MACHINE = derecho
+set RESOLN = f09_g17
+set RESUBMIT = 0
+set STOP_N=18
+set STOP_OPTION=nmonths
+
+setenv BASEROOT /glade/work/nanr/CESM2-covid/
+setenv BASENAME b.e21.${COMPSET}.${RESOLN}.${SIMULAT}
+
+set exembr =  1
+set smbr =  1
+set embr =  10
+
+@ mb = $smbr
+@ me = $embr
+
+foreach mbr ( `seq $mb  $me` )
+
+if    ($mbr < 10) then
+	setenv CASENAME b.e21.${COMPSET}.${RESOLN}.${SIMULAT}.10${mbr}
+        setenv REFCASE  b.e21.BSSP245cmip6.f09_g17.COVID-gfed-2015-2018.00${mbr}
+
+else if ($mbr >= 10 && $mbr < 100) then
+	setenv CASENAME b.e21.${COMPSET}.${RESOLN}.${SIMULAT}.1${mbr}
+        setenv REFCASE  b.e21.BSSP245cmip6.f09_g17.COVID-gfed-2015-2018.0${mbr}
+endif
+
+  setenv REFROOT   /glade/derecho/scratch/nanr/archive/$REFCASE/rest/2019-01-01-00000/
+  setenv RUNROOT   /glade/derecho/scratch/nanr/$CASENAME/run/
+  setenv CASEROOT  $BASEROOT$CASENAME
+  setenv PROJECT  P06010014
+
+  ## Uncomment for testing (when not creating a cylc suite)
+  cd $CESMROOT/cime/scripts
+  ./create_newcase --case $BASEROOT$CASENAME --res $RESOLN  --compset $COMPSET --project $PROJECT 
+
+  cd $CASEROOT
+
+
+# 20 nodes
+# ./xmlchange NTASKS_CPL=576
+# ./xmlchange NTASKS_ATM=576
+# ./xmlchange NTASKS_LND=504
+# ./xmlchange NTASKS_ICE=36
+# ./xmlchange NTASKS_OCN=144
+# ./xmlchange NTASKS_ROF=468
+# ./xmlchange NTASKS_GLC=576
+# ./xmlchange NTASKS_WAV=36
+# ./xmlchange ROOTPE_ICE=504
+# ./xmlchange ROOTPE_OCN=576
+# ./xmlchange ROOTPE_WAV=540
+
+  mv user_nl_cam user_nl_cam.`date +%m%d-%H%M`
+  mv user_nl_clm user_nl_clm.`date +%m%d-%H%M`
+  mv user_nl_cpl user_nl_cpl.`date +%m%d-%H%M`
+  mv user_nl_cice user_nl_cice.`date +%m%d-%H%M`
+
+  cp $CESM2_LE_TOOLS_ROOT/user_nl_files/cvd-aufire-shipping/user_nl_cam $CASEROOT/
+  cp $CESM2_LE_TOOLS_ROOT/user_nl_files/cvd-aufire-shipping/user_nl_clm $CASEROOT/
+  cp $CESM2_LE_TOOLS_ROOT/user_nl_files/cvd-aufire-shipping/user_nl_cpl $CASEROOT/
+  cp $CESM2_LE_TOOLS_ROOT/user_nl_files/cvd-aufire-shipping/user_nl_cice $CASEROOT/
+
+  ## =================
+  ## USE NEW SOURCE MODS
+  ## =================
+
+  #cp /glade/work/nanr/cesm_tags/CASE_tools/cesm2-smyle/user_mods/cesm2smyle-AUFIRE.base/SourceMods/src.cam/chemistry.F90 $CASEROOT/SourceMods/src.cam/
+  #cp /glade/work/nanr/cesm_tags/CASE_tools/cesm2-smyle/user_mods/cesm2smyle-AUFIRE.base/SourceMods/src.cam/mo_*.F90 $CASEROOT/SourceMods/src.cam/
+
+  ## =================
+
+
+  ./case.setup
+
+  ./xmlchange RUN_REFCASE=$REFCASE
+  ./xmlchange GET_REFCASE=FALSE
+  ./xmlchange RUN_REFDATE=2019-01-01
+  ./xmlchange RUN_STARTDATE=2019-01-01
+  ./xmlchange STOP_N=$STOP_N
+  ./xmlchange STOP_OPTION=$STOP_OPTION
+  ./xmlchange RESUBMIT=$RESUBMIT
+
+  cp $REFROOT/rpoint*   $RUNROOT/
+  ln -s $REFROOT/b.e21* $RUNROOT/
+
+  if ($mbr == $exembr) then
+        #setenv BUILDCASE $CASENAME
+        ./xmlchange EXEROOT=/glade/derecho/scratch/nanr/CVD/bld
+        ./qcmd -- ./case.build
+  endif
+
+  # point to one executable
+  if ($mbr > $exembr) then
+        #./xmlchange EXEROOT=/glade/derecho/scratch/nanr/$BUILDCASE/bld
+        ./xmlchange EXEROOT=/glade/derecho/scratch/nanr/CVD/bld
+        ./xmlchange BUILD_COMPLETE=TRUE
+  endif
+
+
+  ./preview_namelists
+  ./case.submit
+
+# ./case.build >& bld.`date +%m%d-%H%M`
+end             # member loop
+
+exit
+

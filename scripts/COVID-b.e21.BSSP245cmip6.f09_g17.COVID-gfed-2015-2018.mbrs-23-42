@@ -16,12 +16,13 @@ setenv POSTPROCESS_PATH /glade/u/home/mickelso/CESM_postprocessing_3/
 setenv POSTPROCESS_PATH_GEYSER /glade/u/home/mickelso/CESM_postprocessing_3/
 
 set COMPSET = BSSP245cmip6
-set SIMULAT = COVIDcntl-SSP2-4.5
+set SIMULAT = COVID-gfed-2015-2020
 set MACHINE = cheyenne
 set RESOLN = f09_g17
-set RESUBMIT = 1
-set STOP_N=3
+set RESUBMIT = 2
+set STOP_N=2
 set STOP_OPTION=nyears
+set PROJECT=CESM0019
 
 setenv BASEROOT /glade/work/nanr/CESM2-covid/
 setenv BASENAME b.e21.${COMPSET}.${RESOLN}.${SIMULAT}
@@ -29,7 +30,7 @@ setenv BASENAME b.e21.${COMPSET}.${RESOLN}.${SIMULAT}
 set doThis = 1
 if ($doThis == 1) then
 cd ~nanr/CESM-WF/
-./create_cylc_covid_ensemble-mbrs43-52 --case $BASEROOT$BASENAME --res $RESOLN  --compset $COMPSET --user-mods-dir /glade/u/home/cmip6/cesm_tags/cesm2.1.2-rc.01/components/clm/cime_config/usermods_dirs/cmip6_deck
+./create_cylc_covid_ensemble --case $BASEROOT$BASENAME --res $RESOLN  --compset $COMPSET --user-mods-dir /glade/u/home/cmip6/cesm_tags/cesm2.1.2-rc.01/components/clm/cime_config/usermods_dirs/cmip6_deck --project $PROJECT
 
 endif
 
@@ -84,31 +85,17 @@ endif
 # .040: RUN_REFCASE=b.e21.BHISTcmip6.f09_g17.LE2-1301.006
 # .041: RUN_REFCASE=b.e21.BHISTcmip6.f09_g17.LE2-1301.007
 # .042: RUN_REFCASE=b.e21.BHISTcmip6.f09_g17.LE2-1301.008
-###
-# .043: RUN_REFCASE=b.e21.BHISTcmip6.f09_g17.LE2-1231.009
-# .044: RUN_REFCASE=b.e21.BHISTcmip6.f09_g17.LE2-1231.010
-###
-# .045: RUN_REFCASE=b.e21.BHISTcmip6.f09_g17.LE2-1251.009
-# .046: RUN_REFCASE=b.e21.BHISTcmip6.f09_g17.LE2-1251.010
-###
-# .047: RUN_REFCASE=b.e21.BHISTcmip6.f09_g17.LE2-1281.009
-# .048: RUN_REFCASE=b.e21.BHISTcmip6.f09_g17.LE2-1281.010
-###
-# .049: RUN_REFCASE=b.e21.BHISTcmip6.f09_g17.LE2-1301.009
-# .050: RUN_REFCASE=b.e21.BHISTcmip6.f09_g17.LE2-1301.010.orig
-###
-# .051: RUN_REFCASE=b.e21.BHISTcmip6.f09_g17.LE2-1011.001
-# .052: RUN_REFCASE=b.e21.BHISTcmip6.f09_g17.LE2-1031.002
 
 # now create cases
 
-set smbr =  43
-set embr =  52
-set offset = 9
+set smbr =  23
+set embr =  42
+set offset = 4
 
 @ mb = $smbr
 @ me = $embr
 
+setenv REFDATE  1231
 @ basembr = 1
 @ ctr = 1
 @ casectr = $offset
@@ -118,40 +105,28 @@ set offset = 9
 foreach mbr ( `seq $mb  $me` )
 
 #  advance reference case every 4th member
-@ rmndr = $ctr % 2
+@ rmndr = $ctr % 5
 
-if ($mbr < 45) then
+if ($mbr < 28) then
         set REFDATE = 1231
-        set usecasectr = $casectr
 endif
-if ($mbr >= 45 && $mbr < 47) then
+if ($mbr >= 28 && $mbr < 33) then
         set REFDATE = 1251
-        set usecasectr = $casectr
 endif
-if ($mbr >= 47 && $mbr < 49) then
+if ($mbr >= 33 && $mbr < 38) then
         set REFDATE = 1281
-        set usecasectr = $casectr
 endif
-if ($mbr >= 49 && $mbr < 51) then
+if ($mbr >= 38 && $mbr < 43) then
         set REFDATE = 1301
-        set usecasectr = $casectr
-endif
-if ($mbr == 51 ) then
-        set REFDATE = 1001
-        set usecasectr = 1
-endif
-if ($mbr == 52 ) then
-        set REFDATE = 1021
-        set usecasectr = 2
 endif
 
 
-if    ($usecasectr < 10) then
+if    ($basembr < 10) then
         #setenv REFCASE  b.e21.BHISTcmip6.f09_g17.LE2-1231.00${casectr}
-        setenv REFCASE  b.e21.BHISTcmip6.${RESOLN}.LE2-${REFDATE}.00${usecasectr}
-else if ($usecasectr >= 10 && $usecasectr < 100) then
+        setenv REFCASE  b.e21.BHISTcmip6.${RESOLN}.LE2-${REFDATE}.00${casectr}
+else if ($basembr >= 10 && $basembr < 100) then
         #setenv REFCASE  b.e21.BHISTcmip6.f09_g17.LE2-1231.0${casectr}
-        setenv REFCASE  b.e21.BHISTcmip6.${RESOLN}.LE2-${REFDATE}.0${usecasectr}
+        setenv REFCASE  b.e21.BHISTcmip6.${RESOLN}.LE2-${REFDATE}.0${casectr}
 endif
 
 if    ($mbr < 10) then
@@ -165,11 +140,7 @@ endif
 
 if ($doThis == 1) then
 
-  if($mbr == 50) then
-       setenv REFROOT   /glade/scratch/nanr/archive/${REFCASE}.orig/rest/2015-01-01-00000/
-  else
-       setenv REFROOT   /glade/scratch/nanr/archive/$REFCASE/rest/2015-01-01-00000/
-  endif 
+  setenv REFROOT   /glade/scratch/nanr/archive/$REFCASE/rest/2015-01-01-00000/
   setenv RUNROOT   /glade/scratch/nanr/$CASENAME/run/
   setenv CASEROOT  $BASEROOT$CASENAME
 
@@ -194,10 +165,10 @@ if ($doThis == 1) then
   mv user_nl_cpl user_nl_cpl.`date +%m%d-%H%M`
   mv user_nl_cice user_nl_cice.`date +%m%d-%H%M`
 
-  cp $CESM2_LE_TOOLS_ROOT/user_nl_files/SSP245-forcing/user_nl_cam $CASEROOT/
-  cp $CESM2_LE_TOOLS_ROOT/user_nl_files/SSP245-forcing/user_nl_clm $CASEROOT/
-  cp $CESM2_LE_TOOLS_ROOT/user_nl_files/SSP245-forcing/user_nl_cpl $CASEROOT/
-  cp $CESM2_LE_TOOLS_ROOT/user_nl_files/SSP245-forcing/user_nl_cice $CASEROOT/
+  cp $CESM2_LE_TOOLS_ROOT/user_nl_files/GFED-2015-2020/user_nl_cam $CASEROOT/
+  cp $CESM2_LE_TOOLS_ROOT/user_nl_files/GFED-2015-2020/user_nl_clm $CASEROOT/
+  cp $CESM2_LE_TOOLS_ROOT/user_nl_files/GFED-2015-2020/user_nl_cpl $CASEROOT/
+  cp $CESM2_LE_TOOLS_ROOT/user_nl_files/GFED-2015-2020/user_nl_cice $CASEROOT/
 
   ./case.setup --reset
   ./case.setup

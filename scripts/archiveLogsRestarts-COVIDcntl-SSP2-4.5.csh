@@ -5,7 +5,7 @@ module load ncl nco
 setenv CESM2_TOOLS_ROOT /glade/work/nanr/cesm_tags/CASE_tools/cesm2-covid
 setenv ARCHDIR  /glade/scratch/nanr/archive/
 setenv LOGSDIR  /glade/campaign/collections/cmip/CMIP6/COVID/logs/
-setenv RESTDIR  /glade/campaign/collections/cmip/CMIP6/COVID/restarts/COVID-gfed-2015-2018/
+setenv RESTDIR  /glade/campaign/collections/cmip/CMIP6/COVID/restarts/COVIDcntl-SSP2-4.5/
 setenv POPDDIR  /glade/campaign/collections/cmip/CMIP6/COVID/pop.d/
 
 set smbr =  43
@@ -16,16 +16,16 @@ set embr =  52
 
 foreach mbr ( `seq $mb $me` )
 if ($mbr < 10) then
-        set CASE = b.e21.BSSP245cmip6.f09_g17.COVID-gfed-2015-2018.00${mbr}
+        set CASE = b.e21.BSSP245cmip6.f09_g17.COVIDcntl-SSP2-4.5.00${mbr}
 else
-        set CASE = b.e21.BSSP245cmip6.f09_g17.COVID-gfed-2015-2018.0${mbr}
+        set CASE = b.e21.BSSP245cmip6.f09_g17.COVIDcntl-SSP2-4.5.0${mbr}
 endif
 
 #tar -cvf $LOGSDIR/$CASE.logs.tar $ARCHDIR/$CASE/logs
 #tar -cvf $POPDDIR/$CASE.pop.dd.tar $ARCHDIR/$CASE/ocn/hist/*.pop.d*
 
-set srest = 2021
-set erest = 2021
+set srest = 2025
+set erest = 2025
 @ sr = $srest
 @ er = $erest
 

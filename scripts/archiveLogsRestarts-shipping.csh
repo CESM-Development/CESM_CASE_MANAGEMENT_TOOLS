@@ -3,29 +3,31 @@
 module load ncl nco
 
 setenv CESM2_TOOLS_ROOT /glade/work/nanr/cesm_tags/CASE_tools/cesm2-covid
-setenv ARCHDIR  /glade/scratch/nanr/archive/
-setenv LOGSDIR  /glade/campaign/collections/cmip/CMIP6/COVID/logs/
-setenv RESTDIR  /glade/campaign/collections/cmip/CMIP6/COVID/restarts/COVID-gfed-2015-2018/
-setenv POPDDIR  /glade/campaign/collections/cmip/CMIP6/COVID/pop.d/
+setenv ARCHDIR  /glade/derecho/scratch/nanr/archive/
+setenv LOGSDIR  /glade/campaign/cgd/ccr/nanr/COVID-cvd-aufire-shipping/logs/
+setenv RESTDIR  /glade/campaign/cgd/ccr/nanr/COVID-cvd-aufire-shipping/restarts/
+setenv POPDDIR  /glade/campaign/cgd/ccr/nanr/COVID-cvd-aufire-shipping/popd/
 
-set smbr =  43
-set embr =  52
+set smbr =  1
+set embr =  10
 
 @ mb = $smbr
 @ me = $embr
 
 foreach mbr ( `seq $mb $me` )
 if ($mbr < 10) then
-        set CASE = b.e21.BSSP245cmip6.f09_g17.COVID-gfed-2015-2018.00${mbr}
+	#set CASE = b.e21.BSSP245cmip6.f09_g17.COVID-cvd-aufire-shipping.10${mbr}
+        set CASE = b.e21.BSSP245cmip6.f09_g17.COVID-ssp245-2019-cntl.10${mbr}
 else
-        set CASE = b.e21.BSSP245cmip6.f09_g17.COVID-gfed-2015-2018.0${mbr}
+	#set CASE = b.e21.BSSP245cmip6.f09_g17.COVID-cvd-aufire-shipping.1${mbr}
+        set CASE = b.e21.BSSP245cmip6.f09_g17.COVID-ssp245-2019-cntl.1${mbr}
 endif
 
 #tar -cvf $LOGSDIR/$CASE.logs.tar $ARCHDIR/$CASE/logs
 #tar -cvf $POPDDIR/$CASE.pop.dd.tar $ARCHDIR/$CASE/ocn/hist/*.pop.d*
 
-set srest = 2021
-set erest = 2021
+set srest = 2024
+set erest = 2024
 @ sr = $srest
 @ er = $erest
 

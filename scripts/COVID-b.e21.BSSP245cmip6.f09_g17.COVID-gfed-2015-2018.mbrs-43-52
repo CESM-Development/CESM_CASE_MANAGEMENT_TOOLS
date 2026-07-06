@@ -16,12 +16,13 @@ setenv POSTPROCESS_PATH /glade/u/home/mickelso/CESM_postprocessing_3/
 setenv POSTPROCESS_PATH_GEYSER /glade/u/home/mickelso/CESM_postprocessing_3/
 
 set COMPSET = BSSP245cmip6
-set SIMULAT = COVIDcntl-SSP2-4.5
+set SIMULAT = COVID-gfed-2015-2018
 set MACHINE = cheyenne
 set RESOLN = f09_g17
-set RESUBMIT = 1
-set STOP_N=3
+set RESUBMIT = 2
+set STOP_N=2
 set STOP_OPTION=nyears
+set PROJECT=CESM0019
 
 setenv BASEROOT /glade/work/nanr/CESM2-covid/
 setenv BASENAME b.e21.${COMPSET}.${RESOLN}.${SIMULAT}
@@ -29,7 +30,7 @@ setenv BASENAME b.e21.${COMPSET}.${RESOLN}.${SIMULAT}
 set doThis = 1
 if ($doThis == 1) then
 cd ~nanr/CESM-WF/
-./create_cylc_covid_ensemble-mbrs43-52 --case $BASEROOT$BASENAME --res $RESOLN  --compset $COMPSET --user-mods-dir /glade/u/home/cmip6/cesm_tags/cesm2.1.2-rc.01/components/clm/cime_config/usermods_dirs/cmip6_deck
+./create_cylc_covid_ensemble-mbrs43-52 --case $BASEROOT$BASENAME --res $RESOLN  --compset $COMPSET --user-mods-dir /glade/u/home/cmip6/cesm_tags/cesm2.1.2-rc.01/components/clm/cime_config/usermods_dirs/cmip6_deck --project $PROJECT
 
 endif
 
@@ -100,6 +101,7 @@ endif
 # .051: RUN_REFCASE=b.e21.BHISTcmip6.f09_g17.LE2-1011.001
 # .052: RUN_REFCASE=b.e21.BHISTcmip6.f09_g17.LE2-1031.002
 
+
 # now create cases
 
 set smbr =  43
@@ -169,7 +171,7 @@ if ($doThis == 1) then
        setenv REFROOT   /glade/scratch/nanr/archive/${REFCASE}.orig/rest/2015-01-01-00000/
   else
        setenv REFROOT   /glade/scratch/nanr/archive/$REFCASE/rest/2015-01-01-00000/
-  endif 
+  endif
   setenv RUNROOT   /glade/scratch/nanr/$CASENAME/run/
   setenv CASEROOT  $BASEROOT$CASENAME
 
@@ -194,10 +196,10 @@ if ($doThis == 1) then
   mv user_nl_cpl user_nl_cpl.`date +%m%d-%H%M`
   mv user_nl_cice user_nl_cice.`date +%m%d-%H%M`
 
-  cp $CESM2_LE_TOOLS_ROOT/user_nl_files/SSP245-forcing/user_nl_cam $CASEROOT/
-  cp $CESM2_LE_TOOLS_ROOT/user_nl_files/SSP245-forcing/user_nl_clm $CASEROOT/
-  cp $CESM2_LE_TOOLS_ROOT/user_nl_files/SSP245-forcing/user_nl_cpl $CASEROOT/
-  cp $CESM2_LE_TOOLS_ROOT/user_nl_files/SSP245-forcing/user_nl_cice $CASEROOT/
+  cp $CESM2_LE_TOOLS_ROOT/user_nl_files/GFED-2015-2018/user_nl_cam $CASEROOT/
+  cp $CESM2_LE_TOOLS_ROOT/user_nl_files/GFED-2015-2018/user_nl_clm $CASEROOT/
+  cp $CESM2_LE_TOOLS_ROOT/user_nl_files/GFED-2015-2018/user_nl_cpl $CASEROOT/
+  cp $CESM2_LE_TOOLS_ROOT/user_nl_files/GFED-2015-2018/user_nl_cice $CASEROOT/
 
   ./case.setup --reset
   ./case.setup
@@ -216,6 +218,17 @@ if ($doThis == 1) then
 
 endif
 
+cd $CASEROOT
+if ( $mbr == $smbr ) then
+  set mastercase = $CASENAME
+  set masterroot = $CASEROOT
+  ./case.setup --reset
+else
+  ./case.setup --reset
+  ./xmlchange EXEROOT=/glade/scratch/nanr/$mastercase/bld/
+  ./xmlchange BUILD_COMPLETE=TRUE
+endif
+
   @ casectr ++
 
   # advance REFCASE after every 5th ensemble member
@@ -227,8 +240,10 @@ endif
   @ ctr ++
 
 
-# ./case.build >& bld.`date +%m%d-%H%M`
 end             # member loop
+   
+cd $masterroot
+./case.build >& bld.`date +%m%d-%H%M`
 
 exit
 

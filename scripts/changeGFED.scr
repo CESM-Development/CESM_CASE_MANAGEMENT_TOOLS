@@ -14,8 +14,8 @@ set RESOLN = f09_g17
 setenv BASEROOT /glade/work/nanr/CESM2-covid/
 setenv BASENAME b.e21.${COMPSET}.${RESOLN}.${SIMULAT}
 
-set smbr =  24
-set embr =  42
+set smbr =  43
+set embr =  52
 
 @ mb = $smbr
 @ me = $embr
@@ -35,7 +35,7 @@ endif
   mv user_nl_cam user_nl_cam.yrs2015-2018
   cp /glade/work/nanr/cesm_tags/CASE_tools/cesm2-covid/user_nl_files/GFED-2015-2020/user_nl_cam $CASEROOT
   ./xmlchange RESUBMIT=0
-  ./xmlchange PROJECT=CESM0019
+  ./xmlchange PROJECT=CESM0015
   ./xmlchange JOB_QUEUE=economy --subgroup case.run
   ./case.submit
 

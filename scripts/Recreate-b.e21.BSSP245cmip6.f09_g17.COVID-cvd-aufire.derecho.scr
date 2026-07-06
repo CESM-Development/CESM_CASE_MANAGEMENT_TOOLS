@@ -1,0 +1,136 @@
+#!/bin/csh -fx
+### set env variables
+setenv CESM2_LE_TOOLS_ROOT /glade/work/nanr/cesm_tags/CASE_tools/cesm2-covid/
+setenv CESMROOT /glade/work/nanr/cesm_tags/cesm2.1.5/
+
+set COMPSET = BSSP245cmip6
+set SIMULAT = COVID-cvd-aufire-derecho
+set MACHINE = derecho
+set RESOLN = f09_g17
+set RESUBMIT = 0
+set STOP_N=18
+set STOP_OPTION=nmonths
+
+setenv BASEROOT /glade/work/nanr/CESM2-covid/
+setenv BASENAME b.e21.${COMPSET}.${RESOLN}.${SIMULAT}
+
+
+# .0[01-10]: RUN_REFCASE=b.e21.BSSP245cmip6.f09_g17.COVID-gfed-2015-2018.0[01-10]
+
+# now create cases
+
+set exembr =  1
+set smbr =  1
+set embr =  10
+
+@ mb = $smbr
+@ me = $embr
+
+
+@ basembr = 1
+@ ctr = 1
+
+foreach mbr ( `seq $mb  $me` )
+
+#  advance reference case every 4th member
+#@ rmndr = $ctr % 4
+
+if    ($basembr < 10) then
+        #setenv REFCASE  b.e21.BSSP245cmip6.f09_g17.${SIMULAT}.00${basembr}
+        setenv REFCASE  b.e21.BSSP245cmip6.f09_g17.COVID-gfed-2015-2018.00${basembr}
+else if ($basembr >= 10 && $basembr < 100) then
+        #setenv REFCASE  b.e21.BSSP245cmip6.f09_g17.${SIMULAT}.0${basembr}
+        setenv REFCASE  b.e21.BSSP245cmip6.f09_g17.COVID-gfed-2015-2018.0${basembr}
+endif
+
+if    ($mbr < 10) then
+	setenv CASENAME b.e21.${COMPSET}.${RESOLN}.${SIMULAT}.10${mbr}
+else if ($mbr >= 10 && $mbr < 100) then
+	setenv CASENAME b.e21.${COMPSET}.${RESOLN}.${SIMULAT}.1${mbr}
+endif
+
+
+  setenv REFROOT   /glade/derecho/scratch/nanr/archive/$REFCASE/rest/2019-01-01-00000/
+  setenv RUNROOT   /glade/derecho/scratch/nanr/$CASENAME/run/
+  setenv CASEROOT  $BASEROOT$CASENAME
+  setenv PROJECT   P04010022
+
+  cd $CESMROOT/cime/scripts
+  ./create_newcase --case $BASEROOT$CASENAME --res $RESOLN  --compset $COMPSET --project $PROJECT 
+
+  cd $CASEROOT
+  echo "CASEROOT =  $CASEROOT"
+
+  mv user_nl_cam user_nl_cam.`date +%m%d-%H%M`
+  mv user_nl_clm user_nl_clm.`date +%m%d-%H%M`
+  mv user_nl_cpl user_nl_cpl.`date +%m%d-%H%M`
+  mv user_nl_cice user_nl_cice.`date +%m%d-%H%M`
+
+  cp $CESM2_LE_TOOLS_ROOT/user_nl_files/cvd-aufire/user_nl_cam $CASEROOT/
+  cp $CESM2_LE_TOOLS_ROOT/user_nl_files/cvd-aufire/user_nl_clm $CASEROOT/
+  cp $CESM2_LE_TOOLS_ROOT/user_nl_files/cvd-aufire/user_nl_cpl $CASEROOT/
+  cp $CESM2_LE_TOOLS_ROOT/user_nl_files/cvd-aufire/user_nl_cice $CASEROOT/
+
+  ./case.setup
+
+  ./xmlchange PROJECT=P04010022
+  ./xmlchange RUN_REFCASE=$REFCASE
+  ./xmlchange GET_REFCASE=FALSE
+  ./xmlchange RUN_REFDATE=2019-01-01
+  ./xmlchange RUN_STARTDATE=2019-01-01
+  ./xmlchange STOP_N=$STOP_N
+  ./xmlchange STOP_OPTION=$STOP_OPTION
+# ./xmlchange DOUT_S_SAVE_INTERIM_RESTART_FILES=TRUE
+  ./xmlchange RESUBMIT=$RESUBMIT
+
+  cp $REFROOT/rpoint*   $RUNROOT/
+  ln -s $REFROOT/b.e21* $RUNROOT/
+
+  if ($mbr == $exembr) then
+        #setenv BUILDCASE $CASENAME
+        ./xmlchange EXEROOT=/glade/derecho/scratch/nanr/CVD/bld
+        ./xmlchange BUILD_COMPLETE=TRUE
+        #./qcmd -- ./case.build
+  endif
+  # point to one executable
+  if ($mbr > $exembr) then
+        #./xmlchange EXEROOT=/glade/derecho/scratch/nanr/$BUILDCASE/bld
+        ./xmlchange EXEROOT=/glade/derecho/scratch/nanr/CVD/bld
+        ./xmlchange BUILD_COMPLETE=TRUE
+  endif
+
+set turnPertOn = 1
+if ($turnPertOn == 1) then
+# =========================
+# add pertlim perturbation to micro members 11 .. N 
+# =========================
+
+if ($mbr != 1) then
+cat >> head.${mbr} << EOF
+! micro-member perturbation
+pertlim = ${mbr}.d-14
+EOF
+
+mv user_nl_cam tmp.cam
+cat head.${mbr} tmp.cam  > user_nl_cam
+rm tmp.cam head.${mbr}
+
+endif
+# =========================
+# END - pertlim 
+# =========================
+endif	# turnPerOn
+
+  ./preview_namelists
+
+  # advance REFCASE after every 4th ensemble member
+  #if ($rmndr == 0) then
+	#@ basembr ++
+  #endif
+  @ ctr ++
+
+# ./case.build >& bld.`date +%m%d-%H%M`
+end             # member loop
+
+exit
+
