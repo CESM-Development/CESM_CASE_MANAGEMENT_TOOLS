@@ -23,7 +23,7 @@
 ! Fix Antarctica bug
 ! Erik:  add this b/c RUN_REFCASE hist.011 was not fixed for the wetland bug
 !----------------------------------------------------------------------------------
-! use_init_interp = .true.
+use_init_interp = .true.
 
 !----------------------------------------------------------------------------------
 ! Settings from output_base

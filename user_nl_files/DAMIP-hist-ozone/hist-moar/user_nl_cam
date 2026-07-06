@@ -63,17 +63,18 @@ fincl2 = 'ACTNL', 'ACTREL', 'BURDENBCdn', 'BURDENDUSTdn', 'BURDENPOMdn', 'BURDEN
    'V', 'Z3', 'Z500',
    'PRECL',   'PRECC', 'QRL', 'QRS', 'DTCOND', 'DTV', 'DCQ',
    'CDNUMC', 'AODVIS', 'FCTL', 'FCTI', 'ACTNL', 'ACTNI', 'ACTREL', 'ACTREI', 'FLNT', 'FSNT', 'SWCF', 'LWCF', 'TGCLDLWP', 'TGCLDIWP', 'BURDENSO4',
-!fincl3 = 'U:I', 'V:I', 'T:I', 'Q:I', 'OMEGA:I', 'PS:I', 'PSL:I'
-!fincl4 = 'CLDTOT', 'FLUT', 'FSDS', 'LHFLX', 'PRECC', 'PRECT', 'QREFHT:I', 'TREFHT:I'
-!fincl5 = 'PRECT'
+ fincl3 = 'U:I', 'V:I', 'T:I', 'Q:I', 'OMEGA:I', 'PS:I', 'PSL:I'
+ fincl4 = 'CLDTOT', 'FLUT', 'FSDS', 'LHFLX', 'PRECC', 'PRECT', 'QREFHT:I', 'TREFHT:I'
+ fincl5 = 'PRECT'
  fincl7 = 'MSKtem','PS','PSL','VTHzm','UVzm','UWzm','Uzm','Vzm','THzm','Wzm','PHIS'
 
-! evolving solar
-&solar_data_opts
- solar_data_type       = 'SERIAL'
- solar_data_ymd        =  -99999999
- solar_htng_spctrl_scl          = .true.
- solar_irrad_data_file = '/glade/p/cesmdata/cseg/inputdata/atm/cam/solar/SolarForcingCMIP6_18491230-22991231_c171031.nc'
+! evolving ozone
+&prescribed_ozone_nl
+ prescribed_ozone_cycle_yr              = -999999
+ prescribed_ozone_datapath      = '/glade/p/cesm/cseg/inputdata/atm/cam/ozone_strataero/'
+ prescribed_ozone_file          = 'ozone_strataero_WACCM_L70_zm5day_18500101-20150103_CMIP6ensAvg_noTropoO3.c210908.nc'
+ prescribed_ozone_name          = 'O3'
+ prescribed_ozone_type          = 'SERIAL'
 /
 
 

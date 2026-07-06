@@ -1,6 +1,7 @@
 ! Users should add all user specific namelist changes below in the form of
 ! namelist_var = new_namelist_value
 
+
 nhtfrq = 0, -24, -6, -3,  -1,   1, -24,-120,-240
 mfilt  = 1,   5, 20, 40, 120, 240, 365,  73, 365
 ndens  = 2,   2,  2,  2,   2,   2,   1,   1,   1
@@ -67,14 +68,14 @@ fincl2 = 'ACTNL', 'ACTREL', 'BURDENBCdn', 'BURDENDUSTdn', 'BURDENPOMdn', 'BURDEN
  fincl5 = 'PRECT'
  fincl7 = 'MSKtem','PS','PSL','VTHzm','UVzm','UWzm','Uzm','Vzm','THzm','Wzm','PHIS'
 
-! evolving GHG
-&chem_surfvals_nl
- flbc_file              = '/glade/p/cesmdata/cseg/inputdata/atm/waccm/lb/LBC_2014-2500_CMIP6_SSP245_0p5degLat_GlobAnnAvg_c190301.nc'
- flbc_list              = 'CO2','CH4','N2O','CFC11eq','CFC12'
- flbc_type              = 'SERIAL'
- scenario_ghg           = 'CHEM_LBC_FILE'
+! evolving solar
+&solar_data_opts
+ solar_data_type       = 'SERIAL'
+ solar_data_ymd        =  -99999999
+ solar_htng_spctrl_scl          = .true.
+ solar_irrad_data_file = '/glade/p/cesmdata/cseg/inputdata/atm/cam/solar/SolarForcingCMIP6_18491230-22991231_c171031.nc'
 /
 
+
 do_circulation_diags           = .true.
-cosp_amwg=.true.
 

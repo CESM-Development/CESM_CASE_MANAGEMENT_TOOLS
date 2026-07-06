@@ -1,0 +1,167 @@
+Nan Rosenbloom <nanr@ucar.edu>
+Wed, Sep 1, 6:01 PM
+to Michael, Julie, me
+
+Hi Mike [and Julie]
+
+Can you check this ozone forcing file to see if I've correctly interpretted what has to change for the DAMIP Ozone simulations.
+
+/glade/scratch/nanr/DAMIP/ozone_strataero_WACCM_L70_zm5day_18500101-20150103_CMIP6ensAvg_zero_O3_belowtropo.c210901.nc
+
+I've also listed a difference (from the original) file in the same directory.
+
+Thanks Mike. Hmm, that indicates to me that we will need to create a new ozone_strataero file for this DAMIP hist-stratO3 simulation then, one that includes only the stratospheric ozone concentrations. This is what I had expected originally but your initial reply to Nan had me hopeful. If we do have to create a new file, I'd appreciate any advice on the best approach to determining which ozone is stratospheric.
+
+Nan
+
+----------
+Michael Mills <mmills@ucar.edu>
+Sep 1, 2021, 6:26 PM
+to me, Julie
+
+I looked at the O3, and it looks right to me. It seems like you didn’t change anything else, which is correct.
+
+------------------
+
+
+Nan Rosenbloom <nanr@ucar.edu>
+Tue, Oct 22, 2019, 4:57 PM
+to Gokhan, Mike, Louisa, Simone, Jean-Francois, Andrew, Susan, me
+
+Hi all -
+
+I am setting up the DAMIP hist-STRATOSPHERIC-OZONE simulation but have the most basic of questions:  I am unsure about the details for what forcing files I need. (For example, I have a note that suggests that I will "need to know the status of the stratosphere ozone forcings" and I'm not sure what that means.  :)
+
+Can someone point me in the right direction?
+
+Nan
+
+---------------------------
+
+
+Michael Mills <mmills@ucar.edu>
+Wed, Oct 23, 2019, 3:38 AM
+to me, Gokhan, Louisa, Simone, Jean-Francois, Andrew, Susan
+
+I assume this experiment is intended to have stratospheric ozone evolving in accordance with the historical simulations, and all other forcings consistent with the piControl. You would then set up your case in the same way as a piControl run, then:
+
+./xmlchange RUN_STARTDATE=1850-01-01
+
+And put this in user_nl_cam:
+
+ prescribed_ozone_file		= 'ozone_strataero_WACCM_L70_zm5day_18500101-20150103_CMIP6ensAvg_c180923.nc'
+ prescribed_ozone_type		= 'SERIAL'
+
+-----------------
+
+
+Nan Rosenbloom <nanr@ucar.edu>
+Jan 21, 2021, 4:46 PM
+to Julie
+
+ozone forcing:
+
+&prescribed_ozone_nl
+ prescribed_ozone_cycle_yr      = -999999
+ prescribed_ozone_datapath      = '/glade/p/cesmdata/cseg/inputdata/atm/cam/ozone_strataero'
+ prescribed_ozone_file          = 'ozone_strataero_WACCM_L70_zm5day_18500101-20150103_CMIP6ensAvg_c180923.nc'
+ prescribed_ozone_name          = 'O3'
+ prescribed_ozone_type          = 'SERIAL'
+/
+
+
+
+&prescribed_strataero_nl
+ prescribed_strataero_cycle_yr          =       1850
+ prescribed_strataero_datapath          = '/glade/p/cesmdata/cseg/inputdata/atm/cam/ozone_strataero'
+ prescribed_strataero_file              = 'ozone_strataero_cyclical_WACCM6_L70_CMIP6-piControl.001_y21-50avg_zm_5day_c180802.nc'
+ prescribed_strataero_type              = 'CYCLICAL'
+ prescribed_strataero_use_chemtrop              =   .true.
+
+------------------
+
+
+Julie Arblaster <julie.arblaster@monash.edu>
+Jan 21, 2021, 7:15 PM
+to Michael, me
+
+Hi Mike,
+
+Nan and I are hoping to get the DAMIP stratospheric ozone simulation started soon and just discussed setting it up. I'd appreciate your help in confirming a few details of the ozone forcing.
+
+From your email below it seems as though the stratospheric and tropospheric ozone forcing is included as separate inputs in the CESM2-CAM6 simulations. That's great and makes things very simple for us.
+
+From reading Gokhan's overview paper, I see the tropospheric ozone is included with the other oxidants, presumably in this file for the historical (DECK) runs? tracer_cnst_halons_3D_L70_1849-2015_CMIP6ensAvg_c180927.nc
+
+However, the last sentence of this paragraph has me pondering what is included:
+
+"Stratospheric ozone and stratospheric aerosol are radiatively active species important to the radiative budget, temperature, general circulation, chemistry, and cloud physics of CESM2. In CESM2(CAM6), stratospheric distributions of these species are prescribed from 5‐day zonal means of CESM2(WACCM6) output. Ozone volume mixing ratio is prescribed for the entire vertical extent of the model for use in radiative transfer calculations. "
+
+If we want to isolate the impacts of stratospheric ozone only, do we need to change the ozone volume mixing ratio somehow?
+
+Thanks,
+Julie
+
+--------------------------
+
+
+Michael Mills <mmills@ucar.edu>
+Jan 21, 2021, 8:24 PM
+to Julie, me
+
+There are indeed 2 different files that prescribe ozone in CAM. I will give my best understanding of them, but it may help if we go 
+over this with a software engineer or someone who works with CAM, such as Cecile Hannay.
+
+The first file is this one:
+
+ tracer_cnst_file = 'tracer_cnst_halons_3D_L70_1849-2015_CMIP6ensAvg_c180927.nc'
+
+This prescribes a number of chemical constituents, including ozone. These values are used in the 
+limited chemistry that is in CAM, which is there mostly because of interactive sulfates and secondary organic aerosols in MAM. 
+As far as I know, this file is not directly used by the radiative transfer scheme. This file contains monthly averaged values in 3 spatial dimensions.
+
+The second file is this one:
+
+ prescribed_ozone_file = 'ozone_strataero_WACCM_L70_zm5day_18500101-20150103_CMIP6ensAvg_c180923.nc'
+
+This file is used by the radiative transfer scheme, and contains 5-day zonal averages.
+
+Both files span the full vertical extent of the model. So the difference between them is not really that 
+one is for the troposphere and the other for the stratosphere. Rather, the tracer_cnst_file is used for chemistry, 
+and the prescribed_ozone_file is used for radiation.
+
+
+----
+
+Julie Arblaster <julie.arblaster@monash.edu>
+Jan 21, 2021, 8:40 PM
+to Cecile, Andrew, Michael, me
+
+Thanks Mike. Hmm, that indicates to me that we will need to create a new ozone_strataero file for this DAMIP 
+hist-stratO3 simulation then, one that includes only the stratospheric ozone concentrations. This is what I had 
+expected originally but your initial reply to Nan had me hopeful. If we do have to create a new file, I'd appreciate any 
+advice on the best approach to determining which ozone is stratospheric.
+
+I've Cc'd Cecile and Andrew for their insights - thanks in advance!
+
+Julie
+
+--------------
+
+Michael Mills <mmills@ucar.edu>
+Jan 21, 2021, 8:47 PM
+to Julie, Cecile, Andrew, me
+
+You are in luck! The prescribed_ozone_file includes the variable NITROP_PD, which is the probability that the tropopause 
+is at each level over the 5-day zonal mean for each time, level, and latitude in the file. This variable was used to set the 
+file variables so4_a1, so4_a2, so4_a3, SAD_AERO, and icenuc_num set to zero below tropopause level. The threshold I used 
+for this cutoff is levels below 95% of tropopause levels.
+
+-----------------
+
+Julie Arblaster <julie.arblaster@monash.edu>
+Jan 21, 2021, 9:42 PM
+to Michael, Cecile, Andrew, me
+
+Excellent, that indeed sounds perfect.
+

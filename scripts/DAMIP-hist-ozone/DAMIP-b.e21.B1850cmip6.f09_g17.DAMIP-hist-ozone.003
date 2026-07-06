@@ -1,0 +1,108 @@
+#!/bin/csh -f
+### set env variables
+
+setenv CESMROOT ~cmip6/cesm_tags/release-cesm2.1.2/
+
+set COMPSET = B1850cmip6
+set MACHINE = cheyenne
+set RESOLN = f09_g17
+set mbr = 3
+
+setenv CASENAME b.e21.B1850cmip6.f09_g17.DAMIP-hist-soz.00${mbr}
+setenv REFCASE  b.e21.B1850.f09_g17.CMIP6-piControl.001
+setenv RUNROOT  /glade/scratch/nanr/$CASENAME/run/
+
+setenv BASEROOT /glade/work/nanr/cmip6/cases/DAMIP/
+setenv CASEROOT /glade/work/nanr/cmip6/cases/DAMIP/$CASENAME
+echo --case $BASEROOT$CASENAME --res $RESOLN  --compset $COMPSET 
+
+#cd ~/CESM-WF/
+#./create_cylc_DAMIP-hist-ozone --case $BASEROOT$CASENAME --res $RESOLN  --compset $COMPSET 
+
+cd $CESMROOT/cime/scripts/
+./create_newcase --case $BASEROOT$CASENAME --res $RESOLN  --compset $COMPSET 
+
+if ($mbr == 1) then
+     setenv REFDATE  0841-01-01
+endif
+if ($mbr == 3) then
+     setenv REFDATE  0501-01-01
+endif
+if ($mbr == 4) then
+     setenv REFDATE  0661-01-01
+endif
+
+setenv REFROOT  /glade/p/cesmdata/cseg/inputdata/cesm2_init/b.e21.B1850.f09_g17.CMIP6-piControl.001/${REFDATE}/
+
+echo $CASEROOT
+cd $CASEROOT
+
+./xmlchange RUN_REFCASE=$REFCASE
+./xmlchange RUN_REFDATE=$REFDATE
+./xmlchange RUN_STARTDATE=1850-01-01
+./xmlchange RESUBMIT=54
+./xmlchange JOB_QUEUE=economy --subgroup case.run
+./xmlchange PROJECT=P93300313
+./xmlchange STOP_N=3
+./xmlchange STOP_OPTION=nyears
+#./xmlchange --append CAM_CONFIG_OPTS=-cosp
+
+
+
+set singleThred = 1
+if ($singleThred == 1) then
+	./xmlchange NTASKS_CPL=576
+	./xmlchange NTASKS_ATM=576
+	./xmlchange NTASKS_LND=504
+	./xmlchange NTASKS_ICE=36
+	./xmlchange NTASKS_OCN=144
+	./xmlchange NTASKS_ROF=468
+	./xmlchange NTASKS_GLC=576
+	./xmlchange NTASKS_WAV=36
+	./xmlchange ROOTPE_ICE=504
+	./xmlchange ROOTPE_OCN=576
+	./xmlchange ROOTPE_WAV=540
+else
+	./xmlchange NTASKS_CPL=1152
+	./xmlchange NTASKS_ATM=1152
+	./xmlchange NTASKS_LND=864
+	./xmlchange NTASKS_ICE=288
+	./xmlchange NTASKS_OCN=256
+	./xmlchange NTASKS_ROF=864
+	./xmlchange NTASKS_GLC=1152
+	./xmlchange NTASKS_WAV=32
+	./xmlchange NTHRDS_CPL=3
+	./xmlchange NTHRDS_ATM=3
+	./xmlchange NTHRDS_LND=3
+	./xmlchange NTHRDS_ICE=3
+	./xmlchange NTHRDS_OCN=3
+	./xmlchange NTHRDS_ROF=3
+	./xmlchange NTHRDS_GLC=3
+	./xmlchange NTHRDS_WAV=3
+	./xmlchange ROOTPE_ICE=864
+	./xmlchange ROOTPE_OCN=1152
+	./xmlchange ROOTPE_WAV=1408
+endif
+
+./case.setup
+
+
+mv user_nl_cam user_nl_cam.`date +%m%d-%H%M`
+mv user_nl_clm user_nl_clm.`date +%m%d-%H%M`
+mv user_nl_cice user_nl_cice.`date +%m%d-%H%M`
+mv user_nl_cpl user_nl_cpl.`date +%m%d-%H%M`
+
+cp /glade/work/nanr/cesm_tags/CASE_tools/cesm2-cmip6/user_nl_files/DAMIP-hist-ozone/hist/user_nl_cam .
+cp /glade/work/nanr/cesm_tags/CASE_tools/cesm2-cmip6/user_nl_files/DAMIP-hist-ozone/hist/user_nl_clm .
+cp /glade/work/nanr/cesm_tags/CASE_tools/cesm2-cmip6/user_nl_files/DAMIP-hist-ozone/hist/user_nl_cice .
+cp /glade/work/nanr/cesm_tags/CASE_tools/cesm2-cmip6/user_nl_files/DAMIP-hist-ozone/hist/user_nl_cpl .
+
+cp $REFROOT/rpointer* $RUNROOT/
+ln -s $REFROOT/b.e21* $RUNROOT/
+
+./preview_namelists
+
+./xmlchange EXEROOT=/glade/scratch/nanr/b.e21.B1850cmip6.f09_g17.DAMIP-hist-soz.001/bld/
+./xmlchange BUILD_COMPLETE=TRUE
+# qcmd -- ./case.build >& bld.`date +%m%d-%H%M`
+
