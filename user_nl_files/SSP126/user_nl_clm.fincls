@@ -1,0 +1,41 @@
+!----------------------------------------------------------------------------------
+! Users should add all user specific namelist changes below in the form of
+! namelist_var = new_namelist_value
+!
+! EXCEPTIONS:
+! Set use_cndv           by the compset you use and the CLM_BLDNML_OPTS -dynamic_vegetation setting
+! Set use_vichydro       by the compset you use and the CLM_BLDNML_OPTS -vichydro           setting
+! Set use_cn             by the compset you use and CLM_BLDNML_OPTS -bgc  setting
+! Set use_crop           by the compset you use and CLM_BLDNML_OPTS -crop setting
+! Set spinup_state       by the CLM_BLDNML_OPTS -bgc_spinup      setting
+! Set irrigate           by the CLM_BLDNML_OPTS -irrig           setting
+! Set co2_ppmv           with CCSM_CO2_PPMV                      option
+! Set dtime              with L_NCPL                             option
+! Set fatmlndfrc         with LND_DOMAIN_PATH/LND_DOMAIN_FILE    options
+! Set finidat            with RUN_REFCASE/RUN_REFDATE/RUN_REFTOD options for hybrid or branch cases
+!                        (includes $inst_string for multi-ensemble cases)
+! Set maxpatch_glcmec    with GLC_NEC                            option
+! Set glc_do_dynglacier  with GLC_TWO_WAY_COUPLING               env variable
+!----------------------------------------------------------------------------------
+hist_fincl1 = 'ACTUAL_IMMOB', 'AR', 'C13_AR', 'C13_GPP', 'C13_HR', 'C13_NBP', 'C13_TOTECOSYSC', 'C13_TOTLITC', 'C13_TOTSOMC', 'C13_TOTVEGC', 'C14_AR', 'C14_GPP', 'C14_HR', 'C14_NBP', 'C14_TOTECOSYSC', 'C14_TOTLITC', 'C14_TOTSOMC', 'C14_TOTVEGC', 'CH4PROD', 'CROPPROD1C', 'CROPPROD1C_LOSS', 'CWDC', 'CWDN', 'DEADCROOTC', 'DEADCROOTN', 'DEADSTEMC', 'DEADSTEMN', 'DWT_CONV_CFLUX', 'FAREA_BURNED', 'FCH4', 'FFIX_TO_SMINN', 'FINUNDATED', 'FIRE', 'FROOTC', 'FROOTC_ALLOC', 'FROOTC_TO_LITTER', 'FROOTN', 'F_DENIT', 'F_N2O_NIT', 'GPP', 'GR', 'HR', 'LAND_USE_FLUX', 'LEAFC', 'LEAFC_ALLOC', 'LEAFC_TO_LITTER', 'LEAFN', 'LEAF_MR', 'LITFALL', 'LITFALL_N', 'LITR1C_TO_SOIL1C', 'LITR1N_TO_SOIL1N', 'LITR2C_TO_SOIL1C', 'LITR2N_TO_SOIL1N', 'LITR3C_TO_SOIL2C', 'LITR3N_TO_SOIL2N', 'LITTERC_HR', 'LIVECROOTC', 'LIVECROOTN', 'LIVESTEMC', 'LIVESTEMN', 'MR', 'NBP', 'NDEP_TO_SMINN', 'NEE', 'NET_NMIN', 'NFIX', 'NUPTAKE', 'PCT_LANDUNIT', 'PFT_FIRE_CLOSS', 'PFT_FIRE_NLOSS', 'QINTR', 'QOVER', 'QSOIL', 'QVEGE', 'QVEGT', 'RR', 'SMINN', 'SMIN_NH4', 'SMIN_NO3', 'SMIN_NO3_LEACHED', 'SMIN_NO3_RUNOFF', 'SOIL1C', 'SOIL2C', 'SOIL3C', 'SOILC_HR', 'SOILICE', 'SOILLIQ', 'SOM_C_LEACHED', 'STORVEGC', 'TOTECOSYSC', 'TOTECOSYSN', 'TOTLITN', 'TOTSOMC', 'TOTSOMN', 'TOTVEGC', 'TOTVEGN', 'TOT_WOODPRODC', 'TOT_WOODPRODC_LOSS', 'TOT_WOODPRODN', 'TOT_WOODPRODN_LOSS', 'TSOI', 'TWS', 'WOODC', 'WOODC_ALLOC', 'AR', 'COL_FIRE_CLOSS', 'DWT_WOOD_PRODUCTC_GAIN_PATCH', 'FIRE', 'FSNO', 'GPP', 'H2OSNO', 'HR', 'HTOP', 'NFERTILIZATION', 'NPP', 'NPP_NUPTAKE', 'NUPTAKE', 'PCT_CFT', 'PCT_LANDUNIT', 'QFLX_SUB_SNOW', 'QRUNOFF', 'QSNOMELT', 'SNOBCMSL', 'SNOTXMASS', 'SNOWDP', 'SNOWICE', 'SNOWLIQ', 'SOIL1C', 'SOIL2C', 'SOIL3C', 'SOILLIQ', 'SOILWATER_10CM', 'TLAI', 'TOTECOSYSC', 'TOTLITC', 'TOTSOILLIQ', 'TOTSOMC', 'TOTSOMC_1m', 'TOTVEGC', 'WOODC', 'WOOD_HARVESTC', 'landfrac', 
+
+hist_fincl2 = 'AR', 'GPP', 'HTOP', 'NPP', 'TOTVEGC', 
+
+hist_fincl3 = 'AR', 'COL_FIRE_CLOSS', 'DWT_CONV_CFLUX', 'DWT_CONV_CFLUX_PATCH', 'DWT_SLASH_CFLUX', 'EFLX_LH_TOT', 'FIRE', 'FSH', 'FSR', 'GPP', 'H2OSNO', 'HR', 'HTOP', 'NPP', 'Q2M', 'QIRRIG', 'QRUNOFF', 'RR', 'SLASH_HARVESTC', 'SOILICE', 'SOILLIQ', 'SOILWATER_10CM', 'TLAI', 'TOTSOILICE', 'TOTSOILLIQ', 'TREFMNAV', 'TREFMXAV', 'TSA', 'TSKIN', 
+
+hist_fincl4 = 'PCT_LANDUNIT', 'PCT_NAT_PFT', 'PCT_LANDUNIT:I', 'CROPPROD1C:I', 'PCT_CFT', 'PCT_LANDUNIT', 'PCT_NAT_PFT', 'SOIL1C', 'SOIL1C_vr', 'SOIL2C', 'SOIL2C_vr', 'SOIL3C', 'SOIL3C_vr', 'TOTLITC:I', 'TOTLITC:I', 'TOTSOMC:I', 'TOTSOMC:I', 'TOTVEGC:I', 'TOTVEGC:I', 'TOT_WOODPRODC:I', 'landfrac', 'levsoi', 
+
+hist_fincl5 = 'QRUNOFF', 'SOILWATER_10CM', 'TOTSOILICE', 'TOTSOILLIQ', 'TOTLITC:I', 'TOTLITC:I', 'TOTSOMC:I', 'TOTSOMC:I', 'TOTVEGC:I', 'TOTVEGC:I', 
+
+hist_fincl6 = 'FSNO', 'H2OSNO', 'SOILICE', 'SOILLIQ', 'TLAI', 'TSKIN', 'TSOI', 
+
+hist_fincl7 = 'QRUNOFF', 'SOILWATER_10CM:I', 
+
+hist_fincl8 = 'FIRE:X', 
+
+hist_fincl9 = 'FIRE:M', 
+
+hist_mfilt = 1,1,1,1,365,365,8760,365,365
+hist_dov2xy = .true.,.false.,.false.,.true.,.true.,.false.,.true.,.false.,.false.
+hist_nhtfrq = 0,0,0,-8760,-24,-24,-1,-24,-24
+hist_type1d_pertape = ' ',' ','LAND',' ',' ','LAND',' ',' ',' '

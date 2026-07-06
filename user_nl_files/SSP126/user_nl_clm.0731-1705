@@ -1,9 +1,8 @@
-
 !----------------------------------------------------------------------------------
-! Users should add all user specific namelist changes below in the form of
-! namelist_var = new_namelist_value
+! Users should add all user specific namelist changes below in the form of 
+! namelist_var = new_namelist_value 
 !
-! EXCEPTIONS:
+! EXCEPTIONS: 
 ! Set use_cndv           by the compset you use and the CLM_BLDNML_OPTS -dynamic_vegetation setting
 ! Set use_vichydro       by the compset you use and the CLM_BLDNML_OPTS -vichydro           setting
 ! Set use_cn             by the compset you use and CLM_BLDNML_OPTS -bgc  setting
@@ -14,16 +13,10 @@
 ! Set dtime              with L_NCPL                             option
 ! Set fatmlndfrc         with LND_DOMAIN_PATH/LND_DOMAIN_FILE    options
 ! Set finidat            with RUN_REFCASE/RUN_REFDATE/RUN_REFTOD options for hybrid or branch cases
-!                        (includes inst_string for multi-ensemble cases)
+!                        (includes $inst_string for multi-ensemble cases)
 ! Set maxpatch_glcmec    with GLC_NEC                            option
 ! Set glc_do_dynglacier  with GLC_TWO_WAY_COUPLING               env variable
 !----------------------------------------------------------------------------------
-
-!----------------------------------------------------------------------------------
-! Fix Antarctica bug
-! Erik:  add this b/c RUN_REFCASE hist.011 was not fixed for the wetland bug
-!----------------------------------------------------------------------------------
-use_init_interp = .true.
 
 !----------------------------------------------------------------------------------
 ! Settings from output_base
@@ -40,12 +33,12 @@ hist_fexcl1 += 'PCT_GLC_MEC','PCT_NAT_PFT'
 hist_fincl1 += 'EFLX_LH_TOT_ICE', 'FIRE_ICE', 'FLDS_ICE', 'FSH_ICE', 'FSNO_ICE', 'FSR_ICE', 'QFLX_SUB_SNOW_ICE', 'QRUNOFF_ICE', 'QSNOFRZ_ICE', 'QSNOMELT_ICE', 'RAIN_ICE', 'SNOW_ICE', 'SNOWICE_ICE', 'SNOWLIQ_ICE', 'SNOTXMASS_ICE', 'TG_ICE', 'TOPO_COL_ICE', 'TSA_ICE', 'TSOI_ICE'
 
 ! h1 stream (monthly average, finest sub-grid)
-! Emon, Lmon
+! Emon, Lmon 
 hist_mfilt(2) = 1
 hist_dov2xy(2) = .false.
 hist_nhtfrq(2) = 0
 hist_type1d_pertape(2) = ' '
-hist_fincl2 += 'TLAI', 'TSA','TREFMNAV','TREFMXAV', 'BTRANMN', 'Vcmx25Z', 'FSH', 'VEGWP', 'FCTR', 'FCEV', 'FGEV', 'FIRE', 'FSR', 'FIRA', 'FSA', 'GSSUNLN', 'GSSHALN', 'TSKIN', 'H2OSOI'
+hist_fincl2 += 'TLAI', 'TSA','TREFMNAV','TREFMXAV', 'BTRANMN', 'Vcmx25Z', 'FSH', 'VEGWP', 'FCTR', 'FCEV', 'FGEV', 'FIRE', 'FSR', 'FIRA', 'FSA', 'GSSUNLN', 'GSSHALN', 'TSKIN'
 
 ! h2 stream (monthly average, landunit-level)
 ! Emon
@@ -112,15 +105,15 @@ hist_fincl4 += 'PCT_CFT','CROPPROD1C:I'
 ! Settings from cmip6_carbon_isotopes
 !----------------------------------------------------------------------------------
 
-use_c13 = .false.
-use_c14 = .false.
-! use_c13_timeseries = .true.
-! use_c14_bombspike = .true.
+use_c13 = .true.
+use_c14 = .true.
+use_c13_timeseries = .true.
+use_c14_bombspike = .true.
 
 ! h0 stream (monthly average, gridcell-level)
-! hist_fexcl1 += 'C14_SOILC_vr'
+hist_fexcl1 += 'C14_SOILC_vr'
 ! h3 stream (yearly average, gridcell-level)
-! hist_fincl4 += 'C14_SOILC_vr'
+hist_fincl4 += 'C14_SOILC_vr'
 
 !----------------------------------------------------------------------------------
 ! Settings from cmip6_glaciers_virtual_antarctica
