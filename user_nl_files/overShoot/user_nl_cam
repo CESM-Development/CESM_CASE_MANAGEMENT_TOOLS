@@ -1,0 +1,10 @@
+! Users should add all user specific namelist changes below in the form of 
+! namelist_var = new_namelist_value 
+ 
+!! 6-hourly h2
+fincl3 =  'IVT:I', 'uIVT:I', 'vIVT:I', 'TMQ:I', 'PRECC:A', 'PRECL:A', 
+	  'PRECSC:A','PRECSL:A', 'U10:I','PRECT:I', 'PSL:I', 'U850:I', 
+	  'UBOT:I', 'V850:I', 'VBOT:I', 'Z300:I', 'Z500:I'
+          
+!! hourly h4
+fincl5		= 'O3_SRF','TS','PM25_SRF','NO2_SRF','TREFHT'

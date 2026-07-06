@@ -1,0 +1,15 @@
+!! 6hrly h2
+
+fincl3 =  'IVT:I', 'uIVT:I', 'vIVT:I', 'TMQ:I', 'PRECC:A', 'PRECL:A', 
+'PRECSC:A','PRECSL:A', 'U10:I','PRECT:I', 'PSL:I', 'U850:I', 
+'UBOT:I', 'V850:I', 'VBOT:I', 'Z300:I', 'Z500:I'
+
+
+cesm2-LE (ok with Colin)
+!! 6hr (h2)fincl3 =    'PRECC:A','PRECL:A','PRECSC:A','PRECSL:A','PRECT:I','PSL:I',    'U850:I','UBOT:I','V850:I','VBOT:I','Z300:I','Z500:I'
+
+CESM(WACCM6) extension:  Christine Shields
+Full extension, if possible, last 50 years if not.
+6-hourly:  IVT, uIVT, vIVT, U850, V850, TMQ, PRECC, PRECL,
+
+Add (Colin) for diagnostics: U10, PRECSC, PRECSL

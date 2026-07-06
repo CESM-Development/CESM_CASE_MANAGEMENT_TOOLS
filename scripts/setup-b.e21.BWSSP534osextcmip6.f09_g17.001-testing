@@ -1,0 +1,72 @@
+#!/bin/csh -f
+### set env variables
+
+setenv CESMROOT /glade/u/home/cmip6/cesm_tags/cesm2.1.4-rc.03/
+
+set COMPSET = BWSSP534osextcmip6
+set MACHINE = cheyenne
+set RESOLN = f09_g17
+
+setenv CASENAME b.e21.${COMPSET}.f09_g17.001
+setenv REFCASE  b.e21.BWSSP585cmip6.f09_g17.CMIP6-SSP5-8.5-WACCM.001
+setenv REFDATE  2101-01-01
+setenv STARTDATE  2101-01-01
+
+#setenv CASEROOT /glade/scratch/nanr/$CASENAME
+setenv RUNROOT /glade/scratch/nanr/$CASENAME/run
+
+#$CESMROOT/cime/scripts/create_newcase --case $CASEROOT --res $RESOLN  --compset $COMPSET --user-mods-dir /glade/u/home/cmip6/cesm_tags/release-cesm2.1.2/components/clm/cime_config/usermods_dirs/cmip6_deck --run-unsupported
+
+setenv CASEROOT /glade/work/cmip6/cases/ScenarioMIP_WACCM/$CASENAME
+#cd ~cmip6/nanr/CESM-WF/
+cd /glade/work/nanr/cesm_tags/CASE_tools/cesm2-2300x/scripts/ 
+./create_cylc_${CASENAME}-2101-2300 --case $CASEROOT --res $RESOLN  --compset $COMPSET --user-mods-dir /glade/u/home/cmip6/cesm_tags/release-cesm2.1.2/components/clm/cime_config/usermods_dirs/cmip6_deck --run-unsupported
+
+cd $CASEROOT
+
+./xmlchange RUN_TYPE=hybrid
+# ./xmlchange RUN_REFCASE=$REFCASE
+# ./xmlchange RUN_REFDATE=$REFDATE
+# ./xmlchange RUN_STARTDATE=$STARTDATE
+./xmlchange STOP_N=1
+./xmlchange STOP_OPTION=nyears
+./xmlchange RESUBMIT=199
+
+./xmlchange NTASKS_CPL=1152
+./xmlchange NTASKS_ATM=1152
+./xmlchange NTASKS_LND=864
+./xmlchange NTASKS_ICE=252
+./xmlchange NTASKS_OCN=36
+./xmlchange NTASKS_ROF=864
+./xmlchange NTASKS_GLC=1152
+./xmlchange NTASKS_WAV=36
+./xmlchange NTHRDS_CPL=3
+./xmlchange NTHRDS_ATM=3
+./xmlchange NTHRDS_LND=3
+./xmlchange NTHRDS_ICE=3
+./xmlchange NTHRDS_OCN=3
+./xmlchange NTHRDS_ROF=3
+./xmlchange NTHRDS_GLC=3
+./xmlchange NTHRDS_WAV=3
+./xmlchange ROOTPE_ICE=864
+./xmlchange ROOTPE_OCN=1152
+./xmlchange ROOTPE_WAV=1116
+
+./case.setup
+
+mv user_nl_cam user_nl_cam.`date +%m%d-%H%M`
+mv user_nl_cice user_nl_cice.`date +%m%d-%H%M`
+mv user_nl_cpl user_nl_cpl.`date +%m%d-%H%M`
+mv user_nl_clm user_nl_clm.`date +%m%d-%H%M`
+mv user_nl_mosart user_nl_mosart.`date +%m%d-%H%M`
+
+cp /glade/work/nanr/cesm_tags/CASE_tools/cesm2-2300x/user_nl_files/overShoot/user_nl_* $CASEROOT/
+cp /glade/work/nanr/cesm_tags/CASE_tools/cesm2-2300x/SourceMods/src.cam/* $CASEROOT/SourceMods/src.cam/
+
+ln -s /glade/scratch/nanr/archive/b.e21.BWSSP585cmip6.f09_g17.CMIP6-SSP5-8.5-WACCM.001/rest/2101-01-01-00000/b.e21.BWSSP585cmip6.f09_g17.CMIP6-SSP5-8.5-WACCM.001.* $RUNROOT/
+cp /glade/scratch/nanr/archive/b.e21.BWSSP585cmip6.f09_g17.CMIP6-SSP5-8.5-WACCM.001/rest/2101-01-01-00000/rpointer.* $RUNROOT/
+
+./preview_namelists
+
+#qcmd -- ./case.build >& bld.`date +%m%d-%H%M`
+

@@ -18,7 +18,7 @@
 ! Set glc_do_dynglacier  with GLC_TWO_WAY_COUPLING               env variable
 !----------------------------------------------------------------------------------
 
-use_init_interp = .true.
+!!use_init_interp = .true.
 
 !----------------------------------------------------------------------------------
 ! Settings from output_base
@@ -48,7 +48,7 @@ hist_mfilt(3) = 1
 hist_dov2xy(3) = .false.
 hist_nhtfrq(3) = 0
 hist_type1d_pertape(3) = 'LAND'
-hist_fincl3 += 'FSR', 'H2OSNO', 'Q2M', 'SNOWDP', 'TSA', 'TREFMNAV', 'TREFMXAV', 'TG', 'QRUNOFF', 'FSH', 'FIRE', 'FIRA', 'FGR', 'EFLX_LH_TOT', 'RH2M', 'TLAI', 'SOILWATER_10CM', 'TOTSOILLIQ', 'TOTSOILICE', 'U10', 'TSOI_10CM', 'QIRRIG', 'URBAN_HEAT', 'WASTEHEAT', 'TSKIN','FSA','FSM','HIA','HUMIDEX','SoilAlpha_U','SWBGT','TBUILD','URBAN_AC','URBAN_HEAT','WASTEHEAT'
+hist_fincl3 += 'FSR', 'H2OSNO', 'Q2M', 'SNOWDP', 'TSA', 'TREFMNAV', 'TREFMXAV', 'TG', 'QRUNOFF', 'FSH', 'FIRE', 'FIRA', 'FGR', 'EFLX_LH_TOT', 'RH2M', 'TLAI', 'SOILWATER_10CM', 'TOTSOILLIQ', 'TOTSOILICE', 'U10', 'TSOI_10CM', 'QIRRIG', 'URBAN_HEAT', 'WASTEHEAT', 'TSKIN'
 
 ! h3 stream (yearly average, gridcell-level)
 ! Eyr
@@ -82,7 +82,7 @@ hist_fincl2 += 'GPP', 'NPP', 'AGNPP', 'TOTVEGC', 'NPP_NUPTAKE', 'AR', 'HR', 'HTO
 hist_fincl3 += 'GPP', 'NPP', 'AR', 'HR', 'DWT_CONV_CFLUX_PATCH', 'WOOD_HARVESTC', 'DWT_WOOD_PRODUCTC_GAIN_PATCH', 'SLASH_HARVESTC', 'COL_FIRE_CLOSS', 'DWT_SLASH_CFLUX', 'FROOTC:I', 'HTOP'
 
 ! h3 stream (yearly average, gridcell-level)
-hist_fincl4 += 'SOILC_vr', 'SOILN_vr', 'CWDC_vr', 'LITR1C_vr', 'LITR2C_vr', 'LITR3C_vr', 'LITR1N_vr', 'LITR2N_vr', 'LITR3N_vr','CWDN_vr', 'TOTLITC:I', 'TOT_WOODPRODC:I', 'TOTSOMC:I','TOTVEGC:I','SOIL1C_vr','SOIL2C_vr','SOIL3C_vr'
+hist_fincl4 += 'SOILC_vr', 'SOILN_vr', 'CWDC_vr', 'LITR1C_vr', 'LITR2C_vr', 'LITR3C_vr', 'LITR1N_vr', 'LITR2N_vr', 'LITR3N_vr','CWDN_vr', 'TOTLITC:I', 'TOT_WOODPRODC:I', 'TOTSOMC:I','TOTVEGC:I'
 
 ! h4 stream (yearly average, landunit-level)
 hist_fincl5 += 'TOTSOMC:I', 'TOTSOMC_1m:I', 'TOTECOSYSC:I', 'TOTVEGC:I', 'WOODC:I', 'TOTLITC:I', 'LIVECROOTC:I', 'DEADCROOTC:I', 'FROOTC:I'
@@ -95,7 +95,7 @@ hist_fincl5 += 'TOTSOMC:I', 'TOTSOMC_1m:I', 'TOTECOSYSC:I', 'TOTVEGC:I', 'WOODC:
 hist_fexcl1 += 'PCT_CFT'
 
 ! h1 stream (monthly average, finest sub-grid)
-hist_fincl2 += 'GRAINC_TO_FOOD','NFERTILIZATION','QVEGT'
+hist_fincl2 += 'GRAINC_TO_FOOD','NFERTILIZATION'
 
 ! h2 stream (monthly average, landunit-level)
 hist_fincl3 += 'GRAINC_TO_FOOD'
@@ -118,11 +118,14 @@ hist_fexcl1 += 'C14_SOILC_vr'
 hist_fincl4 += 'C14_SOILC_vr'
 
 !----------------------------------------------------------------------------------
-! Settings from cmip6_glaciers_virtual_antarctica
+! Adding daily QRUNOFF
 !----------------------------------------------------------------------------------
 
-! This differs from the default in that it turns on virtual columns over Antarctica
-! This is desired so that we have the output needed to drive a later offline CISM Antarctica simulation
-! However, this increases the cost of CLM by about 10%
-glacier_region_behavior = 'single_at_atm_topo', 'virtual', 'virtual', 'virtual'
+! h5 stream (daily average, gridcell-level)
+! day, Eday
 
+hist_mfilt(6) = 365
+hist_dov2xy(6) = .true.
+hist_nhtfrq(6) = -24
+hist_type1d_pertape(6) = ' '
+hist_fincl6 += 'QRUNOFF'
