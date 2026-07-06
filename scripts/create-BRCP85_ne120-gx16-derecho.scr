@@ -4,6 +4,7 @@ set MACHINE = derecho
 set TOOLS_ROOT = /glade/work/nanr/cesm_tags/CASE_tools/cesm13-ne120_g16/
 
 set COMPSET = BHISTC5
+set COMPSET = BRCP85C5
 set EXPERIMENT = HR-LR-derecho-1920
 set RESOLN  = ne120_g16
 set TAG     = cesm-ihesp-hires1.0.46
@@ -34,22 +35,19 @@ set STOP_N=12
 # LENS 1920 restarts:   ocn/ice
 # /glade/campaign/cesm/cesmdata/inputdata/ccsm4_init/b.e11.B20TRC5CNBDRD.f09_g16.001/1920-01-01
 
-set LENSPATH   = /glade/campaign/cesm/cesmdata/inputdata/ccsm4_init/b.e11.B20TRC5CNBDRD.f09_g16.001/1920-01-01
-set HRPATH     = /glade/campaign/cesm/cesmdata/inputdata/ccsm4_init/B.E.13.BHISTC5.ne120_t12.sehires38.003.sunway/1920-01-01
-set syear =  1920
-set eyear =  1920
+set syear =  2006
+set eyear =  2006
 set useyear = $syear
 set mbr = 001
 
 setenv CASE b.e13.${COMPSET}.${EXPERIMENT}.${RESOLN}.$mbr
-setenv REFCASE B.E.13.BHISTC5.ne120_t12.sehires38.003.sunway
+setenv REFCASE b.e13.BHISTC5.HR-LR-derecho-1920.ne120_g16.001
 
 set PATH      = /glade/work/nanr/
 set RUNDIR    = /glade/derecho/scratch/nanr/$CASE/run
 set BLDDIR    = /glade/derecho/scratch/nanr/$CASE/bld
 setenv CASEROOT /glade/work/nanr/CESM13-HR-LR/cases/$CASE
-#set REFROOT   = /glade/p/cesm/cseg/inputdata/ccsm4_init/$REFCASE
-set REFROOT   = /glade/campaign/collections/cmip/CMIP6/iHESP/BHIST/HR/$REFCASE/
+set REFROOT   = /glade/derecho/scratch/nanr/archive/$REFCASE/rest/
 
 setenv CESMROOT ${PATH}/cesm_tags/${TAG}/
 
@@ -80,31 +78,39 @@ endif
 ./xmlchange GET_REFCASE=FALSE
 ./xmlchange JOB_WALLCLOCK_TIME=12:00:00 --subgroup case.run
 
-./xmlchange PROJECT=CESM0020
+./xmlchange PROJECT=P04010022
 ./xmlchange PIO_VERSION=1
+
+# lower tasks for ocn
+# negative means nodes instead of task
+./xmlchange NTASKS_OCN=-2
+./xmlchange NTASKS_LND=-15
+./xmlchange NTASKS_ROF=-15
+./xmlchange NTASKS_ICE=8064
+./xmlchange ROOTPE_ICE=-15
 
 
 # copy namelists for lnd (IP) and ice (LR ocn)
 # ice:  ice_ic = "b.e11.B20TRC5CNBDRD.f09_g16.001.cice.r.1920-01-01-00000.nc"
 # lnd:  finidat = 'B.E.13.BHISTC5.ne120_t12.sehires38.003.sunway.clm2.r.1920-01-01-00000.IP.nc'
-cp $TOOLS_ROOT/user_nl_files/BHIST-1920/user_nl* $CASEROOT/
+# cp $TOOLS_ROOT/user_nl_files/BHIST-1920/user_nl* $CASEROOT/
 
 
 # =========================
 # add pertlim perturbation to micro members 2 .. N 
 # =========================
-if ($mbr != 1) then
-cat >> head.${mbr} << EOF
-! micro-member perturbation
-pertlim = ${mbr}.d-14
+#if ($mbr != 1) then
+#cat >> head.${mbr} << EOF
+#! micro-member perturbation
+#pertlim = ${mbr}.d-14
+#
+#EOF
 
-EOF
+#mv user_nl_cam tmp.cam
+#cat head.${mbr} tmp.cam  > user_nl_cam
+#rm tmp.cam head.${mbr}
 
-mv user_nl_cam tmp.cam
-cat head.${mbr} tmp.cam  > user_nl_cam
-rm tmp.cam head.${mbr}
-
-endif
+#endif
 # =========================
 # END - pertlim 
 # =========================
@@ -117,28 +123,13 @@ endif
 
 # copy iHESP restarts to RUNDIR
 
-echo "iHESP restarts================="
-echo $HRPATH/
+echo "restarts================="
+echo $REFROOT/
 echo "================="
-cp    $HRPATH/rpointer.atm $RUNDIR
-cp    $HRPATH/rpointer.lnd $RUNDIR
-cp    $HRPATH/rpointer.rof $RUNDIR
-cp    $HRPATH/rpointer.drv $RUNDIR
-ln -s $HRPATH/*cam*.nc $RUNDIR
-ln -s $HRPATH/*clm*.nc $RUNDIR
-ln -s $HRPATH/*rtm*.nc $RUNDIR
-ln -s $HRPATH/*cpl*.nc $RUNDIR
-
-echo "LENS restarts================="
-echo $LENSPATH/
-echo "================="
-cp    $LENSPATH/rpointer.ocn* $RUNDIR
-cp    $LENSPATH/rpointer.ice $RUNDIR
-ln -s $LENSPATH/*pop* $RUNDIR
-ln -s $LENSPATH/*cice* $RUNDIR
+cp    $REFROOT/${useyear}-01-01-00000/rpointer.* $RUNDIR
+cp    $REFROOT/${useyear}-01-01-00000/b.* $RUNDIR
 
 ./case.setup
 
-./case.setup --reset
-qcmd -A P06010014 -- ./case.build
+qcmd -A P04010022 -- ./case.build
 

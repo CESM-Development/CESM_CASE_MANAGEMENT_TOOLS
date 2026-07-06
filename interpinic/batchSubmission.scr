@@ -1,0 +1,9 @@
+#!/bin/bash
+
+#PBS -N interpinic
+#PBS -q main
+#PBS -l select=12:ncpus=128:mpiprocs=16
+#PBS -l walltime=12:00:00
+#PBS -A P93300313
+
+./interpinic -i /glade/derecho/scratch/nanr/interpinic/B.E.13.BHISTC5.ne120_t12.sehires38.003.sunway.clm2.r.1920-01-01-00000.nc -o /glade/derecho/scratch/nanr/interpinic/B.E.13.BHISTC5.ne120_t12.sehires38.003.sunway.clm2.r.1920-01-01-00000.IP.nc
