@@ -6,3 +6,10 @@ My SOM was created from a tx1v3 set of forcing data so no Caspian.  If you are c
 I saw that the filename had a weird character ('^') and I renamed it. 
 
 /glade/scratch/jet/pop.frc.g.e21.GIAF.TL319_t13.5thCyc.ice.001_c20210325.nc
+
+Jun 28, 2021:
+OK I think I found the error with the SOM file.  I created a new file for you /glade/scratch/jet/som/pop.frc.g.e21.GIAF.TL319_t13.5thCyc.ice.001_c20210628.ncpop.frc.g.e21.GIAF.TL319_t13.5thCyc.ice.001_c20210628.nc
+
+This one ran 5 timesteps of the local cheyenne SOM test.
+CaseDir:
+/glade/p/cgd/amp/jet/cases/e.e13.E1850C5.ne120_t12.cesm-ihesp-hires1.0.35.capt-SOM.02b.jt

@@ -1,0 +1,51 @@
+Hi Brian -
+
+My question is whether we can use the SOM forcing as the IC for all the CAPT-som runs.
+When I look at the Prediction Roadmap (attached), I noticed that the arrows for the SOM runs indicate 5 day ocean restarts, which I don't think we have.  I'm just not very familiar with SOM runs!
+
+Nan
+
+https://docs.google.com/presentation/d/1qL_MISglMt6cvn7QYgwKVuX5IC7yzi1SOVfk-lk7EH4/edit#slide=id.g4348635f6d_0_0
+
+----------------
+Hi Nan,
+
+Happy vacation!
+
+Here’s my understanding, and we can discuss any details when you are back.
+
+The SOM forcing file should (if I remember) have the mixed layer depth, the “q-flux” (ocean heat transport), mixed-layer temperature and ice fraction. 
+
+I think the best way to do the CAPT runs would be to provide each forecast with a SOM forcing file that has appropriate:
+SST or mixed-layer temperature; could be from observation or from obs-forced g-case for initialization time
+ice cover; could be from observations or from obs-forced g-case for initialization time
+mixed layer depth from the g-case ; preferably for initialization time, but could be climatology
+q-flux based on g-case climatology
+
+The entire SOM is just one equation, really (code in cime/src/components/data_comps_mct/docn/src/docn_comp_mod.F90). The SOM temperature is updated:
+
+T(t) = T(t-1) + (SW + LW + SH + LH + MELT - QFLUX - Li*(SNOW+RUNOFF)) * (dt/(cp*rho*h))
+
+Starting with the correct temperature, T(0), and mixed layer depth, h, are important to start the slab with the right heat capacity. The QFLUX matters, but should be a secondary term for our purposes because it should be relatively small and change slowly (so the climatology is fine for that term). 
+
+-----------------------------
+
+
+
+---------- Forwarded message ---------
+From: Brian Medeiros <brianpm@ucar.edu>
+Date: Thu, Jul 29, 2021 at 3:43 PM
+Subject: Re: Time for a quick chat?
+To: Nan Rosenbloom <nanr@ucar.edu>
+
+
+Okay, here’s the front page for OISST:
+
+https://www.ncdc.noaa.gov/oisst/optimum-interpolation-sea-surface-temperature-oisst-v21
+
+
+Data access is by YYYYMM directory, with daily files inside: 
+https://www.ncei.noaa.gov/data/sea-surface-temperature-optimum-interpolation/v2.1/access/avhrr/
+
+
+Seems like there’s a good chance these are sitting around somewhere already, though. According to the FAQ, this is the new “Reynolds” SST. If I remember, I’ll go poke around once glade is back online.

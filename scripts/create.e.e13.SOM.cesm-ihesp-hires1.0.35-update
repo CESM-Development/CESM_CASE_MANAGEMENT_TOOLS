@@ -7,8 +7,9 @@ set RESOLN  = ne120_t12
 set MACHINE = cori-knl
 set MACHINE = cheyenne
 set TAG     = cesm-ihesp-hires1.0.35
+set PROJECT = P93300313
 
-set mbr = 2
+set mbr = 1
 setenv CASE e.e13.${COMPSET}.${RESOLN}.${TAG}.${EXPERIMENT}.0${mbr}
 
 
@@ -18,14 +19,12 @@ if ($MACHINE == cori-knl) then
 	set RUNDIR    = $SCRATCH/nanr/$CASE/run
 	set CASEROOT  = $PATH/cases/cesm1_3/capt-SOM/$CASE
         set TOOLS     = $HOME/CESM_tools/
-        #setenv CESMROOT /global/project/projectdirs/ccsm1/people/nanr/cesm_tags/capt-cesm1_3_beta17_${TAG}
         setenv CESMROOT /global/project/projectdirs/ccsm1/people/nanr/cesm_tags/cesm-ihesp-hires1.0.35
 else 
         set PATH      = /glade/work/nanr/
         set RUNDIR    = /glade/scratch/nanr/$CASE/run
 	set TOOLS     = /glade/work/nanr/cesm_tags/CASE_tools/
-        setenv CASEROOT /glade/work/nanr/capt-prediction-toCori/cases/ne120_t12/$CASE
-        #setenv CESMROOT /glade/work/nanr/cesm_tags/capt-cesm1_3_beta17_${TAG}
+        setenv CASEROOT /glade/work/nanr/capt/cases/$CASE
         setenv CESMROOT /glade/work/nanr/cesm_tags/cesm-ihesp-hires1.0.35
 endif
 
@@ -43,9 +42,13 @@ cd $CASEROOT
 ./xmlchange STOP_N=90
 
 if ($MACHINE == "cori-knl") then
-        ./xmlchange DOCN_SOM_FILENAME=pop.frc.g.e21.GIAF.TL319_t13.5thCyc.ice.001_c20210325.casp.nc
+        ./xmlchange DOCN_SOM_FILENAME=pop.frc.g.e21.GIAF.TL319_t13.5thCyc.ice.001_c20210628.nc
    	./xmlchange DIN_LOC_ROOT=/global/project/projectdirs/ccsm1/inputdata
    	./xmlchange DIN_LOC_ROOT_CLMFORC=/global/project/projectdirs/ccsm1/inputdata/atm/datm7
+        ./xmlchange ATM_DOMAIN_FILE=domain.lnd.ne120np4_tx0.1v2.210621.nc
+        ./xmlchange LND_DOMAIN_FILE=domain.lnd.ne120np4_tx0.1v2.210621.nc
+        ./xmlchange ICE_DOMAIN_FILE=domain.ocn.tx0.1v2.210621.nc
+        ./xmlchange OCN_DOMAIN_FILE=domain.ocn.tx0.1v2.210621.nc
    	./xmlchange PIO_STRIDE=64
    	./xmlchange PIO_TYPENAME=pnetcdf
    	./xmlchange ICE_PIO_TYPENAME=netcdf
@@ -65,7 +68,11 @@ if ($MACHINE == "cori-knl") then
         ./xmlchange JOB_WALLCLOCK_TIME=24:00:00 --subgroup case.run
 
 else
-        ./xmlchange DOCN_SOM_FILENAME=pop.frc.g.e21.GIAF.TL319_t13.5thCyc.ice.001_c20210325.casp.nc
+        ./xmlchange DOCN_SOM_FILENAME=pop.frc.g.e21.GIAF.TL319_t13.5thCyc.ice.001_c20210628.nc
+        ./xmlchange ATM_DOMAIN_FILE=domain.lnd.ne120np4_tx0.1v2.210621.nc
+        ./xmlchange LND_DOMAIN_FILE=domain.lnd.ne120np4_tx0.1v2.210621.nc
+        ./xmlchange ICE_DOMAIN_FILE=domain.ocn.tx0.1v2.210621.nc
+        ./xmlchange OCN_DOMAIN_FILE=domain.ocn.tx0.1v2.210621.nc
         ./xmlchange NTASKS_CPL=7200
         ./xmlchange NTASKS_ATM=7200
         ./xmlchange NTASKS_LND=1200
@@ -76,6 +83,7 @@ else
         ./xmlchange NTASKS_ROF=1200
         ./xmlchange NTASKS_GLC=1
         ./xmlchange NTASKS_WAV=1
+        ./xmlchange PROJECT=P93300313
 endif
 
 ./xmlchange ATM_NCPL=96
@@ -138,7 +146,7 @@ EOF
 mv user_nl_clm user_nl_clm.`date +%m%d-%H%M`
 cat >> user_nl_clm << EOF
  !finidat = '/global/cscratch1/sd/nanr/capt-prediction/lnd/spinups/archive/i.e13.ICRUCN.ne120_ne120.2009-2016.001/lnd/rest/i.e13.ICRUCN.ne120_ne120.2009-2016.001.clm2.r.2010-01-05-00000.nc'
- finidat = '/glade/scratch/nanr/CAPT/i.e13.ICRUCN.ne120_ne120.2009-2016.001.clm2.r.2010-01-05-00000.nc'
+ finidat = '/glade/scratch/nanr/CAPT/i.e13.ICRUCN.ne120_t12.2009-2016.001.clm2.r.2010-05-01-00000.nc'
  fsurdat = '/glade/p/cesmdata/cseg/inputdata/lnd/clm2/surfdata_map/surfdata_ne120np4_simyr2000_c130313.nc'
 !fsurdat = '/global/project/projectdirs/ccsm1/inputdata/lnd/clm2/surfdata_map/surfdata_ne120np4_simyr2000_c130313.nc'
 
