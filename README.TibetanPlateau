@@ -1,0 +1,64 @@
+Instructions:
+
+1)  mkdir CASE_tools
+2)  cd CASE_tools
+3)  git clone https://github.com/CESM-Development/CESM_CASE_MANAGEMENT_TOOLS -b tibetPlateau  tibetPlateau
+4)  cd tibetPlateau/scripts
+
+The directory should contain a script to create your new case: create_b.e21.BHIST.f09_g17.Tibet-1.50.001
+
+
+Background:  
+This is a project with Aixue Hu and his Chinese visitor, Ruizao.  They are testing the effect of the Tibetan Plateau on the Asian monsoon by running sensitivity tests, systematically raising/lowering the height of the Plateau.   This case is the 5th and final test and it increases the height of the plateau by 50% (!!).  Unfortunately, even though we taper the elevation, the sudden height increase crashes the model.  So they have come up with a way to slowly adjust the elevation by gradually imposing the increase, 5% at a time.  
+
+Procedure:
+The way it works is that you will run 10 years, one year at a time.  After each year, you will change the topography forcing by modifying user_nl_cam.
+
+Year 1: (first submission)
+user_nl_cam look like this:
+  	bnd_topo = '/glade/work/nanr/tibetPlateau/topo/topo-bnd_0.9x1.25_CESM2_Tibetx1.05_200402.nc'
+	! bnd_topo = '/glade/work/nanr/tibetPlateau/topo/topo-bnd_0.9x1.25_CESM2_Tibetx1.1_200402.nc'
+	! bnd_topo = '/glade/work/nanr/tibetPlateau/topo/topo-bnd_0.9x1.25_CESM2_Tibetx1.15_200402.nc'
+	! bnd_topo = '/glade/work/nanr/tibetPlateau/topo/topo-bnd_0.9x1.25_CESM2_Tibetx1.2_200402.nc'
+	! bnd_topo = '/glade/work/nanr/tibetPlateau/topo/topo-bnd_0.9x1.25_CESM2_Tibetx1.25_200328.nc'
+	! bnd_topo = '/glade/work/nanr/tibetPlateau/topo/topo-bnd_0.9x1.25_CESM2_Tibetx1.3_200416.nc'
+	! bnd_topo = '/glade/work/nanr/tibetPlateau/topo/topo-bnd_0.9x1.25_CESM2_Tibetx1.35_200416.nc'
+	! bnd_topo = '/glade/work/nanr/tibetPlateau/topo/topo-bnd_0.9x1.25_CESM2_Tibetx1.4_200416.nc'
+	! bnd_topo = '/glade/work/nanr/tibetPlateau/topo/topo-bnd_0.9x1.25_CESM2_Tibetx1.45_200416.nc'
+	! bnd_topo = '/glade/work/nanr/tibetPlateau/topo/topo-bnd_0.9x1.25_CESM2_Tibetx1.5_200303.nc'
+
+
+Year 2: (second submission)
+1)  Execute on the command line:
+	./xmlchange CONTINUE_RUN=TRUE
+
+2)  Edit user_nl_cam, oncommenting the second line, so the model will point to the second topo file
+	! bnd_topo = '/glade/work/nanr/tibetPlateau/topo/topo-bnd_0.9x1.25_CESM2_Tibetx1.05_200402.nc'
+  	  bnd_topo = '/glade/work/nanr/tibetPlateau/topo/topo-bnd_0.9x1.25_CESM2_Tibetx1.1_200402.nc'
+	! bnd_topo = '/glade/work/nanr/tibetPlateau/topo/topo-bnd_0.9x1.25_CESM2_Tibetx1.15_200402.nc'
+	! bnd_topo = '/glade/work/nanr/tibetPlateau/topo/topo-bnd_0.9x1.25_CESM2_Tibetx1.2_200402.nc'
+	! bnd_topo = '/glade/work/nanr/tibetPlateau/topo/topo-bnd_0.9x1.25_CESM2_Tibetx1.25_200328.nc'
+	! bnd_topo = '/glade/work/nanr/tibetPlateau/topo/topo-bnd_0.9x1.25_CESM2_Tibetx1.3_200416.nc'
+	! bnd_topo = '/glade/work/nanr/tibetPlateau/topo/topo-bnd_0.9x1.25_CESM2_Tibetx1.35_200416.nc'
+	! bnd_topo = '/glade/work/nanr/tibetPlateau/topo/topo-bnd_0.9x1.25_CESM2_Tibetx1.4_200416.nc'
+	! bnd_topo = '/glade/work/nanr/tibetPlateau/topo/topo-bnd_0.9x1.25_CESM2_Tibetx1.45_200416.nc'
+	! bnd_topo = '/glade/work/nanr/tibetPlateau/topo/topo-bnd_0.9x1.25_CESM2_Tibetx1.5_200303.nc'
+	
+Year 3: (third submission)
+1)  Edit user_nl_cam again, oncommenting the third line, so the model will point to the third topo file
+	! bnd_topo = '/glade/work/nanr/tibetPlateau/topo/topo-bnd_0.9x1.25_CESM2_Tibetx1.05_200402.nc'
+  	! bnd_topo = '/glade/work/nanr/tibetPlateau/topo/topo-bnd_0.9x1.25_CESM2_Tibetx1.1_200402.nc'
+	  bnd_topo = '/glade/work/nanr/tibetPlateau/topo/topo-bnd_0.9x1.25_CESM2_Tibetx1.15_200402.nc'
+	! bnd_topo = '/glade/work/nanr/tibetPlateau/topo/topo-bnd_0.9x1.25_CESM2_Tibetx1.2_200402.nc'
+	! bnd_topo = '/glade/work/nanr/tibetPlateau/topo/topo-bnd_0.9x1.25_CESM2_Tibetx1.25_200328.nc'
+	! bnd_topo = '/glade/work/nanr/tibetPlateau/topo/topo-bnd_0.9x1.25_CESM2_Tibetx1.3_200416.nc'
+	! bnd_topo = '/glade/work/nanr/tibetPlateau/topo/topo-bnd_0.9x1.25_CESM2_Tibetx1.35_200416.nc'
+	! bnd_topo = '/glade/work/nanr/tibetPlateau/topo/topo-bnd_0.9x1.25_CESM2_Tibetx1.4_200416.nc'
+	! bnd_topo = '/glade/work/nanr/tibetPlateau/topo/topo-bnd_0.9x1.25_CESM2_Tibetx1.45_200416.nc'
+	! bnd_topo = '/glade/work/nanr/tibetPlateau/topo/topo-bnd_0.9x1.25_CESM2_Tibetx1.5_200303.nc'
+
+
+Year 4-10:  continue running 1 year at a time, modifying the namelist between each submission, until the last bnd_topo is being used by the model.  
+Continue the run for another 190 years.
+
+
