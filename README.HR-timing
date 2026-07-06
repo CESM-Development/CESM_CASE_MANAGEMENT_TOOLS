@@ -1,0 +1,4 @@
+timing/cesm_timing.PFS.ne120_t12.B1850C5.derecho_intel.20230908_095711_ljgsma.1334611.desched1.230908-122732:    Model Cost:          225573.76   pe-hrs/simulated_year 
+timing/cesm_timing.PFS.ne120_t12.B1850C5.derecho_intel.20230908_095711_ljgsma.1334611.desched1.230908-122732:    Model Throughput:         5.68   simulated_years/day
+
+This is out of balance - rebalanced run in the queue

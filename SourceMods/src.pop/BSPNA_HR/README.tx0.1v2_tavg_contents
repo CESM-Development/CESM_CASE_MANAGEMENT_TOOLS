@@ -1,0 +1,7 @@
+/glade/work/nanr/cesm_tags/CASE_tools/cesm13-SPNA-HR/SourceMods/src.pop/BSPNA_HR > cp /glade/work/yeager/cesm_runs/cesm1.3_iHESP_B/BSPNA_HR/tx0.1v3_tavg_contents ./tx0.1v2_tavg_contents
+
+Edit to take out fields that aren't available
+# 1  S_FLUX_ROFF_VSF
+# 1  S_FLUX_ROFF_VSF_SRF
+# 1  TIDAL_DIFF
+

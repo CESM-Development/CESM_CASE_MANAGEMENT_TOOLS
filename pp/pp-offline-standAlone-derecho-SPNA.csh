@@ -1,0 +1,1 @@
+/glade/work/nanr/cesm_tags/CASE_tools/pp-offline/derecho/HR/pp-offline-standAlone-derecho-SPNA.csh

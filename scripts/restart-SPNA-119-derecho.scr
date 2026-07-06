@@ -1,0 +1,103 @@
+#!/bin/csh -f
+
+set MACHINE = derecho
+set TOOLS_ROOT = /glade/work/nanr/cesm_tags/CASE_tools/cesm13-SPNA-HR/
+
+set COMPSET = B1950C5 
+set EXPERIMENT = SPNA-derecho
+set RESOLN  = ne120_t12
+set TAG     = cesm-ihesp-hires1.0.46
+
+#set RESUBMIT = 1
+#set STOP_OPTION=nmonths
+#set STOP_N=31
+set RESUBMIT = 7
+set STOP_OPTION=nmonths
+set STOP_N=24
+set REST_OPTION=nmonths
+set REST_N=12
+
+# ls /glade/campaign/collections/cmip/CMIP6/iHESP/PIcntl/HR/B.E.13.B1850C5.ne120_t12.sehires38.003.sunway_02/restart/
+# ls /glade/campaign/collections/cmip/CMIP6/iHESP/HighResMIP/B1950cntl/HR/restarts
+
+#  Here are the starts.  I can start with the first 5 starts (89, 96, 100, 105, 112) if that sounds good to you.
+#  0089-01-01-00000/
+#  0096-01-01-00000/
+#  0100-01-01-00000/
+#  0105-01-01-00000/
+#  0112-01-01-00000/
+#  0115-01-01-00000/
+#  0117-01-01-00000/
+#  0119-01-01-00000/
+#  0121-01-01-00000/
+#  0130-01-01-00000/
+
+#set syear =  89
+#set eyear =  89
+#set syear =  96
+#set eyear =  96
+#set syear =  100
+#set eyear =  100
+#set syear =  105
+#set eyear =  105
+#set syear =  115
+#set eyear =  115
+#set syear =  112
+#set eyear =  112
+#set syear =  119 ==> remap errors
+#set eyear =  119 ==> remap errors
+set syear =  119
+set eyear =  119
+set year  = $syear
+set useyear = 0137
+
+
+if ($year < 100) then
+	setenv CASE b.e13.${EXPERIMENT}.${RESOLN}.SY-0${year}.001
+else
+	setenv CASE b.e13.${EXPERIMENT}.${RESOLN}.SY-${year}.001
+endif
+
+setenv REFCASE b.e13.SPNA-derecho.ne120_t12.SY-119.001
+
+set PATH      = /glade/work/nanr/
+set RUNDIR    = /glade/derecho/scratch/nanr/$CASE/run
+set BLDDIR    = /glade/derecho/scratch/nanr/$CASE/bld
+setenv CASEROOT /glade/work/nanr/SPNA-HR/cases/$CASE
+set TOOLSROOT = /glade/work/nanr/cesm_tags/CASE_tools/cesm13-SPNA-HR/
+set REFROOT   = /glade/derecho/scratch/nanr/archive/$REFCASE
+
+cd $CASEROOT
+
+./xmlchange CONTINUE_RUN=FALSE
+./xmlchange RUN_STARTDATE=${useyear}-01-01
+./xmlchange RUN_REFCASE=${REFCASE}
+./xmlchange RUN_REFDATE=${useyear}-01-01
+./xmlchange GET_REFCASE=FALSE
+./xmlchange RUN_REFDIR=${REFROOT}
+
+
+# rebuild to clear the cice attempt
+qcmd -A P93300313 -- ./case.build
+
+# =========================
+# add pertlim perturbation to get over instability
+# =========================
+
+cat >> head.2 << EOF
+! micro-member perturbation to get over instability
+pertlim = 2.d-14
+
+EOF
+
+mv user_nl_cam tmp.cam
+cat head.2 tmp.cam  > user_nl_cam
+rm tmp.cam head.2
+
+endif
+# =========================
+# END - pertlim 
+# =========================
+
+./case.submit
+

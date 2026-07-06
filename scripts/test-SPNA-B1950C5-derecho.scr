@@ -4,21 +4,21 @@ set MACHINE = derecho
 set TOOLS_ROOT = /glade/work/nanr/cesm_tags/CASE_tools/cesm13-SPNA-HR/
 
 set COMPSET = B1950C5 
-set EXPERIMENT = SPNA-derecho
+set EXPERIMENT = SPNA-derecho-testRestart
 set RESOLN  = ne120_t12
 set TAG     = cesm-ihesp-hires1.0.46
 
 #set RESUBMIT = 1
 #set STOP_OPTION=nmonths
 #set STOP_N=31
-set RESUBMIT = 7
-set STOP_OPTION=nmonths
-set STOP_N=24
-set REST_OPTION=nmonths
-set REST_N=6
+set RESUBMIT = 0
+set STOP_OPTION=ndays
+set STOP_N=10
+set REST_OPTION=ndays
+set REST_N=10
 
-# ls /glade/campaign/collections/cmip/CMIP6/CESM-HR/PIcntl/HR/B.E.13.B1850C5.ne120_t12.sehires38.003.sunway_02/restart/
-# ls /glade/campaign/collections/cmip/CMIP6/CESM-HR/HighResMIP/B1950cntl/HR/restarts
+# ls /glade/campaign/collections/cmip/CMIP6/iHESP/PIcntl/HR/B.E.13.B1850C5.ne120_t12.sehires38.003.sunway_02/restart/
+# ls /glade/campaign/collections/cmip/CMIP6/iHESP/HighResMIP/B1950cntl/HR/restarts
 
 #  Here are the starts.  I can start with the first 5 starts (89, 96, 100, 105, 112) if that sounds good to you.
 #  0089-01-01-00000/
@@ -42,16 +42,10 @@ set REST_N=6
 #set eyear =  105
 #set syear =  115
 #set eyear =  115
-#set syear =  112
-#set eyear =  112
+set syear =  112
+set eyear =  112
 #set syear =  119 ==> remap errors
 #set eyear =  119 ==> remap errors
-#set syear =  119
-#set eyear =  119
-#set syear =  130
-#set eyear =  130
-set syear =  121
-set eyear =  121
 set year = $syear
 if ($year < 100) then
   set useyear = "00"${year}
@@ -84,11 +78,12 @@ cd $CASEROOT
 
 # cp /glade/derecho/scratch/jedwards/PFS.ne120_t12.B1850C5.derecho_intel.20230713_142721_f6jwlw/env_mach_pes.xml $CASEROOT
 # cp $TOOLS_ROOT/pelayout/env_mach_pes.xml.417nodes $CASEROOT/env_mach_pes.xml
-# cp $TOOLS_ROOT/pelayout/env_mach_pes.xml.110nodes $CASEROOT/env_mach_pes.xml
-cp $TOOLS_ROOT/pelayout/env_mach_pes.xml-fredc $CASEROOT/env_mach_pes.xml
+cp $TOOLS_ROOT/pelayout/env_mach_pes.xml.110nodes $CASEROOT/env_mach_pes.xml
 
 ./xmlchange DOUT_S_SAVE_INTERIM_RESTART_FILES=TRUE 
-#./xmlchange MPIRUN_RETRY_COUNT=4,MPIRUN_RETRY_REGEX="Resource temporarily unavailable"
+./xmlchange JOB_WALLCLOCK_TIME=12:00:00 --subgroup case.run
+./xmlchange JOB_WALLCLOCK_TIME=00:30:00 --subgroup case.st_archive
+./xmlchange MPIRUN_RETRY_COUNT=4,MPIRUN_RETRY_REGEX="Resource temporarily unavailable"
 ./xmlchange PIO_VERSION=1
 ./xmlchange RESUBMIT=$RESUBMIT
 ./xmlchange STOP_OPTION=$STOP_OPTION
@@ -102,12 +97,11 @@ cp $TOOLS_ROOT/pelayout/env_mach_pes.xml-fredc $CASEROOT/env_mach_pes.xml
 ./xmlchange RUN_REFDIR=${REFROOT}
 ##./xmlchange --append CAM_CONFIG_OPTS=-cosp
 
-./xmlchange PROJECT=CESM0020
-./xmlchange JOB_WALLCLOCK_TIME=12:00:00 --subgroup case.run
+./xmlchange PROJECT=CESM0021
 #./xmlchange JOB_QUEUE= --subgroup case.run
 
 ##cp $TOOLSROOT/user_nl_files/DP-HR/user_nl_cam-COSP-ON $CASEROOT/user_nl_cam
-cp $TOOLSROOT/user_nl_files/1950-derecho/user_nl_cam-119 $CASEROOT/user_nl_cam
+cp $TOOLSROOT/user_nl_files/1950-derecho/user_nl_cam $CASEROOT/user_nl_cam
 cp $TOOLSROOT/user_nl_files/1950-derecho/user_nl_clm $CASEROOT/user_nl_clm
 cp $TOOLSROOT/user_nl_files/1950-derecho/user_nl_cice $CASEROOT/user_nl_cice
 cp $TOOLSROOT/user_nl_files/1950-derecho/user_nl_rtm $CASEROOT/user_nl_rtm
@@ -127,11 +121,9 @@ echo    $REFROOT/rest/${useyear}-01-01-00000/rpoint*
 cp    $REFROOT/rest/${useyear}-01-01-00000/rpoint* $RUNDIR
 ln -s $REFROOT/rest/${useyear}-01-01-00000/B.* $RUNDIR
 
-
 ./case.setup
+
 ./case.setup --reset
-./xmlchange JOB_WALLCLOCK_TIME=12:00:00 --subgroup case.run
-./xmlchange JOB_WALLCLOCK_TIME=00:30:00 --subgroup case.st_archive
 #qcmd -A ACGD0008 -- ./case.build
 qcmd -A P93300313 -- ./case.build
 

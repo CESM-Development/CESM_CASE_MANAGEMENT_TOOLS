@@ -1,24 +1,21 @@
 #!/bin/csh -f
 
-set MACHINE = derecho
+set MACHINE = cheyenne
 set TOOLS_ROOT = /glade/work/nanr/cesm_tags/CASE_tools/cesm13-SPNA-HR/
 
 set COMPSET = B1950C5 
-set EXPERIMENT = SPNA-derecho
+set EXPERIMENT = SPNA-cheyenne
 set RESOLN  = ne120_t12
-set TAG     = cesm-ihesp-hires1.0.46
+set TAG     = cesm-ihesp-hires1.0.45
 
 #set RESUBMIT = 1
-#set STOP_OPTION=nmonths
-#set STOP_N=31
-set RESUBMIT = 7
+set RESUBMIT = 3
 set STOP_OPTION=nmonths
 set STOP_N=24
-set REST_OPTION=nmonths
 set REST_N=6
 
-# ls /glade/campaign/collections/cmip/CMIP6/CESM-HR/PIcntl/HR/B.E.13.B1850C5.ne120_t12.sehires38.003.sunway_02/restart/
-# ls /glade/campaign/collections/cmip/CMIP6/CESM-HR/HighResMIP/B1950cntl/HR/restarts
+# ls /glade/campaign/collections/cmip/CMIP6/iHESP/PIcntl/HR/B.E.13.B1850C5.ne120_t12.sehires38.003.sunway_02/restart/
+# ls /glade/campaign/collections/cmip/CMIP6/iHESP/HighResMIP/B1950cntl/HR/restarts
 
 #  Here are the starts.  I can start with the first 5 starts (89, 96, 100, 105, 112) if that sounds good to you.
 #  0089-01-01-00000/
@@ -40,18 +37,8 @@ set REST_N=6
 #set eyear =  100
 #set syear =  105
 #set eyear =  105
-#set syear =  115
-#set eyear =  115
-#set syear =  112
-#set eyear =  112
-#set syear =  119 ==> remap errors
-#set eyear =  119 ==> remap errors
-#set syear =  119
-#set eyear =  119
-#set syear =  130
-#set eyear =  130
-set syear =  121
-set eyear =  121
+set syear =  115
+set eyear =  115
 set year = $syear
 if ($year < 100) then
   set useyear = "00"${year}
@@ -68,11 +55,11 @@ endif
 setenv REFCASE B.E.13.B1950C5.ne120_t12.cesm-ihesp-1950cntl.013
 
 set PATH      = /glade/work/nanr/
-set RUNDIR    = /glade/derecho/scratch/nanr/$CASE/run
-set BLDDIR    = /glade/derecho/scratch/nanr/$CASE/bld
+set RUNDIR    = /glade/scratch/nanr/$CASE/run
+set BLDDIR    = /glade/scratch/nanr/$CASE/bld
 setenv CASEROOT /glade/work/nanr/SPNA-HR/cases/$CASE
 set TOOLSROOT = /glade/work/nanr/cesm_tags/CASE_tools/cesm13-SPNA-HR/
-set REFROOT   = /glade/derecho/scratch/nanr/archive/$REFCASE
+set REFROOT   = /glade/scratch/nanr/archive/$REFCASE
 
 # setenv CESMROOT ${PATH}/cesm_tags/sandbox/${TAG}/
 setenv CESMROOT ${PATH}/cesm_tags/${TAG}/
@@ -82,14 +69,10 @@ $CESMROOT/cime/scripts/create_newcase --case $CASEROOT --res $RESOLN  --mach $MA
 
 cd $CASEROOT
 
-# cp /glade/derecho/scratch/jedwards/PFS.ne120_t12.B1850C5.derecho_intel.20230713_142721_f6jwlw/env_mach_pes.xml $CASEROOT
-# cp $TOOLS_ROOT/pelayout/env_mach_pes.xml.417nodes $CASEROOT/env_mach_pes.xml
-# cp $TOOLS_ROOT/pelayout/env_mach_pes.xml.110nodes $CASEROOT/env_mach_pes.xml
-cp $TOOLS_ROOT/pelayout/env_mach_pes.xml-fredc $CASEROOT/env_mach_pes.xml
-
 ./xmlchange DOUT_S_SAVE_INTERIM_RESTART_FILES=TRUE 
-#./xmlchange MPIRUN_RETRY_COUNT=4,MPIRUN_RETRY_REGEX="Resource temporarily unavailable"
-./xmlchange PIO_VERSION=1
+./xmlchange JOB_WALLCLOCK_TIME=12:00:00 --subgroup case.run
+./xmlchange JOB_WALLCLOCK_TIME=00:30:00 --subgroup case.st_archive
+./xmlchange MPIRUN_RETRY_COUNT=4,MPIRUN_RETRY_REGEX="Resource temporarily unavailable"
 ./xmlchange RESUBMIT=$RESUBMIT
 ./xmlchange STOP_OPTION=$STOP_OPTION
 ./xmlchange STOP_N=$STOP_N
@@ -102,15 +85,43 @@ cp $TOOLS_ROOT/pelayout/env_mach_pes.xml-fredc $CASEROOT/env_mach_pes.xml
 ./xmlchange RUN_REFDIR=${REFROOT}
 ##./xmlchange --append CAM_CONFIG_OPTS=-cosp
 
-./xmlchange PROJECT=CESM0020
-./xmlchange JOB_WALLCLOCK_TIME=12:00:00 --subgroup case.run
+set runCheap = 1
+
+if ($runCheap == 0) then
+        ./xmlchange NTASKS_CPL=7200
+        ./xmlchange NTASKS_ATM=7200
+        ./xmlchange NTASKS_LND=1200
+        ./xmlchange NTASKS_ICE=6000
+        ./xmlchange ROOTPE_ICE=1200
+        ./xmlchange NTASKS_OCN=2135
+        ./xmlchange ROOTPE_OCN=7200
+        ./xmlchange NTASKS_ROF=1200
+        ./xmlchange NTASKS_GLC=1
+        ./xmlchange NTASKS_WAV=1
+else
+        ./xmlchange NTASKS_CPL=3600
+        ./xmlchange NTASKS_ATM=3600
+        ./xmlchange NTASKS_LND=180
+        ./xmlchange NTASKS_ICE=3420
+        ./xmlchange ROOTPE_ICE=180
+        ./xmlchange NTASKS_OCN=1664
+        ./xmlchange ROOTPE_OCN=3600
+        ./xmlchange NTASKS_ROF=180
+        ./xmlchange NTASKS_GLC=36
+        ./xmlchange NTASKS_WAV=36
+endif
+
+
+#./xmlchange PROJECT=P93300313
+./xmlchange PROJECT=NCGD0053
+./xmlchange DOUT_S_SAVE_INTERIM_RESTART_FILES=TRUE
 #./xmlchange JOB_QUEUE= --subgroup case.run
 
 ##cp $TOOLSROOT/user_nl_files/DP-HR/user_nl_cam-COSP-ON $CASEROOT/user_nl_cam
-cp $TOOLSROOT/user_nl_files/1950-derecho/user_nl_cam-119 $CASEROOT/user_nl_cam
-cp $TOOLSROOT/user_nl_files/1950-derecho/user_nl_clm $CASEROOT/user_nl_clm
-cp $TOOLSROOT/user_nl_files/1950-derecho/user_nl_cice $CASEROOT/user_nl_cice
-cp $TOOLSROOT/user_nl_files/1950-derecho/user_nl_rtm $CASEROOT/user_nl_rtm
+cp $TOOLSROOT/user_nl_files/1950/user_nl_cam $CASEROOT/user_nl_cam
+cp $TOOLSROOT/user_nl_files/1950/user_nl_clm $CASEROOT/user_nl_clm
+cp $TOOLSROOT/user_nl_files/1950/user_nl_cice $CASEROOT/user_nl_cice
+cp $TOOLSROOT/user_nl_files/1950/user_nl_rtm $CASEROOT/user_nl_rtm
 
 cp $TOOLSROOT/SourceMods/src.pop/BSPNA_HR/*  $CASEROOT/SourceMods/src.pop/
 cp $TOOLSROOT/SourceMods/src.cam/*F90  $CASEROOT/SourceMods/src.cam/
@@ -127,11 +138,9 @@ echo    $REFROOT/rest/${useyear}-01-01-00000/rpoint*
 cp    $REFROOT/rest/${useyear}-01-01-00000/rpoint* $RUNDIR
 ln -s $REFROOT/rest/${useyear}-01-01-00000/B.* $RUNDIR
 
-
 ./case.setup
+
 ./case.setup --reset
-./xmlchange JOB_WALLCLOCK_TIME=12:00:00 --subgroup case.run
-./xmlchange JOB_WALLCLOCK_TIME=00:30:00 --subgroup case.st_archive
 #qcmd -A ACGD0008 -- ./case.build
-qcmd -A P93300313 -- ./case.build
+qcmd -A NCGD0053 -- ./case.build
 
