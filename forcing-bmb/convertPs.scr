@@ -1,9 +1,0 @@
-convert -trim +repage -background white -flatten valid_anthro-ag-ship_emiss_ag.ps valid_anthro-ag-ship_emiss_ag.gif
-convert -trim +repage -background white -flatten valid_anthro-ag-ship_emiss_shipping.ps valid_anthro-ag-ship_emiss_shipping.gif
-convert -trim +repage -background white -flatten valid_emiss_ag_sol_was.ps valid_emiss_ag_sol_was.gif
-convert -trim +repage -background white -flatten valid_emiss_res_tran.ps valid_emiss_res_tran.gif
-convert -trim +repage -background white -flatten valid_emiss_ship.ps valid_emiss_ship.gif
-convert -trim +repage -background white -flatten valid_num_so4_a1_anthro-ag-ship_surface.ps valid_num_so4_a1_anthro-ag-ship_surface.gif
-convert -trim +repage -background white -flatten valid_num_so4_a1_anthro-ag-ship_surface_Shipping.ps valid_num_so4_a1_anthro-ag-ship_surface_Shipping.gif
-convert -trim +repage -background white -flatten valid_SO2_anthro-ag-ship-res-NEW.ps valid_SO2_anthro-ag-ship-res-NEW.gif
-convert -trim +repage -background white -flatten valid_SO2_anthro-ag-ship-res-OLD.ps valid_SO2_anthro-ag-ship-res-OLD.gif
