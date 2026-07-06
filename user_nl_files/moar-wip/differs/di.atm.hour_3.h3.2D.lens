@@ -1,4 +1,0 @@
-	float CLDLOW(time, lat, lon) ;
-	float PRECL(time, lat, lon) ;
-	float UBOT(time, lat, lon) ;
-	float VBOT(time, lat, lon) ;

@@ -1,0 +1,107 @@
+#!/bin/csh -fx
+### set env variables
+setenv CESM2_TOOLS_ROOT /glade/work/nanr/cesm_tags/CASE_tools/cesm2-SSP585-LE/
+setenv CESMROOT /glade/work/nanr/cesm_tags/sandbox/cesm2.1.4-rc.12
+
+set COMPSET = BSSP585cmip6
+set MACHINE = cheyenne
+set RESOLN = f09_g17
+set RESUBMIT = 27
+set STOP_N=3
+set STOP_OPTION=nyears
+set PROJECT=P93300313
+
+setenv REFDATE  2015-01-01
+setenv BASENAME b.e21.${COMPSET}.${RESOLN}.CESM2-LE
+setenv BASEROOT /glade/work/$USER/CESM2-SSP585/
+setenv REFROOT  /glade/scratch/$USER/archive/
+setenv RUNROOT  /glade/scratch/$USER/
+
+echo " create CASEROOT directory -------------"
+set doThis = 1
+if ($doThis == 1) then
+if (! -d $BASEROOT) then
+        echo 'mkdir ' $BASEROOT
+        mkdir -p $BASEROOT
+endif
+endif
+
+
+#cd ~nanr/cylc-runs/
+#./create_cylc_cesm2-ensemble --case $BASEROOT$BASENAME --res $RESOLN  --compset $COMPSET --project $PROJECT 
+
+set mbr  =   1
+set smbr =   1
+
+# foreach usecase ( b.e21.BHISTsmbb.f09_g17.LE2-1011.001 b.e21.BHISTsmbb.f09_g17.LE2-1031.002 b.e21.BHISTsmbb.f09_g17.LE2-1051.003 b.e21.BHISTsmbb.f09_g17.LE2-1071.004 \
+#                 b.e21.BHISTsmbb.f09_g17.LE2-1091.005 b.e21.BHISTsmbb.f09_g17.LE2-1111.006 b.e21.BHISTsmbb.f09_g17.LE2-1131.007 b.e21.BHISTsmbb.f09_g17.LE2-1151.008 \
+#                 b.e21.BHISTsmbb.f09_g17.LE2-1171.009 b.e21.BHISTsmbb.f09_g17.LE2-1191.010 b.e21.BHISTsmbb.f09_g17.LE2-1251.011 b.e21.BHISTsmbb.f09_g17.LE2-1251.012 \
+#                 b.e21.BHISTsmbb.f09_g17.LE2-1251.013 b.e21.BHISTsmbb.f09_g17.LE2-1251.014 b.e21.BHISTsmbb.f09_g17.LE2-1251.015 )
+
+foreach usecase ( b.e21.BHISTcmip6.f09_g17.LE2-1001.001 b.e21.BHISTcmip6.f09_g17.LE2-1021.002 b.e21.BHISTcmip6.f09_g17.LE2-1041.003 b.e21.BHISTcmip6.f09_g17.LE2-1061.004 \
+                  b.e21.BHISTcmip6.f09_g17.LE2-1081.005 b.e21.BHISTcmip6.f09_g17.LE2-1101.006 b.e21.BHISTcmip6.f09_g17.LE2-1121.007 b.e21.BHISTcmip6.f09_g17.LE2-1141.008 \
+                  b.e21.BHISTcmip6.f09_g17.LE2-1161.009 b.e21.BHISTcmip6.f09_g17.LE2-1181.010 b.e21.BHISTcmip6.f09_g17.LE2-1251.001 )
+
+if    ($mbr < 10) then
+	setenv CASENAME b.e21.${COMPSET}.${RESOLN}.CESM2-LE.00${mbr}
+else 
+	setenv CASENAME b.e21.${COMPSET}.${RESOLN}.CESM2-LE.0${mbr}
+endif
+
+## Uncomment for testing (when not creating a cylc suite)
+ cd $CESMROOT/cime/scripts
+ ./create_newcase --case $BASEROOT$CASENAME --res $RESOLN  --compset $COMPSET --project $PROJECT 
+ 
+  setenv CASEROOT  $BASEROOT$CASENAME
+  cd $CASEROOT
+
+  set REFCASE = ${usecase}
+
+  ./xmlchange RUN_REFCASE=$REFCASE
+  ./xmlchange RUN_REFDATE=2015-01-01
+  ./xmlchange RUN_STARTDATE=2015-01-01
+  ./xmlchange GET_REFCASE=FALSE
+  ./xmlchange PROJECT=$PROJECT
+
+  ./xmlchange NTASKS_ICE=36
+  ./xmlchange NTASKS_LND=504
+  ./xmlchange ROOTPE_ICE=504
+
+  mv user_nl_cam user_nl_cam.`date +%m%d-%H%M`
+  mv user_nl_clm user_nl_clm.`date +%m%d-%H%M`
+  mv user_nl_cpl user_nl_cpl.`date +%m%d-%H%M`
+  mv user_nl_cice user_nl_cice.`date +%m%d-%H%M`
+  mv SourceMods SourceMods.`date +%m%d-%H%M`
+  cp -r $CESM2_TOOLS_ROOT/SourceMods $CASEROOT/
+
+  cp $CESM2_TOOLS_ROOT/user_nl_files/BSSP585cmip6/user_nl_cam $CASEROOT/
+  cp $CESM2_TOOLS_ROOT/user_nl_files/BSSP585cmip6/user_nl_clm $CASEROOT/
+  cp $CESM2_TOOLS_ROOT/user_nl_files/BSSP585cmip6/user_nl_cpl $CASEROOT/
+  cp $CESM2_TOOLS_ROOT/user_nl_files/BSSP585cmip6/user_nl_cice $CASEROOT/
+  cp $CESM2_TOOLS_ROOT/user_nl_files/BSSP585cmip6/user_nl_ww $CASEROOT/
+
+  ./case.setup
+
+  ./xmlchange STOP_N=$STOP_N
+  ./xmlchange STOP_OPTION=$STOP_OPTION
+  ./xmlchange RESUBMIT=$RESUBMIT
+
+   cp    $REFROOT/$REFCASE/rest/2015-01-01-00000/rpointer* $RUNROOT/$CASENAME/run/
+   ln -s $REFROOT/$REFCASE/rest/2015-01-01-00000/b.e21*    $RUNROOT/$CASENAME/run/
+
+   if (${mbr} == $smbr) then
+      ./case.setup --reset; 
+      qcmd -- ./case.build
+      set masterroot = $CASENAME        
+   else
+      ./case.setup --reset; 
+      ./xmlchange EXEROOT=/glade/scratch/nanr/$masterroot/bld/
+      ./xmlchange BUILD_COMPLETE=TRUE
+   endif
+
+   @ mbr += 1
+
+end             # member loop
+
+exit
+
