@@ -9,8 +9,8 @@ setenv LOGSDIR  $CAMPDIR/logs
 #setenv RESTDIR  $CAMPDIR/restarts
 setenv POPDDIR  $CAMPDIR/pop.d_files
 
-set smbr =  14
-set embr =  14
+set smbr =  11
+set embr =  15
 
 @ mb = $smbr
 @ me = $embr

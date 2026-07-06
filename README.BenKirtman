@@ -1,0 +1,18 @@
+Simple ... we typically start with a cold start using fixed atmospheric concentrations at year 2000 levels and run the model for 200 years. -Ben
+o
+!======
+Hi Ben -
+
+I'll be setting up the 200 year-long year 2000 control simulation and have some questions.  
+
+1) Is this a coupled simulation (b-case), run with constant year 2000 atm forcing, 
+2) or is this a g-case, forced by observations
+3) does the ocean start from levitus?
+
+Thanks in advance ~
+
+Nan
+
+!======
+
+Thanks for this! Yes this is 1) a coupled simulation (b-case), run with constant year 2000 atm forcing, and we are not too concerned about the initial conditions. Levitus is fine or any reasonably spin-up state. Thanks. -Ben
