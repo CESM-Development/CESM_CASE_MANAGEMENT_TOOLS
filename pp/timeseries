@@ -1,12 +1,12 @@
 #!/bin/bash
 
-#PBS -N t11
+#PBS -N t04
 #PBS -q regular
 #PBS -l select=32:ncpus=4:mpiprocs=4
 #PBS -l walltime=12:00:00
-#PBS -A CESM0015
+#PBS -A CESM0020
 
-CASE=b.e21.B1850cmip6.f09_g17.CESM2-SF-GHG-SSP370.011
+CASE=b.e21.BHISTcmip6.f09_g17.CESM2-SF-xAER.004
 
 source /etc/profile.d/modules.sh
 
