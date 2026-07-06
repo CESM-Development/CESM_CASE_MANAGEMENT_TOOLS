@@ -1,0 +1,50 @@
+#!/bin/csh -fx
+setenv CESM2_TOOLS_ROOT /glade/work/nanr/cesm_tags/CASE_tools/cesm2-orbital/
+setenv CESMROOT /glade/work/nanr/cesm_tags/cesm2.1.5
+
+set COMPSET = B1850cmip6
+set MACHINE = derecho
+set RESOLN = f09_g17
+set RESUBMIT = 12
+set STOP_N=2
+set STOP_OPTION=nyears
+set PROJECT=P06010014
+
+#setenv SCENARIO obliq_22.5
+setenv SCENARIO obliq_24.5
+setenv REFDATE  0501-01-01
+setenv BASEROOT /glade/work/nanr/CESM2-ORBITAL/
+setenv RUNROOT  /glade/derecho/scratch/nanr/
+
+setenv REFCASE  b.e21.B1850.f09_g17.CMIP6-piControl.001
+setenv CASENAME b.e21.${COMPSET}.${RESOLN}.${SCENARIO}.001
+
+setenv CASEROOT $BASEROOT$CASENAME
+
+  cd $CESMROOT/cime/scripts/
+  ./create_newcase --case $CASEROOT --res $RESOLN  --compset $COMPSET --project $PROJECT
+ 
+  cd $CASEROOT
+
+  ./xmlchange RUN_REFCASE=$REFCASE
+  ./xmlchange RUN_REFDATE=$REFDATE
+  ./xmlchange GET_REFCASE=TRUE
+  ./xmlchange PROJECT=P06010014
+  ./xmlchange RUN_STARTDATE=1850-01-01
+
+  #cp $CESM2_TOOLS_ROOT/user_nl_files/user_nl_cpl-obliq-22_5 $CASEROOT/
+  cp $CESM2_TOOLS_ROOT/user_nl_files/user_nl_cpl-obliq-24_5 $CASEROOT/user_nl_cpl
+  cp $CESM2_TOOLS_ROOT/user_nl_files/user_nl_clm $CASEROOT/user_nl_clm
+
+  ./case.setup
+
+  ./xmlchange EXEROOT=/glade/derecho/scratch/nanr/b.e21.BHISTcmip6.f09_g17.obliq_22.5.001/bld
+  ./xmlchange BUILD_COMPLETE=TRUE
+  ./xmlchange STOP_N=$STOP_N
+  ./xmlchange STOP_OPTION=$STOP_OPTION
+  ./xmlchange RESUBMIT=$RESUBMIT
+
+  #qcmd -- ./case.build
+
+exit
+

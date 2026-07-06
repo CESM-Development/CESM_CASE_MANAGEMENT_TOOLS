@@ -1,0 +1,21 @@
+! These simulations will be branched from CESM2 PI control 
+! and the summer solstice will be set to:
+! 1.   22.5 (exp 1) 
+!      orb_obliq = 2.25E+01
+! 1.   24.5 (exp 2) 
+!      orb_obliq = 2.45E+01
+! (shr_orb_params) Calculate characteristics of the orbit:
+! (shr_orb_params) Calculate orbit for year:      1850
+! (shr_orb_params) ------ Computed Orbital Parameters ------
+! (shr_orb_params) Eccentricity      =   1.676429E-02
+! (shr_orb_params) Obliquity (deg)   =   2.345928E+01
+! (shr_orb_params) Obliquity (rad)   =   4.094416E-01
+! (shr_orb_params) Long of perh(deg) =   1.003269E+02
+! (shr_orb_params) Long of perh(rad) =   4.892627E+00
+! (shr_orb_params) Long at v.e.(rad) =  -3.290978E-02
+
+! set orbital parameters manually
+orb_mode = "fixed_parameters"
+orb_eccen = 1.676429E-02
+orb_mvelp = 1.003269E+02
+orb_obliq = 2.25E+01
