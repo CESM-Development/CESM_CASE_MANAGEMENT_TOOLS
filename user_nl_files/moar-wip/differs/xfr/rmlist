@@ -1,5 +1,0 @@
-rm ./do.lnd.mon.h0.cmip
-rm ./do.lnd.day_365.h4.cmip
-rm ./do.lnd.day.h6.cmip
-rm ./do.lnd.day_365.h4.lens
-rm ./do.lnd.day_365.h3.cmip

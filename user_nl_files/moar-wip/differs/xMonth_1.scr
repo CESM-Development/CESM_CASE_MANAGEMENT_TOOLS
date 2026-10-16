@@ -1,5 +1,0 @@
-rm in.month_1.cmip
-rm in.month_1.lens
-cat ../fileListings/singles.allVars.cam | grep "^[m]" | cut -d" " -f 2 > in.month_1.lens
-cat ../fileListings/singles.allVars.cam | grep month_1 | grep -P '\t' | cut -d" " -f2 > in.month_1.cmip
-

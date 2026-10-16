@@ -1,3 +1,0 @@
-	float CLDTOT(time, lat, lon) ;
-	float FLUT(time, lat, lon) ;
-	float LHFLX(time, lat, lon) ;

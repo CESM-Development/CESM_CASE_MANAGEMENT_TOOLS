@@ -1,7 +1,0 @@
-mv atm.day atm.day.txt
-mv atm.hr1 atm.hr1.txt
-mv atm.hr6 atm.hr6.txt
-mv ocn.ecosys.nday1  ocn.ecosys.nday1.txt
-mv ocn.ecosys.nyear1  ocn.ecosys.nyear1.txt
-mv ocn.mon  ocn.mon.txt
-mv ocn.nday1 ocn.nday1.txt

@@ -1,9 +1,0 @@
-Submitting command to PBS using account NCGD0044:
-    ./case.build
-
-Waiting for job 7113966.chadmin1.ib0.cheyenne.ucar.edu to start ... 
-
-
-stty: 'standard input': Inappropriate ioctl for device
-stty: 'standard input': Inappropriate ioctl for device
-./case.build: Command not found.
