@@ -43,12 +43,12 @@ PROJECT="mp9"
 # Simulation
 COMPSET="WCYCLSSP370" # 20th century transient
 RESOLUTION="ne30pg2_EC30to60E2r2"
-CASE_NAME="v21.LR.BSMYLE_v2_CANFIRE_ALLFIRE.${useyear}-${usemonth}.${mbr}"
+CASE_NAME="v21.LR.BSMYLE_v2_CANFIRE_ALLFIREv2.${useyear}-${usemonth}.${mbr}"
 CASE_GROUP="v21.LR"
 
 if [[ ${imbr} -eq "1" ]]
 then
-  MAIN_CASE_NAME="v21.LR.BSMYLE_v2_CANFIRE_ALLFIRE.${useyear}-${usemonth}.001"
+  MAIN_CASE_NAME="v21.LR.BSMYLE_v2_CANFIRE_ALLFIREv2.${useyear}-${usemonth}.001"
 fi
 CASE_GROUP="v21.LR"
 
@@ -73,11 +73,11 @@ RUN_REFDATE="${useyear}-${usemonth}-01"   # same as MODEL_START_DATE for 'branch
 
 MY_PATH="/global/cfs/cdirs/mp9/"
 CODE_ROOT="${MY_PATH}/e3sm_tags/E3SMv2.1/"
-MAIN_CASE_ROOT="${SCRATCH}/v21.LR.BSMYLE_v2_CANFIRE_ALLFIRE/${MAIN_CASE_NAME}/"
-CASE_ROOT="${SCRATCH}/v21.LR.BSMYLE_v2_CANFIRE_ALLFIRE/${MAIN_CASE_NAME}/"
+MAIN_CASE_ROOT="${SCRATCH}/v21.LR.BSMYLE_v2_CANFIRE_ALLFIREv2/${MAIN_CASE_NAME}/"
+CASE_ROOT="${SCRATCH}/v21.LR.BSMYLE_v2_CANFIRE_ALLFIREv2/${MAIN_CASE_NAME}/"
 
 # Sub-directories
-CASE_BUILD_DIR=/pscratch/sd/n/nanr/v21.LR.BSMYLE_v2_CANFIRE_ALLFIRE/exeroot/build
+CASE_BUILD_DIR=/pscratch/sd/n/nanr/v21.LR.BSMYLE_v2_CANFIRE_ALLFIREv2/exeroot/build
 CASE_ARCHIVE_DIR=${MAIN_CASE_ROOT}/archive.${mbr}
 
 # Define type of run

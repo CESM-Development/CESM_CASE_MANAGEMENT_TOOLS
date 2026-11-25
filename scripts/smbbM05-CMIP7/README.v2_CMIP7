@@ -1,0 +1,146 @@
+README.v2_CMIP7
+===============
+
+Purpose
+-------
+Rerun the E3SMv2.1 BSMYLE "smbb" ensembles with CMIP7 forcing in place of
+the CMIP6 forcing. Everything else is the same as the original cases.
+
+  Template : ../smbbM05/run.v21.LR.BSMYLEsmbb-05.sh
+  New      : run.v21.LR.BSMYLEsmbb_CMIP7-05.sh
+
+Model    : E3SMv2.1 (maint-2.1), /global/cfs/cdirs/mp9/e3sm_tags/E3SMv2.1
+Compset  : WCYCL20TR, ne30pg2_EC30to60E2r2, pm-cpu, 20 members, 28 months,
+           hybrid start from v21.LR.SMYLE_IC.<yyyy>-05.01
+
+Differences from the template
+-----------------------------
+1. Case names, directories and project:
+     CASE_NAME   v21.LR.BSMYLEsmbb_CMIP7.<yyyy>-05.<mbr>
+     CASE_ROOT   /pscratch/sd/n/$USER/v21.LR.BSMYLEsmbb_CMIP7/...
+     PROJECT     m5463
+     useyear     1990   (edit for other start years)
+2. The EAM forcing block in user_nl() (user_nl_eam). Output (fincl),
+   ELM and MOSART settings are unchanged.
+
+CMIP6 -> CMIP7 forcing mapping (EAM)
+------------------------------------
+I = /global/cfs/cdirs/e3sm/inputdata/atm/cam
+U = /global/cfs/cdirs/ccsm1/people/nanr/e3sm/inputdata/atm/cam
+
+Forcing           CMIP6 (smbbM05)                                       CMIP7 (this dir)
+----------------  ----------------------------------------------------  -----------------------------------------------------------
+Solar             I/solar/Solar_1850-2299_input4MIPS_c20181106.nc       I/solar/multiple_input4MIPs_solar_CMIP_SOLARIS-HEPPA-CMIP-4-6_gn_185001-202312_bluetip.nc
+GHG (bndtvghg)    I/ggas/GHG_CMIP-1-2-0_Annual_Global_0000-2014_...     I/ggas/CMIP7/GHG_CMIP7_Annual_Global_0001-2023_c20250616.nc
+Oxidants          oxid_1.9x2.5_L26_1850-2015_c20181106.nc               oxid_1.9x2.5_L26_1850-2025_c20251005.nc
+Elev. SO2         U/.../CMIP6_SSP370_ne30-smoothed/..so2_elev..         U/.../CMIP7_2deg-nostratvolc/cmip7_so2_elev_1850-2023_1.9x2.5_nostratvolc_c20251017.nc  (*)
+Elev. bc_a4,      U/.../CMIP6_SSP370_ne30-smoothed/...                  I/chem/trop_mozart_aero/emis/CMIP7_2deg/cmip7_mam5_<spc>_elev_1850-2023_1.9x2.5_c20250506.nc
+ num_a1, num_a4,
+ pom_a4, so4_a1
+Elev. num_a2,     DECK_ne30/cmip6_mam4_<spc>_elev_1850-2014_c180205.nc  CMIP7_2deg/cmip7_mam5_<spc>_elev_1850-2023_1.9x2.5_c20250506.nc
+ so4_a2
+Surface SO2,      DECK_ne30/cmip6_mam4_<spc>_surf_1850-2014_c180205.nc  CMIP7_2deg/cmip7_so2_surf_... and cmip7_mam5_<spc>_surf_..._c20250506.nc
+ bc_a4, num_a1,   (v2.1 defaults)
+ num_a2, num_a4,
+ pom_a4, so4_a1,
+ so4_a2
+
+Unchanged (no CMIP7 equivalent usable by v2.1):
+  SOAG (elevated)   U/.../CMIP6_SSP370_ne30-smoothed/cmip6_ssp370_mam4_smoothed_soag_elev_1850-2100_c221016.nc  (**)
+  DMS               DMSflux.1850-2100...c20160727.nc   (not a CMIP forcing)
+  Volcanic aerosol  prescribed_volcaero  CMIP_DOE-ACME_radiation_1850-2014_v3_c20171205.nc
+  Linoz / Cl load   linoz1850-2015_2010JPL_CMIP6..., Linoz_Chlorine_Loading_CMIP6_0003-2017...
+
+Notes
+-----
+(*) SO2 stratvolc. The CMIP7 elevated SO2 file (built for E3SMv3) adds a
+    'stratvolc' sector (explosive volcanic SO2). E3SMv2.1 already prescribes
+    stratospheric volcanic aerosol optics (prescribed_volcaero), so keeping
+    that sector would count volcanoes twice. make_so2_nostratvolc.sh writes a
+    copy with only BB, ENE_ELEV, IND_ELEV and contvolc, the same sectors as the
+    CMIP6 file. RUN IT ONCE BEFORE THE FIRST CASE:
+        sbatch make_so2_nostratvolc.sh      (~41 GB output, CDF5)
+
+(**) SOAG. v2.1 MAM4 uses an elevated SOAG production file with fossil,
+    biomass and *biogenic* SOA sources. The CMIP7 'SOAG0' files are scaled OC
+    emissions for the E3SMv3 VBS scheme, with no biogenic part, so they are
+    not a drop-in replacement. The CMIP6 file used by smbbM05 is kept, so
+    SOA does not follow CMIP7.
+
+- The CMIP7 'mam5' emission files are the same MAM4 species (a1, a2, a4) and
+  have the same sectors as the CMIP6 files. The num_a4 variables are renamed
+  (num_a4_BC_* rather than num_a1_BC_*), but EAM sums all sector variables in
+  a file, so names don't matter.
+- CMIP7 emission files are on the 1.9x2.5 lat-lon grid (CMIP6 were ne30).
+  EAM's tracer_data regrids them to the physics grid at run time.
+- Data end dates: emissions and solar end 2023-12, GHG mid-2024, oxidants
+  2025-12. Start years up to 2021-05 stay inside the data for the full
+  28 months. For later start years, check how EAM handles dates past the
+  end of a file (it may hold the last value or stop) before relying on it.
+- prescribed_volcaero is still the CMIP6 file (1850-2014), the same as the
+  original smbb cases.
+
+Machine environment / build (added 2026-11-24)
+----------------------------------------------
+E3SMv2.1's pm-cpu machine config calls lmod at /usr/share/lmod/... and
+pins modules (cpe/23.12, cray-mpich/8.1.28, hdf5 1.12.2.9, netcdf 4.9.0.9,
+pnetcdf 1.12.3.9) that no longer exist on Perlmutter. 'case.setup --reset'
+then fails and leaves no env_mach_specific.xml, and every later command
+reports:
+    ERROR: Could not find a matching MPI for attributes: {'compiler': 'intel', ...}
+
+Fix (case-local; the shared E3SMv2.1 source tree is untouched):
+  - env_mach/env_mach_specific.xml : lmod under /opt/cray/pe/lmod/lmod,
+    intel/2023.2.0, cray-mpich/8.1.30, craype/2.7.32, cray-hdf5-parallel/1.14.3.7,
+    cray-netcdf-hdf5parallel/4.9.2.1, cray-parallel-netcdf/1.12.3.19
+    (the same versions as E3SMv3.0 on mp9).
+  - The run script copies it into each case and runs 'case.setup'
+    (no --reset). If you ever run 'case.setup --reset' by hand, copy the
+    file back in afterwards.
+  - The old shared v2.1 executables are gone, so member 001 now builds
+    (do_case_build=true) into
+    /pscratch/sd/n/$USER/v21.LR.BSMYLEsmbb_CMIP7/exeroot/build, and the
+    other members reuse that e3sm.exe.
+
+Checks done
+-----------
+- case.setup and preview_run succeed in a scratch v2.1 intel case using
+  env_mach/env_mach_specific.xml. A full build with these newer libraries
+  has not been tested yet.
+- All referenced files exist except the nostratvolc SO2 file, which
+  make_so2_nostratvolc.sh creates.
+- CMIP7 GHG, oxidant and solar files have the same variables as the CMIP6
+  files v2.1 reads (CO2 CH4 N2O f11 f12 adj; O3 OH NO3 HO2; ssi tsi ...).
+- 'bash -n' passes on both scripts.
+- preview_namelists in a scratch v2.1 WCYCL20TR case with this user_nl_eam
+  block builds atm_in without errors, and the CMIP7 paths appear in atm_in.
+- Not yet run: case build or model integration.
+
+Files
+-----
+  run.v21.LR.BSMYLEsmbb_CMIP7-05.sh       run script (CMIP7)
+  run.v21.LR.BSMYLEsmbb_CMIP7-05.sh.bak   previous version (v3-style XML block)
+  make_so2_nostratvolc.sh                 builds the SO2 file without stratvolc
+  user_nl_eam                             E3SMv3 (chemUCI/MAM5) namelist; NOT used
+                                          by the v2.1 script
+  user_nl_eam.xml_format.orig             original XML-format version of the above
+
+Case naming and biomass burning (updated 2026-11-25)
+---------------------------------------------------
+The CMIP7 cases are named *.BSMYLEsmbb_CMIP7.* and use SMOOTHED biomass-
+burning (smbb) elevated emissions from
+/global/cfs/cdirs/ccsm1/people/nanr/e3sm/inputdata/atm/cam/chem/trop_mozart_aero/emis/CMIP7_2deg-smoothed/
+(11-yr same-month running mean of the BB sector, 1990-2023, the same method as
+the CMIP6 smbb files; details in README.CMIP7_smbb there).
+  v2.1: SO2 (nostratvolc), bc_a4, num_a1, num_a4, pom_a4, so4_a1 smoothed;
+        SOAG stays the smoothed CMIP6 SSP370 file
+  v3.1: SO2 (stratvolc), SOAG0, bc_a4, num_a1, num_a4, pom_a4, so4_a1 smoothed;
+        NO2 aircraft, num_a2, so4_a2 = v3.1 CMIP7 defaults
+Why smoothing was needed: in the E3SM CMIP7_2deg files the 1980-2014 BB is
+identical to raw CMIP6 (max rel. diff ~1e-5), and median grid-cell interannual
+variability jumps from ~9% (1980-1996) to ~95% (1997-2014). After smoothing:
+9% -> ~15% (CMIP6 smbb: 9% -> 14%).
+Between 2026-11-24 and 2026-11-25 the scripts were briefly named
+*.BSMYLE_CMIP7.* and used UNSMOOTHED CMIP7 BB. Cases created before
+2026-11-25 (e.g. v21.LR.BSMYLEsmbb_CMIP7.1991-05.*, which already ran) used
+UNSMOOTHED CMIP7 BB despite the smbb name.

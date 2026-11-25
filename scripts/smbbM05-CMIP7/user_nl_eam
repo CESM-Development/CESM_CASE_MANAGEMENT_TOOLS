@@ -1,0 +1,83 @@
+
+ ! Solar constant from CMIP7 input4MIPS
+ solar_data_file = '/global/cfs/cdirs/e3sm/inputdata/atm/cam/solar/multiple_input4MIPs_solar_CMIP_SOLARIS-HEPPA-CMIP-4-6_gn_185001-202312_bluetip.nc'
+ solar_data_type = 'SERIAL'
+
+ ! GHG values from CMIP7 input4MIPS
+ bndtvghg     = '/global/cfs/cdirs/e3sm/inputdata/atm/cam/ggas/CMIP7/GHG_CMIP7_Annual_Global_0001-2023_c20250616.nc'
+ scenario_ghg = 'RAMPED'
+
+ ! External (elevated) forcing for MAM.  CMIP7 input4MIPS data
+ ! (num_a4 uses the file formerly given as mam7_num_a3_ext_file)
+ ext_frc_type = 'INTERP_MISSING_MONTHS'
+ ext_frc_specifier = 'NO2    -> /global/cfs/cdirs/e3sm/inputdata/atm/cam/chem/trop_mozart_aero/emis/CMIP7_2deg/cmip7_NO2_elev_1850-2023_1.9x2.5_c20250506.nc',
+                     'SO2    -> /global/cfs/cdirs/e3sm/inputdata/atm/cam/chem/trop_mozart_aero/emis/CMIP7_2deg/cmip7_so2_elev_1850-2023_1.9x2.5_stratvolc_c20251017.nc',
+                     'SOAG0  -> /global/cfs/cdirs/e3sm/inputdata/atm/cam/chem/trop_mozart_aero/emis/CMIP7_2deg/cmip7_SOAG0_elev_1850-2023_1.9x2.5_c20250506.nc',
+                     'bc_a4  -> /global/cfs/cdirs/e3sm/inputdata/atm/cam/chem/trop_mozart_aero/emis/CMIP7_2deg/cmip7_mam5_bc_a4_elev_1850-2023_1.9x2.5_c20250506.nc',
+                     'num_a1 -> /global/cfs/cdirs/e3sm/inputdata/atm/cam/chem/trop_mozart_aero/emis/CMIP7_2deg/cmip7_mam5_num_a1_elev_1850-2023_1.9x2.5_c20250506.nc',
+                     'num_a2 -> /global/cfs/cdirs/e3sm/inputdata/atm/cam/chem/trop_mozart_aero/emis/CMIP7_2deg/cmip7_mam5_num_a2_elev_1850-2023_1.9x2.5_c20250506.nc',
+                     'num_a4 -> /global/cfs/cdirs/e3sm/inputdata/atm/cam/chem/trop_mozart_aero/emis/CMIP7_2deg/cmip7_mam5_num_a4_elev_1850-2023_1.9x2.5_c20250506.nc',
+                     'pom_a4 -> /global/cfs/cdirs/e3sm/inputdata/atm/cam/chem/trop_mozart_aero/emis/CMIP7_2deg/cmip7_mam5_pom_a4_elev_1850-2023_1.9x2.5_c20250506.nc',
+                     'so4_a1 -> /global/cfs/cdirs/e3sm/inputdata/atm/cam/chem/trop_mozart_aero/emis/CMIP7_2deg/cmip7_mam5_so4_a1_elev_1850-2023_1.9x2.5_c20250506.nc',
+                     'so4_a2 -> /global/cfs/cdirs/e3sm/inputdata/atm/cam/chem/trop_mozart_aero/emis/CMIP7_2deg/cmip7_mam5_so4_a2_elev_1850-2023_1.9x2.5_c20250506.nc'
+
+ ! Surface emissions for chemUCI-Linoz, MAM5, VBS SOA.  CMIP7 input4MIPS data
+ ! (NO uses nox_emis_file; num_a4 uses the file formerly given as mam7_num_a3_emis_file)
+ srf_emis_type = 'INTERP_MISSING_MONTHS'
+ srf_emis_specifier = 'C10H16   -> /global/cfs/cdirs/e3sm/inputdata/atm/cam/chem/trop_mozart_aero/emis/CMIP7_2deg/cmip7_MTERP_surf_1850-2023_1.9x2.5_c20250506.nc',
+                      'C2H4     -> /global/cfs/cdirs/e3sm/inputdata/atm/cam/chem/trop_mozart_aero/emis/CMIP7_2deg/cmip7_C2H4_surf_1850-2023_1.9x2.5_c20250506.nc',
+                      'C2H6     -> /global/cfs/cdirs/e3sm/inputdata/atm/cam/chem/trop_mozart_aero/emis/CMIP7_2deg/cmip7_C2H6_surf_1850-2023_1.9x2.5_c20250506.nc',
+                      'C3H8     -> /global/cfs/cdirs/e3sm/inputdata/atm/cam/chem/trop_mozart_aero/emis/CMIP7_2deg/cmip7_C3H8_surf_1850-2023_1.9x2.5_c20250506.nc',
+                      'CH2O     -> /global/cfs/cdirs/e3sm/inputdata/atm/cam/chem/trop_mozart_aero/emis/CMIP7_2deg/cmip7_CH2O_surf_1850-2023_1.9x2.5_c20250506.nc',
+                      'CH3CHO   -> /global/cfs/cdirs/e3sm/inputdata/atm/cam/chem/trop_mozart_aero/emis/CMIP7_2deg/cmip7_CH3CHO_surf_1850-2023_1.9x2.5_c20250506.nc',
+                      'CH3COCH3 -> /global/cfs/cdirs/e3sm/inputdata/atm/cam/chem/trop_mozart_aero/emis/CMIP7_2deg/cmip7_CH3COCH3_surf_1850-2023_1.9x2.5_c20250506.nc',
+                      'CO       -> /global/cfs/cdirs/e3sm/inputdata/atm/cam/chem/trop_mozart_aero/emis/CMIP7_2deg/cmip7_CO_surf_1850-2023_1.9x2.5_c20250506.nc',
+                      'ISOP     -> /global/cfs/cdirs/e3sm/inputdata/atm/cam/chem/trop_mozart_aero/emis/CMIP7_2deg/cmip7_ISOP_surf_1850-2023_1.9x2.5_c20250506.nc',
+                      'ISOP_VBS -> /global/cfs/cdirs/e3sm/inputdata/atm/cam/chem/trop_mozart_aero/emis/CMIP7_2deg/cmip7_ISOP_surf_1850-2023_1.9x2.5_c20250506.nc',
+                      'NO       -> /global/cfs/cdirs/e3sm/inputdata/atm/cam/chem/trop_mozart_aero/emis/CMIP7_2deg/cmip7_NO_surf_1850-2023_1.9x2.5_c20250506.nc',
+                      'DMS      -> /global/cfs/cdirs/e3sm/inputdata/atm/cam/chem/trop_mozart_aero/emis/DMSflux.1850-2100.1deg_latlon_conserv.POPmonthlyClimFromACES4BGC_c20160727.nc',
+                      'SOAG0    -> /global/cfs/cdirs/e3sm/inputdata/atm/cam/chem/trop_mozart_aero/emis/CMIP7_2deg/cmip7_SOAG0_surf_1850-2023_1.9x2.5_c20250506.nc',
+                      'SO2      -> /global/cfs/cdirs/e3sm/inputdata/atm/cam/chem/trop_mozart_aero/emis/CMIP7_2deg/cmip7_so2_surf_1850-2023_1.9x2.5_c20250506.nc',
+                      'bc_a4    -> /global/cfs/cdirs/e3sm/inputdata/atm/cam/chem/trop_mozart_aero/emis/CMIP7_2deg/cmip7_mam5_bc_a4_surf_1850-2023_1.9x2.5_c20250506.nc',
+                      'num_a1   -> /global/cfs/cdirs/e3sm/inputdata/atm/cam/chem/trop_mozart_aero/emis/CMIP7_2deg/cmip7_mam5_num_a1_surf_1850-2023_1.9x2.5_c20250506.nc',
+                      'num_a2   -> /global/cfs/cdirs/e3sm/inputdata/atm/cam/chem/trop_mozart_aero/emis/CMIP7_2deg/cmip7_mam5_num_a2_surf_1850-2023_1.9x2.5_c20250506.nc',
+                      'num_a4   -> /global/cfs/cdirs/e3sm/inputdata/atm/cam/chem/trop_mozart_aero/emis/CMIP7_2deg/cmip7_mam5_num_a4_surf_1850-2023_1.9x2.5_c20250506.nc',
+                      'pom_a4   -> /global/cfs/cdirs/e3sm/inputdata/atm/cam/chem/trop_mozart_aero/emis/CMIP7_2deg/cmip7_mam5_pom_a4_surf_1850-2023_1.9x2.5_c20250506.nc',
+                      'so4_a1   -> /global/cfs/cdirs/e3sm/inputdata/atm/cam/chem/trop_mozart_aero/emis/CMIP7_2deg/cmip7_mam5_so4_a1_surf_1850-2023_1.9x2.5_c20250506.nc',
+                      'so4_a2   -> /global/cfs/cdirs/e3sm/inputdata/atm/cam/chem/trop_mozart_aero/emis/CMIP7_2deg/cmip7_mam5_so4_a2_surf_1850-2023_1.9x2.5_c20250506.nc',
+                      'E90      -> /global/cfs/cdirs/e3sm/inputdata/atm/cam/chem/trop_mozart/ub/emissions_E90_surface_1750-2101_1.9x2.5_c20231222.nc'
+
+ ! Aircraft emissions: must be empty
+ airpl_emis_file = ''
+
+ ! Prescribed oxidants for aerosol chemistry.  Ozone is from CMIP6 input4MIPS file
+ tracer_cnst_type      = 'INTERP_MISSING_MONTHS'
+ tracer_cnst_file      = 'oxid_1.9x2.5_L26_1850-2025_c20251005.nc'
+ tracer_cnst_filelist  = ''
+ tracer_cnst_datapath  = '/global/cfs/cdirs/e3sm/inputdata/atm/cam/chem/trop_mozart_aero/oxid'
+ tracer_cnst_specifier = 'prsd_O3:O3','prsd_NO3:NO3','prsd_OH:OH'
+
+ ! Prescribed methane
+ prescribed_ghg_file      = 'ch4_oxid_1.9x2.5_L26_1990-1999clim.c090804.nc'
+ prescribed_ghg_datapath  = '/global/cfs/cdirs/e3sm/inputdata/atm/cam/chem/methane'
+ prescribed_ghg_type      = 'CYCLICAL'
+ prescribed_ghg_cycle_yr  = 1995
+ prescribed_ghg_filelist  = ''
+ prescribed_ghg_specifier = 'prsd_ch4:CH4'
+
+ ! rad_climate
+ rad_climate = 'A:H2OLNZ:H2O', 'N:O2:O2', 'N:CO2:CO2',
+               'A:O3:O3', 'A:N2OLNZ:N2O', 'A:CH4LNZ:CH4',
+               'N:CFC11:CFC11', 'N:CFC12:CFC12',
+               'M:mam5_mode1:/global/cfs/cdirs/e3sm/inputdata/atm/cam/physprops/mam5_mode1_rrtmg_dgnh1.2_c20250927.nc',
+               'M:mam5_mode2:/global/cfs/cdirs/e3sm/inputdata/atm/cam/physprops/mam4_mode2_rrtmg_c130628.nc',
+               'M:mam5_mode3:/global/cfs/cdirs/e3sm/inputdata/atm/cam/physprops/mam4_mode3_rrtmg_aeronetdust_c141106.nc',
+               'M:mam5_mode4:/global/cfs/cdirs/e3sm/inputdata/atm/cam/physprops/mam4_mode4_rrtmg_c130628.nc',
+               'M:mam5_mode5:/global/cfs/cdirs/e3sm/inputdata/atm/cam/physprops/mam5_mode5_rrtmg_sig1.2_dgnl1.0_c20250927.nc'
+
+ ! Stratospheric ozone (Linoz) updated using CMIP6 input4MIPS GHG concentrations
+ chlorine_loading_file = '/global/cfs/cdirs/e3sm/inputdata/atm/cam/chem/trop_mozart/ub/Linoz_Chlorine_Loading_CMIP6_Hist_SSP245_0003-2503_c20200808.nc'
+ chlorine_loading_type = 'SERIAL'
+ linoz_data_file       = 'linv3_1849-2101_CMIP6_Hist_SSP245_10deg_58km_c20231207.nc'
+ linoz_data_path       = '/global/cfs/cdirs/e3sm/inputdata/atm/cam/chem/trop_mozart/ub'
+ linoz_data_type       = 'INTERP_MISSING_MONTHS'

@@ -1,0 +1,90 @@
+README.v31_CMIP6
+================
+
+Purpose
+-------
+CMIP6 control for the E3SMv3.1 CMIP7 ensemble. Same model, ICs, grid, land
+setup and output as run.v31.LR.BSMYLEsmbb_CMIP7-05.sh; only the atmospheric
+forcing differs.
+
+  Script : run.v31.LR.BSMYLEsmbb_CMIP6-05.sh
+  Cases  : v31.LR.BSMYLEsmbb_CMIP6.<yyyy>-05.<mbr>
+           under /pscratch/sd/n/$USER/v31.LR.BSMYLEsmbb_CMIP6/
+  Build  : /pscratch/sd/n/$USER/v31.LR.BSMYLEsmbb_CMIP6/exeroot/build
+
+Only difference from the CMIP7 script
+-------------------------------------
+  CMIP7: COMPSET="20TRSOI%CMIP7_EAM_ELM%SPBC_MPASSI_MPASO_MOSART_SGLC_SWAV"
+  CMIP6: COMPSET="20TRSOI_EAM%CMIP6_ELM%SPBC_MPASSI_MPASO_MOSART_SGLC_SWAV"
+(plus case names and directories). This is v3.1's WCYCL20TR alias with
+satellite-phenology land (ELM%SPBC) instead of BGC land, for the same reason
+as the CMIP7 script: the v2.1 SMYLE land restarts have no BGC pools.
+The intel cray-libsci/25.09.0 pin and the cray-python load are kept.
+
+CMIP6 forcing comes out of the box (verified)
+---------------------------------------------
+No forcing is set in user_nl_eam. A scratch v3.1 case with this compset,
+grid, user_nl files and the 1991-05 v2.1 ICs (create_newcase, case.setup,
+preview_namelists, check_input_data: all OK, no missing files) gives an
+atm_in with use case 20TR_eam_CMIP6_chemUCI-Linoz-mam5-vbs and
+NO CMIP7 file anywhere:
+
+  Solar       Solar_1850-2299_input4MIPS_c20181106.nc
+  GHG         GHG_CMIP-1-2-0_Annual_Global_0000-2014_c20180105.nc
+  Oxidants    oxid_1.9x2.5_L26_1850-2015_c20181106.nc
+  Linoz       linv3_1849-2017_CMIP6_Hist_10deg_58km_c20230705.nc
+  Cl loading  Linoz_Chlorine_Loading_CMIP6_0003-2017_c20171114.nc
+  Aerosol emis DECK_ne30/cmip6_mam4_*_1850-2014_c180205.nc
+              (SO2 elev: cmip6_mam4_so2_elev_1850-2014_c180205_kzm_1850_2014_volcano.nc,
+               which includes volcanic SO2; no prescribed volcanic aerosol)
+  SOAG0       DECK_ne30/emissions-cmip6_e3sm_SOAG0_{elev,surf}_1850-2014_...
+  Gas emis    emissions-cmip6_e3sm_{CO,NO,ISOP,MTERP,C2H4,...}_surface_1850-2014_...
+              emissions-cmip6_NO2_aircraft_vertical_1750-2015_...
+
+Land (lnd_in) is the same as the CMIP7 script: fsurdat
+surfdata_ne30np4.pg2_SSP3_RCP70_simyr2015_c220420.nc and CMIP6 land use
+landuse.timeseries_ne30np4.pg2_hist_simyr1850-2015_c210113.nc.
+
+Smoothed biomass-burning (smbb) elevated emissions (added 2026-11-24)
+--------------------------------------------------------------------
+To match E3SMv2.1-SMYLE (smbbM05/run.v21.LR.BSMYLEsmbb-05.sh), user_nl_eam
+now overrides ext_frc_specifier. All files are in
+/global/cfs/cdirs/ccsm1/people/nanr/e3sm/inputdata/atm/cam/chem/trop_mozart_aero/emis/CMIP6_SSP370_ne30-smoothed/
+unless marked default:
+
+  bc_a4, num_a1, num_a4,   cmip6_ssp370_mam4_smoothed_<spc>_elev_1850-2100_c221016.nc
+  pom_a4, so4_a1           (the same files the v2.1-SMYLE cases used)
+  SO2                      cmip6_mam4_so2_elev_1850-2014_c180205_kzm_1850_2014_volcano_smbb_c20260925.nc
+                           (v3 smbb version of the v3 default; keeps stratvolc,
+                            which v3 needs because it has no prescribed volcanic
+                            aerosol. The v2.1 smoothed SO2 has no stratvolc.)
+  SOAG0                    emissions-cmip6_e3sm_SOAG0_elev_1850-2014_1.9x2.5_c20230201_smbb_c20260925.nc
+                           (v3 uses SOAG0; the v2.1 SOAG file doesn't apply)
+  NO2 aircraft, num_a2,    v3.1 defaults (no BB sector; num_a2/so4_a2 were
+  so4_a2                   also unsmoothed in v2.1-SMYLE)
+
+Each v3 smbb file has the same sectors and time axis as the default it
+replaces. preview_namelists on the scratch case changes exactly these 7
+ext_frc entries; all other forcing is unchanged from the v3.1 CMIP6 default.
+
+Caveats:
+- The v2.1 files (2022, fromAdamPhillips/test.ncl) and the v3 SO2/SOAG0
+  files (2026-09-25, 11-yr same-month running mean over 1990-2015) were
+  smoothed separately.
+- v3 also has gas emissions that v2.1 didn't (CO, NO, VOCs in
+  srf_emis_specifier). Their 'emiss_bb' sector is NOT smoothed; no smoothed
+  versions exist.
+- After 2014 the v2.1 smoothed files continue with SSP370, while the v3
+  SO2/SOAG0 files and all other CMIP6 forcing end in 2014.
+
+Notes
+-----
+- The CMIP6 historical forcing ends in 2014 (GHG, emissions) or 2015
+  (oxidants). Start years up to 2012-05 stay inside the data for 28 months.
+- The build is identical to the CMIP7 cases (same CAM_CONFIG_OPTS and other
+  *_CONFIG_OPTS), so you could point CASE_BUILD_DIR at
+  /pscratch/sd/n/$USER/v31.LR.BSMYLEsmbb_CMIP7/exeroot/build and set
+  do_case_build=false for all members to reuse that e3sm.exe once it exists.
+- The caveats in README.v31_CMIP7 (cold-start chemistry/aerosols from the
+  meteorology-only v2.1 eam.i; v2.1 -> v3.1 restarts untested at run time)
+  apply here too.

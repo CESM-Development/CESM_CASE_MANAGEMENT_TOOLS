@@ -1,0 +1,37 @@
+#!/bin/bash
+
+
+INPUT_BASE="/pscratch/sd/n/nanr/v21.LR.BSMYLE_v2_CANFIRE_ALLFIREv2/v21.LR.BSMYLE_v2_CANFIRE_ALLFIREv2.2023-05.001/"
+OUTPUT_BASE="/pscratch/sd/n/nanr/daily_CANFIRE/v21.LR.BSMYLE_v2_CANFIRE_ALLFIREv2.2023-05.001/"
+
+INPUT_CASE="v21.LR.BSMYLE_v2_CANFIRE_ALLFIREv2.2023-05.001"
+
+
+# ------------------------------------------------------------
+# Loop over archive members 001-020
+# ------------------------------------------------------------
+
+for n in $(seq 1 20); do
+
+    NNN=$(printf "%03d" "$n")
+
+    # Input directory
+    INPUT_DIR="${INPUT_BASE}/archive.${NNN}/atm/hist/"
+    OUTPUT_DIR="${OUTPUT_BASE}/archive.${NNN}/atm/hist/"
+
+    echo "============================================================"
+    echo "Member: ${NNN}"
+    echo "============================================================"
+
+    mkdir -p $OUTPUT_DIR
+
+
+    cp $INPUT_DIR/*.h1.* $OUTPUT_DIR
+
+
+done
+
+echo
+echo "============================================================"
+echo "Finished regridding all members."
+echo "============================================================"

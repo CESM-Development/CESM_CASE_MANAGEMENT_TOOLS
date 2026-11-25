@@ -1,0 +1,13 @@
+loading compute pixi env...
+   pixi env loaded.
+activating spack env...
+   spack env activated.
+loading e3sm-unified environment variables...
+   e3sm-unified environment variables loaded.
+	float BB(time, altitude, lat, lon) ;
+	float ENE_ELEV(time, altitude, lat, lon) ;
+	float IND_ELEV(time, altitude, lat, lon) ;
+	float altitude(altitude) ;
+	float altitude_int(altitude_int) ;
+	float contvolc(time, altitude, lat, lon) ;
+-rw-r--r-- 1 nanr nanr 41399103632 Nov 24 11:19 /global/cfs/cdirs/ccsm1/people/nanr/e3sm/inputdata/atm/cam/chem/trop_mozart_aero/emis/CMIP7_2deg-nostratvolc/cmip7_so2_elev_1850-2023_1.9x2.5_nostratvolc_c20251017.nc

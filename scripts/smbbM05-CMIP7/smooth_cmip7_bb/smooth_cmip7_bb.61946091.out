@@ -1,0 +1,21 @@
+  BB                       unchanged where expected: True
+  ENE_ELEV                 unchanged where expected: True
+  IND_ELEV                 unchanged where expected: True
+  contvolc                 unchanged where expected: True
+  stratvolc                unchanged where expected: True
+  BB: max rel error vs independent mean (25 spots, all sub-monthly recs): 0.00e+00
+  BB: 2024 equals 2023: True
+  BB: local IAV 1980-96 -> 1997-2014: source 9.1% -> 92.9%   smoothed 9.0% -> 14.8%
+ALL CHECKS PASSED
+VERIFIED cmip7_so2_elev_1850-2023_1.9x2.5_stratvolc_c20251017_smbb_c20261124.nc
+total 110239137
+-rw-r--r-- 1 nanr nanr  1518227868 Nov 24 15:39 cmip7_mam5_bc_a4_elev_1850-2023_1.9x2.5_c20250506_smbb_c20261124.nc
+-rw-r--r-- 1 nanr nanr  6072849660 Nov 24 16:09 cmip7_mam5_num_a1_elev_1850-2023_1.9x2.5_c20250506_smbb_c20261124.nc
+-rw-r--r-- 1 nanr nanr  3036435192 Nov 24 16:16 cmip7_mam5_num_a4_elev_1850-2023_1.9x2.5_c20250506_smbb_c20261124.nc
+-rw-r--r-- 1 nanr nanr  1518227868 Nov 24 15:16 cmip7_mam5_pom_a4_elev_1850-2023_1.9x2.5_c20250506_smbb_c20261124.nc
+-rw-r--r-- 1 nanr nanr  6072849540 Nov 24 15:53 cmip7_mam5_so4_a1_elev_1850-2023_1.9x2.5_c20250506_smbb_c20261124.nc
+-rw-r--r-- 1 nanr nanr 41399104372 Nov 24 17:59 cmip7_so2_elev_1850-2023_1.9x2.5_nostratvolc_c20251017_smbb_c20261124.nc
+-rw-r--r-- 1 nanr nanr 51748870695 Nov 24 18:04 cmip7_so2_elev_1850-2023_1.9x2.5_stratvolc_c20251017_smbb_c20261124.nc
+-rw-r--r-- 1 nanr nanr  1518227860 Nov 24 16:19 cmip7_SOAG0_elev_1850-2023_1.9x2.5_c20250506_smbb_c20261124.nc
+-rw-r--r-- 1 nanr nanr        2910 Nov 24 15:17 README.CMIP7_smbb
+=================== Tue Nov 24 06:04:56 PM PST 2026 done, fail=0

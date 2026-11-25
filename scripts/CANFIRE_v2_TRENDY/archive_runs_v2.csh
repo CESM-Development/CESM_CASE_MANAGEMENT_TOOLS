@@ -4,6 +4,7 @@
 
 setenv DOUT  /pscratch/sd/n/nanr/v21.LR.BSMYLE_v2_CANFIRE
 setenv DOUT  /pscratch/sd/n/nanr/v21.LR.BSMYLE_v2_CANFIRE_ALLFIRE
+setenv DOUT  /pscratch/sd/n/nanr/v21.LR.BSMYLE_v2_CANFIRE_ALLFIREv2
 
 # ...
 set syr = 2023
@@ -23,7 +24,8 @@ set embr =  20
 @ me = $embr
 
 #set CASE = v21.LR.BSMYLE_v2_CANFIRE.${year}-${mon}.001
-set CASE = v21.LR.BSMYLE_v2_CANFIRE_ALLFIRE.${year}-${mon}.001
+#set CASE = v21.LR.BSMYLE_v2_CANFIRE_ALLFIRE.${year}-${mon}.001
+set CASE = v21.LR.BSMYLE_v2_CANFIRE_ALLFIREv2.${year}-${mon}.001
 
 foreach mbr ( `seq $mb $me` )
 if ($mbr < 10) then

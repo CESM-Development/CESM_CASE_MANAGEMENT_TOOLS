@@ -1,0 +1,100 @@
+README.v31_CMIP7
+================
+
+Purpose
+-------
+The same BSMYLE smbb ensemble as run.v21.LR.BSMYLEsmbb_CMIP7-05.sh, but with
+E3SMv3.1 model code and CMIP7 forcing.
+
+  Script : run.v31.LR.BSMYLEsmbb_CMIP7-05.sh
+  Code   : /global/cfs/cdirs/mp9/e3sm_tags/E3SMv3.1   (maint-3.1, tag v3.1.0)
+  Cases  : v31.LR.BSMYLEsmbb_CMIP7.<yyyy>-05.<mbr>
+           under /pscratch/sd/n/$USER/v31.LR.BSMYLEsmbb_CMIP7/
+  Build  : /pscratch/sd/n/$USER/v31.LR.BSMYLEsmbb_CMIP7/exeroot/build
+           (member 001 builds; members 002-020 reuse e3sm.exe)
+
+Same as the v2.1 CMIP7 script
+-----------------------------
+- Start 1990-05-01, 20 members, 28 months, hybrid start
+- Initial conditions: v2.1 SMYLE ICs (v21.LR.SMYLE_IC.<yyyy>-05.01), including
+  the pert.NN atmosphere perturbations for members 002-020
+- Grid ne30pg2_EC30to60E2r2 (needed to use those ICs)
+- Output streams (EAM fincl1-7, ELM h1, MOSART h1)
+- Land surface files: surfdata_ne30np4.pg2_SSP3_RCP70_simyr2015_c220420.nc
+  and the default v2.1 land-use timeseries (CMIP6 hist, 1850-2015)
+
+What differs from v2.1
+----------------------
+1. Compset: 20TRSOI%CMIP7_EAM_ELM%SPBC_MPASSI_MPASO_MOSART_SGLC_SWAV
+   - EAM%CMIP7 uses v3.1's built-in use case
+     20TR_eam_CMIP7_chemUCI-Linoz-mam5-vbs: CMIP7 solar, GHG, oxidants,
+     and all emissions (SO2 with 'stratvolc', SOAG0, NO, CO, VOCs, ...).
+     No forcing overrides are set in user_nl_eam.
+   - Volcanoes: v3.1 uses the CMIP7 stratvolc SO2 emissions and MAM5's
+     stratospheric mode, with no prescribed volcanic aerosol. (The v2.1 script
+     instead removes stratvolc and keeps the CMIP6 prescribed volcanic aerosol.)
+   - Chemistry/aerosol: chemUCI + Linoz v3 + MAM5 + VBS SOA (v2.1: Linoz v2 +
+     MAM4 + prescribed oxidants).
+   - Land is ELM%SPBC (satellite phenology), as in v2.1, and NOT the
+     ELM%CNPRDCTCBCTOP used by the standard WCYCL20TR-CMIP7 alias. The v2.1
+     SMYLE land restarts are SP restarts with no carbon or nutrient pools, so
+     prognostic BGC would start from zero vegetation and soil carbon.
+2. Land use is CMIP6, not CMIP7. v3.1's CMIP7 land-use and surface data exist
+   only on the r025 land grid (ne30pg2_r025_IcoswISC30E3r5). With these ICs
+   the land runs on ne30np4.pg2, so the v2.1 files are set in user_nl_elm.
+3. Machine environment: v3.1's pm-cpu config is mostly current, but for intel
+   it does not pin cray-libsci, so it picks up the Perlmutter default
+   (26.03.0 since the Nov 2026 update). That libsci_intel_mpi.so does not link
+   with cray-mpich/9.0.1 (undefined MPI_Comm_f2c / MPI_Comm_c2f), and the MCT
+   build fails with "configure: error: linking to Fortran libraries from C
+   fails". After 'case.setup --reset' the script inserts
+       <command name="load">cray-libsci/25.09.0</command><!-- intel pin -->
+   after intel/2025.3 in env_mach_specific.xml (the version v3.1 already uses
+   for gnu). Verified with a link test: 26.03.0 fails, 25.09.0 links.
+   If you run 'case.setup --reset' by hand, re-apply this line.
+
+Things to know before production
+--------------------------------
+- Atmosphere ICs: the v2.1 SMYLE eam.i files contain only meteorology
+  (T, U, V, Q, PS, CLDLIQ, CLDICE, O3, ...). All chemUCI/MAM5 tracers (CO,
+  NOx, VOCs, aerosols, E90, the Linoz *LNZ tracers) start from EAM defaults,
+  as aerosols did in the v2.1 cases. Expect a chemistry/aerosol spin-up in
+  the first months, and check that H2OLNZ/N2OLNZ/CH4LNZ (used in radiation)
+  initialize sensibly.
+- Cross-version restarts: EAM, ELM, MPAS-Ocean and MPAS-Seaice will read
+  v2.1 restart/IC files with v3.1 code. Namelist generation accepts them,
+  but compatibility at run time has NOT been tested. Run a short test first,
+  for example run='S_1x5_ndays' with array=( 1 ).
+- The standard v3.1 CMIP7 configuration (ne30pg2_r025_IcoswISC30E3r5, BGC
+  land, CMIP7 land use) would need v3-grid initial conditions for every
+  start date. None were found on mp9 or under inputdata/e3sm_init.
+
+Checks done
+-----------
+- 'bash -n' passes.
+- Scratch v3.1 case with this compset, grid, user_nl files and staged
+  1990-05 v2.1 ICs: create_newcase, case.setup and preview_namelists
+  succeed, and check_input_data reports no missing files.
+  atm_in uses the CMIP7 solar, GHG, oxidant and CMIP7_2deg emission files.
+  lnd_in uses use_cn=.false., the v2.1 ELM restart and the files above.
+- Not yet done: build or run.
+
+Case naming and biomass burning (updated 2026-11-25)
+---------------------------------------------------
+The CMIP7 cases are named *.BSMYLEsmbb_CMIP7.* and use SMOOTHED biomass-
+burning (smbb) elevated emissions from
+/global/cfs/cdirs/ccsm1/people/nanr/e3sm/inputdata/atm/cam/chem/trop_mozart_aero/emis/CMIP7_2deg-smoothed/
+(11-yr same-month running mean of the BB sector, 1990-2023, the same method as
+the CMIP6 smbb files; details in README.CMIP7_smbb there).
+  v2.1: SO2 (nostratvolc), bc_a4, num_a1, num_a4, pom_a4, so4_a1 smoothed;
+        SOAG stays the smoothed CMIP6 SSP370 file
+  v3.1: SO2 (stratvolc), SOAG0, bc_a4, num_a1, num_a4, pom_a4, so4_a1 smoothed;
+        NO2 aircraft, num_a2, so4_a2 = v3.1 CMIP7 defaults
+Why smoothing was needed: in the E3SM CMIP7_2deg files the 1980-2014 BB is
+identical to raw CMIP6 (max rel. diff ~1e-5), and median grid-cell interannual
+variability jumps from ~9% (1980-1996) to ~95% (1997-2014). After smoothing:
+9% -> ~15% (CMIP6 smbb: 9% -> 14%).
+Between 2026-11-24 and 2026-11-25 the scripts were briefly named
+*.BSMYLE_CMIP7.* and used UNSMOOTHED CMIP7 BB. Cases created before
+2026-11-25 (e.g. v21.LR.BSMYLEsmbb_CMIP7.1991-05.*, which already ran) used
+UNSMOOTHED CMIP7 BB despite the smbb name.

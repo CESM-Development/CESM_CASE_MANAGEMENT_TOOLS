@@ -1,8 +1,8 @@
 #!/bin/csh 
 ### set env variables
-module load ncl nco
+## module load ncl nco
 
-setenv E3SM_TOOLS_ROOT /pscratch/sd/n/nanr/CESM_tools/v21.LR.SMYLE/scripts/CANFIRE_v2_TRENDY/
+setenv E3SM_TOOLS_ROOT /global/cfs/cdirs/mp9/tools/CESM_CASE_MANAGEMENT_TOOLS/scripts/CANFIRE_v2_TRENDY/
 
 # ...
 set syr = 2023
@@ -15,13 +15,13 @@ foreach year ( `seq $ib $ie` )
 foreach mon ( 05 )
 
 # case name counter
-set smbr =  1
+set smbr =  2
 set embr =  20
 
 @ mb = $smbr
 @ me = $embr
 
-set MAIN_CASE = v21.LR.BSMYLE_v2_CANFIRE_ALLFIRE.${year}-${mon}.001
+set MAIN_CASE = v21.LR.BSMYLE_v2_CANFIRE_ALLFIREv2.${year}-${mon}.001
 
 foreach mbr ( `seq $mb $me` )
 if ($mbr < 10) then
@@ -30,21 +30,21 @@ else
         set CASE_DIR = case_scripts.0${mbr}
 endif
 
-set CASEROOT = $SCRATCH/v21.LR.BSMYLE_v2_CANFIRE_ALLFIRE/${MAIN_CASE}/${CASE_DIR}
+set CASEROOT = $SCRATCH/v21.LR.BSMYLE_v2_CANFIRE_ALLFIREv2/${MAIN_CASE}/${CASE_DIR}
 
 cd $CASEROOT
 echo $CASEROOT
 mv $CASEROOT/user_nl_eam $CASEROOT/user_nl_eam-canfiresON
 cp $E3SM_TOOLS_ROOT/user_nl_files/user_nl_eam-canfiresOFF $CASEROOT/user_nl_eam
 ./xmlchange CONTINUE_RUN=TRUE
-# end in July 2021
-#./xmlchange STOP_N=13   
+# end in April 2025
+#./xmlchange STOP_N=18   
 
 # end in July 2022
 #./xmlchange STOP_N=25
 
-# end in December 2024 (54 months)
-./xmlchange STOP_DATE=20300101
+# end in December 2024 (24 months)
+./xmlchange STOP_DATE=20250501
 ./xmlchange STOP_N=18
 ./xmlchange REST_N=18
 ./xmlchange JOB_WALLCLOCK_TIME=12:00:00 --subgroup case.run

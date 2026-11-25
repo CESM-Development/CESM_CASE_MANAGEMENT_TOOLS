@@ -1,0 +1,24 @@
+#!/bin/csh 
+### set env variables
+
+# case name counter
+set smbr =  1
+set embr =  10
+
+@ mb = $smbr
+@ me = $embr
+
+foreach mbr ( `seq $mb $me` )
+if ($mbr < 10) then
+# shifter --image=docker:agentoxygen/gents:latest run_gents --model CESM3 /pscratch/sd/n/nanr/v21.LR.BSMYLE_v2_CANFIRE_ALLFIREv2/v21.LR.BSMYLE_v2_CANFIRE_ALLFIREv2.2023-05.001/archive.00${mbr}/atm -o /pscratch/sd/n/nanr/genTS_timeseries_daily/v21.LR.BSMYLE_v2_CANFIRE_ALLFIREv2.2023-05.001/archive.00${mbr}/
+
+shifter --image=docker:agentoxygen/gents:latest run_gents --model CESM3 /pscratch/sd/n/nanr/daily_CANFIRE/v21.LR.BSMYLE_v2_CANFIRE_ALLFIREv2.2023-05.001/archive.00${mbr}/atm -o /pscratch/sd/n/nanr/genTS_timeseries_daily/v21.LR.BSMYLE_v2_CANFIRE_ALLFIREv2.2023-05.001/archive.00${mbr}/
+else
+#shifter --image=docker:agentoxygen/gents:latest run_gents --model CESM3 /pscratch/sd/n/nanr/v21.LR.BSMYLE_v2_CANFIRE_ALLFIREv2/v21.LR.BSMYLE_v2_CANFIRE_ALLFIREv2.2023-05.001/archive.0${mbr}/atm -o /pscratch/sd/n/nanr/genTS_timeseries_daily/v21.LR.BSMYLE_v2_CANFIRE_ALLFIREv2.2023-05.001/archive.0${mbr}/
+shifter --image=docker:agentoxygen/gents:latest run_gents --model CESM3 /pscratch/sd/n/nanr/daily_CANFIRE/v21.LR.BSMYLE_v2_CANFIRE_ALLFIREv2.2023-05.001/archive.0${mbr}/atm -o /pscratch/sd/n/nanr/genTS_timeseries_daily/v21.LR.BSMYLE_v2_CANFIRE_ALLFIREv2.2023-05.001/archive.0${mbr}/
+endif
+
+end             # member loop
+
+exit
+
